@@ -23,10 +23,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-        Route::pattern('alias','[\w-]+');
-
+        
         parent::boot();
+
+        Route::pattern('alias','[\w-]+');
 
         Route::bind('article', function($value) {
             return \Idea\Models\Article::where('id', $value)->first();

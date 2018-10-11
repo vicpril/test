@@ -91,11 +91,11 @@ class ArticlesController extends SiteController
             // dump($request);
             // dump($issue);
             if ($issue) {
-                dump(route('articles', [
-                                            'year' => $issue->year,
-                                            'no' => $issue->no,
-                                            'tom' => $issue->tom,
-                                        ]));
+                // dump(route('articles', [
+                //                             'year' => $issue->year,
+                //                             'no' => $issue->no,
+                //                             'tom' => $issue->tom,
+                                        // ]));
                 return redirect()->route('articles', [
                                             'year' => $issue->year,
                                             'no' => $issue->no,

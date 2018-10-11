@@ -13,7 +13,7 @@
 
 Route::group(
 [
-	// 'prefix' => LaravelLocalization::setLocale(),
+	'prefix' => LaravelLocalization::setLocale(),
 	'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
 ],
 function()
@@ -48,12 +48,12 @@ function()
 /** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
 
 
-Auth::routes();
+// Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 
-	// Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-	// Route::post('login', 'Auth\LoginController@login');
-	// Route::match(['get', 'post'], 'logout', 'Auth\LoginController@logout')->name('logout');
+	Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+	Route::post('login', 'Auth\LoginController@login');
+	Route::match(['get', 'post'], 'logout', 'Auth\LoginController@logout')->name('logout');
 
 
 Route::prefix('admin')->namespace('Back')->group(function () {

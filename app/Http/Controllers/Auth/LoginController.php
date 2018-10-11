@@ -26,7 +26,9 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    // protected $redirectTo = '/admin';
+    protected $redirectTo = '/admin/articles';
+
 
     /**
      * Create a new controller instance.
@@ -80,7 +82,7 @@ class LoginController extends Controller
 
     public function authenticated(Request $request, $user)
         {
-            dump(session()->all());
+            // dump(session()->all());
 
             // dd($user);
         }

@@ -50,7 +50,7 @@ class SiteController extends Controller
 
         $menu = $this->getMenu();
 
-        dump(request()->session());
+        // dump(request()->session());
         
         $navigation = view(env('THEME').'.navigation')->with('menu', $menu)->render();
         $this->vars = array_add($this->vars, 'navigation', $navigation);
@@ -63,7 +63,7 @@ class SiteController extends Controller
         $footer = view(env('THEME').'.footer')->render();
         $this->vars = array_add($this->vars, 'footer', $footer);
 
-        dump(app()->getLocale());
+        // dump(app()->getLocale());
 
         if (auth()->check()) {
             dump(auth()->user()->meta->where('lang', app()->getLocale())->first()->full_name. ' - '. auth()->user()->role);
