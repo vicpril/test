@@ -35,22 +35,6 @@ class User extends Authenticatable
     ];
 
 
-    // protected $appends = ['display_name', 'short_name'];
-
-    // protected $relations = [
-    //     'meta',
-    // ];
-
-     /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier()
-    {
-        return $this->alias;
-    }
-
     public function articles() {
         return $this->belongsToMany('Idea\Models\Article', 'article_user');
     }
