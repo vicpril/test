@@ -21,7 +21,7 @@ class Redac
              return $next($request);
         }
 
-        return redirect()->route('home');
+        return redirect()->route('login');
        
     }
 }
