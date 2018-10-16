@@ -13,7 +13,7 @@
         {{ csrf_field() }}
 
         <div class="row">
-
+            <!-- MAIN PART -->
             <div class="col-md-8">
                 @if (session('post-ok'))
                     @component('back.components.alert')
@@ -63,7 +63,7 @@
                 ])
                 <button type="submit" class="btn btn-primary">@lang('Submit')</button>
             </div>
-
+            <!-- RIGHT SIDEBAR PART -->
             <div class="col-md-4">
 
                 @component('back.components.box')

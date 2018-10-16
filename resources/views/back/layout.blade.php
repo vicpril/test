@@ -213,12 +213,6 @@ desired effect
               'color' => 'blue',
             ],
             [
-              {{--'route' => route('posts.index', ['new' => 'on']),--}}
-              'route' => '#',
-              'command' => 'new',
-              'color' => 'yellow',
-            ],
-            [
               {{--'route' => route('posts.create'),--}}
               'route' => '#',
               'command' => 'create',
