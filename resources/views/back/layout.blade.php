@@ -205,6 +205,7 @@ desired effect
         @include('back.partials.treeview', [
           'icon' => 'file-text',
           'type' => 'article',
+          'active' => 'true',
           'items' => [
             [
               'route' => route('articles.index'),
