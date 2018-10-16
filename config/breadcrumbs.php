@@ -17,9 +17,9 @@ return [
     ],
     'articles' =>
     [
-        'name' => 'posts',
+        'name' => 'articles',
         'icon' => 'file-text',
-        'url' => '/admin/posts',
+        'url' => '/admin/articles',
     ],
     'users' =>
     [

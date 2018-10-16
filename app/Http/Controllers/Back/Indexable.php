@@ -5,6 +5,11 @@ namespace Idea\Http\Controllers\Back;
 use Illuminate\Http\Request;
 use Idea\Services\Thumb;
 
+use Illuminate\ {
+    View\View,
+    Support\Facades\Route
+};
+
 trait Indexable
 {
     /**
@@ -44,7 +49,7 @@ trait Indexable
             ]);
         }
 
-        return view ("back.$this->table.index", [$this->table => $records, 'links' => $links]);
+       return view ("back.$this->table.index", [$this->table => $records, 'links' => $links]);
     }
 
     /**

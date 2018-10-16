@@ -18,11 +18,11 @@ return [
     'contacts' => [
         'index' => 'contactsGestion',
     ],
-    'posts' => [
-        'index' => 'postsGestion',
-        'edit' => 'postEdit',
-        'create' => 'postCreate',
-        'show' => 'postShow',
+    'articles' => [
+        'index' => 'articlesGestion',
+        'edit' => 'articleEdit',
+        'create' => 'articleCreate',
+        'show' => 'articleShow',
     ],
     'notifications' => [
         'index' => 'notificationsGestion',
