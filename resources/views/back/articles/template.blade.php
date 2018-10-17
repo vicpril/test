@@ -4,7 +4,11 @@
     <style>
         textarea { resize: vertical; }
     </style>
+    <!-- Colorbox -->
     <link href="{{ asset('adminlte/plugins/colorbox/colorbox.css') }}" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="{{ asset('adminlte/plugins/select2/select2.min.css') }}" rel="stylesheet">
+   
 @endsection
 
 @section('main')
@@ -65,20 +69,42 @@
             </div>
             <!-- RIGHT SIDEBAR PART -->
             <div class="col-md-4">
-
+         
+                <!-- Status -->
+              
+              
+                 <!-- Category -->
                 @component('back.components.box')
                     @slot('type')
-                        warning
+                        box-warning
                     @endslot
                     @slot('boxTitle')
-                        @lang('Categories')
+                        @lang('Category')
                     @endslot
                     @include('back.partials.input', [
                         'input' => [
-                            'name' => 'categories',
+                            'name' => 'category',
                             'values' => isset($post) ? $post->categories : collect(),
-                            'input' => 'select',
+                            'input' => 'categories',
                             'options' => $categories,
+                        ],
+                    ])
+                @endcomponent
+         
+                <!-- Tags -->
+                @component('back.components.box')
+                    @slot('type')
+                        box-warning
+                    @endslot
+                    @slot('boxTitle')
+                        @lang('Tags')
+                    @endslot
+                    @include('back.partials.input', [
+                        'input' => [
+                            'name' => 'tags',
+                            'values' => isset($post) ? $post->tags : collect(),
+                            'input' => 'tags',
+                            'options' => $tags,
                         ],
                     ])
                 @endcomponent
@@ -160,7 +186,13 @@
 
     <script src="{{ asset('adminlte/plugins/colorbox/jquery.colorbox-min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/voca/voca.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/select2/select2.full.min.js') }}"></script>
     <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
+    <script>
+       //Initialize Select2 Elements
+       $('.select2').select2();
+
+    </script> 
     <script>
 
         CKEDITOR.replace('body', {customConfig: '/adminlte/js/ckeditor.js'})

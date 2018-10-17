@@ -36,6 +36,8 @@ return [
         'users' => 'Авторы',
         'articles' => 'Статьи',
         'list' => 'Список',
+        'Articles all' => 'Все статьи',
+        'Issues' => 'Выпуски',
         'new' => 'List New',
         'contacts' => 'Contacts',
         'create' => 'Создать',

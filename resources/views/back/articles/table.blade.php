@@ -14,7 +14,7 @@
         </td>
         
         <td>
-            <input type="checkbox" name="status" value="{{ $article->id }}" {{ $article->status->name === 'public' ? 'checked' : ''}}>
+            <input type="checkbox" name="status" value="{{ $article->id }}" class="icheckbox_flat-green" {{ $article->status->name === 'public' ? 'checked' : ''}}>
         </td>
 
         <td>{{ $article->issue->year }}</td>

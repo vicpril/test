@@ -1,4 +1,4 @@
-<div class="box box-solid box-{{ $type }}">
+<div class="box {{ $type }}">
     <div class="box-header with-border">
         <h3 class="box-title">{{ $boxTitle }}</h3>
         <div class="box-tools pull-right">

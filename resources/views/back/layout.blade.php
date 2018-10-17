@@ -13,12 +13,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  
+  @yield('css')
+   
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminlte/css/AdminLTE.css') }}">
   <!-- AdminLTE Skins. -->
   <link rel="stylesheet" href="{{ asset('adminlte/css/skins/skin-blue.min.css') }}">
-
-  @yield('css')
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -209,8 +210,13 @@ desired effect
           'items' => [
             [
               'route' => route('articles.index'),
-              'command' => 'list',
+              'command' => 'Articles all',
               'color' => 'blue',
+            ],
+            [
+              'route' => route('articles.index'),
+              'command' => 'Issues',
+              'color' => 'yellow',
             ],
             [
               {{--'route' => route('posts.create'),--}}

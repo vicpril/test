@@ -49,7 +49,8 @@ class ArticlesController extends Controller
         //
         $users = $this->u_rep->all()->where('role', 'author');
         $categories = $this->c_rep->all()->pluck('ru', 'id');
-        $tags = $this->t_rep->all();
+//         $tags = $this->t_rep->all();
+        $tags = $this->t_rep->all()->pluck('ru', 'id');
 
 
         return view("back.$this->table.create", compact('tags', 'categories', 'users'));

@@ -2,6 +2,10 @@
 
 @section('css')
     <link rel="stylesheet" href="//cdn.jsdelivr.net/sweetalert2/6.3.8/sweetalert2.min.css">
+    <!-- iCheck -->
+    <link href="{{ asset('adminlte/plugins/iCheck/all.css') }}" rel="stylesheet">
+
+     
     <style>
         input, th span {
             cursor: pointer;
@@ -83,6 +87,16 @@
 
 @section('js')
     <script src="{{ asset('adminlte/js/back.js') }}"></script>
+    <!-- iCheck -->
+    <script src="{{ asset('adminlte/plugins/iCheck/icheck.min.js') }}"></script>
+    <!-- Flat red color scheme for iCheck     -->
+    <script>
+      $('input[type="checkbox"].icheckbox_flat-green').iCheck({
+        checkboxClass: 'icheckbox_flat-green',
+      });
+    </script>
+    
+
     <script>
 
         var post = (function () {

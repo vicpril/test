@@ -25,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
         //for watching SQL-query
         DB::listen(function($query) {
             // dump($query->sql) ;
-
             // dump(request()->session());
             // dump(app()->getLocale());
         });
@@ -37,9 +36,7 @@ class AppServiceProvider extends ServiceProvider
         });      
 
         view()->composer('back/layout', HeaderComposer::class);
-        // dump(app()->getLocale());
 
-        // dump(request()->session());
     }
 
     /**
