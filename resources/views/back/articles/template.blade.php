@@ -8,6 +8,8 @@
     <link href="{{ asset('adminlte/plugins/colorbox/colorbox.css') }}" rel="stylesheet">
     <!-- Select2 -->
     <link href="{{ asset('adminlte/plugins/select2/select2.min.css') }}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{{ asset('adminlte/plugins/iCheck/all.css') }}" rel="stylesheet">
    
 @endsection
 
@@ -18,7 +20,7 @@
 
         <div class="row">
             <!-- MAIN PART -->
-            <div class="col-md-8">
+            <div class="col-md-9">
                 @if (session('post-ok'))
                     @component('back.components.alert')
                         @slot('type')
@@ -27,6 +29,34 @@
                         {!! session('post-ok') !!}
                     @endcomponent
                 @endif
+              
+                @component('back.components.box')
+                   @slot('type')
+                        box-primary
+                    @endslot
+                    @slot('boxTitle')
+                        @lang('Title')
+                    @endslot
+                    <label for="title-ru" class="">Русский:</label>
+                    @include('back.partials.input',[
+                        'input' => [
+                                    'name' => 'title-ru',
+                                    'value' => isset($article) ? $article->ru->title : '',
+                                    'input' => 'text',
+                                    'required' => true,
+                                ]
+                    ])
+                    <label for="title-en" class="">Английский:</label>
+                    @include('back.partials.input',[
+                        'input' => [
+                                    'name' => 'title-en',
+                                    'value' => isset($article) ? $article->en->title : '',
+                                    'input' => 'text',
+                                    'required' => true,
+                                ]
+                    ])
+                @endcomponent
+              
                 @include('back.partials.boxinput', [
                     'box' => [
                         'type' => 'box-primary',
@@ -68,7 +98,7 @@
                 <button type="submit" class="btn btn-primary">@lang('Submit')</button>
             </div>
             <!-- RIGHT SIDEBAR PART -->
-            <div class="col-md-4">
+            <div class="col-md-3">
          
                 <!-- Status -->
                 @component('back.components.box')
@@ -122,31 +152,71 @@
                     @slot('boxTitle')
                         @lang('Issue')
                     @endslot
-                    <dl class="dl-horizontal">
-                        <dt class="" for="year">@lang('Year'):</dt>
-                        <dd class="">
-                        @include('back.partials.input',[
-                            'input' => [
-                                'name' => 'year',
-                                'value' => isset($article) ? $article->issue->year : '',
-                                'input' => 'text',
-                                'required' => true,
-                            ]
-                        ])
-                        </dd>
-                      
-                        <dt class="" for="no">@lang('No'):</dt>
-                        <dd class="">
-                        @include('back.partials.input',[
-                            'input' => [
-                                'name' => 'no',
-                                'value' => isset($article) ? $article->issue->no : '',
-                                'input' => 'text',
-                                'required' => true,
-                            ]
-                        ])
-                        </dd>
-                    </dl>
+                        <div>
+                          <div class="col-sm-3">
+                            <label for="year" class="">@lang('Year'):</label>
+                          </div>
+                          <div class="col-sm-9">
+                            @include('back.partials.input',[
+                                'input' => [
+                                    'name' => 'year',
+                                    'value' => isset($article) ? $article->issue->year : '',
+                                    'input' => 'text',
+                                    'required' => true,
+                                    
+                                ]
+                            ]) 
+                          </div>
+                        </div>
+                        <div>
+                          <div class="col-sm-3">
+                            <label for="no" class="">@lang('No'):</label>
+                          </div>
+                          <div class="col-sm-9">
+                            @include('back.partials.input',[
+                                'input' => [
+                                    'name' => 'no',
+                                    'values' => isset($article) ? $article->issue->no : collect(),
+                                    'input' => 'select',
+                                    'options' => [1, 2, 3, 4],
+                                    'required' => true,
+                                ]
+                            ])
+                            </div>
+                        </div>
+                      <div>
+                          <div class="col-sm-3">
+                            <label for="no" class="">@lang('Part'):</label>
+                          </div>
+                          <div class="col-sm-9">
+                            @include('back.partials.input',[
+                                'input' => [
+                                    'name' => 'tom',
+                                    'values' => isset($article) ? $article->issue->tom : collect(),
+                                    'input' => 'select',
+                                    'options' => [1, 2],
+                                    'required' => true,
+                                ]
+                            ])
+                            </div>
+                        </div>
+                      <div class="col-sm-12">
+<!--                           <div class="col-sm-3"> -->
+<!--                             <label for="stol" class="pull-right">@lang('Stol'):</label> -->
+<!--                           </div> -->
+<!--                           <div class="col-sm-9"> -->
+                            @include('back.partials.input',[
+                                'input' => [
+                                    'label' => 'Эта записть отностится к круглому столу',
+                                    'name' => 'stol',
+                                    'value' => isset($article) ? $article->stol : '',
+                                    'input' => 'checkbox',
+                                    'class' => '',
+                                ]
+                            ])
+<!--                             </div> -->
+                        </div>
+              
                 @endcomponent
               
                 <!-- Category -->
@@ -204,33 +274,6 @@
 
                 @component('back.components.box')
                     @slot('type')
-                        success
-                    @endslot
-                    @slot('boxTitle')
-                        @lang('Details')
-                    @endslot
-                    @include('back.partials.input', [
-                        'input' => [
-                            'name' => 'slug',
-                            'value' => isset($article) ? $article->slug : '',
-                            'input' => 'text',
-                            'title' => __('Slug'),
-                            'required' => true,
-                        ],
-                    ])
-                    @include('back.partials.input', [
-                        'input' => [
-                            'name' => 'active',
-                            'value' => isset($article) ? $article->active : false,
-                            'input' => 'checkbox',
-                            'title' => __('Status'),
-                            'label' => __('Active'),
-                        ],
-                    ])
-                @endcomponent
-
-                @component('back.components.box')
-                    @slot('type')
                         primary
                     @endslot
                     @slot('boxTitle')
@@ -263,7 +306,16 @@
     <script src="{{ asset('adminlte/plugins/colorbox/jquery.colorbox-min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/voca/voca.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/select2/select2.full.min.js') }}"></script>
-    <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script> 
+    <script src="{{ asset('adminlte/plugins/iCheck/icheck.min.js') }}"></script>
+    
+    <!-- Flat red color scheme for iCheck     -->
+    <script>
+      $('input[type="checkbox"].icheckbox_flat-blue').iCheck({
+        checkboxClass: 'icheckbox_flat-blue',
+      });
+    </script>
+    
     <script>
        //Initialize Select2 Elements
        $('.select2').select2();

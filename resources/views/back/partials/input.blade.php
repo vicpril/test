@@ -21,11 +21,11 @@
     
 
     @elseif ($input['input'] === 'textarea')
-        <textarea class="form-control" rows="{{ $input['rows'] }}" id="{{ $input['name'] }}" name="{{ $input['name'] }}" @if ($input['required']) required @endif>{{ old($input['name'], $input['value']) }}</textarea>
+        <textarea class="form-control {{ isset($input['class']) ? $input['class'] : ''}}" rows="{{ $input['rows'] }}" id="{{ $input['name'] }}" name="{{ $input['name'] }}" @if ($input['required']) required @endif>{{ old($input['name'], $input['value']) }}</textarea>
     @elseif ($input['input'] === 'checkbox')
         <div class="checkbox">
             <label>
-                <input id="{{ $input['name'] }}" name="{{ $input['name'] }}" type="checkbox" {{ $input['value'] ? 'checked' : '' }}>{{ $input['label'] }}
+                <input id="{{ $input['name'] }}" class="{{ isset($input['class']) ? $input['class'] : ''}}" name="{{ $input['name'] }}" type="checkbox" {{ $input['value'] ? 'checked' : '' }}>{{ $input['label'] }}
             </label>
         </div>
     @elseif ($input['input'] === 'select')
