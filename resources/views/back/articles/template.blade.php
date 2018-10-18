@@ -104,26 +104,51 @@
                     @endif
 
                     @slot('footer')
-                        <div class="">
                         @if (isset($article))
                             <button type="delete" class="btn btn-default pull-left" style="color: red;">@lang('Delete')</button>
-
-                            <button type="submit" class="btn btn-primary pull-right">@lang('Submit')</button>
+                            <button type="submit" class="btn btn-primary pull-right">@lang('Save')</button>
                         @else
-                            <button type="submit" class="btn btn-default pull-left" >@lang('Сохранить')</button>
-
-                            <button type="public" class="btn btn-primary pull-right">@lang('Опубликовать')</button>
+                            <button type="submit" class="btn btn-default pull-left" >@lang('Save')</button>
+                            <button type="public" class="btn btn-primary pull-right">@lang('Submit')</button>
                         @endif   
-                            
-                        </div>
-                       
-
                     @endslot
-                    
-                    
-
                 @endcomponent
-                
+
+                <!-- Issue -->
+                @component('back.components.box')
+                    @slot('type')
+                        box-info
+                    @endslot
+                    @slot('boxTitle')
+                        @lang('Issue')
+                    @endslot
+                    <dl class="dl-horizontal">
+                        <dt class="" for="year">@lang('Year'):</dt>
+                        <dd class="">
+                        @include('back.partials.input',[
+                            'input' => [
+                                'name' => 'year',
+                                'value' => isset($article) ? $article->issue->year : '',
+                                'input' => 'text',
+                                'required' => true,
+                            ]
+                        ])
+                        </dd>
+                      
+                        <dt class="" for="no">@lang('No'):</dt>
+                        <dd class="">
+                        @include('back.partials.input',[
+                            'input' => [
+                                'name' => 'no',
+                                'value' => isset($article) ? $article->issue->no : '',
+                                'input' => 'text',
+                                'required' => true,
+                            ]
+                        ])
+                        </dd>
+                    </dl>
+                @endcomponent
+              
                 <!-- Category -->
                 @component('back.components.box')
                     @slot('type')
