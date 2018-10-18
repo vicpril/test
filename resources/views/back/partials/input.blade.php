@@ -18,7 +18,23 @@
                 <option value="{{ $id }}" {{ old($input['name']) ? (in_array($id, old($input['name'])) ? 'selected' : '') : ($input['values']->contains('id', $id) ? 'selected' : '') }}>{{ $title }}</option>
             @endforeach
         </select>
-    
+  
+    {{-- AUTHORS SELECT2 --}}
+    @elseif ($input['input'] === 'authors')
+        <select required class="form-control select2" multiple name="{{ $input['name'] }}[]" id="{{ $input['name'] }}">
+            @foreach($input['options'] as $id => $title)
+                <option value="{{ $id }}" {{ old($input['name']) ? (in_array($id, old($input['name'])) ? 'selected' : '') : ($input['values']->contains('id', $id) ? 'selected' : '') }}>{{ $title }}</option>
+            @endforeach
+        </select>
+  
+     {{-- DATE PICKER --}}
+    @elseif ($input['input'] === 'datepicker')
+      <div class="input-group date">
+          <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+          </div>
+          <input type="text" class="form-control pull-right datepicker" id="{{ $input['name'] }}" name="{{ $input['name'] }}" value="{{ old($input['name'], $input['value']) }}" @if ($input['required']) required @endif>
+        </div>
 
     @elseif ($input['input'] === 'textarea')
         <textarea class="form-control {{ isset($input['class']) ? $input['class'] : ''}}" rows="{{ $input['rows'] }}" id="{{ $input['name'] }}" name="{{ $input['name'] }}" @if ($input['required']) required @endif>{{ old($input['name'], $input['value']) }}</textarea>

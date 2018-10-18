@@ -47,9 +47,8 @@ class ArticlesController extends Controller
     public function create()
     {
         //
-        $users = $this->u_rep->all()->where('role', 'author');
+        $users = $this->u_rep->all()->where('role', 'author')->pluck('shortName', 'id')->sort();
         $categories = $this->c_rep->all()->pluck('ru', 'id');
-//         $tags = $this->t_rep->all();
         $tags = $this->t_rep->all()->pluck('ru', 'id');
 
 

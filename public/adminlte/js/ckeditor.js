@@ -1,5 +1,5 @@
 CKEDITOR.editorConfig = function( config ) {
-    config.height = 400
+    config.height = 250
     config.filebrowserBrowseUrl = '/elfinder/ckeditor'
     config.toolbarGroups = [
         { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },

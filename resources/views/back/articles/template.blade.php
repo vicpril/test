@@ -10,6 +10,8 @@
     <link href="{{ asset('adminlte/plugins/select2/select2.min.css') }}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{ asset('adminlte/plugins/iCheck/all.css') }}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{{ asset('adminlte/plugins/datepicker/datepicker3.css') }}" rel="stylesheet">
    
 @endsection
 
@@ -29,7 +31,8 @@
                         {!! session('post-ok') !!}
                     @endcomponent
                 @endif
-              
+                
+                <!-- Title -->
                 @component('back.components.box')
                    @slot('type')
                         box-primary
@@ -37,7 +40,7 @@
                     @slot('boxTitle')
                         @lang('Title')
                     @endslot
-                    <label for="title-ru" class="">Русский:</label>
+                    <label for="title-ru" class="">Русское:</label>
                     @include('back.partials.input',[
                         'input' => [
                                     'name' => 'title-ru',
@@ -46,7 +49,7 @@
                                     'required' => true,
                                 ]
                     ])
-                    <label for="title-en" class="">Английский:</label>
+                    <label for="title-en" class="">Английское:</label>
                     @include('back.partials.input',[
                         'input' => [
                                     'name' => 'title-en',
@@ -57,46 +60,124 @@
                     ])
                 @endcomponent
               
-                @include('back.partials.boxinput', [
-                    'box' => [
-                        'type' => 'box-primary',
-                        'title' => __('Title'),
-                    ],
-                    'input' => [
-                        'name' => 'title',
-                        'value' => isset($article) ? $article->title : '',
-                        'input' => 'text',
-                        'required' => true,
-                    ],
-                ])
-                @include('back.partials.boxinput', [
-                    'box' => [
-                        'type' => 'box-primary',
-                        'title' => __('Excerpt'),
-                    ],
-                    'input' => [
-                        'name' => 'excerpt',
-                        'value' => isset($article) ? $article->excerpt : '',
-                        'input' => 'textarea',
-                        'rows' => 3,
-                        'required' => true,
-                    ],
-                ])
-                @include('back.partials.boxinput', [
-                    'box' => [
-                        'type' => 'box-primary',
-                        'title' => __('Body'),
-                    ],
-                    'input' => [
-                        'name' => 'body',
-                        'value' => isset($article) ? $article->body : '',
-                        'input' => 'textarea',
-                        'rows' => 10,
-                        'required' => true,
-                    ],
-                ])
+              <!-- Authors -->
+                @component('back.components.box')
+                   @slot('type')
+                        box-primary
+                    @endslot
+                    @slot('boxTitle')
+                        @lang('Authors')
+                    @endslot
+                    @include('back.partials.input',[
+                        'input' => [
+                                    'name' => 'users',
+                                    'values' => isset($article) ? $article->users : collect(),
+                                    'input' => 'authors',
+                                    'options' => $users,
+                                    'required' => true,
+                                ]
+                    ])
+                @endcomponent
+              
+              
+              
+                  <!-- UDK -->
+                    @include('back.partials.boxinput', [
+                          'box' => [
+                              'type' => 'box-primary',
+                              'title' => __('UDK'),
+                          ],
+                          'input' => [
+                              'name' => 'udk',
+                              'value' => isset($article) ? $article->udk : '',
+                              'input' => 'text',
+                              'required' => false,
+                          ],
+                      ])
+              
+                   <!-- Аннотация РУС -->
+              
+                    @include('back.partials.boxinput', [
+                        'box' => [
+                            'type' => 'box-primary',
+                            'title' => __('Annotation').' (рус)',
+                        ],
+                        'input' => [
+                            'name' => 'annotation-ru',
+                            'value' => isset($article) ? $article->ru->annotation : '',
+                            'input' => 'textarea',
+                            'rows' => 3,
+                            'required' => false,
+                        ],
+                    ])
+              
+              <!-- DOI -->
+                    @include('back.partials.boxinput', [
+                          'box' => [
+                              'type' => 'box-primary',
+                              'title' => __('DOI'),
+                          ],
+                          'input' => [
+                              'name' => 'doi',
+                              'value' => isset($article) ? $article->doi : '',
+                              'input' => 'text',
+                              'required' => false,
+                          ],
+                      ])
+              
+               <!-- Keywords РУ -->
+              
+                    @include('back.partials.boxinput', [
+                        'box' => [
+                            'type' => 'box-primary',
+                            'title' => __('Keywords').' (рус)',
+                        ],
+                        'input' => [
+                            'name' => 'keywords-ru',
+                            'value' => isset($article) ? $article->ru->keywords : '',
+                            'input' => 'textarea',
+                            'rows' => 2,
+                            'required' => false,
+                        ],
+                    ])
+              
+              <!-- Date arrival -->
+                @component('back.components.box')
+                    @slot('type')
+                        box-primary
+                    @endslot
+                    @slot('boxTitle')
+                        @lang('Dates')
+                    @endslot
+                    <label for="date-arrival">@lang('Date arrival'):</label>
+                    @include('back.partials.input',[
+                        'input' => [
+                                    'name' => 'date-arrival',
+                                    'value' => isset($article) ? $article->date_arrival : '',
+                                    'input' => 'datepicker',
+                                    'required' => false,
+                                ]
+                    ])
+                    <label for="date-review">@lang('Date review'):</label>
+                    @include('back.partials.input',[
+                        'input' => [
+                                    'name' => 'date-arrival',
+                                    'value' => isset($article) ? $article->date_review : '',
+                                    'input' => 'datepicker',
+                                    'required' => false,
+                                ]
+                    ])
+                    
+                  @endcomponent
+              
+              
+            
                 <button type="submit" class="btn btn-primary">@lang('Submit')</button>
             </div>
+          
+          
+          
+          
             <!-- RIGHT SIDEBAR PART -->
             <div class="col-md-3">
          
@@ -306,24 +387,34 @@
     <script src="{{ asset('adminlte/plugins/colorbox/jquery.colorbox-min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/voca/voca.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/select2/select2.full.min.js') }}"></script>
-    <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script> 
+<!--     <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>  -->
+    <script src="{{ asset('adminlte/plugins/ckeditor/ckeditor.js') }}"></script> 
     <script src="{{ asset('adminlte/plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+
     
-    <!-- Flat red color scheme for iCheck     -->
     <script>
+      //<!-- Flat red color scheme for iCheck
       $('input[type="checkbox"].icheckbox_flat-blue').iCheck({
         checkboxClass: 'icheckbox_flat-blue',
       });
-    </script>
-    
-    <script>
-       //Initialize Select2 Elements
+
+      
+      //Initialize Select2 Elements
        $('.select2').select2();
+      
+        $("select").on("select2:select", function (evt) {
+          var element = evt.params.data.element;
+          var $element = $(element);
 
-    </script> 
-    <script>
+          $element.detach();
+          $(this).append($element);
+          $(this).trigger("change");
+        });
 
-        CKEDITOR.replace('body', {customConfig: '/adminlte/js/ckeditor.js'})
+      //CKEDITOR
+      CKEDITOR.replace('annotation-ru', {customConfig: '/adminlte/js/ckeditor.js'})
+
 
         $('.popup_selector').click( function (event) {
             event.preventDefault()
@@ -350,6 +441,11 @@
 
         $('#title').keyup(function () {
             $('#slug').val(v.slugify($(this).val()))
+        })
+      
+      //Date picker
+        $('.datepicker').datepicker({
+          autoclose: true
         })
 
     </script>
