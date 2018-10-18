@@ -34,7 +34,7 @@
                     ],
                     'input' => [
                         'name' => 'title',
-                        'value' => isset($post) ? $post->title : '',
+                        'value' => isset($article) ? $article->title : '',
                         'input' => 'text',
                         'required' => true,
                     ],
@@ -46,7 +46,7 @@
                     ],
                     'input' => [
                         'name' => 'excerpt',
-                        'value' => isset($post) ? $post->excerpt : '',
+                        'value' => isset($article) ? $article->excerpt : '',
                         'input' => 'textarea',
                         'rows' => 3,
                         'required' => true,
@@ -59,7 +59,7 @@
                     ],
                     'input' => [
                         'name' => 'body',
-                        'value' => isset($post) ? $post->body : '',
+                        'value' => isset($article) ? $article->body : '',
                         'input' => 'textarea',
                         'rows' => 10,
                         'required' => true,
@@ -71,9 +71,60 @@
             <div class="col-md-4">
          
                 <!-- Status -->
-              
-              
-                 <!-- Category -->
+                @component('back.components.box')
+                    @slot('type')
+                        @if (isset($article))
+                            @if ($article->status->name === 'public')
+                                box-solid box-success
+                            @else
+                                box-solid box-danger
+                            @endif
+                        @else
+                            box-info
+                        @endif
+                    @endslot
+                    @slot('boxTitle')
+                        @lang('Status')
+                    @endslot
+                    
+                    <!-- <label for="Status">Status</label> -->
+                    @include('back.partials.input', [
+                            'input' => [
+                                    'name' => 'Status',
+                                    'values' => isset($article) ? $article->status->id : collect(),
+                                    'input' => 'select',
+                                    'options' => [
+                                                    2 => 'Черновик',
+                                                    1 => 'Опубликован',
+                                                    ],
+                                ],
+                        ])
+                    @if (isset($article))
+                        <div><span id="timestamp">'Дата обновления:'<b>$article->updated_at</b></span></div>
+                    @endif
+
+                    @slot('footer')
+                        <div class="">
+                        @if (isset($article))
+                            <button type="delete" class="btn btn-default pull-left" style="color: red;">@lang('Delete')</button>
+
+                            <button type="submit" class="btn btn-primary pull-right">@lang('Submit')</button>
+                        @else
+                            <button type="submit" class="btn btn-default pull-left" >@lang('Сохранить')</button>
+
+                            <button type="public" class="btn btn-primary pull-right">@lang('Опубликовать')</button>
+                        @endif   
+                            
+                        </div>
+                       
+
+                    @endslot
+                    
+                    
+
+                @endcomponent
+                
+                <!-- Category -->
                 @component('back.components.box')
                     @slot('type')
                         box-warning
@@ -84,7 +135,7 @@
                     @include('back.partials.input', [
                         'input' => [
                             'name' => 'category',
-                            'values' => isset($post) ? $post->categories : collect(),
+                            'values' => isset($article) ? $article->categories : collect(),
                             'input' => 'categories',
                             'options' => $categories,
                         ],
@@ -102,7 +153,7 @@
                     @include('back.partials.input', [
                         'input' => [
                             'name' => 'tags',
-                            'values' => isset($post) ? $post->tags : collect(),
+                            'values' => isset($article) ? $article->tags : collect(),
                             'input' => 'tags',
                             'options' => $tags,
                         ],
@@ -119,7 +170,7 @@
                     @include('back.partials.input', [
                         'input' => [
                             'name' => 'tags',
-                            'value' => isset($post) ? implode(',', $post->tags->pluck('tag')->toArray()) : '',
+                            'value' => isset($article) ? implode(',', $article->tags->pluck('tag')->toArray()) : '',
                             'input' => 'text',
                             'required' => false,
                         ],
@@ -136,7 +187,7 @@
                     @include('back.partials.input', [
                         'input' => [
                             'name' => 'slug',
-                            'value' => isset($post) ? $post->slug : '',
+                            'value' => isset($article) ? $article->slug : '',
                             'input' => 'text',
                             'title' => __('Slug'),
                             'required' => true,
@@ -145,7 +196,7 @@
                     @include('back.partials.input', [
                         'input' => [
                             'name' => 'active',
-                            'value' => isset($post) ? $post->active : false,
+                            'value' => isset($article) ? $article->active : false,
                             'input' => 'checkbox',
                             'title' => __('Status'),
                             'label' => __('Active'),
@@ -160,7 +211,7 @@
                     @slot('boxTitle')
                         @lang('Image')
                     @endslot
-                    <img id="img" src="@isset($post) {{ $post->image }} @endisset" alt="" class="img-responsive">
+                    <img id="img" src="@isset($article) {{ $article->image }} @endisset" alt="" class="img-responsive">
                     @slot('footer')
                         <div class="{{ $errors->has('image') ? 'has-error' : '' }}">
                             <div class="input-group">
@@ -168,7 +219,7 @@
                                     <a href="" class="popup_selector btn btn-primary" data-inputid="image">@lang('Select an image')</a>
                                 </div>
                                 <!-- /btn-group -->
-                                <input class="form-control" type="text" id="image" name="image" value="{{ old('image', isset($post) ? $post->image : '') }}">
+                                <input class="form-control" type="text" id="image" name="image" value="{{ old('image', isset($article) ? $article->image : '') }}">
                             </div>
                             {!! $errors->first('image', '<span class="help-block">:message</span>') !!}
                         </div>
