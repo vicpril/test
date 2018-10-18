@@ -170,6 +170,104 @@
                     
                   @endcomponent
               
+              <!-- Приложения -->
+              
+                    @include('back.partials.boxinput', [
+                        'box' => [
+                            'type' => 'box-primary',
+                            'title' => __('Aplications'),
+                        ],
+                        'input' => [
+                            'name' => 'aplications',
+                            'value' => isset($article) ? $article->ru->aplications : '',
+                            'input' => 'textarea',
+                            'rows' => 3,
+                            'required' => false,
+                        ],
+                    ])
+              
+                    <!-- Аннотация ENG -->
+              
+                    @include('back.partials.boxinput', [
+                        'box' => [
+                            'type' => 'box-primary',
+                            'title' => __('Annotation').' (eng)',
+                        ],
+                        'input' => [
+                            'name' => 'annotation-en',
+                            'value' => isset($article) ? $article->en->annotation : '',
+                            'input' => 'textarea',
+                            'rows' => 3,
+                            'required' => false,
+                        ],
+                    ])
+              
+               <!-- Keywords ENG -->
+              
+                    @include('back.partials.boxinput', [
+                        'box' => [
+                            'type' => 'box-primary',
+                            'title' => __('Keywords').' (eng)',
+                        ],
+                        'input' => [
+                            'name' => 'keywords-en',
+                            'value' => isset($article) ? $article->en->keywords : '',
+                            'input' => 'textarea',
+                            'rows' => 2,
+                            'required' => false,
+                        ],
+                    ])
+              
+              <!-- Financial INFO -->
+              
+                    @include('back.partials.boxinput', [
+                        'box' => [
+                            'type' => 'box-primary',
+                            'title' => __('Financial info'),
+                        ],
+                        'input' => [
+                            'name' => 'financial',
+                            'value' => isset($article) ? $article->financial : '',
+                            'input' => 'textarea',
+                            'rows' => 2,
+                            'required' => false,
+                        ],
+                    ])
+              
+               <!-- Литература RUS -->
+              
+                    @include('back.partials.boxinput', [
+                        'box' => [
+                            'type' => 'box-primary',
+                            'title' => __('Bibliography').' (рус)',
+                        ],
+                        'input' => [
+                            'name' => 'bibliography-ru',
+                            'value' => isset($article) ? $article->ru->bibliography : '',
+                            'input' => 'textarea',
+                            'rows' => 3,
+                            'required' => false,
+                        ],
+                    ])
+              
+              
+                <!-- Литература ENG -->
+              
+                    @include('back.partials.boxinput', [
+                        'box' => [
+                            'type' => 'box-primary',
+                            'title' => __('Bibliography').' (eng)',
+                        ],
+                        'input' => [
+                            'name' => 'bibliography-en',
+                            'value' => isset($article) ? $article->en->bibliography : '',
+                            'input' => 'textarea',
+                            'rows' => 3,
+                            'required' => false,
+                        ],
+                    ])
+              
+              
               
             
                 <button type="submit" class="btn btn-primary">@lang('Submit')</button>
@@ -282,10 +380,6 @@
                             </div>
                         </div>
                       <div class="col-sm-12">
-<!--                           <div class="col-sm-3"> -->
-<!--                             <label for="stol" class="pull-right">@lang('Stol'):</label> -->
-<!--                           </div> -->
-<!--                           <div class="col-sm-9"> -->
                             @include('back.partials.input',[
                                 'input' => [
                                     'label' => 'Эта записть отностится к круглому столу',
@@ -295,7 +389,6 @@
                                     'class' => '',
                                 ]
                             ])
-<!--                             </div> -->
                         </div>
               
                 @endcomponent
@@ -336,48 +429,8 @@
                     ])
                 @endcomponent
 
-                @component('back.components.box')
-                    @slot('type')
-                        danger
-                    @endslot
-                    @slot('boxTitle')
-                        @lang('Tags')
-                    @endslot
-                    @include('back.partials.input', [
-                        'input' => [
-                            'name' => 'tags',
-                            'value' => isset($article) ? implode(',', $article->tags->pluck('tag')->toArray()) : '',
-                            'input' => 'text',
-                            'required' => false,
-                        ],
-                    ])
-                @endcomponent
-
-                @component('back.components.box')
-                    @slot('type')
-                        primary
-                    @endslot
-                    @slot('boxTitle')
-                        @lang('Image')
-                    @endslot
-                    <img id="img" src="@isset($article) {{ $article->image }} @endisset" alt="" class="img-responsive">
-                    @slot('footer')
-                        <div class="{{ $errors->has('image') ? 'has-error' : '' }}">
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <a href="" class="popup_selector btn btn-primary" data-inputid="image">@lang('Select an image')</a>
-                                </div>
-                                <!-- /btn-group -->
-                                <input class="form-control" type="text" id="image" name="image" value="{{ old('image', isset($article) ? $article->image : '') }}">
-                            </div>
-                            {!! $errors->first('image', '<span class="help-block">:message</span>') !!}
-                        </div>
-                    @endslot
-                @endcomponent
-
         </div>
         </div>
-        <!-- /.row -->
     </form>
 
 @endsection
@@ -414,7 +467,10 @@
 
       //CKEDITOR
       CKEDITOR.replace('annotation-ru', {customConfig: '/adminlte/js/ckeditor.js'})
-
+      CKEDITOR.replace('annotation-en', {customConfig: '/adminlte/js/ckeditor.js'})
+      CKEDITOR.replace('aplications', {customConfig: '/adminlte/js/ckeditor.js'})
+      CKEDITOR.replace('bibliography-ru', {customConfig: '/adminlte/js/ckeditor.js'})
+      CKEDITOR.replace('bibliography-en', {customConfig: '/adminlte/js/ckeditor.js'})
 
         $('.popup_selector').click( function (event) {
             event.preventDefault()
@@ -445,7 +501,9 @@
       
       //Date picker
         $('.datepicker').datepicker({
-          autoclose: true
+          autoclose: true,
+          language: 'ru-RU',
+          weekStart: 1,
         })
 
     </script>
