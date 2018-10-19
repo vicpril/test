@@ -219,8 +219,7 @@ desired effect
               'color' => 'yellow',
             ],
             [
-              {{--'route' => route('posts.create'),--}}
-              'route' => '#',
+              'route' => route('articles.create'),
               'command' => 'create',
               'color' => 'green',
             ],
