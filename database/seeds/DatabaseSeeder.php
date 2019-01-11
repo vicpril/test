@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 use Idea\Models\Article;
 use Idea\Models\MetaArticle;
 use Idea\Models\User;
+use Idea\Models\Job;
 use Idea\Models\MetaUser;
 
 use Faker\Factory as Faker;
@@ -81,9 +82,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-
-
-
         $redac = User::create(
             [
                 // 'name' => 'Redactor',
@@ -106,29 +104,21 @@ class DatabaseSeeder extends Seeder
         $redac->meta()->save(MetaUser::where('id', 4)->first()->replicate());
 
 
- 		// for ($i=1; $i <= 4; $i++) { 
-	 	// 	DB::table('users')->insert([
-	  //           'name' => 'user-'.$i,
-	  //           'email' => 'user-'.$i.'@gmail.com',
-	  //           'password' => bcrypt('secret'),
-	  //       ]);
-	 	// }
-		// for ($i=1; $i <= 4; $i++) { 
-	 // 		DB::table('users')->insert([
-	 //            'name' => 'user-'.$i,
-	 //            'email' => 'user-'.$i.'@gmail.com',
-	 //            'password' => bcrypt('secret'),
-	 //        ]);
-	 	// }
-
 	/*************************
-	 *			Add Tags
+	 *			Add Jobs
 	 *************************/
-        for ($i=1; $i <= 5; $i++) { 
-			DB::table('jobs')->insert([
-	            'name' => 'Job name '.$i,
-	            'alias' => 'job-'.$i,
-	        ]);
+        for ($i=1; $i <= 15; $i++) { 
+					$title = 'Университет-' . $i;
+					$city = $faker->city;
+					$address = $faker->address;
+					Job::create( [
+						'title_ru' => $title,
+            'city_ru' => $city,
+            'address_ru' => $address,
+            'title_en' => Transliterate::make($title),
+            'city_en' => Transliterate::make($city),
+            'address_en' => Transliterate::make($address),
+					] );
 		}
 
 	/**************************
@@ -137,6 +127,8 @@ class DatabaseSeeder extends Seeder
 	 	DB::table('status')->insert(['name'=>'public']);
 	 	DB::table('status')->insert(['name'=>'private']);
 
+			
+			
 	// /**************************
 	//  *			Add Categories
 	//  **************************/
@@ -146,54 +138,6 @@ class DatabaseSeeder extends Seeder
 
     ]);
 	 	
- 		// DB::table('categories')->insert([
-   //          'name' => 'Рубрика №1',
-   //          // 'name' => $faker->unique()->bank,
-   //          'alias' => 'cat-1',
-   //      ]);
-   //      DB::table('categories')->insert([
-   //          'name' => 'Рубрика №2',
-   //          // 'name' => $faker->unique()->bank,
-   //          'alias' => 'cat-2',
-   //      ]);
-   //      DB::table('categories')->insert([
-   //          'name' => 'Рубрика №3',
-   //          // 'name' => $faker->unique()->bank,
-   //          'alias' => 'cat-3',
-   //      ]);
-   //      DB::table('categories')->insert([
-   //          'name' => 'Рубрика №4',
-   //          // 'name' => $faker->unique()->bank,
-   //          'alias' => 'cat-4',
-   //          'parent_id' => '1'
-   //      ]);
-   //      DB::table('categories')->insert([
-   //          'name' => 'Рубрика №5',
-   //          // 'name' => $faker->unique()->bank,
-   //          'alias' => 'cat-5',
-   //          'parent_id' => '2'
-   //      ]);
-
-	// /**************************
-	//  *			Add Tags
-	//  **************************/
-  //       $tags = [
-  //       			'искусствоведение',
-		// 		    'история',
-		// 		    'культурология',
-		// 		    'образование',
-		// 		    'социология',
-		// 		    'философия',
-		// 		    'экономика',
-  //       		];
-  //       foreach ($tags as $i => $name) {
-		// 	DB::table('tags')->insert([
-	 //            'name' => $name,
-	 //            'alias' => 'tag-'.$i,
-	 //        ]);
-		// }
-
-
 	/**************************
 	 *			Add Isuues
 	 **************************/
@@ -323,7 +267,7 @@ class DatabaseSeeder extends Seeder
 	 *			Add User_Job
 	 ***************************************/
 		for ($u=3; $u <= 10; $u++) { 
-			$jobs = array(1,2,3,4,5);
+			$jobs = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 			for ($i=1; $i <= random_int(1, 3); $i++) { 
 				$job_key = array_rand($jobs);
 				$job_id = $jobs[$job_key];
