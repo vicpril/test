@@ -1,23 +1,26 @@
 
 
 <!-- ARTICLE PREVIEW -->
-<div id="article-{{$article->id}}" class="card article-preview">
-   <div class="card-body">
+<div id="article-{{$article->id}}" class="card article-preview mb-2">
+  <div class="card-header">
       <!-- LABEL -->
       @if($article->status->name == 'public')
-         <span class="badge badge-pill badge-success">Public</span>
+         <span class="badge badge-pill badge-success float-right">Public</span>
       @endif
 
       @if($article->status->name == 'private')
-         <span class="badge badge-pill badge-danger">private</span>
+         <span class="badge badge-pill badge-danger float-right">private</span>
       @endif
       <!-- END LABEL -->
       
       <!-- TITLE -->
-      <div class="article-preview-title">
-         <h5 class="card-title"><a href="{{ route('article', ['alias' => $article->alias]) }}">{{ $article->title }}</a></h5>
+      <div class="article-preview-title float-left">
+         <h5 class="card-title mb-0"><a href="{{ route('article', ['alias' => $article->alias]) }}">{{ $article->title }}</a></h5>
       </div>
       <!-- END TITLE -->
+  </div>   
+  <div class="card-body">
+      
 
       <!-- ISSUE LINK -->
       @if(Route::currentRouteName() !== 'articles')

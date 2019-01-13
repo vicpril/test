@@ -10,12 +10,12 @@
        <title>Идеи и Идеалы</title>
 
        <!-- Bootstrap core CSS -->
-       <link href="{{ asset(env('THEME')) }}/dist/css/bootstrap.min.css" rel="stylesheet">
+<!--        <link href="{{ asset(env('THEME')) }}/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
        <!-- Custom styles for this template -->
-       <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-       <link href="/css/bootstrap.css" rel="stylesheet">
-       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<!--        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet"> -->
+       <link href="/css/app.css" rel="stylesheet">
+<!--        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> -->
     </head>
 
     <body>
