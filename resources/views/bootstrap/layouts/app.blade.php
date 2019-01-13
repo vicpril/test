@@ -14,7 +14,7 @@
 
           <!-- Custom styles for this template -->
           <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-          <link href="{{ asset(env('THEME')) }}/assets/css/main.css" rel="stylesheet">
+          <link href="/css/bootstrap.css" rel="stylesheet">
           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         </head>
 
