@@ -16,18 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $pannels = [];
-
-        // foreach (config('pannels') as $pannel) {
-
-        //     $panelAdmin = new PannelAdmin($pannel);
-
-        //     if ($panelAdmin->nbr) {
-        //         $pannels[] = $panelAdmin;
-        //     }
-        // }
-        
-        return view(env('THEME_BACK').'.back.index', compact('pannels'));
+        return view(env('THEME_BACK').'.back.index');
     }
 
     public function logout()

@@ -18,7 +18,7 @@ class CreateJobsTable extends Migration
             $table->string('title_ru');
             $table->string('city_ru')->nullable();
             $table->string('address_ru')->nullable();
-            $table->string('title_en');
+            $table->string('title_en')->nullable();;
             $table->string('city_en')->nullable();
             $table->string('address_en')->nullable();
         });

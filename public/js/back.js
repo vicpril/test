@@ -36449,7 +36449,52 @@ if (token) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module '/resources/js/myTheme/dashboard.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+__webpack_require__(/*! ./myTheme/dashboard */ "./resources/js/myTheme/dashboard.js");
+
+/***/ }),
+
+/***/ "./resources/js/myTheme/dashboard.js":
+/*!*******************************************!*\
+  !*** ./resources/js/myTheme/dashboard.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* globals Chart:false, feather:false */
+(function () {
+  'use strict';
+
+  feather.replace(); // Graphs
+
+  var ctx = document.getElementById('myChart'); // eslint-disable-next-line no-unused-vars
+
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      datasets: [{
+        data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+        lineTension: 0,
+        backgroundColor: 'transparent',
+        borderColor: '#007bff',
+        borderWidth: 4,
+        pointBackgroundColor: '#007bff'
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      }
+    }
+  });
+})();
 
 /***/ }),
 
@@ -36471,8 +36516,8 @@ __webpack_require__(!(function webpackMissingModule() { var e = new Error("Canno
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\i.l\resources\js\myTheme.back.js */"./resources/js/myTheme.back.js");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\sass\myTheme.back.scss */"./resources/sass/myTheme.back.scss");
+__webpack_require__(/*! /home/cabox/workspace/resources/js/myTheme.back.js */"./resources/js/myTheme.back.js");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/myTheme.back.scss */"./resources/sass/myTheme.back.scss");
 
 
 /***/ })

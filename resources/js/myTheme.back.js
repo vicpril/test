@@ -6,4 +6,4 @@
 
 require('./bootstrap');
 
-require('/resources/js/myTheme/dashboard.js');
+require('./myTheme/dashboard');
