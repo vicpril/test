@@ -36377,42 +36377,6 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue');
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-// const app = new Vue({
-//     el: '#app'
-// });
-
-/***/ }),
-
 /***/ "./resources/js/bootstrap.js":
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
@@ -36471,6 +36435,24 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/js/myTheme.back.js":
+/*!**************************************!*\
+  !*** ./resources/js/myTheme.back.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module '/resources/js/myTheme/dashboard.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+/***/ }),
+
 /***/ "./resources/sass/myTheme.back.scss":
 /*!******************************************!*\
   !*** ./resources/sass/myTheme.back.scss ***!
@@ -36483,13 +36465,13 @@ if (token) {
 /***/ }),
 
 /***/ 0:
-/*!**********************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/myTheme.back.scss ***!
-  \**********************************************************************/
+/*!*******************************************************************************!*\
+  !*** multi ./resources/js/myTheme.back.js ./resources/sass/myTheme.back.scss ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\i.l\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! c:\OSPanel\domains\i.l\resources\js\myTheme.back.js */"./resources/js/myTheme.back.js");
 module.exports = __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\sass\myTheme.back.scss */"./resources/sass/myTheme.back.scss");
 
 

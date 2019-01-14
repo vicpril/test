@@ -27,7 +27,7 @@ class AdminController extends Controller
         //     }
         // }
         
-        return view('back.index', compact('pannels'));
+        return view(env('THEME_BACK').'.back.index', compact('pannels'));
     }
 
     public function logout()

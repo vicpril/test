@@ -11,12 +11,9 @@ let mix = require('laravel-mix');
  |
  */
 
-// Copy Bootstrap
-// mix.copyDirectory('node_modules/bootstrap/scss', 'resources/bootstrap/scss')
-//     .copyDirectory('node_modules/bootstrap/js', 'resources/bootstrap/js');
+// mix.js('resources/js/app.js', 'public/js')
+//    .sass('resources/sass/app.scss', 'public/css');
 
-
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
-// mix.js('resources/bootstrap/js/dist/util.js', 'public/js/bootstrap.js')
-//    .sass('resources/bootstrap/scss/bootstrap.scss', 'public/css/bootstrap.css');
+mix
+  .js('resources/js/myTheme.back.js', 'public/js/back.js')
+  .sass('resources/sass/myTheme.back.scss', 'public/css/back.css');
