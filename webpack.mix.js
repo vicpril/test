@@ -21,5 +21,5 @@ let mix = require('laravel-mix');
 
 // NOW-UI-DASHBOARD
 mix
-  .js('resources/js/now-ui-dashboard.js', 'public/js/now-ui-back.js')
-  .sass('resources/sass/now-ui-dashboard.scss', 'public/css/now-ui-dashboard-back.css');
+  .js('resources/js/now-ui-dashboard.back.js', 'public/js/now-ui-back.js')
+  .sass('resources/sass/now-ui-dashboard.scss', 'public/css/now-ui-back.css');

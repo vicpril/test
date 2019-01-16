@@ -7,7 +7,6 @@
 // CORE
 require('./bootstrap');
 
-
 // PLUGINS
 require('./now-ui-dashboard/plugins/bootstrap-notify');
 
@@ -16,6 +15,6 @@ require('./now-ui-dashboard/plugins/chartjs.min');
 require('./now-ui-dashboard/plugins/perfect-scrollbar.jquery.min');
 
 // THEME
-require('./now-ui-dashboard/plugins/now-ui-dashboard');
+require('./now-ui-dashboard/now-ui-dashboard');
 
-// require('./now-ui-dashboard/plugins/now-ui-dashboard.min');
+// require('./now-ui-dashboard/now-ui-dashboard.min');
