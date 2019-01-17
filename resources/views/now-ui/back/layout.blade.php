@@ -18,10 +18,6 @@
  
   
   <!-- DataTables CSS -->
-  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/> --}}
-  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/> --}}
-  {{-- <link rel="stylesheet" href="css/dataTadles.bootstrap4.css"> --}}
-  {{-- <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap4.min.css"> --}}
   <link rel="stylesheet" type="text/css" href="css/datatables.css">
 
   <!-- DataTables Responsive CSS -->
@@ -751,6 +747,7 @@
     </div>
   </div>
   <!--   Core JS Files   -->
+  <script src="js/now-ui-back.js"></script>
   {{-- <script src="../assets/js/core/jquery.min.js"></script> --}}
   {{-- <script src="../assets/js/core/popper.min.js"></script> --}}
   {{-- <script src="../assets/js/core/bootstrap.min.js"></script> --}}
@@ -763,14 +760,10 @@
   {{-- <script src="../assets/js/plugins/bootstrap-notify.js"></script> --}}
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   {{-- <script src="../assets/js/now-ui-dashboard.min.js?v=1.2.0" type="text/javascript"></script> --}}
-  <script src="js/now-ui-back.js"></script>
-  <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  {{-- <script src="../assets/demo/demo.js"></script> --}}
+  
 
   <!-- DataTables JavaScript -->
   <script src="js/datatables.js"></script>
-  {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script> --}}
-  {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script> --}}
 
 
   
