@@ -14,21 +14,17 @@
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="css/now-ui-back.css" rel="stylesheet">
-  {{-- <link href="../assets/css/bootstrap.min.css" rel="stylesheet" /> --}}
-  {{-- <link href="../assets/css/now-ui-dashboard.css?v=1.2.0" rel="stylesheet" /> --}}
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  {{-- <link href="../assets/demo/demo.css" rel="stylesheet" /> --}}
  
   
   <!-- DataTables CSS -->
-  <!-- <link href="../vendor/datatables/css/dataTables.foundation.min.css" rel="stylesheet"> -->
-  {{-- <link href="../vendor/datatables/css/dataTables.jqueryui.min.css" rel="stylesheet"> --}}
-  {{-- <link href="../vendor/datatables/css/dataTables.material.min.css" rel="stylesheet"> --}}
-
-  {{-- <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet"> --}}
+  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/> --}}
+  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/> --}}
+  {{-- <link rel="stylesheet" href="css/dataTadles.bootstrap4.css"> --}}
+  {{-- <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap4.min.css"> --}}
+  <link rel="stylesheet" type="text/css" href="css/datatables.css">
 
   <!-- DataTables Responsive CSS -->
-  {{-- <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet"> --}}
 
 </head>
 
@@ -772,9 +768,10 @@
   {{-- <script src="../assets/demo/demo.js"></script> --}}
 
   <!-- DataTables JavaScript -->
-  {{-- <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script> --}}
-  {{-- <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script> --}}
-  {{-- <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script> --}}
+  <script src="js/datatables.js"></script>
+  {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script> --}}
+  {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script> --}}
+
 
   
   <!-- Page-Level Demo Scripts - Tables - Use for reference -->

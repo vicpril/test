@@ -45458,6 +45458,17 @@ var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE
 
 /***/ }),
 
+/***/ "./resources/sass/datatables.scss":
+/*!****************************************!*\
+  !*** ./resources/sass/datatables.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/now-ui-dashboard.scss":
 /*!**********************************************!*\
   !*** ./resources/sass/now-ui-dashboard.scss ***!
@@ -45470,14 +45481,15 @@ var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE
 /***/ }),
 
 /***/ 0:
-/*!********************************************************************************************!*\
-  !*** multi ./resources/js/now-ui-dashboard.back.js ./resources/sass/now-ui-dashboard.scss ***!
-  \********************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** multi ./resources/js/now-ui-dashboard.back.js ./resources/sass/now-ui-dashboard.scss ./resources/sass/datatables.scss ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\js\now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\sass\now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
+__webpack_require__(/*! c:\OSPanel\domains\i.l\resources\sass\now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
+module.exports = __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\sass\datatables.scss */"./resources/sass/datatables.scss");
 
 
 /***/ })

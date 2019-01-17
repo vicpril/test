@@ -23,3 +23,8 @@ let mix = require('laravel-mix');
 mix
   .js('resources/js/now-ui-dashboard.back.js', 'public/js/now-ui-back.js')
   .sass('resources/sass/now-ui-dashboard.scss', 'public/css/now-ui-back.css');
+
+//DataTables.net
+mix
+  .js('resources/js/datatables.js', 'public/js')
+  .sass('resources/sass/datatables.scss', 'public/css/datatables.css');
