@@ -31733,7 +31733,7 @@ try {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\js\datatables.js */"./resources/js/datatables.js");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/js/datatables.js */"./resources/js/datatables.js");
 
 
 /***/ })

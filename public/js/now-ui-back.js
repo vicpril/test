@@ -45487,9 +45487,9 @@ var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\i.l\resources\js\now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
-__webpack_require__(/*! c:\OSPanel\domains\i.l\resources\sass\now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\sass\datatables.scss */"./resources/sass/datatables.scss");
+__webpack_require__(/*! /home/cabox/workspace/resources/js/now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
+__webpack_require__(/*! /home/cabox/workspace/resources/sass/now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/datatables.scss */"./resources/sass/datatables.scss");
 
 
 /***/ })

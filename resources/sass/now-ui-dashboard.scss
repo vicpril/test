@@ -15,10 +15,16 @@
 
  */
 
+// custom
+// $primary-color: #20748e;
+// $orange-color: #20748e;
+
+
+
  // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
 @import 'now-ui-dashboard/variables';
+
 @import 'now-ui-dashboard/mixins';
 
 // Plugins CSS
@@ -52,3 +58,25 @@
 @import "now-ui-dashboard/cards/card-map";
 
 @import "now-ui-dashboard/responsive";
+
+.form-control {
+    border: 1px solid #89a3d0 ;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    
+
+    &:focus{
+        border: 1px solid $primary-color !important;
+        color: $black-color !important;
+        box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25) !important;
+    }
+}
+
+
+textarea.form-control {
+  border: 1px solid #89a3d0;
+  border-radius: 15px !important;
+  
+  &:focus{
+        border: 1px solid $primary-color;
+  }
+}
