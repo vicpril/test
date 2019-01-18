@@ -14,14 +14,11 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link href="css/now-ui-back.css" rel="stylesheet">
+  <link href="{{ asset('css/now-ui-back.css') }}" rel="stylesheet">
   <!-- CSS Just for demo purpose, don't include it in your project -->
+  
+  @yield('css')
 
-
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" type="text/css" href="css/datatables.css">
-
-  <!-- DataTables Responsive CSS -->
 
 </head>
 
@@ -29,14 +26,12 @@
   <div class="wrapper ">
 
     <!-- SIDEBAR -->
-      @include(env('THEME_BACK').'.back.sidebar')
-      {{-- @yield('sidebar') --}}
+    @yield('sidebar')
     <!-- end sidebar -->
 
     <div class="main-panel">
       <!-- Navbar -->
-        @include(env('THEME_BACK').'.back.navbar')
-        {{-- @yield('navbar') --}}
+      @yield('navbar')
       <!-- End Navbar -->
       
       <div class="panel-header panel-header-sm">
@@ -48,32 +43,30 @@
       <!-- end content -->
       
       <!-- FOOTER -->
-        @include(env('THEME_BACK').'.back.footer')
-        {{-- @yield('footer') --}}
+        @yield('footer')
       <!-- end footer -->
 
     </div>
   </div>
 
   <!-- MODALS -->
-
-    @include(env('THEME_BACK').'.back.modals')
-    {{-- @yield('modals') --}}
-
+  @yield('modals')
   <!-- end modals -->
 
   </div>
   <!--   Core JS Files   -->
-  <script src="js/now-ui-back.js"></script>
+  <script src="{{ asset('js/now-ui-back.js') }}"></script>
   <!--  Google Maps Plugin    -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   
   <!--  Notifications Plugin    -->
+
+
   <!-- <script src="../assets/js/plugins/bootstrap-notify.js"></script> -->
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <!-- <script src="../assets/js/now-ui-dashboard.min.js?v=1.2.0" type="text/javascript"></script> -->
 
-  {{-- @yield('js') --}}
+  @yield('js')
 
 </body>
 
