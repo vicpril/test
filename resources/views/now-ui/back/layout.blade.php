@@ -60,8 +60,6 @@
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   
   <!--  Notifications Plugin    -->
-
-
   <!-- <script src="../assets/js/plugins/bootstrap-notify.js"></script> -->
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <!-- <script src="../assets/js/now-ui-dashboard.min.js?v=1.2.0" type="text/javascript"></script> -->
