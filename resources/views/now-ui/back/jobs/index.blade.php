@@ -22,7 +22,7 @@
         <div class="card">
           <div class="card-header">
             <h5 class="title d-inline-block mr-3 mb-0">Организации</h5>
-            <button class="btn btn-primary btn-round d-inline-block my-0" type="button" data-toggle="modal" data-target="#jobModal">
+            <button class="btn btn-primary btn-round d-inline-block my-0" id="newJob" type="button" data-toggle="modal" data-target="#jobModal">
               Создать новую
             </button>
           </div>
@@ -39,15 +39,6 @@
                 </tr>
               </thead>
               <tbody>
-<!--                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr> -->
-                
                 @foreach($jobs as $job)
                   <tr>
                     <td>{{ $job->title_ru }}</td>
@@ -72,61 +63,60 @@
   <div class="modal fade" id="jobModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        
-        <div class="modal-header">
-          <h5 class="title my-0">Новая организация</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        
-        <div class="modal-body">
-          <form>
-            <div class="row">
-              @csrf
-              <input type="text" class="form-control" hidden disable>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="title_ru">Название</label>
-                  <input type="text" class="form-control" name="title_ru" id="title_ru">
-                </div>
-                
-                <div class="form-group">
-                  <label for="city_ru">Город</label>
-                  <input type="text" class="form-control" name="city_ru">
-                </div>
-                
-                <div class="form-group">
-                  <label for="address_ru">Адресс</label>
-                  <textarea type="text" class="form-control" rows="3" name="address_ru">
-                  </textarea>
-                </div>
-                
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="title_en">Название - eng</label>
-                  <input type="text" class="form-control" name="title_en">
-                </div>
-                
-                <div class="form-group">
-                  <label for="city_en">Город - eng</label>
-                  <input type="text" class="form-control" name="city_en">
-                </div>
-                
-                <div class="form-group">
-                  <label for="address_en">Адресс - eng</label>
-                  <textarea type="text" class="form-control" rows="3" name="address_en">
-                  </textarea>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
+          
+          <div class="modal-header">
+            <h5 class="title my-0">Новая организация</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
 
-        <div class="modal-footer">
-          <button class="btn btn-primary float-right my-0" type="button" data-dismiss="modal">Сохранить</button>
-        </div>
+          <div class="modal-body">
+
+        <form method="POST" action="{{ route('jobs.store') }}" id="formJob">
+              <div class="row">
+                @csrf
+                <input type="text" class="form-control" hidden disable>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="title_ru">Название</label>
+                    <input type="text" class="form-control" name="title_ru" id="title_ru" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="city_ru">Город</label>
+                    <input type="text" class="form-control" name="city_ru">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="address_ru">Адресс</label>
+                    <textarea type="text" class="form-control" rows="3" name="address_ru"></textarea>
+                  </div>
+
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="title_en">Название - eng</label>
+                    <input type="text" class="form-control" name="title_en">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="city_en">Город - eng</label>
+                    <input type="text" class="form-control" name="city_en">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="address_en">Адресс - eng</label>
+                    <textarea type="text" class="form-control" rows="3" name="address_en"></textarea>
+                  </div>
+                </div>
+              </div>
+        </form>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-primary float-right my-0" type="submit" id="saveNewJob" dismiss="modal">Сохранить</button>
+          </div>
         
       </div>
     </div>
@@ -141,6 +131,8 @@
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
       $(document).ready(function () {
+        
+        // DataTable - load
         $('#jobs-table').DataTable({
           responsive: true,
           "language": {
@@ -157,6 +149,20 @@
 //             { "data": "address_en" },
 //           ]
         });
+        
+        // seve Job
+        $('#saveNewJob').on('click', function() {
+          $.ajax({
+            method: $('#formJob').attr('method'),
+            url: $('#formJob').attr('action'),
+            data: $('#formJob').serialize(),
+            success: function(data)
+             {
+                 alert('data'); // show response from the PHP скрипт.
+             }  
+          })
+        })
+        
       });
     </script>
 @endsection
