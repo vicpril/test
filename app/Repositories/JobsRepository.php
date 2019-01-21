@@ -11,6 +11,17 @@ class JobsRepository extends Repository{
       $this->model = $job;
    }
 
+
+   public function create($params)
+   {
+      if( $this->model->save($params) ) {
+         return true;
+      }
+
+      return false;
+
+   }
+
 }
 
 ?>

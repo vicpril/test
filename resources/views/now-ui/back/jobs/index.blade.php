@@ -158,7 +158,7 @@
             data: $('#formJob').serialize(),
             success: function(data)
              {
-                 alert('data'); // show response from the PHP скрипт.
+                 alert(data.message); // show response from the PHP скрипт.
              }  
           })
         })

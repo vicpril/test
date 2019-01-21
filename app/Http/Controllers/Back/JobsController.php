@@ -42,7 +42,27 @@ class JobsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dump($request);
+        $request = json_decode($request);
+        
+        $validRequest = $request->validate([
+            'title_ru' => 'required|max:100',
+            'city_ru' => 'max:20',
+            'address_ru' => 'max:250',
+            'title_en' => 'max:100',
+            'city_en' => 'max:20',
+            'address_en' => 'max:250'
+        ]);
+
+        $params = $request->except('_token');
+
+        if ($this->repository->create($params)) {
+            return response()->json(['success', 'Организация успешно добавлена']);
+        } else {
+            return response()->json(['error', 'Что-то пошло не так']);
+        }
+
+        
     }
 
     /**
