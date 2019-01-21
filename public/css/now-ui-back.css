@@ -16246,3 +16246,9 @@ textarea.form-control:focus {
   border: 1px solid #f96332;
 }
 
+.modal label {
+  font-size: 0.8571em !important;
+  margin-bottom: 5px !important;
+  color: #9A9A9A !important;
+}
+

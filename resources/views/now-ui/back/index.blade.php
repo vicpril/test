@@ -10,15 +10,19 @@
   <div class="sidebar" data-color="orange">
     {{-- Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow" --}}
     <div class="logo">
-      <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-        CT
-      </a>
-      <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-        Creative Tim
+      <a href="{{ route('home') }}" class="simple-text logo-normal text-center">
+        <i class="fas fa-lg fa-university"></i>
+        <span class="h6">Идеи и Идеалы</span>
       </a>
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
+        <li class="@if( Request::url() == route('jobs.index')) active @endif">
+          <a href="{{ route('jobs.index') }}">
+            <i class="now-ui-icons business_bank"></i>
+            <p>Организации</p>
+          </a>
+        </li>
         <li>
           <a href="./dashboard.html">
             <i class="now-ui-icons design_app"></i>
@@ -43,7 +47,7 @@
             <p>Notifications</p>
           </a>
         </li>
-        <li class="active ">
+        <li>
           <a href="./user.html">
             <i class="now-ui-icons users_single-02"></i>
             <p>User Profile</p>
