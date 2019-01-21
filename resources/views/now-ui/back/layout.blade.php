@@ -38,8 +38,7 @@
       </div>
 
       <!-- CONTENT -->
-        @include(env('THEME_BACK').'.back.content')
-        {{-- @yield('content') --}}
+        @yield('content')
       <!-- end content -->
       
       <!-- FOOTER -->

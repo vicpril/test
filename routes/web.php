@@ -64,6 +64,7 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
 	Route::middleware('admin')->group(function() {
 		Route::resource('articles', 'ArticlesController');
+		Route::resource('jobs', 'JobsController');
 
 	});
 });

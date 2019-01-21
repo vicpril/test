@@ -142,6 +142,7 @@
 @endsection
 
 
+
 @section('footer')
     <footer class="footer">
       <div class="container">
@@ -156,6 +157,9 @@
     </footer>
 @endsection
 
+@section('content')
+  @include(env('THEME_BACK').'.back.content')
+@endsection
 
 @section('modals')
   @include(env('THEME_BACK').'.back.modals')
