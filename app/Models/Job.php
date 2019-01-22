@@ -9,10 +9,10 @@ class Job extends Model
     protected $fillable = [
         'title_ru',
         'city_ru', 
-        'adress_ru',
+        'address_ru',
         'title_en',
         'city_en', 
-        'adress_en',
+        'address_en',
     ];  
   
     public $timestamps = false;  

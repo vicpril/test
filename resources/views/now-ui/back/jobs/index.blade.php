@@ -156,9 +156,11 @@
             method: $('#formJob').attr('method'),
             url: $('#formJob').attr('action'),
             data: $('#formJob').serialize(),
+            dataType: 'json',
             success: function(data)
              {
-                 alert(data.message); // show response from the PHP скрипт.
+                $('#jobs-table').parents('.modal').modal('toggle');
+                alert(data.success); // show response from the PHP скрипт.
              }  
           })
         })

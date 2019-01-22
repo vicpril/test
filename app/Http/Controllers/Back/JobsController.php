@@ -3,6 +3,7 @@
 namespace Idea\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
+use Idea\Http\Requests\JobRequest;
 use Idea\Http\Controllers\Controller;
 use Idea\Models\Job;
 use Idea\Repositories\JobsRepository;
@@ -40,28 +41,19 @@ class JobsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(JobRequest $request)
     {
-        dump($request);
-        $request = json_decode($request);
+        $result = $this->repository->create($request);
         
-        $validRequest = $request->validate([
-            'title_ru' => 'required|max:100',
-            'city_ru' => 'max:20',
-            'address_ru' => 'max:250',
-            'title_en' => 'max:100',
-            'city_en' => 'max:20',
-            'address_en' => 'max:250'
-        ]);
-
-        $params = $request->except('_token');
-
-        if ($this->repository->create($params)) {
-            return response()->json(['success', 'Организация успешно добавлена']);
-        } else {
-            return response()->json(['error', 'Что-то пошло не так']);
+        if ($request->ajax()) {
+            return response()->json($result);
+        }
+            
+        if ( is_array($result) && !empty($result['error']) ) {
+            return back()->with($result);
         }
 
+        return redirect('/admin/jobs')->with($result);
         
     }
 

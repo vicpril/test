@@ -12,13 +12,17 @@ class JobsRepository extends Repository{
    }
 
 
-   public function create($params)
+   public function create($request)
    {
-      if( $this->model->save($params) ) {
-         return true;
+      $data = $request->except('_token');
+
+      try {
+         $this->model->create($data);
+      } catch (Exception $e) {
+         return ['error' => $e->getMessage()];
       }
 
-      return false;
+      return ['success' => 'Организация успешно добавлена'];
 
    }
 
