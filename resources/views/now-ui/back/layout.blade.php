@@ -6,6 +6,7 @@
   {{--
   <link rel="icon" type="image/png" href="../assets/img/favicon.png"> --}}
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>
     Now UI Dashboard by Creative Tim
   </title>
@@ -54,7 +55,7 @@
 
   </div>
   <!--   Core JS Files   -->
-  <script src="{{ asset('js/now-ui-back.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/now-ui-back.js') }}"></script>
   <!--  Google Maps Plugin    -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   

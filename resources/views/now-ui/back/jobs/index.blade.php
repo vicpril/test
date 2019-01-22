@@ -25,10 +25,13 @@
             <button class="btn btn-primary btn-round d-inline-block my-0" id="newJob" type="button" data-toggle="modal" data-target="#jobModal">
               Создать новую
             </button>
+            <button class="btn btn-info btn-round d-inline-block my-0" id="reload" type="button" >
+              Reload
+            </button>
           </div>
           <div class="card-body">
-            <table class="table table-striped table-bordered" id="jobs-table">
-              <thead class="text-info">
+            <table class="table table-striped table-bordered table-responsive-md" id="jobs-table">
+              <thead class="text-primary">
                 <tr>
                   <th>Название</th>
                   <th>Город</th>
@@ -39,7 +42,8 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($jobs as $job)
+             
+                   @foreach($jobs as $job)
                   <tr>
                     <td>{{ $job->title_ru }}</td>
                     <td>{{ $job->city_ru }}</td>
@@ -49,6 +53,7 @@
                     <td class="address">{{ $job->address_en }}</td>
                   </tr>
                 @endforeach 
+                
               </tbody>
             </table>
           </div>
@@ -73,7 +78,7 @@
 
           <div class="modal-body">
 
-        <form method="POST" action="{{ route('jobs.store') }}" id="formJob">
+        <form method="POST" action="{{ route('jobs.store') }}" id="jobForm">
               <div class="row">
                 @csrf
                 <input type="text" class="form-control" hidden disable>
@@ -126,19 +131,19 @@
 
 @section('js')
     <!-- DataTables JavaScript -->
-    <script src="{{ asset('js/datatables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
+    <script defer>
       $(document).ready(function () {
         
         // DataTable - load
         $('#jobs-table').DataTable({
-          responsive: true,
+//           responsive: true,
           "language": {
                 "url": "/dataTables.russian.lang"
           },
-          fixedHeader: true
+          fixedHeader: true,
 //           ajax: '/admin/jobs',
 //           "columns": [
 //             { "data": "title_ru" },
@@ -153,17 +158,26 @@
         // seve Job
         $('#saveNewJob').on('click', function() {
           $.ajax({
-            method: $('#formJob').attr('method'),
-            url: $('#formJob').attr('action'),
-            data: $('#formJob').serialize(),
+            method: $('#jobForm').attr('method'),
+            url: $('#jobForm').attr('action'),
+            data: $('#jobForm').serialize(),
             dataType: 'json',
             success: function(data)
              {
-                $('#jobs-table').parents('.modal').modal('toggle');
-                alert(data.success); // show response from the PHP скрипт.
-             }  
+                $('#jobModal').modal('toggle');
+//                 alert(data.success); // show response from the PHP скрипт.
+                $('#jobs-table').reload();
+             },
+            error: function(data) {
+              alert(data.message);
+            }
           })
         })
+        
+        //reload
+//         $('#reload').on('click', function() {
+//             $('#jobs-table').DataTable().ajax.reload()
+//         });
         
       });
     </script>

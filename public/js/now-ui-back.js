@@ -36442,12 +36442,7 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-// CORE
+//CORE
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // PLUGINS
 
 
@@ -36459,6 +36454,15 @@ __webpack_require__(/*! ./now-ui-dashboard/plugins/perfect-scrollbar.jquery.min 
 
 
 __webpack_require__(/*! ./now-ui-dashboard/now-ui-dashboard */ "./resources/js/now-ui-dashboard/now-ui-dashboard.js"); // require('./now-ui-dashboard/now-ui-dashboard.min');
+// Load Datatables
+// try {
+//   require('datatables.net-bs4')($);
+//   require('datatables.net-fixedcolumns-bs4')($);
+//   require('datatables.net-fixedheader-bs4')($);
+//   require('datatables.net-responsive-bs4')($);
+//   require('datatables.net-rowgroup-bs4')($);
+//   require('datatables.net-scroller-bs4')($);
+// } catch (e) {}
 
 /***/ }),
 

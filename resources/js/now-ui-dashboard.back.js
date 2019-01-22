@@ -1,10 +1,4 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-// CORE
+//CORE
 require('./bootstrap');
 
 // PLUGINS
@@ -18,3 +12,13 @@ require('./now-ui-dashboard/plugins/perfect-scrollbar.jquery.min');
 require('./now-ui-dashboard/now-ui-dashboard');
 
 // require('./now-ui-dashboard/now-ui-dashboard.min');
+
+// Load Datatables
+// try {
+//   require('datatables.net-bs4')($);
+//   require('datatables.net-fixedcolumns-bs4')($);
+//   require('datatables.net-fixedheader-bs4')($);
+//   require('datatables.net-responsive-bs4')($);
+//   require('datatables.net-rowgroup-bs4')($);
+//   require('datatables.net-scroller-bs4')($);
+// } catch (e) {}

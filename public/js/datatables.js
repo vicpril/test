@@ -31710,18 +31710,30 @@ try {
 
 
 try {
-  // require('jquery');
-  __webpack_require__(/*! datatables.net-bs4 */ "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js")($);
+  var DataTable = __webpack_require__(/*! datatables.net-bs4 */ "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js");
 
-  __webpack_require__(/*! datatables.net-fixedcolumns-bs4 */ "./node_modules/datatables.net-fixedcolumns-bs4/js/fixedColumns.bootstrap4.js")($);
+  __webpack_require__(/*! datatables.net-fixedcolumns-bs4 */ "./node_modules/datatables.net-fixedcolumns-bs4/js/fixedColumns.bootstrap4.js");
 
-  __webpack_require__(/*! datatables.net-fixedheader-bs4 */ "./node_modules/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.js")($);
+  __webpack_require__(/*! datatables.net-fixedheader-bs4 */ "./node_modules/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.js");
 
-  __webpack_require__(/*! datatables.net-responsive-bs4 */ "./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.js")($);
+  __webpack_require__(/*! datatables.net-responsive-bs4 */ "./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.js");
 
-  __webpack_require__(/*! datatables.net-rowgroup-bs4 */ "./node_modules/datatables.net-rowgroup-bs4/js/rowGroup.bootstrap4.js")($);
+  __webpack_require__(/*! datatables.net-rowgroup-bs4 */ "./node_modules/datatables.net-rowgroup-bs4/js/rowGroup.bootstrap4.js");
 
-  __webpack_require__(/*! datatables.net-scroller-bs4 */ "./node_modules/datatables.net-scroller-bs4/js/scroller.bootstrap4.js")($);
+  __webpack_require__(/*! datatables.net-scroller-bs4 */ "./node_modules/datatables.net-scroller-bs4/js/scroller.bootstrap4.js");
+  /*
+  *   Fix "$(...).DataTable is not a function"
+  *
+  *   https://datatables.net/forums/discussion/50003/datatables-with-webpack-fn-datatable-undefined
+  */
+  //   $.fn.dataTable = DataTable;
+  //   $.fn.dataTableSettings = DataTable.settings;
+  //   $.fn.dataTableExt = DataTable.ext;
+  //   DataTable.$ = $;
+  //   $.fn.DataTable = function ( opts ) {
+  //       return $(this).dataTable( opts ).api();
+  //   };
+
 } catch (e) {}
 
 /***/ }),
