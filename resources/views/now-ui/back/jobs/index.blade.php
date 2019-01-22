@@ -143,7 +143,7 @@
           "language": {
                 "url": "/dataTables.russian.lang"
           },
-          fixedHeader: true,
+//           fixedHeader: true,
 //           ajax: '/admin/jobs',
 //           "columns": [
 //             { "data": "title_ru" },
