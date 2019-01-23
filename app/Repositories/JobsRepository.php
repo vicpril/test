@@ -25,6 +25,35 @@ class JobsRepository extends Repository{
       return ['success' => 'Организация успешно добавлена'];
 
    }
+	
+		public function update($request, $id)
+		 {
+				$data = $request->except(['_token', 'id']);
+				$record = $this->model->find($id);
+				
+				try {
+					 $record->update($data);
+				} catch (Exception $e) {
+					 return ['error' => $e->getMessage()];
+				}
+
+				return ['success' => "Организация <b>$record->title_ru<b> успешно обновлена"];
+
+		 }
+	
+		public function delete($id)
+		 {
+				$record = $this->model->find($id);
+				
+				try {
+					 $record->delete();
+				} catch (Exception $e) {
+					 return ['error' => $e->getMessage()];
+				}
+
+				return ['success' => "Организация <b>$record->title_ru<b> удалена"];
+
+		 }
 
 }
 

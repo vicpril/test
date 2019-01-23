@@ -83,7 +83,7 @@
         <form method="POST" action="{{ route('jobs.store') }}" id="jobForm">
               <div class="row">
                 @csrf
-                <input type="text" class="form-control" hidden disable>
+                <input type="text" class="form-control" name="id" hidden disable>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="title_ru">Название</label>
@@ -122,7 +122,8 @@
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-primary float-right my-0" type="submit" id="saveNewJob" dismiss="modal">Сохранить</button>
+            <button class="btn btn-link btn-danger my-0 mr-auto d-none" type="delete" id="deleteJob" dismiss="modal">Удалить</button>
+            <button class="btn btn-primary float-right my-0" type="submit" id="saveJob" dismiss="modal">Сохранить</button>
           </div>
         
       </div>
@@ -145,13 +146,13 @@
           "language": {
                 "url": "/dataTables.russian.lang"
           },
-//           fixedHeader: true,
+          // fixedHeader: true,
           ajax: '/admin/jobs',
           "columns": [
             { 
               "data": "title_ru",
               "render": function(data, type, row, meta){
-                      return'<a href="#" id="' + row.id + '" class="text-info">' + data + '</a>';
+                      return'<button class="btn btn-link btn-info" data-toggle="modal" data-target="#jobModal" data-id="' + row.id + '" >' + data + '</button>';
               }
             },
             { "data": "city_ru" },
@@ -166,7 +167,7 @@
         });
         
         // seve Job
-        $('#saveNewJob').on('click', function() {
+        $('#saveJob').on('click', function() {
           $.ajax({
             method: $('#jobForm').attr('method'),
             url: $('#jobForm').attr('action'),
@@ -176,18 +177,76 @@
              {
                 $('#jobModal').modal('toggle');
                 $('#jobForm').cleanform();
-//                 alert(data.success); // show response from the PHP скрипт.
                 $('#jobs-table').DataTable().ajax.reload();
              },
             error: function(data) {
               alert(data.message);
             }
           })
-        })
+        });
         
+        //Load the Job in modal
+        $('#jobModal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var id = button.data('id') // Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          if (id !== undefined) {
+            var data = $.ajax({
+               method: 'get',
+               url: 'jobs/' + id + '/edit',
+               dataType: 'json',
+               success: function(resp)
+               {
+                  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                  var modal = $('#jobModal');
+                  modal.find('.modal-header h5').text('Организация: ' + resp.data.title_ru);
+                  modal.find('input[name="id"]').val(resp.data.id);
+                  modal.find('input[name="title_ru"]').val(resp.data.title_ru);
+                  modal.find('input[name="city_ru"]').val(resp.data.city_ru);
+                  modal.find('textarea[name="address_ru"]').val(resp.data.address_ru);
+                  modal.find('input[name="title_en"]').val(resp.data.title_en);
+                  modal.find('input[name="city_en"]').val(resp.data.city_en);
+                  modal.find('textarea[name="address_en"]').val(resp.data.address_en);
+                  $('#deleteJob').removeClass('d-none');
+                  $('#saveJob').text('Обновить');
+                  $('#jobForm').attr("method", "PUT");
+                  $('#jobForm').attr("action", "/admin/jobs/" + resp.data.id);
+
+               }
+            });
+          } else {
+            var modal = $('#jobModal');
+            modal.find('.modal-header h5').text('Новая организация');
+            $('#deleteJob').addClass('d-none');
+            $('#saveJob').text('Сохранить');
+            $('#jobForm').cleanform();
+            $('#jobForm').attr("method", "POST");
+            $('#jobForm').attr("action", "/admin/jobs");
+          }
+        });
         
+        // delete Job
+        $('#deleteJob').on('click', function() {
+          var id = $('#jobForm input[name="id"]').val();
+          $.ajax({
+            method: "DELETE",
+            url: $('#jobForm').attr('action'),
+            dataType: 'json',
+            success: function(data)
+             {
+                $('#jobModal').modal('toggle');
+                $('#jobForm').cleanform();
+                $('#jobs-table').DataTable().ajax.reload();
+             },
+            error: function(data) {
+              alert(data.message);
+            }
+          })
+        });
         
       });
+      
+      
 
       //reload
       $('#reload').on('click', function(){

@@ -16258,3 +16258,14 @@ textarea.form-control:focus {
   color: #9A9A9A !important;
 }
 
+.btn-link:hover {
+  color: #0056b3;
+  text-decoration: underline !important;
+}
+
+.btn-link:focus,
+.btn-link.focus {
+  text-decoration: underline !important;
+  box-shadow: none;
+}
+

@@ -76,7 +76,13 @@ class JobsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $record = $this->repository->find($id);
+        
+        if (request()->ajax()) {
+          return response()->json([
+            'data' => $record
+          ]);
+        }
     }
 
     /**
@@ -88,7 +94,17 @@ class JobsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $result = $this->repository->update($request, $id);
+        
+        if ($request->ajax()) {
+            return response()->json($result);
+        }
+            
+        if ( is_array($result) && !empty($result['error']) ) {
+            return back()->with($result);
+        }
+
+        return redirect('/admin/jobs')->with($result);
     }
 
     /**
@@ -99,6 +115,16 @@ class JobsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $result = $this->repository->delete($id);
+        
+        if (request()->ajax()) {
+            return response()->json($result);
+        }
+            
+        if ( is_array($result) && !empty($result['error']) ) {
+            return back()->with($result);
+        }
+
+        return redirect('/admin/jobs')->with($result);
     }
 }

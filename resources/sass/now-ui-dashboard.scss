@@ -100,3 +100,18 @@ textarea.form-control {
         color: $dark-gray !important;
   }
 }
+
+// Make a button look and behave like a link
+.btn-link {
+  @include hover {
+    color: $link-hover-color;
+    text-decoration: underline !important;
+  }
+
+  &:focus,
+  &.focus {
+    text-decoration: underline !important;
+    box-shadow: none;
+  }
+
+}
