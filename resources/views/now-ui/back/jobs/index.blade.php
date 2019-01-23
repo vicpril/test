@@ -3,7 +3,7 @@
 
 @section('css')
   <!-- DataTables CSS -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.css') }}">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.css') }}"> -->
   
   <style>
     .address {
@@ -30,32 +30,34 @@
             </button>
           </div>
           <div class="card-body">
-            <table class="table table-striped table-bordered table-responsive-md" id="jobs-table">
-              <thead class="text-primary">
-                <tr>
-                  <th>Название</th>
-                  <th>Город</th>
-                  <th>Адресс</th>
-                  <th>Название(en)</th>
-                  <th>Город(en)</th>
-                  <th>Адресс(en)</th>
-                </tr>
-              </thead>
-              <tbody>
-             
-                   @foreach($jobs as $job)
+            <div class="">
+              <table class="table table-striped table-bordered table-responsive-md" style="width:100%" id="jobs-table">
+                <thead class="text-primary">
                   <tr>
-                    <td>{{ $job->title_ru }}</td>
-                    <td>{{ $job->city_ru }}</td>
-                    <td class="address">{{ $job->address_ru }}</td>
-                    <td>{{ $job->title_en }}</td>
-                    <td>{{ $job->city_en }}</td>
-                    <td class="address">{{ $job->address_en }}</td>
+                    <th>Название</th>
+                    <th>Город</th>
+                    <th>Адресс</th>
+                    <th>Название(en)</th>
+                    <th>Город(en)</th>
+                    <th>Адресс(en)</th>
                   </tr>
-                @endforeach 
-                
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+              {{-- 
+                  @foreach($jobs as $job)
+                    <tr>
+                      <td>{{ $job->title_ru }}</td>
+                      <td>{{ $job->city_ru }}</td>
+                      <td class="address">{{ $job->address_ru }}</td>
+                      <td>{{ $job->title_en }}</td>
+                      <td>{{ $job->city_en }}</td>
+                      <td class="address">{{ $job->address_en }}</td>
+                    </tr>
+                  @endforeach 
+                  --}}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -131,7 +133,7 @@
 
 @section('js')
     <!-- DataTables JavaScript -->
-    <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script>
+    <!-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> -->
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script defer>
@@ -139,20 +141,28 @@
         
         // DataTable - load
         $('#jobs-table').DataTable({
-//           responsive: true,
+          // responsive: true,
           "language": {
                 "url": "/dataTables.russian.lang"
           },
 //           fixedHeader: true,
-//           ajax: '/admin/jobs',
-//           "columns": [
-//             { "data": "title_ru" },
-//             { "data": "city_ru" },
-//             { "data": "address_ru" },
-//             { "data": "title_en" },
-//             { "data": "city_en" },
-//             { "data": "address_en" },
-//           ]
+          ajax: '/admin/jobs',
+          "columns": [
+            { 
+              "data": "title_ru",
+              "render": function(data, type, row, meta){
+                      return'<a href="#" id="' + row.id + '" class="text-info">' + data + '</a>';
+              }
+            },
+            { "data": "city_ru" },
+            { "data": "address_ru" },
+            { "data": "title_en" },
+            { "data": "city_en" },
+            { "data": "address_en" },
+          ],
+          "drawCallback": function(settings, json) {
+            $('#jobs-table tr td:nth-child(3n)').addClass('address');
+          }
         });
         
         // seve Job
@@ -165,8 +175,9 @@
             success: function(data)
              {
                 $('#jobModal').modal('toggle');
+                $('#jobForm').cleanform();
 //                 alert(data.success); // show response from the PHP скрипт.
-                $('#jobs-table').reload();
+                $('#jobs-table').DataTable().ajax.reload();
              },
             error: function(data) {
               alert(data.message);
@@ -174,11 +185,20 @@
           })
         })
         
-        //reload
-//         $('#reload').on('click', function() {
-//             $('#jobs-table').DataTable().ajax.reload()
-//         });
+        
         
       });
+
+      //reload
+      $('#reload').on('click', function(){
+        $('#jobs-table').DataTable().ajax.reload();
+      });
+
+      //form clean
+        (function( $ ) {
+          $.fn.cleanform = function() {
+            $(this).find("input[type=text], textarea").val("");
+          };
+        })( jQuery );
     </script>
 @endsection

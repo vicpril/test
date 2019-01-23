@@ -20,16 +20,16 @@ let mix = require('laravel-mix');
 //   .sass('resources/sass/myTheme.back.scss', 'public/css/back.css');
 
 // NOW-UI-DASHBOARD
-mix
-  .js('resources/js/now-ui-dashboard.back.js', 'public/js/now-ui-back.js')
-  .sass('resources/sass/now-ui-dashboard.scss', 'public/css/now-ui-back.css');
-
 // mix
-//   .js('resources/js/now-ui-dashboard.back.js', 'public/js/')
-//   .extract(['datatables'])
+//   .js('resources/js/now-ui-dashboard.back.js', 'public/js/now-ui-back.js')
 //   .sass('resources/sass/now-ui-dashboard.scss', 'public/css/now-ui-back.css');
 
-//DataTables.net
 mix
-  .js('resources/js/datatables.js', 'public/js')
-  .sass('resources/sass/datatables.scss', 'public/css/datatables.css');
+  .js('resources/js/now-ui-dashboard.back.js', 'public/js/')
+  // .extract(['datatables'])
+  .sass('resources/sass/now-ui-dashboard.scss', 'public/css/');
+
+//DataTables.net
+// mix
+//   .js('resources/js/datatables.js', 'public/js')
+//   .sass('resources/sass/datatables.scss', 'public/css/datatables.css');

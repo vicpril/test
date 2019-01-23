@@ -5,31 +5,29 @@
  */
 
 try {
-  window.$ = window.jQuery = require('jquery');
+  // window.$ = window.jQuery = require('jquery');
 } catch (e) {}
 
 // Load Datatables
 try {
-  var DataTable = require('datatables.net-bs4');
-  require('datatables.net-fixedcolumns-bs4');
-  require('datatables.net-fixedheader-bs4');
-  require('datatables.net-responsive-bs4');
-  require('datatables.net-rowgroup-bs4');
-  require('datatables.net-scroller-bs4');
-  
+  var DataTable = require('datatables.net-bs4')($);
+  require('datatables.net-fixedcolumns-bs4')($);
+  require('datatables.net-fixedheader-bs4')($);
+  require('datatables.net-responsive-bs4')($);
+  require('datatables.net-rowgroup-bs4')($);
+  require('datatables.net-scroller-bs4')($);
+
   /*
-  *   Fix "$(...).DataTable is not a function"
-  *
-  *   https://datatables.net/forums/discussion/50003/datatables-with-webpack-fn-datatable-undefined
-  */
-//   $.fn.dataTable = DataTable;
-//   $.fn.dataTableSettings = DataTable.settings;
-//   $.fn.dataTableExt = DataTable.ext;
-//   DataTable.$ = $;
+   *   Fix "$(...).DataTable is not a function"
+   *
+   *   https://datatables.net/forums/discussion/50003/datatables-with-webpack-fn-datatable-undefined
+   */
+  //   $.fn.dataTable = DataTable;
+  //   $.fn.dataTableSettings = DataTable.settings;
+  //   $.fn.dataTableExt = DataTable.ext;
+  //   DataTable.$ = $;
 
-//   $.fn.DataTable = function ( opts ) {
-//       return $(this).dataTable( opts ).api();
-//   };
-  
+  //   $.fn.DataTable = function ( opts ) {
+  //       return $(this).dataTable( opts ).api();
+  //   };
 } catch (e) {}
-

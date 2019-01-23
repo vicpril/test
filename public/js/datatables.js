@@ -31704,28 +31704,27 @@ return jQuery;
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
-try {
-  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+try {// window.$ = window.jQuery = require('jquery');
 } catch (e) {} // Load Datatables
 
 
 try {
-  var DataTable = __webpack_require__(/*! datatables.net-bs4 */ "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js");
+  var DataTable = __webpack_require__(/*! datatables.net-bs4 */ "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js")($);
 
-  __webpack_require__(/*! datatables.net-fixedcolumns-bs4 */ "./node_modules/datatables.net-fixedcolumns-bs4/js/fixedColumns.bootstrap4.js");
+  __webpack_require__(/*! datatables.net-fixedcolumns-bs4 */ "./node_modules/datatables.net-fixedcolumns-bs4/js/fixedColumns.bootstrap4.js")($);
 
-  __webpack_require__(/*! datatables.net-fixedheader-bs4 */ "./node_modules/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.js");
+  __webpack_require__(/*! datatables.net-fixedheader-bs4 */ "./node_modules/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.js")($);
 
-  __webpack_require__(/*! datatables.net-responsive-bs4 */ "./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.js");
+  __webpack_require__(/*! datatables.net-responsive-bs4 */ "./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.js")($);
 
-  __webpack_require__(/*! datatables.net-rowgroup-bs4 */ "./node_modules/datatables.net-rowgroup-bs4/js/rowGroup.bootstrap4.js");
+  __webpack_require__(/*! datatables.net-rowgroup-bs4 */ "./node_modules/datatables.net-rowgroup-bs4/js/rowGroup.bootstrap4.js")($);
 
-  __webpack_require__(/*! datatables.net-scroller-bs4 */ "./node_modules/datatables.net-scroller-bs4/js/scroller.bootstrap4.js");
+  __webpack_require__(/*! datatables.net-scroller-bs4 */ "./node_modules/datatables.net-scroller-bs4/js/scroller.bootstrap4.js")($);
   /*
-  *   Fix "$(...).DataTable is not a function"
-  *
-  *   https://datatables.net/forums/discussion/50003/datatables-with-webpack-fn-datatable-undefined
-  */
+   *   Fix "$(...).DataTable is not a function"
+   *
+   *   https://datatables.net/forums/discussion/50003/datatables-with-webpack-fn-datatable-undefined
+   */
   //   $.fn.dataTable = DataTable;
   //   $.fn.dataTableSettings = DataTable.settings;
   //   $.fn.dataTableExt = DataTable.ext;
@@ -31745,7 +31744,7 @@ try {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/js/datatables.js */"./resources/js/datatables.js");
+module.exports = __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\js\datatables.js */"./resources/js/datatables.js");
 
 
 /***/ })

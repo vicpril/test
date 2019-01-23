@@ -1,6 +1,4 @@
 {
-    "/js/datatables.js": "/js/datatables.js",
-    "/js/now-ui-back.js": "/js/now-ui-back.js",
-    "/css/now-ui-back.css": "/css/now-ui-back.css",
-    "/css/datatables.css": "/css/datatables.css"
+    "/js/now-ui-dashboard.back.js": "/js/now-ui-dashboard.back.js",
+    "/css/now-ui-dashboard.css": "/css/now-ui-dashboard.css"
 }

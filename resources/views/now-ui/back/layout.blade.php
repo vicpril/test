@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link href="{{ asset('css/now-ui-back.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/now-ui-dashboard.css') }}" rel="stylesheet">
   <!-- CSS Just for demo purpose, don't include it in your project -->
   
   @yield('css')
@@ -55,7 +55,8 @@
 
   </div>
   <!--   Core JS Files   -->
-  <script type="text/javascript" src="{{ asset('js/now-ui-back.js') }}"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script> -->
+  <script src="{{ asset('js/now-ui-dashboard.back.js') }}" type="text/javascript"></script>
   <!--  Google Maps Plugin    -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   

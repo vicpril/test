@@ -59,6 +59,14 @@
 
 @import "now-ui-dashboard/responsive";
 
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+@import '~datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css';
+@import '~datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css';
+@import '~datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css';
+@import '~datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css';
+@import '~datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css';
+
+
 .form-control {
     border: 1px solid #89a3d0 ;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
