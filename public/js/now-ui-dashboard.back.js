@@ -55374,7 +55374,7 @@ backgroundOrange = false;
 sidebar_mini_active = false;
 toggle_initialized = false;
 var is_iPad = navigator.userAgent.match(/iPad/i) != null;
-var scrollElement = navigator.platform.indexOf('Win') > -1 ? $(".main-panel") : $(window);
+var scrollElement = navigator.platform.indexOf('Win') > -1 ? $('.main-panel') : $(window);
 seq = 0, delays = 80, durations = 500;
 seq2 = 0, delays2 = 80, durations2 = 500;
 $(document).ready(function () {
@@ -55396,10 +55396,10 @@ $(document).ready(function () {
     $(window).on('scroll', nowuiDashboard.checkScrollForTransparentNavbar);
   }
 
-  $('.form-control').on("focus", function () {
-    $(this).parent('.input-group').addClass("input-group-focus");
-  }).on("blur", function () {
-    $(this).parent(".input-group").removeClass("input-group-focus");
+  $('.form-control').on('focus', function () {
+    $(this).parent('.input-group').addClass('input-group-focus');
+  }).on('blur', function () {
+    $(this).parent('.input-group').removeClass('input-group-focus');
   }); // Activate bootstrapSwitch
 
   $('.bootstrap-switch').each(function () {
@@ -55445,13 +55445,13 @@ $(window).resize(function () {
 
   if ($('.full-screen-map').length == 0 && $('.bd-docs').length == 0) {
     $navbar = $('.navbar');
-    isExpanded = $('.navbar').find('[data-toggle="collapse"]').attr("aria-expanded");
+    isExpanded = $('.navbar').find('[data-toggle="collapse"]').attr('aria-expanded');
 
     if ($navbar.hasClass('bg-white') && $(window).width() > 991) {
       if (scrollElement.scrollTop() == 0) {
         $navbar.removeClass('bg-white').addClass('navbar-transparent');
       }
-    } else if ($navbar.hasClass('navbar-transparent') && $(window).width() < 991 && isExpanded != "false") {
+    } else if ($navbar.hasClass('navbar-transparent') && $(window).width() < 991 && isExpanded != 'false') {
       $navbar.addClass('bg-white').removeClass('navbar-transparent');
     }
   }
@@ -55492,17 +55492,18 @@ nowuiDashboard = {
       }, 1000);
     });
   },
-  showNotification: function showNotification(from, align) {
-    color = 'primary';
+  showNotification: function showNotification(data) {
+    color = data.color;
     $.notify({
-      icon: "now-ui-icons ui-1_bell-53",
-      message: "Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer."
+      // icon: "now-ui-icons ui-1_bell-53",
+      icon: data.icon,
+      message: data.message
     }, {
-      type: color,
+      type: data.color,
       timer: 8000,
       placement: {
-        from: from,
-        align: align
+        from: data.from,
+        align: data.align
       }
     });
   }
@@ -55514,9 +55515,9 @@ function hexToRGB(hex, alpha) {
       b = parseInt(hex.slice(5, 7), 16);
 
   if (alpha) {
-    return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
   } else {
-    return "rgb(" + r + ", " + g + ", " + b + ")";
+    return 'rgb(' + r + ', ' + g + ', ' + b + ')';
   }
 }
 
@@ -64345,8 +64346,8 @@ var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/cabox/workspace/resources/js/now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
-module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
+__webpack_require__(/*! c:\OSPanel\domains\i.l\resources\js\now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
+module.exports = __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\sass\now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
 
 
 /***/ })

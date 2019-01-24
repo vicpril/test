@@ -152,7 +152,7 @@
             { 
               "data": "title_ru",
               "render": function(data, type, row, meta){
-                      return'<button class="btn btn-link btn-info" data-toggle="modal" data-target="#jobModal" data-id="' + row.id + '" >' + data + '</button>';
+                      return'<button class="btn btn-link btn-info text-left p-0" data-toggle="modal" data-target="#jobModal" data-id="' + row.id + '" >' + data + '</button>';
               }
             },
             { "data": "city_ru" },
@@ -178,6 +178,13 @@
                 $('#jobModal').modal('toggle');
                 $('#jobForm').cleanform();
                 $('#jobs-table').DataTable().ajax.reload();
+                nowuiDashboard.showNotification({
+                      color: "success",
+                      message: data.message,
+                      icon: "now-ui-icons ui-1_bell-53",
+                      from: 'top',
+                      align: 'right'
+                    });
              },
             error: function(data) {
               alert(data.message);
@@ -246,20 +253,25 @@
                     $('#jobModal').modal('toggle');
                     $('#jobForm').cleanform();
                     $('#jobs-table').DataTable().ajax.reload();
+                    nowuiDashboard.showNotification({
+                      color: "success",
+                      message: data.message,
+                      icon: "now-ui-icons ui-1_bell-53",
+                      from: 'top',
+                      align: 'right'
+                    });
                  },
                 error: function(data) {
                   alert(data.message);
                 }
+          });
+          
         });
-        
-      });
       
-      
-
-      //reload
-      $('#reload').on('click', function(){
-        $('#jobs-table').DataTable().ajax.reload();
-      });
+        //reload
+        $('#reload').on('click', function(){
+          $('#jobs-table').DataTable().ajax.reload();
+        });
 
      
         (function( $ ) {
@@ -267,23 +279,6 @@
           $.fn.cleanform = function() {
             $(this).find("input[type=text], textarea").val("");
           };
-          
-//           //destroy
-//           var destroy = function (event, that, url, swalTitle, confirmButtonText, cancelButtonText, errorAjax) {
-//                 event.preventDefault()
-//                 swal({
-//                     title: swalTitle,
-//                     type: "warning",
-//                     showCancelButton: true,
-//                     confirmButtonColor: '#DD6B55',
-//                     confirmButtonText: confirmButtonText,
-//                     cancelButtonText: cancelButtonText
-//                 }).then(function () {
-//                     ajax(that.attr('href'), 'DELETE', url, errorAjax)
-//                 })
-//             }
-          
-          
           
         })( jQuery );
         

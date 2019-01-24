@@ -22,7 +22,10 @@ class JobsRepository extends Repository{
          return ['error' => $e->getMessage()];
       }
 
-      return ['success' => 'Организация успешно добавлена'];
+      return [
+			'status' => 'success',
+			'message' => 'Организация успешно добавлена'
+		];
 
    }
 	
@@ -37,7 +40,10 @@ class JobsRepository extends Repository{
 					 return ['error' => $e->getMessage()];
 				}
 
-				return ['success' => "Организация <b>$record->title_ru<b> успешно обновлена"];
+				return [
+					'status' => 'success',
+					'message' => "Организация <b>$record->title_ru</b> успешно обновлена"
+				];
 
 		 }
 	
@@ -46,7 +52,10 @@ class JobsRepository extends Repository{
 				
 				$this->model->find($id)->delete();
 			
-				return ['success' =>  "Организация удалена"];
+				return [
+					'status' => 'success',
+					'message' =>  "Организация удалена"
+				];
 
 		 }
 
