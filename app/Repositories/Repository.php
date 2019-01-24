@@ -42,7 +42,9 @@ abstract class Repository {
 		return $result = $this->model->find($id);
 	}
 	
-//   public function delete($id);
+  public function delete($id) {
+			return $this->model->find($id)->delete();
+	}
 
 //   public function update($id, array $data);
 

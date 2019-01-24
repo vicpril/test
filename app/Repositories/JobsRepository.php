@@ -43,15 +43,10 @@ class JobsRepository extends Repository{
 	
 		public function delete($id)
 		 {
-				$record = $this->model->find($id);
 				
-				try {
-					 $record->delete();
-				} catch (Exception $e) {
-					 return ['error' => $e->getMessage()];
-				}
-
-				return ['success' => "Организация <b>$record->title_ru<b> удалена"];
+				$this->model->find($id)->delete();
+			
+				return ['success' =>  "Организация удалена"];
 
 		 }
 

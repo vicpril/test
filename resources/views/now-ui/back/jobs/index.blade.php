@@ -225,35 +225,32 @@
           }
         });
         
-        // delete Job
-        
-        $('#deleteJob').on('click', function (event) {
-            destroy(event, $(this), 
-            url: '{{ route('jobs.index') }}', 
-            swalTitle: 'Really destroy post ?', 
-            confirmButtonText: 'Yes', 
-            cancelButtonText: 'No', 
-            errorAjax: 'Looks like there is a server issue...')
-        })
 
-//         $('#deleteJob').on('click', function() {
-//           var id = $('#jobForm input[name="id"]').val();
-//           $('jobForm').append('<input a></input> ')
-//           $.ajax({
-//             method: "DELETE",
-//             url: $('#jobForm').attr('action'),
-//             dataType: 'json',
-//             success: function(data)
-//              {
-//                 $('#jobModal').modal('toggle');
-//                 $('#jobForm').cleanform();
-//                 $('#jobs-table').DataTable().ajax.reload();
-//              },
-//             error: function(data) {
-//               alert(data.message);
-//             }
-//           })
-//         });
+        // delete Job
+        $('#deleteJob').on('click', function(event) {
+          var id = $('#jobForm input[name="id"]').val();
+          var title = $('#jobForm input[name="title_ru"]').val();
+          event.preventDefault()
+              $.ajax({
+                method: "DELETE",
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/admin/jobs') }}/" + id,
+                dataType: 'json',
+                beforeSend:function(){
+                     return confirm("Eдалить организацию " + title + "?");
+                },
+                success: function(data)
+                 {
+                    $('#jobModal').modal('toggle');
+                    $('#jobForm').cleanform();
+                    $('#jobs-table').DataTable().ajax.reload();
+                 },
+                error: function(data) {
+                  alert(data.message);
+                }
+        });
         
       });
       
@@ -271,23 +268,25 @@
             $(this).find("input[type=text], textarea").val("");
           };
           
-          //destroy
-          var destroy = function (event, that, url, swalTitle, confirmButtonText, cancelButtonText, errorAjax) {
-                event.preventDefault()
-                swal({
-                    title: swalTitle,
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: '#DD6B55',
-                    confirmButtonText: confirmButtonText,
-                    cancelButtonText: cancelButtonText
-                }).then(function () {
-                    ajax(that.attr('href'), 'DELETE', url, errorAjax)
-                })
-            }
+//           //destroy
+//           var destroy = function (event, that, url, swalTitle, confirmButtonText, cancelButtonText, errorAjax) {
+//                 event.preventDefault()
+//                 swal({
+//                     title: swalTitle,
+//                     type: "warning",
+//                     showCancelButton: true,
+//                     confirmButtonColor: '#DD6B55',
+//                     confirmButtonText: confirmButtonText,
+//                     cancelButtonText: cancelButtonText
+//                 }).then(function () {
+//                     ajax(that.attr('href'), 'DELETE', url, errorAjax)
+//                 })
+//             }
           
           
           
         })( jQuery );
+        
+      });
     </script>
 @endsection
