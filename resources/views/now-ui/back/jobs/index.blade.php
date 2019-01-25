@@ -71,6 +71,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
           
+        <form method="POST" action="{{ route('jobs.store') }}" id="jobForm">
           <div class="modal-header">
             <h5 class="title my-0">Новая организация</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -80,7 +81,6 @@
 
           <div class="modal-body">
 
-        <form method="POST" action="{{ route('jobs.store') }}" id="jobForm">
               <div class="row">
                 @csrf
                 <input type="text" class="form-control" name="id" hidden disable>
@@ -118,7 +118,6 @@
                   </div>
                 </div>
               </div>
-        </form>
           </div>
 
           <div class="modal-footer">
@@ -126,6 +125,7 @@
             <button class="btn btn-primary float-right my-0" type="submit" id="saveJob" dismiss="modal">Сохранить</button>
           </div>
         
+        </form>
       </div>
     </div>
   </div>
@@ -167,30 +167,35 @@
         });
         
         // seve Job
-        $('#saveJob').on('click', function() {
-          $.ajax({
-            method: $('#jobForm').attr('method'),
-            url: $('#jobForm').attr('action'),
-            data: $('#jobForm').serialize(),
-            dataType: 'json',
-            success: function(data)
-             {
-                $('#jobModal').modal('toggle');
-                $('#jobForm').cleanform();
-                $('#jobs-table').DataTable().ajax.reload();
-                nowuiDashboard.showNotification({
-                      color: "success",
-                      message: data.message,
-                      icon: "now-ui-icons ui-1_bell-53",
-                      from: 'top',
-                      align: 'right'
-                    });
-             },
-            error: function(data) {
-              alert(data.message);
+//         $('#saveJob').on('click', function() {
+          $('#jobForm').validate({
+
+            submitHandler: function() {
+              $.ajax({
+                method: $('#jobForm').attr('method'),
+                url: $('#jobForm').attr('action'),
+                data: $('#jobForm').serialize(),
+                dataType: 'json',
+                success: function(data)
+                 {
+                    $('#jobModal').modal('toggle');
+                    $('#jobForm').cleanform();
+                    $('#jobs-table').DataTable().ajax.reload();
+                    nowuiDashboard.showNotification({
+                          color: "success",
+                          message: data.message,
+                          icon: "now-ui-icons ui-1_bell-53",
+                          from: 'top',
+                          align: 'right'
+                        });
+                 },
+                error: function(data) {
+                  alert(data.message);
+                }
+              })
             }
-          })
-        });
+          });
+//         });
         
         //Load the Job in modal
         $('#jobModal').on('show.bs.modal', function (event) {

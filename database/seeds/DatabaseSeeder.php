@@ -29,22 +29,22 @@ class DatabaseSeeder extends Seeder
 
     	DB::table('menus')->insert([
     		'title' => 'О журнале',
-    		'title-en' => 'About',
+    		'title_en' => 'About',
     		'path' => '/',
     	]);
     	DB::table('menus')->insert([
     		'title' => 'Свежий номер',
-    		'title-en' => 'New Issue',
+    		'title_en' => 'New Issue',
     		'path' => '/articles',
     	]);
     	DB::table('menus')->insert([
     		'title' => 'Архив',
-    		'title-en' => 'Archive',
+    		'title_en' => 'Archive',
     		'path' => '/archive',
     	]);
     	DB::table('menus')->insert([
     		'title' => 'Редколлегия и Редсовет',
-    		'title-en' => 'Editorial board',
+    		'title_en' => 'Editorial board',
     		'path' => '#',
     	]);
     	DB::table('menus')->insert([
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
     	]);
     	DB::table('menus')->insert([
     		'title' => 'Контакты',
-    		'title-en' => 'Contacts',
+    		'title_en' => 'Contacts',
     		'path' => '/contacts',
     	]);
 

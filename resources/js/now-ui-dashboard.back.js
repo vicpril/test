@@ -2,6 +2,8 @@
 require('./bootstrap');
 
 // PLUGINS
+require('jquery-validation');
+
 require('./now-ui-dashboard/plugins/bootstrap-notify');
 
 require('./now-ui-dashboard/plugins/chartjs.min');
