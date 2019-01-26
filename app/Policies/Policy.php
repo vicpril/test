@@ -21,4 +21,9 @@ class Policy
             return true;
         }
     }
+    
+    // public function manage(User $user) {
+    //     return $user->role === 'admin';
+    // }
+
 }

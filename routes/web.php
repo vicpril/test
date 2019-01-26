@@ -48,7 +48,7 @@ function()
 /** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
 
 
-// Auth::routes();
+Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 
 	Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -60,11 +60,12 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
 	Route::middleware('redac')->group(function() {
 		Route::name('admin')->get('/', 'AdminController@index');
+		Route::resource('jobs', 'JobsController')->middleware('auth');
 	});
 
-	Route::middleware('admin')->group(function() {
+	Route::middleware(['auth','admin'])->group(function() {
 		Route::resource('articles', 'ArticlesController');
-		Route::resource('jobs', 'JobsController');
+		
 
 	});
 });

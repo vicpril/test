@@ -16269,3 +16269,7 @@ textarea.form-control:focus {
   box-shadow: none;
 }
 
+tbody tr td {
+  font-size: 0.9em;
+}
+

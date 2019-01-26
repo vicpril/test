@@ -7,6 +7,8 @@ use Idea\Http\Requests\JobRequest;
 use Idea\Http\Controllers\Controller;
 use Idea\Models\Job;
 use Idea\Repositories\JobsRepository;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 
 class JobsController extends Controller 
 {
@@ -17,6 +19,8 @@ class JobsController extends Controller
         $this->repository = $j_rep;
        
         $this->table = 'jobs';
+
+        // $this->authorizeResource(Job::class, 'job');
      }
   
      /**
@@ -43,6 +47,8 @@ class JobsController extends Controller
      */
     public function store(JobRequest $request)
     {
+        // $this->authorize('manage');
+
         $result = $this->repository->create($request);
         
         if ($request->ajax()) {
@@ -92,8 +98,10 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(JobRequest $request, $id)
     {
+        // $this->authorize('manage');
+
         $result = $this->repository->update($request, $id);
         
         if ($request->ajax()) {
@@ -115,6 +123,8 @@ class JobsController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Job::class);
+        
         $result = $this->repository->delete($id);
         
         if (request()->ajax()) {

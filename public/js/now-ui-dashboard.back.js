@@ -66007,8 +66007,8 @@ var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/cabox/workspace/resources/js/now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
-module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
+__webpack_require__(/*! c:\OSPanel\domains\i.l\resources\js\now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
+module.exports = __webpack_require__(/*! c:\OSPanel\domains\i.l\resources\sass\now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
 
 
 /***/ })

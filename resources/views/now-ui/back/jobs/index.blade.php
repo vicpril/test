@@ -25,9 +25,6 @@
             <button class="btn btn-primary btn-round d-inline-block my-0" id="newJob" type="button" data-toggle="modal" data-target="#jobModal">
               Создать новую
             </button>
-            <button class="btn btn-info btn-round d-inline-block my-0" id="reload" type="button" >
-              Reload
-            </button>
           </div>
           <div class="card-body">
             <div class="">
@@ -150,9 +147,10 @@
           ajax: '/admin/jobs',
           "columns": [
             { 
+              // "width": "80%",
               "data": "title_ru",
               "render": function(data, type, row, meta){
-                      return'<button class="btn btn-link btn-info text-left p-0" data-toggle="modal" data-target="#jobModal" data-id="' + row.id + '" >' + data + '</button>';
+                      return'<a href="#" class="text-info text-left p-0" data-toggle="modal" data-target="#jobModal" data-id="' + row.id + '" >' + data + '</a>';
               }
             },
             { "data": "city_ru" },
@@ -167,35 +165,36 @@
         });
         
         // seve Job
-//         $('#saveJob').on('click', function() {
-          $('#jobForm').validate({
-
-            submitHandler: function() {
-              $.ajax({
-                method: $('#jobForm').attr('method'),
-                url: $('#jobForm').attr('action'),
-                data: $('#jobForm').serialize(),
-                dataType: 'json',
-                success: function(data)
-                 {
-                    $('#jobModal').modal('toggle');
-                    $('#jobForm').cleanform();
-                    $('#jobs-table').DataTable().ajax.reload();
-                    nowuiDashboard.showNotification({
-                          color: "success",
-                          message: data.message,
-                          icon: "now-ui-icons ui-1_bell-53",
-                          from: 'top',
-                          align: 'right'
-                        });
-                 },
-                error: function(data) {
-                  alert(data.message);
-                }
-              })
+        $('#jobForm').submit(function(event) {
+          var form = $(this);
+          $.ajax({
+            method: form.attr('method'),
+            url: form.attr('action'),
+            data: form.serialize(),
+            dataType: 'json',
+            success: function(data)
+            {
+              $('#jobModal').modal('toggle');
+              form.cleanform();
+              $('#jobs-table').DataTable().ajax.reload();
+              
+              var color = (data.exception == undefined) ? "success" : "warning";
+              var icon = (data.exception == undefined) ? "now-ui-icons ui-1_check" : "now-ui-icons ui-1_bell-53";
+              nowuiDashboard.showNotification({
+                color: color,
+                message: data.message,
+                icon: icon,
+                from: 'top',
+                align: 'right'
+              });
+            },
+            error: function(data) {
+              alert(data.message);
             }
           });
-//         });
+          event.preventDefault(); // avoid to execute the actual submit of the form.
+        });
+
         
         //Load the Job in modal
         $('#jobModal').on('show.bs.modal', function (event) {
@@ -223,7 +222,6 @@
                   $('#saveJob').text('Обновить');
                   $('#jobForm').attr("method", "PUT");
                   $('#jobForm').attr("action", "/admin/jobs/" + resp.data.id);
-
                }
             });
           } else {
@@ -251,17 +249,20 @@
                 url: "{{ url('/admin/jobs') }}/" + id,
                 dataType: 'json',
                 beforeSend:function(){
-                     return confirm("Eдалить организацию " + title + "?");
+                     return confirm("Удалить организацию " + title + "?");
                 },
                 success: function(data)
                  {
                     $('#jobModal').modal('toggle');
                     $('#jobForm').cleanform();
                     $('#jobs-table').DataTable().ajax.reload();
+                    
+                    var color = (data.exception == undefined) ? "success" : "warning";
+                    var icon = (data.exception == undefined) ? "now-ui-icons ui-1_check" : "now-ui-icons ui-1_bell-53";
                     nowuiDashboard.showNotification({
-                      color: "success",
+                      color: color,
                       message: data.message,
-                      icon: "now-ui-icons ui-1_bell-53",
+                      icon: icon,
                       from: 'top',
                       align: 'right'
                     });
@@ -273,12 +274,6 @@
           
         });
       
-        //reload
-        $('#reload').on('click', function(){
-          $('#jobs-table').DataTable().ajax.reload();
-        });
-
-     
         (function( $ ) {
            //form clean
           $.fn.cleanform = function() {
@@ -288,5 +283,7 @@
         })( jQuery );
         
       });
+      
+      
     </script>
 @endsection

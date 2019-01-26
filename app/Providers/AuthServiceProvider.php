@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 use Idea\Models\Article;
 use Idea\Policies\ArticlePolicy;
+use Idea\Models\Job;
+use Idea\Policies\JobPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,8 +18,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'Idea\Model' => 'Idea\Policies\ModelPolicy',
+        // 'Idea\Model' => 'Idea\Policies\ModelPolicy',
         Article::class => ArticlePolicy::class,
+        Job::class => JobPolicy::class,
+
 
     ];
 

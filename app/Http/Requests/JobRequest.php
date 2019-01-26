@@ -14,7 +14,7 @@ class JobRequest extends FormRequest
     public function authorize()
     {
         $role = \Auth::user()->role;
-        return $role === 'admin' || $role === 'redac';
+        return $role === 'admin' ;
     }
 
     /**
@@ -24,6 +24,8 @@ class JobRequest extends FormRequest
      */
     public function rules()
     {
+        $this->sanitize();
+
         return [
             'title_ru' => 'required|max:100',
             'city_ru' => 'max:20',
@@ -32,5 +34,14 @@ class JobRequest extends FormRequest
             'city_en' => 'max:20',
             'address_en' => 'max:250'
         ];
+    }
+
+    public function sanitize()
+    {
+        $input = $this->all();
+
+        $input = filter_var_array($input, FILTER_SANITIZE_STRING);
+
+        $this->replace($input);     
     }
 }

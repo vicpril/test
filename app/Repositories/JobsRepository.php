@@ -49,7 +49,6 @@ class JobsRepository extends Repository{
 	
 		public function delete($id)
 		 {
-				
 				$this->model->find($id)->delete();
 			
 				return [
