@@ -40,25 +40,19 @@ trait Indexable
         // $records = $this->repository->getAll (config ("app.nbrPages.back.$this->table"), $parameters);
         $records = $this->repository->all();
 
+        // dd($records);
+
         // $links = $records->appends ($parameters)->links ('back.pagination');
 
         // Ajax response
-//         if ($request->ajax()) {
-//             return response()->json([
-//                 // 'table' => view ("back.$this->table.table", [$this->table => $records])->render (),
-//                 'table' => view (env('THEME_BACK').".back.$this->table.table", [$this->table => $records])->render (),
-//                 // 'pagination' => $links->toHtml(),
-//             ]);
-//         }
         if ($request->ajax()) {
           return response()->json([
             'data' => $records
           ]);
         }
 
-    //    return view ("back.$this->table.index", [$this->table => $records]);
-//       dump($records);
-       return view (env('THEME_BACK').".back.$this->table.index", [$this->table => $records]);
+    //    return view (env('THEME_BACK').".back.$this->table.index", [$this->table => $records]);
+        return $this->renderOutput([$this->table => $records]);
 
     }
 

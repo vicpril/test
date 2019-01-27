@@ -60,7 +60,9 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
 	Route::middleware('redac')->group(function() {
 		Route::name('admin')->get('/', 'AdminController@index');
-		Route::resource('jobs', 'JobsController')->middleware('auth');
+		Route::resource('jobs', 'JobsController')->except(['create', 'show']);
+		Route::resource('users', 'UsersController');
+
 	});
 
 	Route::middleware(['auth','admin'])->group(function() {

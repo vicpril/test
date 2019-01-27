@@ -1,4 +1,4 @@
-@extends(env('THEME_BACK').'.back.index')
+@extends(env('THEME_BACK').'.back.layout')
 
 
 @section('css')
@@ -14,6 +14,15 @@
   
 @endsection
 
+
+@section('sidebar')
+      {!! $sidebar !!}
+@endsection
+
+
+@section('navbar')
+      {!! $navbar !!}
+@endsection
 
 @section('content')
   <div class="content">
@@ -126,6 +135,10 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('footer')
+  {!! $footer !!}
 @endsection
 
 
