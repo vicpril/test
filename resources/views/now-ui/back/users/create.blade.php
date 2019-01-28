@@ -20,7 +20,8 @@
 
 @section('content')
 <div class="content">
-    <form action="POST">
+    <form method="POST" action="{{ route('users.store') }}">
+      @csrf
     <div class="row">
           <div class="col-md-8">
             <div class="card">
@@ -29,100 +30,94 @@
               </div>
               <div class="card-body">
               
-                  <label class="">Полное имя</label>
                   <div class="row">
                     <div class="col-md-8 col-sm-7 col-xs-7">
-                      <input type="text" class="form-control mr-2" name="full_name">
-                    </div>
-                    <div class="col-md-4 col-sm-5 col-xs-5">
-                      <button type="button" class="btn btn-primary btn-simple btn-round float-right py-2 my-0" id="autoEnter">Заполнить</button>
-                    </div>
-
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-5">
                       <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" placeholder="">
+                        <label class="h6">Полное имя</label>
+                        <input type="text" class="form-control mr-2" name="full_name" placeholder="Ф.И.О.">
                       </div>
+                    </div>
+                    <div class="col-md-4 col-sm-5 col-xs-5 text-right">
+                      <label class="d-block">Автозаполнение</label>
+                      <button type="button" class="btn btn-primary btn-simple btn-round py-2 my-0" id="autoEnter">Заполнить</button>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="col-md-5 pr-1">
+                    <div class="col-md-7 pr-1">
                       <div class="form-group">
-                        <label>Company (disabled)</label>
-                        <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
-                      </div>
-                    </div>
-                    <div class="col-md-3 px-1">
-                      <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Username" value="michael23">
-                      </div>
-                    </div>
-                    <div class="col-md-4 pl-1">
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
+                        <label class="h6" for="email">Email</label>
                         <input type="email" class="form-control" placeholder="Email">
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 pr-1">
+                    <div class="col-md-5 pl-1">
                       <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" class="form-control" placeholder="Company" value="Mike">
-                      </div>
-                    </div>
-                    <div class="col-md-6 pl-1">
-                      <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                        <label class="h6" for="alias">Логин</label>
+                        <input type="text" class="form-control" name="alias" @if(isset($user->alias)) disabled="" @endif>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
-                      </div>
-                    </div>
-                  </div>
+                
+                  <label class="h6 mt-2">Данные на русском</label>
                   <div class="row">
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
-                        <label>City</label>
-                        <input type="text" class="form-control" placeholder="City" value="Mike">
+                        <label for="last_name_ru">Фамилия</label>
+                        <input type="text" class="form-control" name="last_name_ru">
                       </div>
                     </div>
-                    <div class="col-md-4 px-1">
-                      <div class="form-group">
-                        <label>Country</label>
-                        <input type="text" class="form-control" placeholder="Country" value="Andrew">
-                      </div>
+                    <div class="col-md-3 px-1">
+                        <label for="first_name_ru">Имя</label>
+                        <input type="text" class="form-control" name="first_name_ru">
                     </div>
-                    <div class="col-md-4 pl-1">
-                      <div class="form-group">
-                        <label>Postal Code</label>
-                        <input type="number" class="form-control" placeholder="ZIP Code">
-                      </div>
+                    <div class="col-md-3 px-1">
+                        <label for="patronymic_ru">Отчество</label>
+                        <input type="text" class="form-control" name="patronymic_ru">                
+                    </div>
+                    <div class="col-md-2 pl-1">
+                        <label for="initials_ru">Инициалы</label>
+                        <input type="text" class="form-control" name="initials_ru">                
                     </div>
                   </div>
+                
+                  <label class="h6 mt-2">Данные на английском</label>
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4 pr-1">
                       <div class="form-group">
-                        <label>About Me</label>
-                        <textarea rows="4" cols="80" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                        <label for="last_name_en">Last Name</label>
+                        <input type="text" class="form-control" name="last_name_en">
                       </div>
                     </div>
+                    <div class="col-md-3 px-1">
+                        <label for="first_name_en">First Name</label>
+                        <input type="text" class="form-control" name="first_name_en">
+                    </div>
+                    <div class="col-md-3 px-1">
+                        <label for="patronymic_en">Middle Name</label>
+                        <input type="text" class="form-control" name="patronymic_en">                
+                    </div>
+                    <div class="col-md-2 pl-1">
+                        <label for="initials_en">Initials</label>
+                        <input type="text" class="form-control" name="initials_en">                
+                    </div>
                   </div>
+                
+
               </div>
             </div>
           </div>
+      
           <div class="col-md-4">
+            
+            <div class="card">
+<!--               <div class="card-header">
+                <h5 class="title">Сохранить</h5>
+              </div> -->
+              <div class="card-body">
+                <input class="btn btn-primary btn-block" type="submit" value="Сохранить">
+              </div>
+            </div>
+            
             <div class="card card-user">
               <div class="image">
                 <img src="../assets/img/bg5.jpg" alt="...">
