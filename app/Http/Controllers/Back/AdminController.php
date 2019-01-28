@@ -53,6 +53,7 @@ class AdminController extends Controller
         // }
 
         return view($this->template)->with($this->vars);
+
     }
     
     /**

@@ -39,7 +39,11 @@ class UsersController extends AdminController
      */
     public function create()
     {
-        //
+        $this->subtitle = "Новый автор";
+
+        $this->template = env('THEME_BACK').'.back.users.create';
+
+        return $this->renderOutput();
     }
 
     /**

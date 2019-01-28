@@ -3,7 +3,6 @@
 namespace Idea\Policies;
 
 use Idea\Models\User;
-use Idea\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -30,7 +29,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
