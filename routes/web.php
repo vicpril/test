@@ -47,6 +47,9 @@ function()
 
 /** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
 
+Route::get('uploadfile','HomeController@uploadfile');
+Route::post('uploadfile','HomeController@uploadFilePost');
+
 
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
@@ -62,7 +65,9 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 		Route::name('admin')->get('/', 'AdminController@index');
 		Route::resource('jobs', 'JobsController')->except(['create', 'show']);
 		Route::resource('users', 'UsersController');
-
+		//test upload avatar
+		Route::get('profile', 'UsersController@profile');
+		Route::post('profile', 'UsersController@update_avatar');
 	});
 
 	Route::middleware(['auth','admin'])->group(function() {

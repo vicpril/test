@@ -37,6 +37,8 @@ class AdminController extends Controller
 
         $sidebar = view(env('THEME_BACK').'.back.sidebar')->render();
         $this->vars = array_add($this->vars, 'sidebar', $sidebar);
+//         $this->vars = array_merge($this->vars, compact('sidebar', $sidebar));
+    
         
         $navbar = view(env('THEME_BACK').'.back.navbar')
                         ->with([

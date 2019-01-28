@@ -118,6 +118,22 @@
               </div>
             </div>
             
+            <div class="card">
+                @if(isset($user->avatar))
+                    <div class="card-header">
+                        <img src="{{ asset('storage/'.$user->avatar) }}" alt="">
+                    </div>
+                @endif
+              
+                  <div class="card-body">
+                    <h6>Фотография</h6>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="avatar" id="customFile">
+                      <label class="custom-file-label" for="customFile">Файл не выбран</label>
+                    </div>
+                  </div>
+            </div>
+            
             <div class="card card-user">
               <div class="image">
                 <img src="../assets/img/bg5.jpg" alt="...">
@@ -173,10 +189,4 @@
     <!-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> -->
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script defer>
-      $(document).ready(function () {
-        
-
-      });
-    </script>
 @endsection

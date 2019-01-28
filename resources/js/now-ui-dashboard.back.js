@@ -24,3 +24,9 @@ try {
   require('datatables.net-rowgroup-bs4')($);
   require('datatables.net-scroller-bs4')($);
 } catch (e) {}
+
+//bs-custom-file-input
+import bsCustomFileInput from 'bs-custom-file-input'
+$(document).ready(function () {
+  bsCustomFileInput.init()
+})
