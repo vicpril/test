@@ -23,6 +23,14 @@
             <p>Организации</p>
           </a>
         </li>
+        
+        <li class="@if( Request::url() == route('files.index')) active @endif">
+          <a href="{{ route('files.index') }}">
+            <i class="now-ui-icons files_single-copy-04"></i>
+            <p>Файлы</p>
+          </a>
+        </li>
+        
         <li>
           <a href="./dashboard.html">
             <i class="now-ui-icons design_app"></i>

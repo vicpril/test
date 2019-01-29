@@ -53,7 +53,7 @@ class JobsController extends AdminController
     {
         // $this->authorize('manage');
 
-        $result = $this->repository->create($request);
+        $result = $this->repository->create($request->except('_token'));
         
         if ($request->ajax()) {
             return response()->json($result);
@@ -106,7 +106,7 @@ class JobsController extends AdminController
     {
         // $this->authorize('manage');
 
-        $result = $this->repository->update($request, $id);
+        $result = $this->repository->update($request->except(['_token', 'id']), $id);
         
         if ($request->ajax()) {
             return response()->json($result);

@@ -21,6 +21,7 @@ class CreateMetaArticleTable extends Migration
             $table->text('text');
             $table->text('annotation')->nullable();
             $table->string('keywords')->nullable();
+            $table->integer('file')->unsigned()->nullable();
 
             // $table->timestamps();
         });
@@ -28,6 +29,10 @@ class CreateMetaArticleTable extends Migration
         Schema::table('meta_articles', function (Blueprint $table) {
 
             $table->foreign('article_id')->references('id')->on('articles')
+                            ->onDelete('restrict')
+                            ->onUpdate('restrict')
+            ;
+            $table->foreign('file')->references('id')->on('files')
                             ->onDelete('restrict')
                             ->onUpdate('restrict')
             ;

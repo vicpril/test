@@ -29,7 +29,6 @@ class CreateArticlesTable extends Migration
             $table->string('udk', 100)->nullable();
             // $table->string('keywords')->nullable();
 
-
             $table->timestamps();
         });
     }

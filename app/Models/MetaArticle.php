@@ -14,7 +14,7 @@ class MetaArticle extends Model
      *
      * @var array
      */
-    protected $fillable = ['article_id', 'lang', 'title', 'text', 'annotation', 'keywords'];
+    protected $fillable = ['article_id', 'lang', 'title', 'text', 'annotation', 'keywords', 'file'];
 
     public $timestamps = false;
 
@@ -22,6 +22,10 @@ class MetaArticle extends Model
 
     public function article() {
     	return $this->belongsTo('Idea\Models\Article');
+    }
+  
+    public function file() {
+      return $this->belongsTo('Idea\Models\File');
     }
 
 }

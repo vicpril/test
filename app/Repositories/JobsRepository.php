@@ -12,10 +12,8 @@ class JobsRepository extends Repository{
    }
 
 
-   public function create($request)
+   public function create($data)
    {
-      $data = $request->except('_token');
-
       try {
          $this->model->create($data);
       } catch (Exception $e) {
@@ -29,9 +27,8 @@ class JobsRepository extends Repository{
 
    }
 	
-		public function update($request, $id)
+		public function update($data, $id)
 		 {
-				$data = $request->except(['_token', 'id']);
 				$record = $this->model->find($id);
 				
 				try {
