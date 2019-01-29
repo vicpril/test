@@ -73,4 +73,13 @@ class AdminController extends Controller
         auth()->loguot();
     }
 
+    public function dashboard()
+    {
+        $this->subtitle = "Панель администратора";
+
+        $this->template = env('THEME_BACK').'.back.index';
+
+        return $this->renderOutput();
+    }
+
 }

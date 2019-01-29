@@ -62,7 +62,7 @@ Auth::routes();
 Route::prefix('admin')->namespace('Back')->group(function () {
 
 	Route::middleware('redac')->group(function() {
-		Route::name('admin')->get('/', 'AdminController@index');
+		Route::name('admin')->get('/', 'AdminController@dashboard');
 		Route::resource('jobs', 'JobsController')->except(['create', 'show']);
 		Route::resource('users', 'UsersController');
 		//test upload avatar
