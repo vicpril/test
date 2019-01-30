@@ -13,20 +13,22 @@ class FilesRepository extends Repository{
 
    public function create($data)
    {
-      
-      $data['url'] = date("Y/m") ."/" . request()->avatar->getClientOriginalExtension();
-    
-      $request->avatar->storeAs('files', $data['url']);
+      $file = $data['file'];
+      unset($data['file']);
+      $data['url'] = date("Y/m") ."/" . $file->getClientOriginalName();
+
+      $file->storeAs('files', $data['url']);
       
       try {
-         $this->model->create($data);
+         $result = $this->model->firstOrCreate(['url' => $data['url']]);
       } catch (Exception $e) {
          return ['error' => $e->getMessage()];
       }
 
       return [
         'status' => 'success',
-        'message' => 'Файл успешно добавлен'
+        'message' => 'Файл успешно добавлен',
+        'result' => $result,
       ];
 
    }

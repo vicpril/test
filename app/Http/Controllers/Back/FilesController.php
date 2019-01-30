@@ -50,10 +50,12 @@ class FilesController extends AdminController
      */
     public function store(FileRequest $request)
     {
-        $result = $this->repository->create($request->except('_token'));
+        // dd($request->file('file'));
         
+        $result = $this->repository->create($request->except('_token'));
+        // dd($result);
         if ($request->ajax()) {
-            $file = $this->repository->one($result['id']);
+            $file = $result['result'];
             $result['row'] = "
                     <tr>
                       <td>{{ $file->id }}</td>
@@ -66,11 +68,12 @@ class FilesController extends AdminController
             return response()->json($result);
         }
             
-        if ( is_array($result) && !empty($result['error']) ) {
-            return back()->with($result);
-        }
+        // if ( is_array($result) && !empty($result['error']) ) {
+        //     return back()->with($result);
+        // }
 
-        return redirect('/admin/jobs')->with($result);
+        // return redirect('/admin/jobs')->with($result);
+        return false;
     }
 
     /**

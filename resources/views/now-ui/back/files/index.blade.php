@@ -85,10 +85,10 @@
                 @csrf
                 <input type="text" class="form-control" name="id" hidden disable>
                 <div class="col-md-12">
-                  <label for="title">Выберите файл</label>
+                    <label for="title d-block">Выберите файл</label>
 <!--                   <div class="custom-file d-flex align-items-center"> -->
 <!--                     <label class="custom-file-label form-control align-self-center" for="customFile">Файл не выбран</label> -->
-                    <input type="file" class="" name="file" id="file">
+                    <input type="file" class="" name="file" id="file" required>
 <!--                   </div> -->
                   
                   <div class="form-group mt-2">
@@ -143,17 +143,22 @@
         
         // seve File
         $('#fileForm').submit(function(event) {
+          event.preventDefault(); // avoid to execute the actual submit of the form.
           var form = $(this);
           $.ajax({
             method: form.attr('method'),
             url: form.attr('action'),
-            data: form.serialize(),
+            data: new FormData(this),
+              contentType: false,
+              cache: false,
+              processData:false,
             dataType: 'json',
             success: function(data)
             {
-              $('#saveModal').modal('toggle');
-              form.cleanform();
-//               $('#filesTable').DataTable().ajax.reload();
+              console.log(data);
+//               $('#saveModal').modal('toggle');
+//               form.cleanform();
+// //               $('#filesTable').DataTable().ajax.reload();
               
               
 //               var color = (data.exception == undefined) ? "success" : "warning";
@@ -166,11 +171,17 @@
 //                 align: 'right'
 //               });
             },
-//             error: function(data) {
-// //               alert(data.message);
-//             }
+            error: function(data) {
+              nowuiDashboard.showNotification({
+                color: "danger",
+                message: data.message,
+                icon: "now-ui-icons ui-2_settings-90",
+                from: 'top',
+                align: 'right'
+              });
+            }
           });
-          event.preventDefault(); // avoid to execute the actual submit of the form.
+          
         });
 
         
