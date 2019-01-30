@@ -5,6 +5,7 @@ namespace Idea\Http\Controllers\Back;
 use Idea\Http\Requests\FileRequest;
 use Idea\Http\Controllers\Controller;
 use Idea\Repositories\FilesRepository;
+use Idea\Models\File;
 
 class FilesController extends AdminController
 {
@@ -104,6 +105,14 @@ class FilesController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete', File::class);
+      
+        $result = $this->repository->delete($id);
+      
+        if (request()->ajax()) {
+            return response()->json($result);
+        }
+            
+        return redirect('/admin/files')->with($result);
     }
 }

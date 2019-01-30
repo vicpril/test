@@ -4,6 +4,7 @@ namespace Idea\Repositories;
 
 use Idea\Models\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FilesRepository extends Repository{
 
@@ -54,13 +55,20 @@ class FilesRepository extends Repository{
 	
 		public function delete($id)
 		 {
-				$this->model->find($id)->delete();
+				$file = $this->model->find($id);
+				if ( Storage::delete('/files/'.$file->url) ) {
+					$this->model->find($id)->delete();
+					return [
+						'status' => 'success',
+						'message' =>  "Файл удален"
+					];
+				}
 			
 				return [
-					'status' => 'success',
-					'message' =>  "Файл удален"
-				];
-
+						'status' => 'error',
+						'message' =>  "Что-то пошло не так"
+					];
+			
 		 }
 
 }

@@ -116,7 +116,7 @@
 
 @section('js')
     <!-- DataTables JavaScript -->
-    <!-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> -->
+    {{-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> --}}
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script defer>
@@ -132,10 +132,7 @@
         
         // DataTable - load
         $('#filesTable').DataTable({
-          // responsive: true,
-          "language": {
-                "url": "/dataTables.russian.lang"
-          },
+          "language": { "url": "/dataTables.russian.lang"},
           "order": [ 4, 'desc' ],
           "columnDefs": [
             { "orderable": false, "targets": 5 }
@@ -157,9 +154,8 @@
             dataType: 'json',
             success: function(data)
             {
-              $('#fileModal').modal('toggle');
+              $('#fileModal').modal('hide');
               form.cleanform();
-//               $('#filesTable').DataTable().ajax.reload();
               if (data.exception == undefined) {
                 var color =  "success";
                 var icon = "now-ui-icons ui-1_check";
@@ -188,73 +184,77 @@
               });
             }
           });
-          
         });
 
         
         //Load the Job in modal
-        $('#jobModal').on('show.bs.modal', function (event) {
-          var button = $(event.relatedTarget) // Button that triggered the modal
-          var id = button.data('id') // Extract info from data-* attributes
-          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-          if (id !== undefined) {
-            var data = $.ajax({
-               method: 'get',
-               url: 'jobs/' + id + '/edit',
-               dataType: 'json',
-               success: function(resp)
-               {
-                  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                  var modal = $('#jobModal');
-                  modal.find('.modal-header h5').text('Организация: ' + resp.data.title_ru);
-                  modal.find('input[name="id"]').val(resp.data.id);
-                  modal.find('input[name="title_ru"]').val(resp.data.title_ru);
-                  modal.find('input[name="city_ru"]').val(resp.data.city_ru);
-                  modal.find('textarea[name="address_ru"]').val(resp.data.address_ru);
-                  modal.find('input[name="title_en"]').val(resp.data.title_en);
-                  modal.find('input[name="city_en"]').val(resp.data.city_en);
-                  modal.find('textarea[name="address_en"]').val(resp.data.address_en);
-                  $('#deleteJob').removeClass('d-none');
-                  $('#saveJob').text('Обновить');
-                  $('#jobForm').attr("method", "PUT");
-                  $('#jobForm').attr("action", "/admin/jobs/" + resp.data.id);
-               }
-            });
-          } else {
-            var modal = $('#jobModal');
-            modal.find('.modal-header h5').text('Новая организация');
-            $('#deleteJob').addClass('d-none');
-            $('#saveJob').text('Сохранить');
-            $('#jobForm').cleanform();
-            $('#jobForm').attr("method", "POST");
-            $('#jobForm').attr("action", "/admin/jobs");
-          }
-        });
+//         $('#fileModal').on('show.bs.modal', function (event) {
+//           var button = $(event.relatedTarget) // Button that triggered the modal
+//           var id = button.data('id') // Extract info from data-* attributes
+//           // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+//           if (id !== undefined) {
+//             var data = $.ajax({
+//                method: 'get',
+//                url: 'files/' + id + '/edit',
+//                dataType: 'json',
+//                success: function(resp)
+//                {
+//                   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+//                   var modal = $('#fileModal');
+//                   modal.find('.modal-header h5').text('Организация: ' + resp.data.title_ru);
+//                   modal.find('input[name="id"]').val(resp.data.id);
+//                   modal.find('input[name="title_ru"]').val(resp.data.title_ru);
+//                   modal.find('input[name="city_ru"]').val(resp.data.city_ru);
+//                   modal.find('textarea[name="address_ru"]').val(resp.data.address_ru);
+//                   modal.find('input[name="title_en"]').val(resp.data.title_en);
+//                   modal.find('input[name="city_en"]').val(resp.data.city_en);
+//                   modal.find('textarea[name="address_en"]').val(resp.data.address_en);
+//                   $('#deleteJob').removeClass('d-none');
+//                   $('#saveJob').text('Обновить');
+//                   $('#fileForm').attr("method", "PUT");
+//                   $('#fileForm').attr("action", "/admin/files/" + resp.data.id);
+//                }
+//             });
+//           } else {
+//             var modal = $('#fileModal');
+//             modal.find('.modal-header h5').text('Новая организация');
+//             $('#deleteJob').addClass('d-none');
+//             $('#saveJob').text('Сохранить');
+//             $('#fileForm').cleanform();
+//             $('#fileForm').attr("method", "POST");
+//             $('#fileForm').attr("action", "/admin/jobs");
+//           }
+//         });
         
 
-        // delete Job
-        $('#deleteJob').on('click', function(event) {
-          var id = $('#jobForm input[name="id"]').val();
-          var title = $('#jobForm input[name="title_ru"]').val();
+        // delete File
+        $(document).on('click', '.delete', function(event) {
+          var id = $(this).closest('tr').attr('id');
+          var title = $(this).closest('tr').children('td.file-title:first').text();
           event.preventDefault()
               $.ajax({
                 method: "DELETE",
                 headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "{{ url('/admin/jobs') }}/" + id,
+                url: "{{ url('/admin/files') }}/" + id,
                 dataType: 'json',
                 beforeSend:function(){
-                     return confirm("Удалить организацию " + title + "?");
+                     return confirm("Удалить файл " + title + "?");
                 },
                 success: function(data)
                  {
-                    $('#jobModal').modal('toggle');
-                    $('#jobForm').cleanform();
-                    $('#jobs-table').DataTable().ajax.reload();
-                    
-                    var color = (data.exception == undefined) ? "success" : "warning";
-                    var icon = (data.exception == undefined) ? "now-ui-icons ui-1_check" : "now-ui-icons ui-1_bell-53";
+                    $('#fileModal').modal('hide');
+                    $('#fileForm').cleanform();
+                    if (data.exception == undefined && data.status == 'success') {
+                      var color =  "success";
+                      var icon = "now-ui-icons ui-1_check";
+                        var table = $('#filesTable').DataTable();
+                        table.row($("tr#" + id)).remove().draw();
+                    } else {
+                      var color = "warning";
+                      var icon = "now-ui-icons ui-1_bell-53";
+                    }
                     nowuiDashboard.showNotification({
                       color: color,
                       message: data.message,
@@ -267,7 +267,6 @@
                   alert(data.message);
                 }
           });
-          
         });
       
         (function( $ ) {
