@@ -11,6 +11,8 @@ class File extends Model
         'url', 
     ];  
   
+    public $timestamps = true;
+  
     public function article() {
         return $this->hasMany('Idea\Models\MetaArticle', 'file', 'id');
     }

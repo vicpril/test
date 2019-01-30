@@ -6,9 +6,14 @@
   <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.css') }}"> -->
   
   <style>
-    .address {
-        font-size: 0.8em !important;
-      }
+    .icon-link-delete {
+      color: grey !important;
+      
+    }
+    .icon-link-delete:hover {
+      color: red !important;
+      
+    }
   
   </style>
   
@@ -36,7 +41,7 @@
             </button>
           </div>
           <div class="card-body">
-              <table class="table table-striped table-bordered table-responsive-md" style="width:100%" id="filesTable">
+              <table class="table table-striped table-bordered table-responsive-lg" style="width:100%" id="filesTable">
                 <thead class="text-primary">
                   <tr>
                     <th>ID</th>
@@ -44,18 +49,13 @@
                     <th>Путь</th>
                     <th>Время создания</th>
                     <th>Время редактирования</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($files as $file)
-                    <tr>
-                      <td>{{ $file->id }}</td>
-                      <td>{{ $file->title }}</td>
-                      <td>{{ $file->url }}</td>
-                      <td>{{ $file->created_at }}</td>
-                      <td>{{ $file->updated_at }}</td>
-                    </tr>
-                  @endforeach 
+                 @foreach($files as $file)
+                    @include(env('THEME_BACK').'.back.files.table_row', $file)  
+                  @endforeach
                 </tbody>
               </table>
           </div>
@@ -85,12 +85,9 @@
                 @csrf
                 <input type="text" class="form-control" name="id" hidden disable>
                 <div class="col-md-12">
-                    <label for="title d-block">Выберите файл</label>
-<!--                   <div class="custom-file d-flex align-items-center"> -->
-<!--                     <label class="custom-file-label form-control align-self-center" for="customFile">Файл не выбран</label> -->
-                    <input type="file" class="" name="file" id="file" required>
-<!--                   </div> -->
-                  
+                  <label for="title d-block">Файл</label>
+                  <input type="file" class="" name="file" id="file" required>
+
                   <div class="form-group mt-2">
                     <label for="title">Название</label>
                     <input type="text" class="form-control" name="title" id="title" required>
@@ -139,6 +136,10 @@
           "language": {
                 "url": "/dataTables.russian.lang"
           },
+          "order": [ 4, 'desc' ],
+          "columnDefs": [
+            { "orderable": false, "targets": 5 }
+          ]
         });
         
         // seve File
@@ -152,24 +153,30 @@
               contentType: false,
               cache: false,
               processData:false,
+            
             dataType: 'json',
             success: function(data)
             {
-              console.log(data);
-//               $('#saveModal').modal('toggle');
-//               form.cleanform();
-// //               $('#filesTable').DataTable().ajax.reload();
-              
-              
-//               var color = (data.exception == undefined) ? "success" : "warning";
-//               var icon = (data.exception == undefined) ? "now-ui-icons ui-1_check" : "now-ui-icons ui-1_bell-53";
-//               nowuiDashboard.showNotification({
-//                 color: color,
-//                 message: data.message,
-//                 icon: icon,
-//                 from: 'top',
-//                 align: 'right'
-//               });
+              $('#fileModal').modal('toggle');
+              form.cleanform();
+//               $('#filesTable').DataTable().ajax.reload();
+              if (data.exception == undefined) {
+                var color =  "success";
+                var icon = "now-ui-icons ui-1_check";
+                  var table = $('#filesTable').DataTable();
+                  table.row($("tr#" + data.id)).remove();
+                  table.row.add($(data.row)[0]).draw();
+              } else {
+                var color = "warning";
+                var icon = "now-ui-icons ui-1_bell-53";
+              }
+              nowuiDashboard.showNotification({
+                color: color,
+                message: data.message,
+                icon: icon,
+                from: 'top',
+                align: 'right'
+              });
             },
             error: function(data) {
               nowuiDashboard.showNotification({
@@ -266,7 +273,7 @@
         (function( $ ) {
            //form clean
           $.fn.cleanform = function() {
-            $(this).find("input[type=text], textarea").val("");
+            $(this).find("input[type=text], input[type=file]").val("");
           };
           
         })( jQuery );

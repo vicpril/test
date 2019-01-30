@@ -50,30 +50,16 @@ class FilesController extends AdminController
      */
     public function store(FileRequest $request)
     {
-        // dd($request->file('file'));
-        
-        $result = $this->repository->create($request->except('_token'));
-        // dd($result);
+        $result = $this->repository->create($request);
+
         if ($request->ajax()) {
             $file = $result['result'];
-            $result['row'] = "
-                    <tr>
-                      <td>{{ $file->id }}</td>
-                      <td>{{ $file->title }}</td>
-                      <td>{{ $file->url }}</td>
-                      <td>{{ $file->created_at }}</td>
-                      <td>{{ $file->updated_at }}</td>
-                    </tr>
-            ";
+            $result['id'] = $file->id;
+            $result['row'] = view(env('THEME_BACK').'.back.files.table_row')->with('file', $file)->render();
             return response()->json($result);
         }
             
-        // if ( is_array($result) && !empty($result['error']) ) {
-        //     return back()->with($result);
-        // }
-
-        // return redirect('/admin/jobs')->with($result);
-        return false;
+        return redirect(route('files.index'))->with($result['status'], $result['message']);
     }
 
     /**

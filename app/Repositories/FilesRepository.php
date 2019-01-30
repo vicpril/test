@@ -3,6 +3,7 @@
 namespace Idea\Repositories;
 
 use Idea\Models\File;
+use Illuminate\Http\Request;
 
 class FilesRepository extends Repository{
 
@@ -11,24 +12,24 @@ class FilesRepository extends Repository{
    }
 
 
-   public function create($data)
+   public function create(Request $request)
    {
-      $file = $data['file'];
-      unset($data['file']);
-      $data['url'] = date("Y/m") ."/" . $file->getClientOriginalName();
-
-      $file->storeAs('files', $data['url']);
+      $path = date("Y/m") ."/" . $request->file->getClientOriginalName();
+			
+      if ($request->file->storeAs('files', $path)) {
+					try {
+						$record = $this->model->firstOrCreate(['url' => $path], $request->only('title'));
+						$record->touch();
+					} catch (Exception $e) {
+						 return ['status' => 'error',
+										 'message' => $e->getMessage()];
+					}
+			};
       
-      try {
-         $result = $this->model->firstOrCreate(['url' => $data['url']]);
-      } catch (Exception $e) {
-         return ['error' => $e->getMessage()];
-      }
-
       return [
         'status' => 'success',
         'message' => 'Файл успешно добавлен',
-        'result' => $result,
+        'result' => $record,
       ];
 
    }
