@@ -31,14 +31,14 @@
           </a>
         </li>
         
-        <li>
-          <a href="./dashboard.html">
+        <li class="@if( Request::url() == url('admin')) active @endif">
+          <a href="{{ url('admin') }}">
             <i class="now-ui-icons design_app"></i>
             <p>Dashboard</p>
           </a>
         </li>
-        <li>
-          <a href="./icons.html">
+        <li class="@if( Request::url() == url('admin/icons')) active @endif">
+          <a href="{{ url('admin/icons') }}">
             <i class="now-ui-icons education_atom"></i>
             <p>Icons</p>
           </a>

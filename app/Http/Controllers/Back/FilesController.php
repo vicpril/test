@@ -87,12 +87,10 @@ class FilesController extends AdminController
         if (request()->ajax()) {
 
             $record = $this->repository->find($id);
-            dd([
-                'data' => array_merge([$record, 'file' => Storage::get($record->url)])
-            ]);
+          
             if ($record && Storage::disk('public')->exists($record->url)) {
                 return response()->json([
-                    'data' => array_merge($record, ['file' => Storage::get($record->url)])
+                    'data' => $record
                 ]);
             }
 

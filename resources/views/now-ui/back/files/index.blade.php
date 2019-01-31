@@ -88,7 +88,11 @@
                 <div class="col-md-12">
                   <div class="form-group mt-2">
                     <label for="title d-block">Файл</label>
-                    <input type="file" class="" name="file" id="file" required>
+                    <input type="file" class=" d-block" name="file" id="file" required>
+                  </div>
+                  <div class="d-none all-icons align-items-center my-1" id="fileIcon">
+                      <i class="now-ui-icons files_paper"></i>
+                      <span class="mx-1">files.name</span>
                   </div>
 
                   <div class="form-group mt-2">
@@ -212,20 +216,34 @@
                   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
                   var modal = $('#fileModal');
                   modal.find('.modal-header h5').text('Фаил: ' + resp.data.title);
-                  $('input[name="file"]').val(resp.data.file);
                   $('input[name="file"]').prop('disabled', true);
+                  $('input[name="file"]').parent('div').addClass('d-none');
+                  $('#fileIcon').removeClass('d-none');
+                  $('#fileIcon').addClass('d-flex');
+                 
                   $('input[name="title"]').val(resp.data.title);
                   $('input[name="type"]').val(resp.data.type);
-                  $('input[name="type"]').prop('disabled', true);
+                  $('select[name="type"]').prop('disabled', true);
+                  
                   $('#deleteFile').removeClass('d-none');
                   $('#saveFile').text('Обновить');
                   $('#fileForm').attr("method", "PUT");
-                  $('#fileForm').attr("action", "/admin/files/" + resp.data.id);
+                  $('#fileForm').attr("action", "/admin/files/" + id);
+                 
+                  // delete File from Modal
+                  $(document).on('click', '#deleteFile', function(event) {
+                    event.preventDefault()
+                    $.deleteFile(resp.data.id, resp.data.title);
+                  });
                }
             });
           } else {
             var modal = $('#fileModal');
             modal.find('.modal-header h5').text('Добавить файл');
+            $('#fileIcon').addClass('d-none');
+            $('input[name="file"]').prop('disabled', false);
+            $('input[name="file"]').parent('div').removeClass('d-none');
+            $('select[name="type"]').prop('disabled', false);
             $('#deleteFile').addClass('d-none');
             $('#saveFile').text('Сохранить');
             $('#fileForm').cleanform();
@@ -240,7 +258,21 @@
           var id = $(this).closest('tr').attr('id');
           var title = $(this).closest('tr').children('td.file-title:first').text();
           event.preventDefault()
-              $.ajax({
+          $.deleteFile(id, title);
+        });
+        
+        
+      
+        (function( $ ) {
+           //form clean
+          $.fn.cleanform = function() {
+            $(this).find("input[type=text], input[type=file]").val("");
+            $(this).find("select").val("files");
+          };
+          
+           //delete file function
+          $.deleteFile = function(id, title) {
+            $.ajax({
                 method: "DELETE",
                 headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -274,14 +306,9 @@
                 error: function(data) {
                   alert(data.message);
                 }
-          });
-        });
-      
-        (function( $ ) {
-           //form clean
-          $.fn.cleanform = function() {
-            $(this).find("input[type=text], input[type=file]").val("");
-            $(this).find("select").val("files");
+             });
+            //END delete file function
+            
           };
           
         })( jQuery );

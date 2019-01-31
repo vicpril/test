@@ -63,12 +63,15 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
 	Route::middleware('redac')->group(function() {
 		Route::name('admin')->get('/', 'AdminController@dashboard');
+		
 		Route::resource('files', 'FilesController')->except(['create', 'show']);
 		Route::resource('jobs', 'JobsController')->except(['create', 'show']);
 		Route::resource('users', 'UsersController');
 		//test upload avatar
 		Route::get('profile', 'UsersController@profile');
 		Route::post('profile', 'UsersController@update_avatar');
+		// template's examples
+		Route::get('icons', function() {return view(env('THEME_BACK').'.examples.icons')->render();});
 	});
 
 	Route::middleware(['auth','admin'])->group(function() {
