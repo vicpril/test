@@ -25,6 +25,7 @@ class FileRequest extends FormRequest
     {
         return [
             'file' => 'required|file|max:10240',
+            'type' => 'required',
         ];
     }
 }

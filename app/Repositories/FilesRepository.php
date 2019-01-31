@@ -13,13 +13,16 @@ class FilesRepository extends Repository{
    }
 
 
-   public function create(Request $request)
+   public function create($file, $type, $title = null)
    {
-      $path = date("Y/m") ."/" . $request->file->getClientOriginalName();
+			$path = ($type == 'files') ? date("Y/m") . "/" : ""; 
+			$path .= $file->getClientOriginalName();
+
+			$title = ($title)? $title : $file->getClientOriginalName();
 			
-      if ($request->file->storeAs('files', $path)) {
+      if ($file->storeAs($type, $path)) {
 					try {
-						$record = $this->model->firstOrCreate(['url' => $path], $request->only('title'));
+						$record = $this->model->firstOrCreate(['url' => implode("/", [$type,$path])], ['title' => $title]);
 						$record->touch();
 					} catch (Exception $e) {
 						 return ['status' => 'error',
@@ -56,13 +59,24 @@ class FilesRepository extends Repository{
 		public function delete($id)
 		 {
 				$file = $this->model->find($id);
-				if ( Storage::delete('/files/'.$file->url) ) {
+				if (Storage::disk('public')->exists($file->url)) {
+
+					if ( Storage::delete($file->url) ) {
+						$this->model->find($id)->delete();
+						return [
+							'status' => 'success',
+							'message' =>  "Файл удален"
+						];
+					}
+
+				} else {
 					$this->model->find($id)->delete();
 					return [
 						'status' => 'success',
-						'message' =>  "Файл удален"
+						'message' =>  "Ссылка на файл удалена"
 					];
 				}
+
 			
 				return [
 						'status' => 'error',

@@ -6,13 +6,14 @@
   <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.css') }}"> -->
   
   <style>
+    .path {
+      font-size: 0.8em !important;
+    }
     .icon-link-delete {
       color: grey !important;
-      
     }
     .icon-link-delete:hover {
       color: red !important;
-      
     }
   
   </style>
@@ -44,7 +45,7 @@
               <table class="table table-striped table-bordered table-responsive-lg" style="width:100%" id="filesTable">
                 <thead class="text-primary">
                   <tr>
-                    <th>ID</th>
+                    {{-- <th>ID</th> --}}
                     <th>Название</th>
                     <th>Путь</th>
                     <th>Время создания</th>
@@ -85,18 +86,27 @@
                 @csrf
                 <input type="text" class="form-control" name="id" hidden disable>
                 <div class="col-md-12">
-                  <label for="title d-block">Файл</label>
-                  <input type="file" class="" name="file" id="file" required>
+                  <div class="form-group mt-2">
+                    <label for="title d-block">Файл</label>
+                    <input type="file" class="" name="file" id="file" required>
+                  </div>
 
                   <div class="form-group mt-2">
                     <label for="title">Название</label>
                     <input type="text" class="form-control" name="title" id="title" required>
                   </div>
+
+                  <div class="form-group mt-2">
+                    <label for="title">Тип файла</label>
+                    <select type="select" class="form-control" name="type" id="type" required>
+                      <option value='files'>Документы для статьи</option>
+                      <option value='avatars'>Фотография пользователя</option>
+                    </select>
+                  </div>
                   
                 </div>
               
             </div>
-                  
 
           <div class="modal-footer pb-0">
             <button class="btn btn-link btn-danger my-0 mr-auto d-none" type="delete" id="deleteFile" dismiss="modal">Удалить</button>
@@ -133,9 +143,9 @@
         // DataTable - load
         $('#filesTable').DataTable({
           "language": { "url": "/dataTables.russian.lang"},
-          "order": [ 4, 'desc' ],
+          "order": [ 3, 'desc' ],
           "columnDefs": [
-            { "orderable": false, "targets": 5 }
+            { "orderable": false, "targets": 4 }
           ]
         });
         
@@ -187,44 +197,42 @@
         });
 
         
-        //Load the Job in modal
-//         $('#fileModal').on('show.bs.modal', function (event) {
-//           var button = $(event.relatedTarget) // Button that triggered the modal
-//           var id = button.data('id') // Extract info from data-* attributes
-//           // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-//           if (id !== undefined) {
-//             var data = $.ajax({
-//                method: 'get',
-//                url: 'files/' + id + '/edit',
-//                dataType: 'json',
-//                success: function(resp)
-//                {
-//                   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-//                   var modal = $('#fileModal');
-//                   modal.find('.modal-header h5').text('Организация: ' + resp.data.title_ru);
-//                   modal.find('input[name="id"]').val(resp.data.id);
-//                   modal.find('input[name="title_ru"]').val(resp.data.title_ru);
-//                   modal.find('input[name="city_ru"]').val(resp.data.city_ru);
-//                   modal.find('textarea[name="address_ru"]').val(resp.data.address_ru);
-//                   modal.find('input[name="title_en"]').val(resp.data.title_en);
-//                   modal.find('input[name="city_en"]').val(resp.data.city_en);
-//                   modal.find('textarea[name="address_en"]').val(resp.data.address_en);
-//                   $('#deleteJob').removeClass('d-none');
-//                   $('#saveJob').text('Обновить');
-//                   $('#fileForm').attr("method", "PUT");
-//                   $('#fileForm').attr("action", "/admin/files/" + resp.data.id);
-//                }
-//             });
-//           } else {
-//             var modal = $('#fileModal');
-//             modal.find('.modal-header h5').text('Новая организация');
-//             $('#deleteJob').addClass('d-none');
-//             $('#saveJob').text('Сохранить');
-//             $('#fileForm').cleanform();
-//             $('#fileForm').attr("method", "POST");
-//             $('#fileForm').attr("action", "/admin/jobs");
-//           }
-//         });
+        //Load the File in modal
+        $(document).on('show.bs.modal', '#fileModal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var id = button.data('id') // Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          if (id !== undefined) {
+            var data = $.ajax({
+               method: 'get',
+               url: 'files/' + id + '/edit',
+               dataType: 'json',
+               success: function(resp)
+               {
+                  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                  var modal = $('#fileModal');
+                  modal.find('.modal-header h5').text('Фаил: ' + resp.data.title);
+                  $('input[name="file"]').val(resp.data.file);
+                  $('input[name="file"]').prop('disabled', true);
+                  $('input[name="title"]').val(resp.data.title);
+                  $('input[name="type"]').val(resp.data.type);
+                  $('input[name="type"]').prop('disabled', true);
+                  $('#deleteFile').removeClass('d-none');
+                  $('#saveFile').text('Обновить');
+                  $('#fileForm').attr("method", "PUT");
+                  $('#fileForm').attr("action", "/admin/files/" + resp.data.id);
+               }
+            });
+          } else {
+            var modal = $('#fileModal');
+            modal.find('.modal-header h5').text('Добавить файл');
+            $('#deleteFile').addClass('d-none');
+            $('#saveFile').text('Сохранить');
+            $('#fileForm').cleanform();
+            $('#fileForm').attr("method", "POST");
+            $('#fileForm').attr("action", "/admin/files");
+          }
+        });
         
 
         // delete File
@@ -273,6 +281,7 @@
            //form clean
           $.fn.cleanform = function() {
             $(this).find("input[type=text], input[type=file]").val("");
+            $(this).find("select").val("files");
           };
           
         })( jQuery );

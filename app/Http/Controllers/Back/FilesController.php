@@ -2,6 +2,7 @@
 
 namespace Idea\Http\Controllers\Back;
 
+use Illuminate\Support\Facades\Storage;
 use Idea\Http\Requests\FileRequest;
 use Idea\Http\Controllers\Controller;
 use Idea\Repositories\FilesRepository;
@@ -51,7 +52,7 @@ class FilesController extends AdminController
      */
     public function store(FileRequest $request)
     {
-        $result = $this->repository->create($request);
+        $result = $this->repository->create($request->file, $request->type, $request->title);
 
         if ($request->ajax()) {
             $file = $result['result'];
@@ -82,7 +83,24 @@ class FilesController extends AdminController
      */
     public function edit($id)
     {
-        //
+        
+        if (request()->ajax()) {
+
+            $record = $this->repository->find($id);
+            dd([
+                'data' => array_merge([$record, 'file' => Storage::get($record->url)])
+            ]);
+            if ($record && Storage::disk('public')->exists($record->url)) {
+                return response()->json([
+                    'data' => array_merge($record, ['file' => Storage::get($record->url)])
+                ]);
+            }
+
+            return 'ajax - true, edit - false';
+
+            
+        }
+        return 'ajax false';
     }
 
     /**
