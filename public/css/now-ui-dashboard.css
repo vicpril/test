@@ -16261,3 +16261,7 @@ tbody tr td {
   font-size: 0.9em;
 }
 
+.custom-file-input ~ .custom-file-label::after {
+  content: "\41E\442\43A\440\44B\442\44C" !important;
+}
+

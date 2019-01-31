@@ -121,3 +121,7 @@ textarea.form-control {
 tbody tr td {
   font-size: 0.9em;
 }
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Открыть" !important;
+}
