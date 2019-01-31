@@ -1,6 +1,6 @@
 <tr id="{{ $file->id }}">
   {{-- <td>{{ $file->id }}</td> --}}
-  <td class="file-title "><a href="#" class="text-info text-left p-0" data-toggle="modal" data-target="#fileModal" data-id="{{ $file->id }}">{{ $file->title }}</a></td>
+  <td class="file-title "><a href="#" class="text-info text-left p-0" data-toggle="modal" data-target="#titleModal" data-id="{{ $file->id }}">{{ $file->title }}</a></td>
   <td class="path">
     @if(Storage::disk('public')->exists($file->url))
     <a href="{{ asset('storage/'.$file->url) }}" class="text-info" target="_blank">{{ $file->url }}</a>

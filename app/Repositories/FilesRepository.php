@@ -38,23 +38,23 @@ class FilesRepository extends Repository{
 
    }
 	
-// 		public function update($request, $id)
-// 		 {
-// 				$data = $request->except(['_token', 'id']);
-// 				$record = $this->model->find($id);
+		public function update($data, $id)
+		 {
+				$record = $this->model->find($id);
 				
-// 				try {
-// 					 $record->update($data);
-// 				} catch (Exception $e) {
-// 					 return ['error' => $e->getMessage()];
-// 				}
+				try {
+					$record->update($data);
+				} catch (Exception $e) {
+					 return ['error' => $e->getMessage()];
+				}
 
-// 				return [
-// 					'status' => 'success',
-// 					'message' => "Организация <b>$record->title_ru</b> успешно обновлена"
-// 				];
+				return [
+					'status' => 'success',
+					'message' => "Название файла обновлено",
+					'result' => $record,
+				];
 
-// 		 }
+		 }
 	
 		public function delete($id)
 		 {

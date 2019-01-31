@@ -68,6 +68,7 @@
 
 
 @section('modals')
+<!--   NEW FILE MODAL -->
   <div class="modal fade" id="fileModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -90,10 +91,6 @@
                     <label for="title d-block">Файл</label>
                     <input type="file" class=" d-block" name="file" id="file" required>
                   </div>
-                  <div class="d-none all-icons align-items-center my-1" id="fileIcon">
-                      <i class="now-ui-icons files_paper"></i>
-                      <span class="mx-1">files.name</span>
-                  </div>
 
                   <div class="form-group mt-2">
                     <label for="title">Название</label>
@@ -112,8 +109,9 @@
               
             </div>
 
-          <div class="modal-footer pb-0">
-            <button class="btn btn-link btn-danger my-0 mr-auto d-none" type="delete" id="deleteFile" dismiss="modal">Удалить</button>
+          </div>
+          
+          <div class="modal-footer">
             <button class="btn btn-primary float-right my-0" type="submit" id="saveFile" dismiss="modal">Добавить</button>
           </div>
         
@@ -121,6 +119,49 @@
       </div>
     </div>
   </div>
+<!--  END NEW FILE MODAL -->
+    
+<!--  UPDATE TITLE MODAL -->
+  <div class="modal fade" id="titleModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          
+        <form method="PUT" action="" id="titleForm">
+          <div class="modal-header">
+            <h5 class="title my-0">Изменить название файла</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+
+            <div class="row">
+                @csrf
+                <input type="text" class="form-control" name="id" hidden disable>
+                <div class="col-md-12">
+
+                  <div class="form-group mt-2">
+                    <label for="title">Название</label>
+                    <input type="text" class="form-control" name="title" id="title-up" required>
+                  </div>
+
+                </div>
+            </div>
+
+          </div>
+          
+          <div class="modal-footer">
+            <button class="btn btn-primary float-right my-0" type="submit" id="saveTitleFile" dismiss="modal">Обновить</button>
+          </div>
+        
+      </form>
+    </div>
+  </div>    
+</div>
+<!--  END UPDATE TITLE MODAL -->
+
+    
 @endsection
 
 @section('footer')
@@ -153,11 +194,14 @@
           ]
         });
         
-        // seve File
+// seve File
         $('#fileForm').submit(function(event) {
           event.preventDefault(); // avoid to execute the actual submit of the form.
           var form = $(this);
           $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
             method: form.attr('method'),
             url: form.attr('action'),
             data: new FormData(this),
@@ -200,13 +244,47 @@
           });
         });
 
+        //update title
+        $('#titleForm').submit(function(event){
+          event.preventDefault();
+          var form = $(this);
+          var id = $(this).find('input[name=id]').val();
+          $.ajax({
+            method: "PUT",
+            url: "{{ url('/admin/files') }}/" + id,
+            data: form.serialize(),
+            dataType: "json",
+            success: function(data)
+            {
+                $('#titleModal').modal('hide');
+                form.cleanform();
+                if (data.exception == undefined) {
+                  var color =  "success";
+                  var icon = "now-ui-icons ui-1_check";
+                    var table = $('#filesTable').DataTable();
+                    table.row($("tr#" + id)).remove();
+                    table.row.add($(data.row)[0]).draw();
+                } else {
+                  var color = "warning";
+                  var icon = "now-ui-icons ui-1_bell-53";
+                }
+                nowuiDashboard.showNotification({
+                  color: color,
+                  message: data.message,
+                  icon: icon,
+                  from: 'top',
+                  align: 'right'
+                });
+            }
+           })
+          })
+        
         
         //Load the File in modal
-        $(document).on('show.bs.modal', '#fileModal', function (event) {
+        $(document).on('show.bs.modal', '#titleModal', function (event) {
           var button = $(event.relatedTarget) // Button that triggered the modal
           var id = button.data('id') // Extract info from data-* attributes
           // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-          if (id !== undefined) {
             var data = $.ajax({
                method: 'get',
                url: 'files/' + id + '/edit',
@@ -214,63 +292,30 @@
                success: function(resp)
                {
                   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                  var modal = $('#fileModal');
-                  modal.find('.modal-header h5').text('Фаил: ' + resp.data.title);
-                  $('input[name="file"]').prop('disabled', true);
-                  $('input[name="file"]').parent('div').addClass('d-none');
-                  $('#fileIcon').removeClass('d-none');
-                  $('#fileIcon').addClass('d-flex');
-                 
-                  $('input[name="title"]').val(resp.data.title);
-                  $('input[name="type"]').val(resp.data.type);
-                  $('select[name="type"]').prop('disabled', true);
-                  
-                  $('#deleteFile').removeClass('d-none');
-                  $('#saveFile').text('Обновить');
-                  $('#fileForm').attr("method", "PUT");
-                  $('#fileForm').attr("action", "/admin/files/" + id);
-                 
-                  // delete File from Modal
-                  $(document).on('click', '#deleteFile', function(event) {
-                    event.preventDefault()
-                    $.deleteFile(resp.data.id, resp.data.title);
-                  });
+                  var modal = $('#titleModal');
+                  modal.find('input[name="title"]').val(resp.data.title);
+                  modal.find('input[name="id"]').val(resp.data.id);
                }
             });
-          } else {
-            var modal = $('#fileModal');
-            modal.find('.modal-header h5').text('Добавить файл');
-            $('#fileIcon').addClass('d-none');
-            $('input[name="file"]').prop('disabled', false);
-            $('input[name="file"]').parent('div').removeClass('d-none');
-            $('select[name="type"]').prop('disabled', false);
-            $('#deleteFile').addClass('d-none');
-            $('#saveFile').text('Сохранить');
-            $('#fileForm').cleanform();
-            $('#fileForm').attr("method", "POST");
-            $('#fileForm').attr("action", "/admin/files");
-          }
         });
         
 
-        // delete File
+// delete File
         $(document).on('click', '.delete', function(event) {
           var id = $(this).closest('tr').attr('id');
           var title = $(this).closest('tr').children('td.file-title:first').text();
           event.preventDefault()
           $.deleteFile(id, title);
         });
-        
-        
       
         (function( $ ) {
-           //form clean
+//form clean
           $.fn.cleanform = function() {
             $(this).find("input[type=text], input[type=file]").val("");
             $(this).find("select").val("files");
           };
           
-           //delete file function
+//delete file function
           $.deleteFile = function(id, title) {
             $.ajax({
                 method: "DELETE",

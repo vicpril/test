@@ -108,9 +108,15 @@ class FilesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FileRequest $request, $id)
     {
-        //
+        $result = $this->repository->update($request->only('title'), $id);
+        $result['row'] = view(env('THEME_BACK').'.back.files.table_row')->with('file', $result['result'])->render();
+        if ($request->ajax()) {
+            return response()->json($result);
+        }
+            
+        return redirect('/admin/files')->with($result);
     }
 
     /**

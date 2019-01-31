@@ -30,7 +30,7 @@ class FilePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->role === 'admin';
     }
 
     /**
@@ -42,7 +42,7 @@ class FilePolicy
      */
     public function update(User $user, File $file)
     {
-        //
+        return $user->role === 'admin';
     }
 
     /**
@@ -66,7 +66,7 @@ class FilePolicy
      */
     public function restore(User $user, File $file)
     {
-        //
+        return $user->role === 'admin';
     }
 
     /**
