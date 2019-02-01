@@ -49,6 +49,9 @@ function()
 
 Route::get('uploadfile','HomeController@uploadfile');
 Route::post('uploadfile','HomeController@uploadFilePost');
+// Laravel File Manager DEMO
+Route::get('lfm',function() {return view('demo')->render();});
+
 
 
 Auth::routes();
