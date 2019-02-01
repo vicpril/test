@@ -33,6 +33,30 @@
 @section('content')
   <div class="content">
     <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            
+           <div class="form-inline">
+            <button class="btn btn-sm btn-primary btn-round my-0 mr-1" data-input="filepath" id="chooseFile">Открыть</button>
+            <div class="form-group">
+              <input type="text" readonly class="form-control-plaintext mx-1" id="filepath" placeholder="Файл не выбран">
+             </div>
+              <i class="now-ui-icons ui-1_simple-remove icon-link-delete"></i>
+          </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
@@ -170,6 +194,17 @@
 
 
 @section('js')
+  <script>
+   var route_prefix = "{{ url(config('lfm.url_prefix', config('lfm.prefix'))) }}";
+  </script>  
+  <script>
+    {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/lfm.js')) !!}
+  </script>
+  <script>
+    $('#chooseFile').filemanager('file', {prefix: route_prefix});
+    $('#lfm2').filemanager('file', {prefix: route_prefix});
+  </script>
+
     <!-- DataTables JavaScript -->
     {{-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> --}}
 

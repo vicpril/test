@@ -24,9 +24,9 @@ return [
     */
 
     // If true, private folders will be created for each signed-in user.
-    'allow_multi_user' => true,
+    'allow_multi_user' => false,
     // If true, share folder will be created when allow_multi_user is true.
-    'allow_share_folder' => true,
+    'allow_share_folder' => false,
 
     // Flexible way to customize client folders accessibility
     // If you want to customize client folders, publish tag="lfm_handler"
@@ -34,6 +34,8 @@ return [
     // And set 'user_field' to App\Handler\ConfigHander::class
     // Ex: The private folder of user will be named as the user id.
     'user_field' => UniSharp\LaravelFilemanager\Handlers\ConfigHandler::class,
+//      'user_field' => App\Handler\ConfigHander::class,
+
 
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +48,7 @@ return [
     'base_directory' => 'public',
 
     'images_folder_name' => 'photos',
-    'files_folder_name'  => 'files',
+    'files_folder_name'  => 'files/'.date("Y/m/i"),
 
     'shared_folder_name' => 'shares',
     'thumb_folder_name'  => 'thumbs',

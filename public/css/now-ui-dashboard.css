@@ -11814,7 +11814,7 @@ fieldset[disabled] .btn-link.active {
 
 .btn-sm,
 .btn-group-sm > .btn {
-  font-size: 1rem;
+  font-size: 0.8571em;
   border-radius: 0.1875rem;
   padding: 5px 15px;
 }
