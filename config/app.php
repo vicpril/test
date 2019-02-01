@@ -179,7 +179,7 @@ return [
         Idea\Providers\RouteServiceProvider::class,
 
         ElForastero\Transliterate\TransliterationServiceProvider::class,
-        Barryvdh\Elfinder\ElfinderServiceProvider::class,
+        Barryvdh\Elfinder\ElfinderServiceProvider::class
         
 
     ],

@@ -44,12 +44,20 @@
           <div class="card-body">
             
            <div class="form-inline">
-            <button class="btn btn-sm btn-primary btn-round my-0 mr-1" data-input="filepath" id="chooseFile">Открыть</button>
-            <div class="form-group">
-              <input type="text" readonly class="form-control-plaintext mx-1" id="filepath" placeholder="Файл не выбран">
-             </div>
+              <button class="btn btn-sm btn-primary btn-round my-0 mr-1" data-input="filepath" id="chooseFile">LFM</button>
+              <div class="form-group">
+                <input type="text" readonly class="form-control-plaintext mx-1" id="filepath" placeholder="Файл не выбран">
+              </div>
               <i class="now-ui-icons ui-1_simple-remove icon-link-delete"></i>
           </div>
+            
+            <div class="form-inline">
+              <button class="btn btn-sm btn-info btn-round my-0 mr-1 popup_selector" data-inputid="filepath2" id="chooseByElfinder">Elfinder</button>
+              <div class="form-group">
+                <input type="text" readonly class=" form-control-plaintext mx-1" id="filepath2" placeholder="Файл не выбран">
+              </div>
+              <i class="now-ui-icons ui-1_simple-remove icon-link-delete"></i>
+            </div>
             
           </div>
         </div>
@@ -194,6 +202,7 @@
 
 
 @section('js')
+<script type="text/javascript" src="/packages/barryvdh/elfinder/js/standalonepopup.min.js"></script>
   <script>
    var route_prefix = "{{ url(config('lfm.url_prefix', config('lfm.prefix'))) }}";
   </script>  
