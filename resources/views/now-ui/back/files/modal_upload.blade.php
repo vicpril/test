@@ -105,6 +105,14 @@
           });
         });
 
+// Set up file's title on change
+      $('#file').on('change', function(e){
+        var filepath = $(this).val();
+        {{--//var filename = filepath.replace(/^.*?([^\\\/]*)$/, '$1'); --}}
+        var filename = filepath.split(/[\\/]/g).pop().split('.')[0];
+        $('#title').val(filename); 
+      });
+
 
 // utility function
         (function( $ ) {
