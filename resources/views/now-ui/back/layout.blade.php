@@ -56,10 +56,9 @@
   @yield('modals')
   <!-- end modals -->
 
-  </div>
   <!--   Core JS Files   -->
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script> -->
   <script src="{{ asset('js/now-ui-dashboard.back.js') }}" type="text/javascript"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script> -->
   <!--  Google Maps Plugin    -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   

@@ -2,8 +2,8 @@
 
 
 @section('css')
-  <!-- DataTables CSS -->
-  <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.css') }}"> -->
+  {{-- <!-- DataTables CSS -->
+  <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.css') }}"> --> --}}
 
 @endsection
 
@@ -22,7 +22,7 @@
 <div class="content">
     <form method="POST" action="{{ route('users.store') }}">
       @csrf
-    <div class="row">
+      <div class="row">
           <div class="col-md-8">
             <div class="card">
               <div class="card-header">
@@ -110,11 +110,11 @@
           <div class="col-md-4">
             
             <div class="card">
-<!--               <div class="card-header">
-                <h5 class="title">Сохранить</h5>
-              </div> -->
+                <div class="card-header">
+                  <h6>Сохранить изменения</h6>
+                </div>
               <div class="card-body">
-                <input class="btn btn-primary btn-block" type="submit" value="Сохранить">
+                <input class="btn btn-primary btn-round btn-block" type="submit" value="Сохранить">
               </div>
             </div>
             
@@ -126,11 +126,13 @@
                   <div class="card-body">
                     @if(isset($user->avatar))
                       <img src="{{ asset('storage/'.$user->avatar) }}" alt="">
+                    @else
+                      <div class="text-center">
+                        <label class="d-block mb-0">Фотография не загружена</label>
+                        <button type="button" class="btn btn-sm btn-primary btn-simple btn-round" data-toggle="modal" data-target="#setFileModal">Загрузить</button>
+                      </div>
                     @endif
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="avatar" id="customFile">
-                      <label class="custom-file-label" for="customFile">Файл не выбран</label>
-                    </div>
+                    <input type="text" class="d-none" name="avatar" value="-1">
                   </div>
             </div>
           </div>
@@ -141,6 +143,13 @@
 
 
 @section('modals')
+    <!-- SET FILE MODAL -->
+    @include(env('THEME_BACK').'.back.files.modal_set')
+    <!-- END SET FILE MODAL -->
+
+    <!-- UPLOAD FILE MODAL -->
+    @include(env('THEME_BACK').'.back.files.modal_upload')
+    <!-- END UPLOAD FILE MODAL -->
 
 @endsection
 
@@ -151,8 +160,37 @@
 
 
 @section('js')
-    <!-- DataTables JavaScript -->
-    <!-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> -->
+    {{-- <!-- DataTables JavaScript -->
+    <!-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> --> --}}
+    
+    <!-- Set script -->
+    @yield('modal_set_js')
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <!-- Upload script -->
+    @yield('modal_upload_js')
+
+
+<script type="text/javascript">
+
+  (function( $ ) {
+
+//after uploaded function
+    $.doAfterUploaded = function (data) {
+      // var table = $('#filesTable').DataTable();
+      // table.row($("tr#" + data.id)).remove();
+      // table.row.add($(data.row)[0]).draw();
+    }
+
+//after set function
+    $.doAfterSet = function (data) {
+      // var table = $('#filesTable').DataTable();
+      // table.row($("tr#" + data.id)).remove();
+      // table.row.add($(data.row)[0]).draw();
+    }
+
+
+  })
+
+</script>
+
 @endsection
