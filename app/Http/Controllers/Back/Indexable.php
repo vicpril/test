@@ -35,15 +35,10 @@ trait Indexable
     public function index(Request $request)
     {
         // $parameters = $this->getParameters ($request);
-//         dump(date('o'));
-//         dump(date("Y/m") );
-//               dd(date("m") );
-
         // Get records and generate links for pagination
         // $records = $this->repository->getAll (config ("app.nbrPages.back.$this->table"), $parameters);
-        $records = $this->repository->all();
-
-        // dd($records);
+        $format = $request->format;
+        $records = $this->repository->all($format);
 
         // $links = $records->appends ($parameters)->links ('back.pagination');
 

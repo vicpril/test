@@ -157,7 +157,7 @@
                 "url": "/dataTables.russian.lang"
           },
           // fixedHeader: true,
-          ajax: '/admin/jobs',
+          ajax: "{{ url('/admin/jobs') }}",
           "columns": [
             { 
               // "width": "80%",

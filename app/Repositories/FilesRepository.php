@@ -12,6 +12,44 @@ class FilesRepository extends Repository{
       $this->model = $file;
    }
 
+	 public function all($format = null) {
+		$result = $this->model->all();
+
+		$records = array();
+		switch ($format) {
+			case 'select2':
+				$grouped = $result->each(function($file)use(&$records){
+					$tmp = explode('/', $file->url);
+					if ($tmp[0] == 'files') {
+						$groupText = "Документы " . date("M Y", mktime(0, 0, 0, $tmp[2], 1, $tmp[1]));
+						$child = [
+											'id' => $file->id,
+											'text' => $file->title,
+										];
+						$records[$groupText]['text'] = $groupText;
+						$records[$groupText]['children'][] = $child;
+
+					} elseif ($tmp[0] == 'avatars'){
+						$groupText = "Фотографии";
+						$child = [
+											'id' => $file->id,
+											'text' => $file->title,
+										];
+						$records[$groupText]['text'] = $groupText;
+						$records[$groupText]['children'][] = $child;
+					}
+				});
+				return [
+								"results" => array_values($records),
+							];
+				break;
+				default:
+							return $result;
+				break;
+		}
+		
+		
+	}
 
    public function create($file, $type, $title = null)
    {

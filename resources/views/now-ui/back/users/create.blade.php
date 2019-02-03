@@ -4,7 +4,8 @@
 @section('css')
   {{-- <!-- DataTables CSS -->
   <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.css') }}"> --> --}}
-
+    <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.css') }}">
+    
 @endsection
 
 
@@ -160,6 +161,8 @@
 
 
 @section('js')
+    <!-- Select 2 -->
+    <script type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
     {{-- <!-- DataTables JavaScript -->
     <!-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> --> --}}
     
@@ -171,7 +174,9 @@
 
 
 <script type="text/javascript">
-
+$(document).ready(function () {
+  
+  
   (function( $ ) {
 
 //after uploaded function
@@ -189,8 +194,8 @@
     }
 
 
-  })
-
+  })( jQuery )
+})
 </script>
 
 @endsection

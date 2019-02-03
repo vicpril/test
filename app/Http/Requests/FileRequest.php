@@ -26,7 +26,7 @@ class FileRequest extends FormRequest
         $this->sanitize();
       
         return [
-            'file' => 'file|max:10240',
+            'file' => 'file|max:50240',
 //             'type' => 'required',
         ];
     }
