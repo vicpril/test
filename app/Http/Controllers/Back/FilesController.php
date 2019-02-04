@@ -72,7 +72,16 @@ class FilesController extends AdminController
      */
     public function show($id)
     {
-        //
+        if (request()->ajax()) {
+
+            $record = $this->repository->find($id);
+          
+            return response()->json([
+                'data' => $record
+            ]);
+
+        }
+        return 'ajax false';
     }
 
     /**

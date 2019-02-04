@@ -122,6 +122,13 @@
             $(this).find("input[type=text], input[type=file]").val("");
             $(this).find("select").val("files");
           };
+          
+      //after uploaded function
+//           $.doAfterUploaded = function (data) {
+//             var table = $('#filesTable').DataTable();
+//             table.row($("tr#" + data.id)).remove();
+//             table.row.add($(data.row)[0]).draw();
+//           }
 
         })( jQuery );
 

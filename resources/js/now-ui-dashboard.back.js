@@ -4,7 +4,7 @@ require('./bootstrap');
 // PLUGINS
 require('jquery-validation');
 
-require('jquery-colorbox');
+// require('jquery-colorbox');
 
 require('./now-ui-dashboard/plugins/bootstrap-notify');
 

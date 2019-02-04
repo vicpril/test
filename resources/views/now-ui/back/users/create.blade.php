@@ -119,12 +119,13 @@
               </div>
             </div>
             
-            <div class="card">
+            <div class="card" id="photoCard">
                     <div class="card-header">
                       <h6>Фотография</h6>
                     </div>
               
                   <div class="card-body">
+                    <div id="photo">
                     @if(isset($user->avatar))
                       <img src="{{ asset('storage/'.$user->avatar) }}" alt="">
                     @else
@@ -133,6 +134,7 @@
                         <button type="button" class="btn btn-sm btn-primary btn-simple btn-round" data-toggle="modal" data-target="#setFileModal">Загрузить</button>
                       </div>
                     @endif
+                    </div>
                     <input type="text" class="d-none" name="avatar" value="-1">
                   </div>
             </div>
@@ -181,17 +183,22 @@ $(document).ready(function () {
 
 //after uploaded function
     $.doAfterUploaded = function (data) {
-      // var table = $('#filesTable').DataTable();
-      // table.row($("tr#" + data.id)).remove();
-      // table.row.add($(data.row)[0]).draw();
+			$.loadSelect(data.id);
     }
-
-//after set function
-    $.doAfterSet = function (data) {
-      // var table = $('#filesTable').DataTable();
-      // table.row($("tr#" + data.id)).remove();
-      // table.row.add($(data.row)[0]).draw();
-    }
+    
+    // Reload select and set up uploaded document
+		$.doAfterSet = function () {
+			var id = $('#setFileSelect').val();
+			$('#setFileModal').modal('hide');
+      $.ajax({
+        url: "{{ url('/admin/files') }}/" + id,
+        dataType: "json",
+        success: function(response) {
+          $('#photo').prepend("<img src={{ asset('storage') }}/"+response.data.url+">");
+          $('#photo').children('div').addClass('d-none');
+        }
+      })
+		};
 
 
   })( jQuery )

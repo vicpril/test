@@ -19,7 +19,8 @@
 
           <div class="form-group col-10 mx-auto mt-1">
             <label class="d-block text-center" >Либо выберите из уже загруженных</label>
-            <select class="" name="set-file-id" id="setFileSelect">
+            <select class="" name="set-file-id" id="setFileSelect" placeholder="Выберите файл">
+							<option value=""></option>
             </select>
           </div>
 
@@ -34,9 +35,10 @@
 </div>
 
 @section('modal_set_js')
-<script type="text/javascript">
-// $(document).ready(function () {
 
+<script type="text/javascript">
+	
+//select initiate		
     $('#setFileSelect').select2({
         placeholder: "Выберите файл",
         allowClear: true,
@@ -44,35 +46,48 @@
         containerCssClass: ':all:',
     });
 
+//load select options on ahow Modal set
     $(document).on('show.bs.modal', '#setFileModal', function() {
       $.loadSelect();
     });
 
+//action on submit file id
+		$('#setFileButton').on('click', function(){
+			$.doAfterSet();
+		})
 
+$(document).ready(function () {
   (function ($) {
 
-    function format(file) {
-        return "<span class='text-muted'>"+file.year+"/"+file.month+"/</span>" + file.title;
-    }
-    $.loadSelect = function () {
+// reload select sile
+		$.loadSelect = function (id = null) {
       $.ajax({
         url: "{{ route('files.index') }}",
         data: { format: "select2" },
         dataType: "json",
       }).done(function(data) {
-        $('#setFileSelect').select2({
+        $('#setFileSelect').empty();
+				$('#setFileSelect').select2({
           placeholder: "Выберите файл",
           allowClear: true,
+					useEmpty : true,
+					emptyText : "",
           width: "100%",
           containerCssClass: ':all:',
           data: data.data.results,
-          escapeMarkup: function(m) { return m; }
-        }).val(data.data.selected).trigger('change');
+          escapeMarkup: function(m) { return m; },
+        })
+					if (id) { $('#setFileSelect').val(id).trigger('change')}
+					else { $('#setFileSelect').val('').trigger('change') }
       })
     }
+		
+		
+
+		
   })( jQuery )
 
-
+})
 </script>
 
 

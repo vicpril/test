@@ -33,38 +33,6 @@
 @section('content')
   <div class="content">
     <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            
-           <div class="form-inline">
-              <button class="btn btn-sm btn-primary btn-round my-0 mr-1" data-input="filepath" id="chooseFile">LFM</button>
-              <div class="form-group">
-                <input type="text" readonly class="form-control-plaintext mx-1" id="filepath" placeholder="Файл не выбран">
-              </div>
-              <i class="now-ui-icons ui-1_simple-remove icon-link-delete"></i>
-          </div>
-            
-            <!-- <div class="form-inline">
-              <button class="btn btn-sm btn-info btn-round my-0 mr-1 popup_selector" data-inputid="filepath2" id="chooseByElfinder">Elfinder</button>
-              <div class="form-group">
-                <input type="text" readonly class=" form-control-plaintext mx-1" id="filepath2" placeholder="Файл не выбран">
-              </div>
-              <i class="now-ui-icons ui-1_simple-remove icon-link-delete"></i>
-            </div> -->
-            
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
