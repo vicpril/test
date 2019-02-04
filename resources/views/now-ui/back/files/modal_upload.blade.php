@@ -75,30 +75,31 @@
               processData:false,
             
             dataType: 'json',
-            success: function(data)
+            success: function(response)
             {
               $('#uploadFileModal').modal('hide');
               form.cleanform();
-              if (data.exception == undefined) {
+              if (response.exception == undefined) {
                 var color =  "success";
                 var icon = "now-ui-icons ui-1_check";
-                  $.doAfterUploaded(data);
+                  $.doAfterUploaded(response);
               } else {
                 var color = "warning";
                 var icon = "now-ui-icons ui-1_bell-53";
               }
               nowuiDashboard.showNotification({
                 color: color,
-                message: data.message,
+                message: response.message,
                 icon: icon,
                 from: 'top',
                 align: 'right'
               });
             },
-            error: function(data) {
+            error: function(response) {
+              alert(response.message);
               nowuiDashboard.showNotification({
                 color: "danger",
-                message: data.message,
+                message: response.message,
                 icon: "now-ui-icons ui-2_settings-90",
                 from: 'top',
                 align: 'right'

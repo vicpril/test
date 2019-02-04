@@ -52,6 +52,7 @@ class FilesController extends AdminController
      */
     public function store(FileRequest $request)
     {
+      
         $result = $this->repository->create($request->file, $request->type, $request->title);
 
         if ($request->ajax()) {

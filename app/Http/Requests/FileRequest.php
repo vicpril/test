@@ -26,7 +26,7 @@ class FileRequest extends FormRequest
         $this->sanitize();
       
         return [
-            'file' => 'file|max:50240',
+            'file' => 'file|max:256',
 //             'type' => 'required',
         ];
     }
@@ -39,4 +39,14 @@ class FileRequest extends FormRequest
 
         $this->replace($input);     
     }
+  
+  public function withValidator($validator)
+  {
+      $validator->after(function ($validator) {
+          if (true) {
+              $validator->errors()->add('field', 'Something is wrong with this field!');
+          }
+      });
+      return response()->json(['errors'=>$validator->errors()->all()]);
+  }
 }
