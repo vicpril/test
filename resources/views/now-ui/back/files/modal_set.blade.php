@@ -52,7 +52,7 @@
   (function ($) {
 
     function format(file) {
-        return "<span class='text-muted'>"+file.year+"/"+file.month+"/<span>" + file.title;
+        return "<span class='text-muted'>"+file.year+"/"+file.month+"/</span>" + file.title;
     }
     $.loadSelect = function () {
       $.ajax({
@@ -66,9 +66,7 @@
           width: "100%",
           containerCssClass: ':all:',
           data: data.data.results,
-          templateResult: format,
-          templateSelection: format,
-          // escapeMarkup: function(m) { return m; }
+          escapeMarkup: function(m) { return m; }
         }).val(data.data.selected).trigger('change');
       })
     }

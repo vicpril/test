@@ -24,16 +24,16 @@ class FilesRepository extends Repository{
 						$groupText = "Документы " . date("M Y", mktime(0, 0, 0, $tmp[2], 1, $tmp[1]));
 						$child = [
 											'id' => $file->id,
-											// 'text' => view(env('THEME_BACK').'.back.files.file_row')
-											// 								->with('year', $tmp[2])
-											// 								->with('month', $tmp[1])
-											// 								->with('title', $file->title)
-											// 								->render(),
-											'file' => [
-												'year' => $tmp[2],
-												'month' => $tmp[1],
-												'title' => $file->title
-											]
+											'text' => view(env('THEME_BACK').'.back.files.file_row')
+																			->with('year', $tmp[2])
+																			->with('month', $tmp[1])
+																			->with('title', $file->title)
+																			->render(),
+											// 'file' => [
+											// 	'year' => $tmp[2],
+											// 	'month' => $tmp[1],
+											// 	'title' => $file->title
+											// ]
 										];
 						$records[$groupText]['text'] = $groupText;
 						$records[$groupText]['children'][] = $child;
@@ -42,16 +42,16 @@ class FilesRepository extends Repository{
 						$groupText = "Фотографии";
 						$child = [
 											'id' => $file->id,
-											// 'text' => view(env('THEME_BACK').'.back.files.file_row')
-											// 								->with('year', $file->created_at->format('Y'))
-											// 								->with('month', $file->created_at->format('M'))
-											// 								->with('title', $file->title)
-											// 								->render(),
-											'file' => [
-												'year' => $file->created_at->format('Y'),
-												'month' => $file->created_at->format('M'),
-												'title' => $file->title
-											]
+											'text' => view(env('THEME_BACK').'.back.files.file_row')
+																			->with('year', $file->created_at->format('Y'))
+																			->with('month', $file->created_at->format('M'))
+																			->with('title', $file->title)
+																			->render(),
+											// 'file' => [
+											// 	'year' => $file->created_at->format('Y'),
+											// 	'month' => $file->created_at->format('M'),
+											// 	'title' => $file->title
+											// ]
 										];
 						$records[$groupText]['text'] = $groupText;
 						$records[$groupText]['children'][] = $child;
