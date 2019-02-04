@@ -37,6 +37,7 @@
 @section('modal_set_js')
 
 <script type="text/javascript">
+$( document ).ready(function() {
 	
 //select initiate		
     $('#setFileSelect').select2({
@@ -54,10 +55,10 @@
 //action on submit file id
 		$('#setFileButton').on('click', function(){
 			$.doAfterSet();
-		})
+		});
 
-$(document).ready(function () {
-  (function ($) {
+(function ($) {
+
 
 // reload select sile
 		$.loadSelect = function (id = null) {
@@ -81,12 +82,11 @@ $(document).ready(function () {
 					else { $('#setFileSelect').val('').trigger('change') }
       })
     }
-		
-		
+
 
 		
-  })( jQuery )
-
+		})( jQuery )
+	
 })
 </script>
 

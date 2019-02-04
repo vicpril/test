@@ -125,15 +125,14 @@
                     </div>
               
                   <div class="card-body">
-                    <div id="photo">
-                    @if(isset($user->avatar))
-                      <img src="{{ asset('storage/'.$user->avatar) }}" alt="">
-                    @else
-                      <div class="text-center">
-                        <label class="d-block mb-0">Фотография не загружена</label>
-                        <button type="button" class="btn btn-sm btn-primary btn-simple btn-round" data-toggle="modal" data-target="#setFileModal">Загрузить</button>
-                      </div>
-                    @endif
+                    
+                    <div class="d-none" id="image">
+                      <img src="" alt="">
+                      <label><a href="#" class="text-info text-center p-1" id="destroyImage">Поменять фотографию</a></label>
+                    </div>
+                    <div class="text-center" id="downloadImage">
+                      <label class="d-block mb-0">Фотография не загружена</label>
+                      <button type="button" class="btn btn-sm btn-primary btn-simple btn-round" data-toggle="modal" data-target="#setFileModal">Загрузить</button>
                     </div>
                     <input type="text" class="d-none" name="avatar" value="-1">
                   </div>
@@ -176,15 +175,21 @@
 
 
 <script type="text/javascript">
-$(document).ready(function () {
+  
+$( document ).ready(function() {
+  
+  $('#destroyImage').on('click', function(e){
+    e.preventDefault();
+    $.destroyImage();
+  });
   
   
-  (function( $ ) {
+(function( $ ) {
 
 //after uploaded function
     $.doAfterUploaded = function (data) {
 			$.loadSelect(data.id);
-    }
+    };
     
     // Reload select and set up uploaded document
 		$.doAfterSet = function () {
@@ -194,15 +199,30 @@ $(document).ready(function () {
         url: "{{ url('/admin/files') }}/" + id,
         dataType: "json",
         success: function(response) {
-          $('#photo').prepend("<img src={{ asset('storage') }}/"+response.data.url+">");
-          $('#photo').children('div').addClass('d-none');
+          $.setupImage(response.data);
         }
       })
 		};
+    
+    $.setupImage = function(file) {
+      $('input[name="avatar"]').val(file.id);
+      $('#image img').attr("src", "{{ asset('storage') }}/"+file.url);
+      $('#image').removeClass('d-none');
+      $('#downloadImage').addClass('d-none');
+    };
+    
+    $.destroyImage = function() {
+      $('input[name="avatar"]').val('');
+      $('#image img').attr("src", "");
+      $('#image').addClass('d-none');
+      $('#downloadImage').removeClass('d-none');
+    }
 
 
   })( jQuery )
+  
 })
+
 </script>
 
 @endsection

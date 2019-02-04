@@ -51,8 +51,10 @@
   </div>
 
 @section('modal_upload_js')
+
 <!-- Uploaded file modal scripts-->
 <script type="text/javascript">
+  $( document ).ready(function() {
       
       // Event on Submit Form - save file
       //
@@ -108,7 +110,6 @@
 // Set up file's title on change
       $('#file').on('change', function(e){
         var filepath = $(this).val();
-        {{--//var filename = filepath.replace(/^.*?([^\\\/]*)$/, '$1'); --}}
         var filename = filepath.split(/[\\/]/g).pop().split('.')[0];
         $('#title').val(filename); 
       });
@@ -123,14 +124,7 @@
             $(this).find("select").val("files");
           };
           
-      //after uploaded function
-//           $.doAfterUploaded = function (data) {
-//             var table = $('#filesTable').DataTable();
-//             table.row($("tr#" + data.id)).remove();
-//             table.row.add($(data.row)[0]).draw();
-//           }
-
         })( jQuery );
-
+  });
 </script>
 @endsection
