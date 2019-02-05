@@ -13,7 +13,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->role === 'admin';
     }
 
     /**
@@ -23,18 +23,32 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        $this->sanitize();
+      
         return [
-            'full_name' => '', 
-            'alias' => '', 
-            'last_name_ru' => '', 
-            'first_name_ru' => '', 
-            'patronymic_ru' => '', 
-            'initials_ru' => '', 
-            'last_name_en' => '', 
-            'first_name_en' => '', 
-            'patronymic_en' => '', 
-            'initials_en' => '', 
-            'avatar' => '', 
+            'full_name' => 'required|string|max:50', 
+            'alias' => 'required|string|max:100',
+            'email' => 'required|email|max:100', 
+            'last_name_ru' => 'string|max:20', 
+            'first_name_ru' => 'string|max:20', 
+            'patronymic_ru' => 'string|max:20', 
+            'initials_ru' => 'string|max:20', 
+            'last_name_en' => 'string|max:20', 
+            'first_name_en' => 'string|max:20', 
+            'patronymic_en' => 'string|max:20', 
+            'initials_en' => 'string|max:20', 
+            'avatar' => 'integer', 
+            'orcid' => 'string|max:20', 
+
         ];
+    }
+  
+    public function sanitize()
+    {
+        $input = $this->all();
+
+        $input = filter_var_array($input, FILTER_SANITIZE_STRING);
+
+        $this->replace($input);     
     }
 }

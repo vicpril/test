@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-4 col-sm-5 col-xs-5 text-right">
                       <label class="d-block">Автозаполнение</label>
-                      <button type="button" class="btn btn-primary btn-simple btn-round py-2 my-0" id="autoEnter">Заполнить</button>
+                      <button type="button" class="btn btn-primary btn-simple btn-round py-2 my-0" id="autocompliteBtn">Заполнить</button>
                     </div>
                   </div>
 
@@ -48,7 +48,7 @@
                     <div class="col-md-7 pr-1">
                       <div class="form-group">
                         <label class="h6" for="email">Email</label>
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" class="form-control" name="email" placeholder="Email">
                       </div>
                     </div>
                     <div class="col-md-5 pl-1">
@@ -173,6 +173,8 @@
     <!-- Upload script -->
     @yield('modal_upload_js')
 
+		@include(env('THEME_BACK').'.back.files.autocomplite')
+
 
 <script type="text/javascript">
   
@@ -182,6 +184,11 @@ $( document ).ready(function() {
     e.preventDefault();
     $.destroyImage();
   });
+	
+	$('#autocompliteBtn').on('click', function(e){
+		e.preventDefault();
+		$.autocomplite_fields($('input[name="full_name"]').val());
+	});
   
   
 (function( $ ) {
@@ -224,5 +231,7 @@ $( document ).ready(function() {
 })
 
 </script>
+
+
 
 @endsection

@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'orcid'
+        'email', 'alias', 'role', 'password', 'orcid', 'avatar_id'
     ];
 
     // protected $relation = ['meta'];
@@ -45,6 +45,10 @@ class User extends Authenticatable
 
     public function meta()  {
         return $this->hasMany('Idea\Models\MetaUser', 'user_id');
+    }
+  
+    public function avatar()  {
+        return $this->belongsTo('Idea\Models\File');
     }
 
 

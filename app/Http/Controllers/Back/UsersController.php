@@ -84,7 +84,13 @@ class UsersController extends AdminController
      */
     public function store(UserRequest $request)
     {
-        
+        $result = $this->repository->create($request->except('_token'));
+      
+        if (is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+
+        return redirect(route('users.index'))->with($result);
     }
 
     /**

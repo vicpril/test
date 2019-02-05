@@ -87,6 +87,7 @@
                 var color = "warning";
                 var icon = "now-ui-icons ui-1_bell-53";
               }
+              
               nowuiDashboard.showNotification({
                 color: color,
                 message: response.message,
@@ -96,10 +97,14 @@
               });
             },
             error: function(response) {
-              alert(response.message);
+              var text = response.responseJSON.message;
+              var errors = response.responseJSON.errors;
+              for(var index in errors) {
+                text = text + "<br>" + index + ": " + errors[index];
+              }
               nowuiDashboard.showNotification({
                 color: "danger",
-                message: response.message,
+                message: text,
                 icon: "now-ui-icons ui-2_settings-90",
                 from: 'top',
                 align: 'right'
