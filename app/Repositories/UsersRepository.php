@@ -3,6 +3,7 @@
 namespace Idea\Repositories;
 
 use Idea\Models\User;
+use Transliterate;
 
 class UsersRepository extends Repository{
 
@@ -46,12 +47,9 @@ class UsersRepository extends Repository{
 	}
 	
 	public function create($data) {
-// 		if (\Gate::denies('create',$this->model)) {
-//             abort(403);
-//         }
-		
+		$alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
 		$user = $this->model->make([
-            'alias' => $data['alias'],
+            'alias' => $alias,
             'email' => $data['email'],
             'password' => bcrypt('123'),
 						'role' => 'author',

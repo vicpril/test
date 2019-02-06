@@ -54,7 +54,7 @@ $( document ).ready(function() {
 
 //action on submit file id
 		$('#setFileButton').on('click', function(){
-			$.doAfterSet();
+			$.doAfterSet($('#setFileSelect').val());
 		});
 
 (function ($) {

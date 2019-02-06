@@ -21,13 +21,15 @@
 
 @section('content')
 <div class="content">
+	<div class="row">
+	</div>
     <form method="POST" action="{{ route('users.store') }}">
       @csrf
       <div class="row">
           <div class="col-md-8">
             <div class="card">
               <div class="card-header">
-                <h5 class="title">Персональные данные</h5>
+                <h5 class="title  mb-0">Персональные данные</h5>
               </div>
               <div class="card-body">
               
@@ -35,7 +37,7 @@
                     <div class="col-md-8 col-sm-7 col-xs-7">
                       <div class="form-group">
                         <label class="h6">Полное имя</label>
-                        <input type="text" class="form-control mr-2" name="full_name" placeholder="Ф.И.О.">
+                        <input type="text" class="form-control mr-2" name="full_name" placeholder="Ф.И.О." value="{{old('full_name')}}" required >
                       </div>
                     </div>
                     <div class="col-md-4 col-sm-5 col-xs-5 text-right">
@@ -48,14 +50,24 @@
                     <div class="col-md-7 pr-1">
                       <div class="form-group">
                         <label class="h6" for="email">Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Email">
+                        <input type="email" class="form-control @if($errors->first('email')) is-invalid @endif" name="email" placeholder="Email" value="{{old('email')}}" required>
+												@if($errors->first('email'))
+													<div class="invalid-feedback">
+														{{ $errors->first('email') }}
+													</div>
+												@endif
                       </div>
                     </div>
                     <div class="col-md-5 pl-1">
                       <div class="form-group">
                         <label class="h6" for="alias">Логин</label>
-                        <input type="text" class="form-control" name="alias" @if(isset($user->alias)) disabled="" @endif>
-                      </div>
+                        <input type="text" class="form-control @if($errors->first('alias')) is-invalid @endif" name="alias" value="{{old('alias')}}" @if(isset($user->alias)) disabled="" @endif>
+                     		@if($errors->first('alias'))
+													<div class="invalid-feedback">
+														{{ $errors->first('alias') }}
+													</div>
+												@endif
+											</div>
                     </div>
                   </div>
                 
@@ -64,20 +76,20 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label for="last_name_ru">Фамилия</label>
-                        <input type="text" class="form-control" name="last_name_ru">
+                        <input type="text" class="form-control" name="last_name_ru"  value="{{old('last_name_ru')}}">
                       </div>
                     </div>
                     <div class="col-md-3 px-1">
                         <label for="first_name_ru">Имя</label>
-                        <input type="text" class="form-control" name="first_name_ru">
+                        <input type="text" class="form-control" name="first_name_ru" value="{{old('first_name_ru')}}">
                     </div>
                     <div class="col-md-3 px-1">
                         <label for="patronymic_ru">Отчество</label>
-                        <input type="text" class="form-control" name="patronymic_ru">                
+                        <input type="text" class="form-control" name="patronymic_ru" value="{{old('patronymic_ru')}}">                
                     </div>
                     <div class="col-md-2 pl-1">
                         <label for="initials_ru">Инициалы</label>
-                        <input type="text" class="form-control" name="initials_ru">                
+                        <input type="text" class="form-control" name="initials_ru" value="{{old('initials_ru')}}">                
                     </div>
                   </div>
                 
@@ -86,26 +98,64 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label for="last_name_en">Last Name</label>
-                        <input type="text" class="form-control" name="last_name_en">
+                        <input type="text" class="form-control" name="last_name_en" value="{{old('last_name_en')}}">
                       </div>
                     </div>
                     <div class="col-md-3 px-1">
                         <label for="first_name_en">First Name</label>
-                        <input type="text" class="form-control" name="first_name_en">
+                        <input type="text" class="form-control" name="first_name_en" value="{{old('first_name_en')}}">
                     </div>
                     <div class="col-md-3 px-1">
                         <label for="patronymic_en">Middle Name</label>
-                        <input type="text" class="form-control" name="patronymic_en">                
+                        <input type="text" class="form-control" name="patronymic_en" value="{{old('patronymic_en')}}">                
                     </div>
                     <div class="col-md-2 pl-1">
                         <label for="initials_en">Initials</label>
-                        <input type="text" class="form-control" name="initials_en">                
+                        <input type="text" class="form-control" name="initials_en" value="{{old('initials_en')}}">                
                     </div>
                   </div>
+								
+								<label class="h6 mt-2">ORCID</label>
+                  <div class="row">
+                    <div class="col-md-4 pr-1">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="orcid"  value="{{old('orcid')}}">
+                      </div>
+                    </div>
+								</div>
+								
+								
                 
 
               </div>
             </div>
+						
+						<div class="card">
+              <div class="card-header">
+                <h5 class="title mb-0">Биография</h5>
+              </div>
+              <div class="card-body">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="form-group">
+											<label class="h6">На русском</label>
+											<textarea name="descriptin_ru" id="" cols="100" rows="3" class="form-control description"></textarea>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-md-12">
+									<div class="row">
+										<div class="form-group">
+											<label class="h6 mt-2">На английском</label>
+											<textarea name="descriptin_en" id="" cols="100" rows="3" class="form-control description"></textarea>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						
           </div>
       
           <div class="col-md-4">
@@ -130,11 +180,12 @@
                       <img src="" alt="">
                       <label><a href="#" class="text-info text-center p-1" id="destroyImage">Поменять фотографию</a></label>
                     </div>
+										
                     <div class="text-center" id="downloadImage">
                       <label class="d-block mb-0">Фотография не загружена</label>
                       <button type="button" class="btn btn-sm btn-primary btn-simple btn-round" data-toggle="modal" data-target="#setFileModal">Загрузить</button>
                     </div>
-                    <input type="text" class="d-none" name="avatar" value="-1">
+                    <input type="text" class="d-none" name="avatar" value="@if(isset($user->avatar)){{$user->avatar}}@elseif(old('avatar')){{old('avatar')}}@else{!!-1!!}@endif">
                   </div>
             </div>
           </div>
@@ -179,6 +230,19 @@
 <script type="text/javascript">
   
 $( document ).ready(function() {
+
+	// error alert
+	@if($errors->all())
+	$.notifyDefaults({
+			type: "danger",
+			allow_dismiss: true,
+			delay: 8000
+	});
+	$.notify({
+			title: "{{ $errors->first('title') }}",
+			message: "",
+		});
+	@endif
   
   $('#destroyImage').on('click', function(e){
     e.preventDefault();
@@ -199,23 +263,26 @@ $( document ).ready(function() {
     };
     
     // Reload select and set up uploaded document
-		$.doAfterSet = function () {
-			var id = $('#setFileSelect').val();
+		$.doAfterSet = function (id = '') {
 			$('#setFileModal').modal('hide');
+			if(id) {
+				$('input[name="avatar"]').val(id);
+				$.setupImage(id);
+			}else{
+				$('input[name="avatar"]').val(-1);
+			}
+		};
+    
+    $.setupImage = function(id) {
       $.ajax({
         url: "{{ url('/admin/files') }}/" + id,
         dataType: "json",
         success: function(response) {
-          $.setupImage(response.data);
+					$('#image img').attr("src", "{{ asset('storage') }}/"+response.data.url);
+					$('#image').removeClass('d-none');
+					$('#downloadImage').addClass('d-none');
         }
       })
-		};
-    
-    $.setupImage = function(file) {
-      $('input[name="avatar"]').val(file.id);
-      $('#image img').attr("src", "{{ asset('storage') }}/"+file.url);
-      $('#image').removeClass('d-none');
-      $('#downloadImage').addClass('d-none');
     };
     
     $.destroyImage = function() {
@@ -228,6 +295,11 @@ $( document ).ready(function() {
 
   })( jQuery )
   
+	// set avatar source
+		if ( $('input[name="avatar"]').val() > 0 ) {
+			$.setupImage( $('input[name="avatar"]').val() );
+		}
+
 })
 
 </script>
