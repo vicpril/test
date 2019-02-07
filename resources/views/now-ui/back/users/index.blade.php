@@ -87,24 +87,6 @@
           "language": {
                 "url": "/dataTables.russian.lang"
           },
-          // ajax: '/admin/users',
-          // "columns": [
-          //   { 
-          //     // "width": "80%",
-          //     "data": "title_ru",
-          //     "render": function(data, type, row, meta){
-          //             return'<a href="#" class="text-info text-left p-0" data-toggle="modal" data-target="#jobModal" data-id="' + row.id + '" >' + data + '</a>';
-          //     }
-          //   },
-          //   { "data": "city_ru" },
-          //   { "data": "address_ru" },
-          //   { "data": "title_en" },
-          //   { "data": "city_en" },
-          //   { "data": "address_en" },
-          // ],
-          // "drawCallback": function(settings, json) {
-          //   $('#jobs-table tr td:nth-child(3n)').addClass('address');
-          // }
         });
 
 

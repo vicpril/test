@@ -117,7 +117,7 @@
 								
 								<label class="h6 mt-2">ORCID</label>
                   <div class="row">
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-7 pr-1">
                       <div class="form-group">
                         <input type="text" class="form-control" name="orcid"  value="{{old('orcid')}}">
                       </div>
@@ -131,17 +131,39 @@
                 <h5 class="title mb-0">Сведения о месте работы</h5>
               </div>
               <div class="card-body">
-								<div class="col-md-12">
-									<div class="row">
-										<div class="form-group">
-											<label class="h6">На русском</label>
-											<textarea name="descriptin_ru" id="" cols="100" rows="3" class="form-control description"></textarea>
-										</div>
+								 <label class="h6 mt-2">Степень и звание</label>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label for="graduate_ru">На русском</label>
+                        <input type="text" class="form-control" name="graduate_ru" value="{{old('graduate_ru')}}">
+                      </div>
+                    </div>
+                    <div class="col-md-6 pl-1">
+                        <label for="graduate_en">На английском</label>
+                        <input type="text" class="form-control" name="graduate_en" value="{{old('graduate_en')}}">
+                    </div>
+									</div>
+									
+								<label class="h6 mt-3">Место работы (должность)</label>
+								<div class="row">
+									<div class="col-12">
+									
+										<table class="table table-responsive-md" style="width:100%" id="jobsTable">
+											<thead>
+												<th class="">На русском</th>
+												<th class="">На английском</th>
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
 									</div>
 								</div>
+								
+								
 							</div>
 						</div>
-          </div>
 						
 						<div class="card">
               <div class="card-header">
@@ -245,7 +267,18 @@
 <script type="text/javascript">
   
 $( document ).ready(function() {
-
+	
+	// initiate jobs tableEditor
+	$('#jobsTable').DataTable({
+		"language": {
+					"url": "/dataTables.russian.lang"
+		},
+		"paging":   false,
+		"ordering": false,
+		"info":     false,
+		"searching": false,
+	});
+	
 	// error alert
 	@if($errors->all())
 	$.notifyDefaults({
