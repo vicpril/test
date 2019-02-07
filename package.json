@@ -26,11 +26,13 @@
     "dependencies": {
         "bs-custom-file-input": "^1.3.1",
         "datatables.net-bs4": "^1.10.19",
+        "datatables.net-buttons-bs4": "^1.5.4",
         "datatables.net-fixedcolumns-bs4": "^3.2.6",
         "datatables.net-fixedheader-bs4": "^3.1.5",
         "datatables.net-responsive-bs4": "^2.2.3",
         "datatables.net-rowgroup-bs4": "^1.1.0",
         "datatables.net-scroller-bs4": "^1.5.1",
+        "datatables.net-select-bs4": "^1.2.7",
         "jquery-colorbox": "^1.6.4",
         "jquery-validation": "^1.19.0"
     }

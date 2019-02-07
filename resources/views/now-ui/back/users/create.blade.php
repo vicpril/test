@@ -149,13 +149,24 @@
 								<div class="row">
 									<div class="col-12">
 									
-										<table class="table table-responsive-md" style="width:100%" id="jobsTable">
+										<table class="table table-striped table-bordered table-responsive-md" style="width:100%" id="jobsTable">
 											<thead>
 												<th class="">На русском</th>
 												<th class="">На английском</th>
 											</thead>
 											<tbody>
-
+                        <tr>
+                          <td>Русское название</td>
+                          <td>Английское название</td>
+                        </tr>
+                        <tr>
+                          <td>Русское название</td>
+                          <td>Английское название</td>
+                        </tr>
+                        <tr>
+                          <td>Русское название</td>
+                          <td>Английское название</td>
+                        </tr>
 											</tbody>
 										</table>
 									</div>
@@ -269,15 +280,48 @@
 $( document ).ready(function() {
 	
 	// initiate jobs tableEditor
-	$('#jobsTable').DataTable({
+	var jobsTable = $('#jobsTable').DataTable({
 		"language": {
 					"url": "/dataTables.russian.lang"
 		},
 		"paging":   false,
 		"ordering": false,
 		"info":     false,
-		"searching": false,
-	});
+    // "searching": false,
+    "lengthChange": false,
+    select: true,
+    dom: 'Bfrtip',
+    // buttons: ['create', 'edit', 'remove']
+    buttons: [
+        {
+            text: 'Добавить',
+            className: 'btn btn-simple btn-round btn-info',
+            action: function ( e, dt, node, config ) {
+                alert( 'Button activated' );
+            }
+        },
+        {
+            text: 'Редактировать',
+            className: 'btn btn-simple btn-round btn-info disabled',
+            action: function ( e, dt, node, config ) {
+                alert( 'Button activated' );
+            }
+        },
+        {
+            text: 'Удалить',
+            className: 'btn btn-simple btn-round btn-info disabled',
+            action: function ( e, dt, node, config ) {
+                alert( 'Button activated' );
+            }
+        }
+    ],
+    
+  
+ 
+  });
+  
+  // jobsTable.buttons().container()
+  //     .appendTo( '#example_wrapper .col-md-6:eq(0)' );
 	
 	// error alert
 	@if($errors->all())

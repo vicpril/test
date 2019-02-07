@@ -21,6 +21,9 @@
   <link href="{{ asset('css/now-ui-dashboard.css') }}" rel="stylesheet">
   <!-- CSS Just for demo purpose, don't include it in your project -->
   
+  <!-- DataTables -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.4/r-2.2.2/sl-1.2.6/datatables.min.css"/> -->
+
   @yield('css')
 
 
@@ -66,6 +69,9 @@
   <!-- <script src="../assets/js/plugins/bootstrap-notify.js"></script> -->
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <!-- <script src="../assets/js/now-ui-dashboard.min.js?v=1.2.0" type="text/javascript"></script> -->
+
+  <!-- DataTables -->
+  <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.4/r-2.2.2/sl-1.2.6/datatables.min.js"></script> -->
 
   @yield('js')
 
