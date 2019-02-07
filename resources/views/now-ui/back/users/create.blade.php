@@ -123,12 +123,25 @@
                       </div>
                     </div>
 								</div>
-								
-								
-                
-
               </div>
             </div>
+						
+						<div class="card">
+              <div class="card-header">
+                <h5 class="title mb-0">Сведения о месте работы</h5>
+              </div>
+              <div class="card-body">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="form-group">
+											<label class="h6">На русском</label>
+											<textarea name="descriptin_ru" id="" cols="100" rows="3" class="form-control description"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+          </div>
 						
 						<div class="card">
               <div class="card-header">
@@ -217,6 +230,8 @@
     <script type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
     {{-- <!-- DataTables JavaScript -->
     <!-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> --> --}}
+    <script type="text/javascript" src="{{ asset('js/tableEditor.js') }}" ></script>
+
     
     <!-- Set script -->
     @yield('modal_set_js')
