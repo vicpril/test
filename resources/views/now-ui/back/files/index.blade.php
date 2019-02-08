@@ -1,5 +1,6 @@
 @extends(env('THEME_BACK').'.back.layout')
 
+@isset($datatables){!! $datatables !!}@endisset
 
 @section('css')
   <!-- DataTables CSS -->
@@ -121,9 +122,6 @@
 
 
 @section('js')
-{{-- <!-- DataTables JavaScript -->
-    <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> --}}
-
 <!-- Upload script -->
     @yield('modal_upload_js')
 

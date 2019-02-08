@@ -1,10 +1,12 @@
 @extends(env('THEME_BACK').'.back.layout')
 
+@isset($datatables){!! $datatables !!}@endisset
 
 @section('css')
-  {{-- <!-- DataTables CSS -->
-  <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.css') }}"> --> --}}
-    <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.css') }}">
+<!--  Select2     -->
+<link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.css') }}">
+
+<link rel="stylesheet" href="{{ asset('vendor/TableEditor/TableTools.min.css') }}">
     
 @endsection
 
@@ -151,21 +153,30 @@
 									
 										<table class="table table-striped table-bordered table-responsive-md" style="width:100%" id="jobsTable">
 											<thead>
+												<th class=""></th>
 												<th class="">На русском</th>
 												<th class="">На английском</th>
 											</thead>
 											<tbody>
                         <tr>
-                          <td>Русское название</td>
-                          <td>Английское название</td>
+													<td>1</td>
+                          <td>Русское название 111</td>
+                          <td>Английское название 111</td>
                         </tr>
                         <tr>
-                          <td>Русское название</td>
-                          <td>Английское название</td>
+													<td>22</td>
+                          <td>Русское название 2222</td>
+                          <td>Английское название 2222</td>
                         </tr>
                         <tr>
-                          <td>Русское название</td>
-                          <td>Английское название</td>
+													<td>2</td>
+                          <td>Русское название 33</td>
+                          <td>Английское название 333</td>
+                        </tr>
+												<tr>
+													<td>24</td>
+                          <td>Русское название 44</td>
+                          <td>Английское название 444</td>
                         </tr>
 											</tbody>
 										</table>
@@ -185,7 +196,7 @@
 									<div class="row">
 										<div class="form-group">
 											<label class="h6">На русском</label>
-											<textarea name="descriptin_ru" id="" cols="100" rows="3" class="form-control description"></textarea>
+											<textarea name="description_ru" id="" cols="100" rows="3" class="form-control description"></textarea>
 										</div>
 									</div>
 								</div>
@@ -194,7 +205,7 @@
 									<div class="row">
 										<div class="form-group">
 											<label class="h6 mt-2">На английском</label>
-											<textarea name="descriptin_en" id="" cols="100" rows="3" class="form-control description"></textarea>
+											<textarea name="description_en" id="" cols="100" rows="3" class="form-control description"></textarea>
 										</div>
 									</div>
 								</div>
@@ -249,6 +260,41 @@
     <!-- UPLOAD FILE MODAL -->
     @include(env('THEME_BACK').'.back.files.modal_upload')
     <!-- END UPLOAD FILE MODAL -->
+		
+		<!-- JOB MODAL -->
+		<div class="modal fade" id="jobModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="title my-0">Добавить новое место работы</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+					</div>
+					
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="row">Строка</label>
+							<input type="text" class="form-control" id="jobRow">
+						</div>
+						<div class="form-group">
+							<label for="job_ru">На русском</label>
+							<textarea id="job_ru" cols="30" rows="10" class="form-control"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="job_en">На английском</label>
+							<textarea id="job_en" cols="30" rows="10" class="form-control"></textarea>
+						</div>
+					</div>
+					
+					<div class="modal-footer">
+						<button class="btn btn-primary float-right my-0" type="button" id="saveJob" dismiss="modal">Добавить</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!-- END JOB MODAL -->
 
 @endsection
 
@@ -263,8 +309,8 @@
     <script type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
     {{-- <!-- DataTables JavaScript -->
     <!-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> --> --}}
-    <script type="text/javascript" src="{{ asset('js/tableEditor.js') }}" ></script>
-
+    <script type="text/javascript" src="{{ asset('vendor/TableEditor/TableTools.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('vendor/TableEditor/TableEditor.js') }}" ></script>
     
     <!-- Set script -->
     @yield('modal_set_js')
@@ -276,52 +322,80 @@
 
 
 <script type="text/javascript">
-  
-$( document ).ready(function() {
 	
+$( document ).ready(function() {
 	// initiate jobs tableEditor
 	var jobsTable = $('#jobsTable').DataTable({
-		"language": {
+		language: {
 					"url": "/dataTables.russian.lang"
 		},
-		"paging":   false,
-		"ordering": false,
-		"info":     false,
-    // "searching": false,
-    "lengthChange": false,
-    select: true,
+		columnDefs: [
+            { orderable: true, class: 'reorder', targets: '0' },
+            { orderable: false, targets: '_all' },
+        ],
+		rowReorder: true,
+		paging:   false,
+		info:     false,
+    searching: false,
+    lengthChange: false,
+    select: {
+            style: 'single',
+						blurable: true,
+        },
     dom: 'Bfrtip',
-    // buttons: ['create', 'edit', 'remove']
     buttons: [
         {
             text: 'Добавить',
             className: 'btn btn-simple btn-round btn-info',
             action: function ( e, dt, node, config ) {
-                alert( 'Button activated' );
-            }
+                    $('#jobModal').find('.title').text('Добавить новое место работы')
+										$('#jobModal').find('input').val('');
+										$('#jobModal').find('textarea').val('');
+                },
+						attr: {
+							"data-toggle": "modal",
+							"data-target": "#jobModal",
+						}
         },
         {
             text: 'Редактировать',
-            className: 'btn btn-simple btn-round btn-info disabled',
+            className: 'btn btn-simple btn-round btn-info',
             action: function ( e, dt, node, config ) {
-                alert( 'Button activated' );
-            }
+                var data = dt.row({selected:true}).data();
+								console.log(data);
+								$('#jobModal').find('.title').text('Редактировать место работы')
+								$('#jobModal').find('input').val(data[0]);
+								$('#jobModal').find('#job_ru').val(data[1]);
+								$('#jobModal').find('#job_en').val(data[2]);
+								$('#jobModal').modal('show');
+            },
+						enabled: false,
         },
         {
             text: 'Удалить',
-            className: 'btn btn-simple btn-round btn-info disabled',
+            className: 'btn btn-simple btn-round btn-info',
             action: function ( e, dt, node, config ) {
-                alert( 'Button activated' );
-            }
+								if(confirm('Удалить выбранное место работы?' )) {
+									dt.row( {selected: true} ).remove().draw();
+									$.each($('#jobsTable tr td:first-child'),function(index,val){
+										$(this).html(index+1)
+									});
+
+									dt.rows().invalidate();
+								}
+						},
+						enabled: false,
         }
     ],
-    
-  
- 
   });
-  
-  // jobsTable.buttons().container()
-  //     .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+	
+	jobsTable.on( 'select deselect', function () {
+			var selectedRows = jobsTable.rows( { selected: true } ).count();
+			jobsTable.button( 1 ).enable( selectedRows === 1 );
+			jobsTable.button( 2 ).enable( selectedRows === 1 );
+	} );
+	
+	
 	
 	// error alert
 	@if($errors->all())
@@ -335,6 +409,33 @@ $( document ).ready(function() {
 			message: "",
 		});
 	@endif
+	
+	$('#saveJob').on('click', function(e){
+		e.preventDefault();
+		var modal = $('#jobModal');
+		var data = [
+				modal.find('input').val(),
+				modal.find('#job_ru').val(),
+				modal.find('#job_en').val(),
+			];
+		modal.modal('hide');
+		if( data[0] == 0 ) {
+			jobsTable.row.add( [
+            jobsTable.rows().count() + 1,
+            data[1],
+            data[2],
+        ] ).draw();
+		}else{
+			
+			var row = $(jobsTable).find('tr td:first-child').filter(function() {
+					return $(this).text() == Number(data[0]) - 1;
+			}).parent('tr');
+			row.child('td:2')	
+				.data(data).draw();
+			jobsTable.rows().invalidate().draw();
+				console.log(data);
+		}
+	});
   
   $('#destroyImage').on('click', function(e){
     e.preventDefault();
@@ -346,6 +447,7 @@ $( document ).ready(function() {
 		$.autocomplite_fields($('input[name="full_name"]').val());
 	});
   
+
   
 (function( $ ) {
 

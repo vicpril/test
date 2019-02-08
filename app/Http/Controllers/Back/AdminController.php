@@ -49,6 +49,9 @@ class AdminController extends Controller
 
         $footer = view(env('THEME_BACK').'.back.footer')->render();
         $this->vars = array_add($this->vars, 'footer', $footer);
+      
+        $datatables = view(env('THEME_BACK').".back.dataTables");
+        $this->vars = array_add($this->vars, 'datatables', $datatables);
 
         // if ($this->content) {
         //     $this->vars = array_add($this->vars, 'content', $this->content);
