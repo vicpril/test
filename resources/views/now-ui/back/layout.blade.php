@@ -27,7 +27,7 @@
 </head>
 
 <body class="user-profile">
-  <div class="wrapper ">
+  <div class="wrapper" id="app">
 
     <!-- SIDEBAR -->
     @yield('sidebar')
@@ -57,7 +57,11 @@
   <!-- end modals -->
 
   <!--   Core JS Files   -->
-  <script src="{{ asset('js/now-ui-dashboard.back.js') }}" type="text/javascript"></script>
+<!--   <script src="{{ asset('js/now-ui-dashboard.back.js') }}" type="text/javascript"></script> -->
+  <script src="{{ mix('js/manifest.js') }}"></script>
+  <script src="{{ mix('js/vendor.js') }}"></script>
+  <script src="{{ mix('js/now-ui-dashboard.back.js') }}"></script>
+
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script> -->
   <!--  Google Maps Plugin    -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->

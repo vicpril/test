@@ -26,7 +26,7 @@ let mix = require('laravel-mix');
 
 mix
   .js('resources/js/now-ui-dashboard.back.js', 'public/js/')
-  // .extract(['datatables'])
+  .extract(['lodash', 'bootstrap', 'popper.js', 'axios', 'jquery', 'vue'])
   .sass('resources/sass/now-ui-dashboard.scss', 'public/css/');
 
 //DataTables.net
