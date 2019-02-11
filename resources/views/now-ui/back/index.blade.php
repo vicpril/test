@@ -1,6 +1,6 @@
 @extends(env('THEME_BACK').'.back.layout')
 
-@isset('datatables'){!! $datatables !!}@endisset
+@isset($datatables){!! $datatables !!}@endisset
 
 @section('css')
   

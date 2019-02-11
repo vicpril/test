@@ -430,8 +430,16 @@ $( document ).ready(function() {
 			var row = $(jobsTable).find('tr td:first-child').filter(function() {
 					return $(this).text() == Number(data[0]) - 1;
 			}).parent('tr');
-			row.child('td:2')	
-				.data(data).draw();
+			$(row).remove().draw();	
+// 			$(row).children('td')[2].innerHTML = data[2];	
+			
+			jobsTable.row.add( [
+            data[0],
+            data[1],
+            data[2],
+        ] ).draw();
+			
+			
 			jobsTable.rows().invalidate().draw();
 				console.log(data);
 		}

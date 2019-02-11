@@ -45,7 +45,7 @@
               
                   @foreach($users as $user)
                     <tr>
-                      <td>{{ $user->displayName }}</td>
+                      <td>{!! $user->editLink !!}</td>
                       <td>{{ $user->en->last_name }} {{ $user->en->initials }}</td>
                       <td>{{ $user->email }}</td>
                       <td>{{ $user->role }}</td>
