@@ -307,9 +307,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
-  created: function created() {}
+  props: ['old', 'id'],
+  data: function data() {
+    return {
+      user: {}
+    };
+  },
+  created: function created() {
+    if (this.old.length !== 0) {
+      this.user = this.old;
+    } else if (this.id) {
+      this.fetch(this.id);
+    }
+  },
+  methods: {
+    fetch: function fetch(id) {
+      var _this = this;
+
+      axios.get('/api/users/' + id).then(function (_ref) {
+        var data = _ref.data;
+        //           console.log(data);
+        _this.user = data.data;
+      });
+    },
+    autocomplite: function autocomplite() {}
+  }
 });
 
 /***/ }),
@@ -846,15 +918,13 @@ var render = function() {
             return _c("tr", [
               _c("td", [
                 _c("a", { attrs: { href: user.editLink } }, [
-                  _vm._v(_vm._s(user.meta[0].full_name))
+                  _vm._v(_vm._s(user.full_name))
                 ])
               ]),
               _vm._v(" "),
               _c("td", [
                 _vm._v(
-                  _vm._s(user.meta[1].last_name) +
-                    " " +
-                    _vm._s(user.meta[1].initials)
+                  _vm._s(user.last_name_en) + " " + _vm._s(user.initials_en)
                 )
               ]),
               _vm._v(" "),
@@ -908,8 +978,743 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {}
-var staticRenderFns = []
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-8 col-sm-7 col-xs-7" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "h6" }, [_vm._v("Полное имя")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.full_name,
+                        expression: "user.full_name"
+                      }
+                    ],
+                    staticClass: "form-control mr-2",
+                    attrs: {
+                      type: "text",
+                      name: "full_name",
+                      placeholder: "Ф.И.О.",
+                      required: ""
+                    },
+                    domProps: { value: _vm.user.full_name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "full_name", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-4 col-sm-5 col-xs-5 text-right" },
+                [
+                  _c("label", { staticClass: "d-block" }, [
+                    _vm._v("Автозаполнение")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-primary btn-simple btn-round py-2 my-0",
+                      attrs: { type: "button" },
+                      on: { click: _vm.autocomplite }
+                    },
+                    [_vm._v("Заполнить")]
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-7 pr-1" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "h6", attrs: { for: "email" } }, [
+                    _vm._v("Email")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.email,
+                        expression: "user.email"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "email",
+                      name: "email",
+                      placeholder: "Email",
+                      required: ""
+                    },
+                    domProps: { value: _vm.user.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "email", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "invalid-feedback" })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-5 pl-1" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "h6", attrs: { for: "alias" } }, [
+                    _vm._v("Логин")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.alias,
+                        expression: "user.alias"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "alias", disabled: _vm.id },
+                    domProps: { value: _vm.user.alias },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "alias", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "invalid-feedback" })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "h6 mt-2" }, [
+              _vm._v("Данные на русском")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-4 pr-1" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "last_name_ru" } }, [
+                    _vm._v("Фамилия")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.last_name_ru,
+                        expression: "user.last_name_ru"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "last_name_ru" },
+                    domProps: { value: _vm.user.last_name_ru },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "last_name_ru", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-3 px-1" }, [
+                _c("label", { attrs: { for: "first_name_ru" } }, [
+                  _vm._v("Имя")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.first_name_ru,
+                      expression: "user.first_name_ru"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "first_name_ru" },
+                  domProps: { value: _vm.user.first_name_ru },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "first_name_ru", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-3 px-1" }, [
+                _c("label", { attrs: { for: "patronymic_ru" } }, [
+                  _vm._v("Отчество")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.patronymic_ru,
+                      expression: "user.patronymic_ru"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "patronymic_ru" },
+                  domProps: { value: _vm.user.patronymic_ru },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "patronymic_ru", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-2 pl-1" }, [
+                _c("label", { attrs: { for: "initials_ru" } }, [
+                  _vm._v("Инициалы")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.initials_ru,
+                      expression: "user.initials_ru"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "initials_ru" },
+                  domProps: { value: _vm.user.initials_ru },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "initials_ru", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "h6 mt-2" }, [
+              _vm._v("Данные на английском")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-4 pr-1" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "last_name_en" } }, [
+                    _vm._v("Last Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.last_name_en,
+                        expression: "user.last_name_en"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "last_name_en" },
+                    domProps: { value: _vm.user.last_name_en },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "last_name_en", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-3 px-1" }, [
+                _c("label", { attrs: { for: "first_name_en" } }, [
+                  _vm._v("First Name")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.first_name_en,
+                      expression: "user.first_name_en"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "first_name_en" },
+                  domProps: { value: _vm.user.first_name_en },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "first_name_en", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-3 px-1" }, [
+                _c("label", { attrs: { for: "patronymic_en" } }, [
+                  _vm._v("Middle Name")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.patronymic_en,
+                      expression: "user.patronymic_en"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "patronymic_en" },
+                  domProps: { value: _vm.user.patronymic_en },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "patronymic_en", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-2 pl-1" }, [
+                _c("label", { attrs: { for: "initials_en" } }, [
+                  _vm._v("Initials")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.initials_en,
+                      expression: "user.initials_en"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "initials_en" },
+                  domProps: { value: _vm.user.initials_en },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "initials_en", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "h6 mt-2" }, [_vm._v("ORCID")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-7 pr-1" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.orcid,
+                        expression: "user.orcid"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "orcid" },
+                    domProps: { value: _vm.user.orcid },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "orcid", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("label", { staticClass: "h6 mt-2" }, [
+              _vm._v("Степень и звание")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6 pr-1" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "graduate_ru" } }, [
+                    _vm._v("На русском")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.graduate_ru,
+                        expression: "user.graduate_ru"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "graduate_ru" },
+                    domProps: { value: _vm.user.graduate_ru },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "graduate_ru", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6 pl-1" }, [
+                _c("label", { attrs: { for: "graduate_en" } }, [
+                  _vm._v("На английском")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.graduate_en,
+                      expression: "user.graduate_en"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "graduate_en" },
+                  domProps: { value: _vm.user.graduate_en },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "graduate_en", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "h6 mt-3" }, [
+              _vm._v("Место работы (должность)")
+            ]),
+            _vm._v(" "),
+            _vm._m(2)
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _vm._m(3),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "h6" }, [_vm._v("На русском")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.description_ru,
+                        expression: "user.description_ru"
+                      }
+                    ],
+                    staticClass: "form-control description",
+                    attrs: {
+                      name: "description_ru",
+                      id: "",
+                      cols: "100",
+                      rows: "3"
+                    },
+                    domProps: { value: _vm.user.description_ru },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.user,
+                          "description_ru",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "h6 mt-2" }, [
+                    _vm._v("На английском")
+                  ]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.description_en,
+                        expression: "user.description_en"
+                      }
+                    ],
+                    staticClass: "form-control description",
+                    attrs: {
+                      name: "description_en",
+                      id: "",
+                      cols: "100",
+                      rows: "3"
+                    },
+                    domProps: { value: _vm.user.description_en },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.user,
+                          "description_en",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(4)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "title  mb-0" }, [_vm._v("Персональные данные")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "title mb-0" }, [
+        _vm._v("Сведения о месте работы")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c(
+          "table",
+          {
+            staticClass:
+              "table table-striped table-bordered table-responsive-md",
+            staticStyle: { width: "100%" },
+            attrs: { id: "jobsTable" }
+          },
+          [
+            _c("thead", [
+              _c("th", {}),
+              _vm._v(" "),
+              _c("th", {}, [_vm._v("На русском")]),
+              _vm._v(" "),
+              _c("th", {}, [_vm._v("На английском")])
+            ]),
+            _vm._v(" "),
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [_vm._v("1")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Русское название 111")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Английское название 111")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("22")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Русское название 2222")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Английское название 2222")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("2")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Русское название 33")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Английское название 333")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("24")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Русское название 44")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Английское название 444")])
+              ])
+            ])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "title mb-0" }, [_vm._v("Биография")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h6", [_vm._v("Сохранить изменения")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("input", {
+            staticClass: "btn btn-primary btn-round btn-block",
+            attrs: { type: "submit", value: "Сохранить" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card", attrs: { id: "photoCard" } }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h6", [_vm._v("Фотография")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "d-none", attrs: { id: "image" } }, [
+            _c("img", { attrs: { src: "", alt: "" } }),
+            _vm._v(" "),
+            _c("label", [
+              _c(
+                "a",
+                {
+                  staticClass: "text-info text-center p-1",
+                  attrs: { href: "#", id: "destroyImage" }
+                },
+                [_vm._v("Поменять фотографию")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "text-center", attrs: { id: "downloadImage" } },
+            [
+              _c("label", { staticClass: "d-block mb-0" }, [
+                _vm._v("Фотография не загружена")
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm btn-primary btn-simple btn-round",
+                  attrs: {
+                    type: "button",
+                    "data-toggle": "modal",
+                    "data-target": "#setFileModal"
+                  }
+                },
+                [_vm._v("Загрузить")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "d-none",
+            attrs: { type: "text", name: "avatar", value: "" }
+          })
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
 
 
 

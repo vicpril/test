@@ -2,8 +2,6 @@
 
 
 @section('css')
-  <!-- DataTables CSS -->
-  <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.css') }}"> -->
   
 @endsection
 

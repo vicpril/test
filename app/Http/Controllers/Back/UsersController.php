@@ -3,6 +3,7 @@
 namespace Idea\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
+use Idea\Models\User;
 use Idea\Http\Requests\UserRequest;
 use Idea\Http\Controllers\Back\AdminController;
 use Idea\Repositories\UsersRepository;
@@ -114,9 +115,18 @@ class UsersController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $this->subtitle = "Редактировать автора";
+
+        $this->template = env('THEME_BACK').'.back.users.create';
+      
+//         $user = $this->repository->get('*', ['id', $id]);
+//         if($user){
+//           $user->loadMissing(['meta', 'articles']);
+//         }
+
+        return $this->renderOutput(['id'=>$user->id]);
     }
 
     /**

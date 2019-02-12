@@ -31,6 +31,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('article', function($value) {
             return \Idea\Models\Article::where('id', $value)->first();
         });
+      
+        Route::bind('user', function($value) {
+            return \Idea\Models\User::where('id', $value)->first();
+        });
     }
 
     /**

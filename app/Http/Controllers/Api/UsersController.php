@@ -56,7 +56,8 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $user->loadMissing(['meta', 'avatar']);
+        return new UserResource($user);
     }
 
     /**
@@ -67,7 +68,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        
     }
 
     /**

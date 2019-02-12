@@ -12,12 +12,19 @@
                     <div class="col-md-8 col-sm-7 col-xs-7">
                       <div class="form-group">
                         <label class="h6">Полное имя</label>
-                        <input type="text" class="form-control mr-2" name="full_name" placeholder="Ф.И.О." value="{{old('full_name')}}" required >
+                        <input type="text" 
+															 class="form-control mr-2" 
+															 name="full_name" 
+															 placeholder="Ф.И.О." 
+															 v-model="user.full_name" 
+															 required >
                       </div>
                     </div>
                     <div class="col-md-4 col-sm-5 col-xs-5 text-right">
                       <label class="d-block">Автозаполнение</label>
-                      <button type="button" class="btn btn-primary btn-simple btn-round py-2 my-0" id="autocompliteBtn">Заполнить</button>
+                      <button type="button" 
+															class="btn btn-primary btn-simple btn-round py-2 my-0" 
+															@click="autocomplite">Заполнить</button>
                     </div>
                   </div>
 
@@ -25,23 +32,26 @@
                     <div class="col-md-7 pr-1">
                       <div class="form-group">
                         <label class="h6" for="email">Email</label>
-                        <input type="email" class="form-control @if($errors->first('email')) is-invalid @endif" name="email" placeholder="Email" value="{{old('email')}}" required>
-												@if($errors->first('email'))
+                        <input type="email" 
+															 class="form-control" 
+															 name="email" 
+															 placeholder="Email" 
+															 v-model="user.email" 
+															 required>
 													<div class="invalid-feedback">
-														{{ $errors->first('email') }}
 													</div>
-												@endif
                       </div>
                     </div>
                     <div class="col-md-5 pl-1">
                       <div class="form-group">
                         <label class="h6" for="alias">Логин</label>
-                        <input type="text" class="form-control @if($errors->first('alias')) is-invalid @endif" name="alias" value="{{old('alias')}}" @if(isset($user->alias)) disabled="" @endif>
-                     		@if($errors->first('alias'))
+                        <input type="text" 
+															 class="form-control" 
+															 name="alias" 
+															 v-model="user.alias" 
+															 :disabled="id">
 													<div class="invalid-feedback">
-														{{ $errors->first('alias') }}
 													</div>
-												@endif
 											</div>
                     </div>
                   </div>
@@ -51,20 +61,32 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label for="last_name_ru">Фамилия</label>
-                        <input type="text" class="form-control" name="last_name_ru"  value="{{old('last_name_ru')}}">
+                        <input type="text" 
+															 class="form-control" 
+															 name="last_name_ru"  
+															 v-model="user.last_name_ru" >
                       </div>
                     </div>
                     <div class="col-md-3 px-1">
                         <label for="first_name_ru">Имя</label>
-                        <input type="text" class="form-control" name="first_name_ru" value="{{old('first_name_ru')}}">
+                        <input type="text" 
+															 class="form-control" 
+															 name="first_name_ru" 
+															 v-model="user.first_name_ru">
                     </div>
                     <div class="col-md-3 px-1">
                         <label for="patronymic_ru">Отчество</label>
-                        <input type="text" class="form-control" name="patronymic_ru" value="{{old('patronymic_ru')}}">                
+                        <input type="text" 
+															 class="form-control" 
+															 name="patronymic_ru" 
+															 v-model="user.patronymic_ru">                
                     </div>
                     <div class="col-md-2 pl-1">
                         <label for="initials_ru">Инициалы</label>
-                        <input type="text" class="form-control" name="initials_ru" value="{{old('initials_ru')}}">                
+                        <input type="text" 
+															 class="form-control" 
+															 name="initials_ru" 
+															 v-model="user.initials_ru">                
                     </div>
                   </div>
                 
@@ -73,20 +95,32 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label for="last_name_en">Last Name</label>
-                        <input type="text" class="form-control" name="last_name_en" value="{{old('last_name_en')}}">
+                        <input type="text" 
+															 class="form-control" 
+															 name="last_name_en" 
+															 v-model="user.last_name_en">
                       </div>
                     </div>
                     <div class="col-md-3 px-1">
                         <label for="first_name_en">First Name</label>
-                        <input type="text" class="form-control" name="first_name_en" value="{{old('first_name_en')}}">
+                        <input type="text" 
+															 class="form-control" 
+															 name="first_name_en" 
+															 v-model="user.first_name_en">
                     </div>
                     <div class="col-md-3 px-1">
                         <label for="patronymic_en">Middle Name</label>
-                        <input type="text" class="form-control" name="patronymic_en" value="{{old('patronymic_en')}}">                
+                        <input type="text" 
+															 class="form-control" 
+															 name="patronymic_en" 
+															 v-model="user.patronymic_en">                
                     </div>
                     <div class="col-md-2 pl-1">
                         <label for="initials_en">Initials</label>
-                        <input type="text" class="form-control" name="initials_en" value="{{old('initials_en')}}">                
+                        <input type="text" 
+															 class="form-control" 
+															 name="initials_en" 
+															 v-model="user.initials_en">                
                     </div>
                   </div>
 								
@@ -94,7 +128,10 @@
                   <div class="row">
                     <div class="col-md-7 pr-1">
                       <div class="form-group">
-                        <input type="text" class="form-control" name="orcid"  value="{{old('orcid')}}">
+                        <input type="text" 
+															 class="form-control" 
+															 name="orcid"  
+															 v-model="user.orcid">
                       </div>
                     </div>
 								</div>
@@ -111,12 +148,18 @@
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label for="graduate_ru">На русском</label>
-                        <input type="text" class="form-control" name="graduate_ru" value="{{old('graduate_ru')}}">
+                        <input type="text" 
+															 class="form-control" 
+															 name="graduate_ru" 
+															 v-model="user.graduate_ru" >
                       </div>
                     </div>
                     <div class="col-md-6 pl-1">
                         <label for="graduate_en">На английском</label>
-                        <input type="text" class="form-control" name="graduate_en" value="{{old('graduate_en')}}">
+                        <input type="text" 
+															 class="form-control" 
+															 name="graduate_en" 
+															 v-model="user.graduate_en" >
                     </div>
 									</div>
 									
@@ -169,7 +212,10 @@
 									<div class="row">
 										<div class="form-group">
 											<label class="h6">На русском</label>
-											<textarea name="description_ru" id="" cols="100" rows="3" class="form-control description"></textarea>
+											<textarea name="description_ru" 
+																id="" cols="100" rows="3" 
+																class="form-control description"
+																v-model="user.description_ru" ></textarea>
 										</div>
 									</div>
 								</div>
@@ -178,7 +224,10 @@
 									<div class="row">
 										<div class="form-group">
 											<label class="h6 mt-2">На английском</label>
-											<textarea name="description_en" id="" cols="100" rows="3" class="form-control description"></textarea>
+											<textarea name="description_en" 
+																id="" cols="100" rows="3" 
+																class="form-control description"
+																v-model="user.description_en" ></textarea>
 										</div>
 									</div>
 								</div>
@@ -215,7 +264,7 @@
                       <label class="d-block mb-0">Фотография не загружена</label>
                       <button type="button" class="btn btn-sm btn-primary btn-simple btn-round" data-toggle="modal" data-target="#setFileModal">Загрузить</button>
                     </div>
-                    <input type="text" class="d-none" name="avatar" value="@if(isset($user->avatar)){{$user->avatar}}@elseif(old('avatar')){{old('avatar')}}@else{!!-1!!}@endif">
+                    <input type="text" class="d-none" name="avatar" value="">
                   </div>
             </div>
           </div>
@@ -228,10 +277,37 @@
 
 <script>
   export default {
-    props:['id'],
-    
+    props: [
+			'old',
+			'id',
+// 			'user'
+		],
+		
+		data: function() {
+			return {
+				user: {}
+			}
+		},
+		
     created: function() {
-      
+      if(this.old.length !== 0) {
+				this.user = this.old;
+			} else if (this.id) {
+				this.fetch(this.id);
+			}
+    },
+		
+		methods: {
+      fetch(id) {
+        axios.get('/api/users/'+id).then( ({data}) => {
+//           console.log(data);
+          this.user = data.data;
+        });
+      },
+			
+			autocomplite() {
+				
+			}
     },
   }
 
