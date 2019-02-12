@@ -23,7 +23,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = $this->repository->all();
+        $users = $this->repository->all(['meta', 'articles']);
         return UserResource::collection($users);
     }
 

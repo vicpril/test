@@ -21,16 +21,11 @@
       </tbody>
     </table>
   </div>
-<!--   <button class="btn" @click="console.log(this)"></button> -->
 </template>
 
 <script>
-  $(document).ready(function () {
-    // DataTable - initiate
-    
-  });
-
   export default {
+    
     data() {
       return {
         users : [],
@@ -43,7 +38,12 @@
     },
     
     methods: {
+      push: function () {
+        console.log(this.$route);
+      },
+      
       fetch() {
+        
         axios.get('/api/users').then( ({data}) => {
 //           console.log(data);
           this.users = data.data;

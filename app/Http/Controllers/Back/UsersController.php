@@ -9,7 +9,7 @@ use Idea\Repositories\UsersRepository;
 
 class UsersController extends AdminController
 {
-    use Indexable;
+//     use Indexable;
 
     public function __construct(UsersRepository $u_rep) {
         parent::__construct();
@@ -57,10 +57,14 @@ class UsersController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     // return view(env('THEME_BACK').'.back.users.index')->render();
-    // }
+    public function index()
+    {
+        $this->subtitle = "Авторы";
+
+        $this->template = env('THEME_BACK').'.back.users.index';  
+      
+        return $this->renderOutput();
+    }
 
     /**
      * Show the form for creating a new resource.

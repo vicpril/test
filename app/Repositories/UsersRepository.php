@@ -31,10 +31,13 @@ class UsersRepository extends Repository{
 	*	Get all users with meta mapped by Locale
 	*
 	*/
-	public function all() {
+	public function all($relationsip = []) {
 		$result = parent::all();
-		$result->loadMissing('meta');
-// 		$result->loadMissing('articles');
+// 		$result->loadMissing('meta');
+		foreach ($relationsip as $model) {
+			$result->loadMissing($model);
+		}
+		
 		return $result;
 	}
 

@@ -50,8 +50,8 @@ window.VueRouter = require('vue-router');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-// Vue.component('user-profile', require('./components/back/UserProfile.vue').default);
 Vue.component('user-list', require('./components/back/UserList.vue').default);
+Vue.component('user-profile', require('./components/back/UserProfile.vue').default);
 
 
 
