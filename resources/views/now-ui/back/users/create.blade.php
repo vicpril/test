@@ -90,7 +90,7 @@
     <!-- Upload script -->
     @yield('modal_upload_js')
 
-		@include(env('THEME_BACK').'.back.files.autocomplite')
+		@include(env('THEME_BACK').'.back.users.autocomplite')
 
 
 <script type="text/javascript">

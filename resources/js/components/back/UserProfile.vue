@@ -306,7 +306,7 @@
       },
 			
 			autocomplite() {
-				
+				autocomplite_fields(this.user.full_name)
 			}
     },
   }

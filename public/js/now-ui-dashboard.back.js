@@ -380,7 +380,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.user = data.data;
       });
     },
-    autocomplite: function autocomplite() {}
+    autocomplite: function autocomplite() {
+      autocomplite_fields(this.user.full_name);
+    }
   }
 });
 

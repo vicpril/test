@@ -3,12 +3,8 @@ $( document ).ready(function() {
   
   (function( $ ) {
     
-  $.autocomplite_fields = function(name) {
+  autocomplite_fields = function(name) {
             var f_name, l_name, pat, ini;
-
-//             rename_fields(name);
-
-    //            fullname_field = jQuery('input#us_full-name');
             email_field = $('input[name="email"]');
             alias_field = $('input[name="alias"]');   
     
@@ -24,10 +20,6 @@ $( document ).ready(function() {
             lastname_en_field = $('input[name="last_name_en"]');
             patronymic_en_field = $('input[name="patronymic_en"]');
             initials_en_field = $('input[name="initials_en"]');
-            
-//             name_en_field = jQuery('input#us_name_en');
-//             initials_en_field = jQuery('input#us_initials_en');
-//             display_name_field = jQuery('select#display_name');
 
             name = name.split(' ', 3);
             switch (name.length) {
@@ -85,26 +77,6 @@ $( document ).ready(function() {
                 initials_en_field.val('');
             }
     
-            
-            // change display name
-            
-//             if(f_name){f_name = ' ' + f_name}else{f_name = ''};
-//             display_name_field.append('<option>'+ l_name + f_name +'</option>');
-            
-//             if (ini){ini = ' ' + ini;}else{ini = ''};
-//             display_name_field.append('<option>'+ l_name + ini +'</option>');
-//             display_name_field.val(l_name + ini);
-
-            // rename value hidden fields
-//             function rename_fields(name) {
-//                 jQuery('input#first_name').val(name);
-//                 jQuery('input#nickname').val(tranaslat(name));
-//             }
-
-            //
-            // translate to lat
-            //
-            
         }
         
         function tranaslat(title) {
