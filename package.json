@@ -34,6 +34,7 @@
         "datatables.net-scroller-bs4": "^1.5.1",
         "datatables.net-select-bs4": "^1.2.7",
         "jquery-colorbox": "^1.6.4",
-        "jquery-validation": "^1.19.0"
+        "jquery-validation": "^1.19.0",
+        "vue-router": "^3.0.2"
     }
 }

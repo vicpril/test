@@ -35,9 +35,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 $(document).ready(function () {// DataTable - initiate
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55,7 +52,7 @@ $(document).ready(function () {// DataTable - initiate
 
       axios.get('/api/users').then(function (_ref) {
         var data = _ref.data;
-        console.log(data);
+        //           console.log(data);
         _this.users = data.data;
       }).then(function () {
         _this.dataTableInit();
@@ -603,7 +600,11 @@ var render = function() {
           "tbody",
           _vm._l(_vm.users, function(user, index) {
             return _c("tr", [
-              _c("td", { domProps: { innerHTML: _vm._s(user.editLink) } }),
+              _c("td", [
+                _c("a", { attrs: { href: user.editLink } }, [
+                  _vm._v(_vm._s(user.meta[0].full_name))
+                ])
+              ]),
               _vm._v(" "),
               _c("td", [
                 _vm._v(
@@ -883,6 +884,7 @@ __webpack_require__(/*! ./now-ui-dashboard/now-ui-dashboard */ "./resources/js/n
 
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.VueRouter = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

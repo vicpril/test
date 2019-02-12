@@ -76,6 +76,6 @@ class User extends Authenticatable
     }
   
     public function getEditLinkAttribute(){
-        return view('components.user_edit_link', ['user' => $this])->render();
+        return route('users.edit', $this->id);
     }
 }

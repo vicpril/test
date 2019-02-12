@@ -11,20 +11,17 @@
         </tr>
       </thead>
       <tbody>
-
-<!--         @foreach($users as $user) -->
           <tr v-for="(user, index) in users">
-            <td v-html="user.editLink"></td>
+            <td><a :href="user.editLink">{{ user.meta[0].full_name }}</a></td>
             <td>{{ user.meta[1].last_name }} {{ user.meta[1].initials }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.role }}</td>
             <td>{{ user.articles }}</td>
           </tr>
-<!--         @endforeach  -->
-
       </tbody>
     </table>
   </div>
+<!--   <button class="btn" @click="console.log(this)"></button> -->
 </template>
 
 <script>
@@ -42,12 +39,13 @@
     
     created: function() {
       this.fetch();
+      
     },
     
     methods: {
       fetch() {
         axios.get('/api/users').then( ({data}) => {
-          console.log(data);
+//           console.log(data);
           this.users = data.data;
           
         }).then( () => {
