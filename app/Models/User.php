@@ -51,7 +51,13 @@ class User extends Authenticatable
         return $this->belongsTo('Idea\Models\File');
     }
 
-
+    /*
+    *   Locale getters
+    */
+  
+    public function getLocAttribute(){
+        return $this->meta->where('lang', app()->getLocale())->first();
+    }
 
     public function getRuAttribute(){
         return $this->meta->where('lang', 'ru')->first();
@@ -61,6 +67,7 @@ class User extends Authenticatable
         return $this->meta->where('lang', 'en')->first();
     }
 
+  
     public function getDisplayNameAttribute() {
         $displayName = $this->meta->where('lang', app()->getLocale())->first();
         return ($displayName && $displayName->full_name) ? $displayName->full_name : $this->alias;

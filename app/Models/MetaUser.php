@@ -22,16 +22,30 @@ class MetaUser extends Model
     	return $this->belongsTo('Idea\Models\User');
     }
 
+  
+    /*
+    *   Name getters
+    */
+    
+    public function getFullNameAttribute () {
+        $fullName = $this->last_name .' '. $this->first_name;
+        $fullName .= ($this->patronymic) ? ' ' . $this->patronymic : '';
+        return $fullName;
+//         dump($this->last_name 
+//                .' '. $this->first_name 
+//                . ($this->patronymic) ? ' ' . $this->patronymic : '');
+    }
+  
     public function getShortNameAttribute() {
-        if ($this->last_name) {
-            $shortName = $this->last_name;
-            $shortName .= ($this->initials) ? ' '. $this->initials : ''; 
-        }elseif ($this->full_name) {
-            $shortName = $this->full_name; 
-        }else {
-            $shortName = $this->alias;
+        $shortName = $this->last_name;
+        if ($this->initials) {
+            $shortName .=  ' '. $this->initials;
+        } elseif ($this->first_name) {
+            $shortName .=  ' '. substr($this->first_name, 0, 1) . '.';
+            if ($this->patronymic) {
+                $shortName .=  ' '. substr($this->patronymic, 0, 1) . '.';
+            }
         }
         return $shortName;
     }
-
 }

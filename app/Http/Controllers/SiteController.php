@@ -50,23 +50,19 @@ class SiteController extends Controller
 
         $menu = $this->getMenu();
 
-        // dump(request()->session());
-        
         $navigation = view(env('THEME').'.navigation')->with('menu', $menu)->render();
         $this->vars = array_add($this->vars, 'navigation', $navigation);
 
         $header = view(env('THEME').'.header')->with('navigation', $navigation)->render();
         $this->vars = array_add($this->vars, 'header', $header);
 
-        // dd($header);
-
         $footer = view(env('THEME').'.footer')->render();
         $this->vars = array_add($this->vars, 'footer', $footer);
 
-        // dump(app()->getLocale());
-
         if (auth()->check()) {
-            dump(auth()->user()->meta->where('lang', app()->getLocale())->first()->full_name. ' - '. auth()->user()->role);
+            dump(auth()->user()->loc->fullName . ' - '. auth()->user()->role);
+            dump(auth()->user()->loc->shortName . ' - '. auth()->user()->role);
+
         }
 
     	return view($this->template)->with($this->vars);
@@ -75,8 +71,6 @@ class SiteController extends Controller
     public function getMenu() {
         
         $menu = $this->m_rep->get();
-        
-        // dd($menu);
         
         $mBuilder = Menu::make('MyNav', function($m) use ($menu) {
              
@@ -95,11 +89,8 @@ class SiteController extends Controller
             
         });
         
-        // dd($mBuilder);
-        // dump($mBuilder);
         return $mBuilder;
 
-        // return $menu;
     }   
 
 
