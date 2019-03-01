@@ -33,10 +33,10 @@ class UsersRepository extends Repository{
 	*/
 	public function all($relationsip = []) {
 		$result = parent::all();
-// 		$result->loadMissing('meta');
-		foreach ($relationsip as $model) {
-			$result->loadMissing($model);
-		}
+		$result->loadMissing($relationsip);
+		// foreach ($relationsip as $model) {
+			// $result->loadMissing($model);
+		// }
 		
 		return $result;
 	}

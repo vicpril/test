@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-          <tr v-for="(user, index) in users">
+          <tr v-for="(user, index) in users" :key="index">
             <td><a :href="user.editLink">{{ user.full_name }}</a></td>
             <td>{{ user.last_name_en }} {{ user.initials_en }}</td>
             <td>{{ user.email }}</td>

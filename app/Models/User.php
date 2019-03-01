@@ -23,7 +23,7 @@ class User extends Authenticatable
         'email', 'alias', 'role', 'password', 'orcid', 'avatar_id'
     ];
 
-    // protected $relation = ['meta'];
+    protected $relation = ['meta', 'articles'];
 
     /**
      * The attributes that should be hidden for arrays.
