@@ -9,23 +9,27 @@ abstract class Repository {
 	protected $model = FALSE;
 
 	//void get
-	public function get($select = '*', $where = FALSE, $orderBy = FALSE) {
+	public function get($select = '*', $where = FALSE, $orderBy = FALSE, $pagination = FALSE) {
 
 		$builder = $this->model->select($select);
-
 
 		if ($where) {
 			$builder = $builder->where($where[0], $where[1]);
 		}
-
+		
 		if ($orderBy) {
 			$builder = $builder->orderBy($orderBy, 'asc');
 		}
-
+		
+		if ($pagination) {
+			return $builder->paginate($pagination);
+		}
+		
 		return $builder->get();
 	}
 
-	public function one($alias) {
+	public function one($param) {
+		if(is_int($param))
 		$result = $this->model->where('alias', $alias)->first();
 		return $result;
 	}
