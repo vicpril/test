@@ -1,6 +1,5 @@
 @extends(env('THEME_BACK').'.back.layout')
 
-
 @section('css')
   
 @endsection
@@ -48,9 +47,5 @@
 
 
 @section('js')
-    <!-- DataTables JavaScript -->
-    <!-- <script type="text/javascript" src="{{ asset('js/datatables.js') }}" ></script> -->
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     
 @endsection

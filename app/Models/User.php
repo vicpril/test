@@ -44,7 +44,8 @@ class User extends Authenticatable
     }
 
     public function meta()  {
-        return $this->hasMany('Idea\Models\MetaUser', 'user_id');
+        return $this->hasMany('Idea\Models\MetaUser', 'user_id')
+                    ;
     }
   
     public function avatar()  {
@@ -68,19 +69,19 @@ class User extends Authenticatable
     }
 
   
-    public function getDisplayNameAttribute() {
-        $displayName = $this->meta->where('lang', app()->getLocale())->first();
-        return ($displayName && $displayName->full_name) ? $displayName->full_name : $this->alias;
-    }
+    // public function getDisplayNameAttribute() {
+    //     $displayName = $this->meta->where('lang', app()->getLocale())->first();
+    //     return ($displayName && $displayName->full_name) ? $displayName->full_name : $this->alias;
+    // }
 
-    public function getShortNameAttribute() {
+    // public function getShortNameAttribute() {
         
-        if ($this->meta->where('lang', app()->getLocale())->first()) {
-            return $this->meta->where('lang', app()->getLocale())->first()->shortName;
-        } else {
-            return $this->alias;
-        }
-    }
+    //     if ($this->meta->where('lang', app()->getLocale())->first()) {
+    //         return $this->meta->where('lang', app()->getLocale())->first()->shortName;
+    //     } else {
+    //         return $this->alias;
+    //     }
+    // }
   
     public function getEditLinkAttribute(){
         return route('users.edit', $this->id);

@@ -2,57 +2,60 @@
 
 namespace Idea\Http\Controllers\Back;
 
-use Illuminate\Http\Request;
-use Idea\Models\User;
-use Idea\Http\Requests\UserRequest;
 use Idea\Http\Controllers\Back\AdminController;
+use Idea\Http\Requests\UserRequest;
+use Idea\Models\User;
 use Idea\Repositories\UsersRepository;
+use Illuminate\Http\Request;
 
 class UsersController extends AdminController
 {
 //     use Indexable;
 
-    public function __construct(UsersRepository $u_rep) {
+    public function __construct(UsersRepository $u_rep)
+    {
         parent::__construct();
 
         $this->subtitle = "Авторы";
 
-        $this->template = env('THEME_BACK').'.back.users.index';
-        
+        $this->template = env('THEME_BACK') . '.back.users.index';
+
         $this->repository = $u_rep;
-       
+
         $this->table = 'users';
     }
 
-    public function profile() {
-      
+    public function profile()
+    {
+
         $this->subtitle = "Аватар";
 
-        $this->template = env('THEME_BACK').'.back.users.profile';
-      
+        $this->template = env('THEME_BACK') . '.back.users.profile';
+
         $user = auth()->user();
 
         return $this->renderOutput(compact('user', $user));
     }
-  
-  public function update_avatar(Request $request) {
+
+    public function update_avatar(Request $request)
+    {
         $request->validate([
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
-    $user = auth()->user();
-    
-    $avatarName = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
-    
-    $request->avatar->storeAs('avatars',$avatarName);
-    
-    $user->avatar = $avatarName;
-    $user->save();
-    
-    return back()
-            ->with('success','You have successfully upload image.');
 
-  }
+        $user = auth()->user();
+
+        $avatarName = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
+
+        $request->avatar->storeAs('avatars', $avatarName);
+
+        $user->avatar = $avatarName;
+        $user->save();
+
+        return back()
+            ->with('success', 'You have successfully upload image.');
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -62,8 +65,8 @@ class UsersController extends AdminController
     {
         $this->subtitle = "Авторы";
 
-        $this->template = env('THEME_BACK').'.back.users.index';  
-      
+        $this->template = env('THEME_BACK') . '.back.users.index';
+
         return $this->renderOutput();
     }
 
@@ -76,7 +79,7 @@ class UsersController extends AdminController
     {
         $this->subtitle = "Новый автор";
 
-        $this->template = env('THEME_BACK').'.back.users.create';
+        $this->template = env('THEME_BACK') . '.back.users.create';
 
         return $this->renderOutput();
     }
@@ -90,7 +93,7 @@ class UsersController extends AdminController
     public function store(UserRequest $request)
     {
         $result = $this->repository->create($request->except('_token'));
-      
+
         if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
@@ -119,14 +122,14 @@ class UsersController extends AdminController
     {
         $this->subtitle = "Редактировать автора";
 
-        $this->template = env('THEME_BACK').'.back.users.create';
-      
-//         $user = $this->repository->get('*', ['id', $id]);
-//         if($user){
-//           $user->loadMissing(['meta', 'articles']);
-//         }
+        $this->template = env('THEME_BACK') . '.back.users.create';
 
-        return $this->renderOutput(['id'=>$user->id]);
+//         $user = $this->repository->get('*', ['id', $id]);
+        //         if($user){
+        //           $user->loadMissing(['meta', 'articles']);
+        //         }
+
+        return $this->renderOutput(['id' => $user->id]);
     }
 
     /**

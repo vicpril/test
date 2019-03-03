@@ -1,74 +1,105 @@
-<?php 
+<?php
 
 namespace Idea\Repositories;
 
 use Idea\Models\User;
 use Transliterate;
 
-class UsersRepository extends Repository{
+class UsersRepository extends Repository
+{
 
+    public function __construct(User $user)
+    {
+        $this->model = $user;
 
-	public function __construct(User $user) {
-		$this->model = $user;
+    }
 
-	}
+    public function one($alias)
+    {
 
-	public function one($alias) {
-		
-		$result = parent::one($alias);
-		
-		if ($result) {
-			$result->load('jobs', 'articles');
-			$result->articles->load('status', 'issue');
+        $result = parent::one($alias);
 
-		}
+        if ($result) {
+            $result->load('jobs', 'articles');
+            $result->articles->load('status', 'issue');
 
-		return $result;
-	}
+        }
 
-	/*
-	*
-	*	Get all users with meta mapped by Locale
-	*
-	*/
-	public function all($relationsip = []) {
-		$result = parent::all();
-		$result->loadMissing($relationsip);
-		// foreach ($relationsip as $model) {
-			// $result->loadMissing($model);
-		// }
-		
-		return $result;
-	}
+        return $result;
+    }
 
-	public function filerUserArticlesByStatus(User $user, $status = '*') {
-		if ($status && $status !== '*') {
-			$user->articles = $user->articles->filter(function($article) use ($status) {
-				return $article->status->name === $status;
-			});
-		}
-		return $user;
-	}
-	
-	public function create($data) {
-		$alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
-		$user = $this->model->make([
+    /*
+     *
+     *    Get all users with select
+     *
+     */
+    public function get(
+        $select = '*',
+        $where = false,
+        $orderBy = false,
+        $pagination = ''
+    ) {
+        $result = parent::get(
+            $select = $select,
+            $where = $where,
+            $orderBy = $orderBy,
+            $pagination = $pagination
+        );
+        if ($result) {
+            $result->load('meta');
+            $result->load('articles');
+        }
+
+        return $result;
+
+    }
+
+    /*
+     *
+     *    Get all users with meta mapped by Locale
+     *
+     */
+    public function all($relationsip = [])
+    {
+        $result = parent::all();
+        $result->loadMissing($relationsip);
+        // foreach ($relationsip as $model) {
+        // $result->loadMissing($model);
+        // }
+
+        return $result;
+    }
+
+    public function filerUserArticlesByStatus(User $user, $status = '*')
+    {
+        if ($status && $status !== '*') {
+            $user->articles = $user->articles->filter(function ($article) use ($status) {
+                return $article->status->name === $status;
+            });
+        }
+        return $user;
+    }
+
+    public function create($data)
+    {
+        $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
+        $user = $this->model->make([
             'alias' => $alias,
             'email' => $data['email'],
             'password' => bcrypt('123'),
-						'role' => 'author',
-						'orcid' => (isset($data['orcid'])) ? $data['orcid'] : null,
+            'role' => 'author',
+            'orcid' => (isset($data['orcid'])) ? $data['orcid'] : null,
         ]);
-		
-		if ($data['avatar'] > 0) {
-			$user->avatar()->associate($data['avatar']);
-		} else {
-			$user->avatar()->dissociate();
-		}
-		
-		$user->save();
-		
-		$user->meta()->create([
+
+        if ($data['avatar'] > 0) {
+            $user->avatar()->associate($data['avatar']);
+        } else {
+            $user->avatar()->dissociate();
+        }
+
+        $user->save();
+
+        $user->meta()->create([
             'lang' => 'ru',
             'full_name' => $data['full_name'],
             'first_name' => $data['first_name_ru'],
@@ -76,25 +107,25 @@ class UsersRepository extends Repository{
             'patronymic' => $data['patronymic_ru'],
             'initials' => $data['initials_ru'],
 //             'post' => $data['full_name'],
-//             'description' => $data['full_name'],
-		]);
-		
-		$en_name = $data['last_name_en'];
-		$en_name .= ($data['first_name_en']) ? " " . $data['first_name_en'] : "";
-		$en_name .= ($data['patronymic_en']) ? " " . $data['patronymic_en'] : "";
-		
-		$user->meta()->create([
+            //             'description' => $data['full_name'],
+        ]);
+
+        $en_name = $data['last_name_en'];
+        $en_name .= ($data['first_name_en']) ? " " . $data['first_name_en'] : "";
+        $en_name .= ($data['patronymic_en']) ? " " . $data['patronymic_en'] : "";
+
+        $user->meta()->create([
             'lang' => 'en',
-						'full_name' => $en_name,
+            'full_name' => $en_name,
             'first_name' => $data['first_name_en'],
             'last_name' => $data['last_name_en'],
             'patronymic' => $data['patronymic_en'],
             'initials' => $data['initials_en'],
 //             'post' => $data['full_name'],
-//             'description' => $data['full_name'],
-		]);
-		
-		return ['status' => 'Пользователь добавлен'];
-	}
+            //             'description' => $data['full_name'],
+        ]);
+
+        return ['status' => 'Пользователь добавлен'];
+    }
 
 }

@@ -21,9 +21,15 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->repository->all(['articles', 'meta']);
+        $users = $this->repository
+                        ->get(
+                            $select = '*', 
+                            $where = FALSE,
+                            $orderBy = false, 
+                            $pagination = $request->input('paginate')
+                        );
         return UserResource::collection($users);
     }
 

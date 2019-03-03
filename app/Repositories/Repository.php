@@ -16,7 +16,7 @@ abstract class Repository {
 		if ($where) {
 			$builder = $builder->where($where[0], $where[1]);
 		}
-		
+
 		if ($orderBy) {
 			$builder = $builder->orderBy($orderBy, 'asc');
 		}

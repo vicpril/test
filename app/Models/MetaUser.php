@@ -19,7 +19,7 @@ class MetaUser extends Model
     public $timestamps = false;
 
     public function user() {
-    	return $this->belongsTo('Idea\Models\User');
+    	return $this->belongsTo('Idea\Models\User')->withPivot('last_name');
     }
 
   
