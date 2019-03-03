@@ -1,7 +1,7 @@
 <?php
 
 namespace Idea\Http\Controllers\Api;
-
+use DB;
 use Idea\Models\User;
 use Idea\Http\Resources\UserResource;
 use Idea\Repositories\UsersRepository;
@@ -23,13 +23,19 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->repository
-                        ->get(
-                            $select = '*', 
-                            $where = FALSE,
-                            $orderBy = false, 
-                            $pagination = $request->input('paginate')
-                        );
+
+        $users_id = DB::table('users')
+                    ->join('meta_users', 'users.id', '=', 'meta_users.user_id')
+                    ->where('email', 'like', "%".$request->input('search')."%")
+                    ->orWhere('full_name', 'like', "%".$request->input('search')."%")
+                    // ->orderBy($request->input('sortBy'), $request->input('orderBy'))
+                    ->pluck('users.id');
+
+        $users = User::whereIn('id', $users_id)
+                    ->with('meta', 'articles')
+                    // ->orderBy($request->input('sortBy'), $request->input('orderBy'))
+                    ->paginate($request->input('paginate'));
+
         return UserResource::collection($users);
     }
 

@@ -9,7 +9,7 @@ abstract class Repository {
 	protected $model = FALSE;
 
 	//void get
-	public function get($select = '*', $where = FALSE, $orderBy = FALSE, $pagination = FALSE) {
+	public function get($select = '*', $where = [], $orderBy = FALSE, $pagination = FALSE) {
 
 		$builder = $this->model->select($select);
 

@@ -34,15 +34,15 @@
 			<thead class="text-primary">
 				<tr>
 					<th>
-						<span @click="order('full_name')">Автор</span>
+						<span @click="setOrder('full_name')">Автор</span>
 					</th>
 					<th>Eng</th>
 					<th>
-						<span @click="order('email')">E-mail</span>
+						<span @click="setOrder('email')">E-mail</span>
 					</th>
 					<th>Роль</th>
 					<th>
-						<span @click="order('articles')">Статьи</span>
+						<span @click="setOrder('articles')">Статьи</span>
 					</th>
 				</tr>
 			</thead>
@@ -143,7 +143,7 @@ export default {
 				});
 		},
 
-		order(sortBy) {
+		setOrder(sortBy) {
 			this.sortBy = sortBy;
 		}
 	},

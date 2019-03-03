@@ -151,7 +151,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.pagination.total = data.meta.total;
       });
     },
-    order: function order(sortBy) {
+    setOrder: function setOrder(sortBy) {
       this.sortBy = sortBy;
     }
   },
@@ -1737,7 +1737,7 @@ var render = function() {
                 {
                   on: {
                     click: function($event) {
-                      _vm.order("full_name")
+                      _vm.setOrder("full_name")
                     }
                   }
                 },
@@ -1753,7 +1753,7 @@ var render = function() {
                 {
                   on: {
                     click: function($event) {
-                      _vm.order("email")
+                      _vm.setOrder("email")
                     }
                   }
                 },
@@ -1769,7 +1769,7 @@ var render = function() {
                 {
                   on: {
                     click: function($event) {
-                      _vm.order("articles")
+                      _vm.setOrder("articles")
                     }
                   }
                 },

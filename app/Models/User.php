@@ -44,8 +44,8 @@ class User extends Authenticatable
     }
 
     public function meta()  {
-        return $this->hasMany('Idea\Models\MetaUser', 'user_id')
-                    ;
+        return $this->hasMany('Idea\Models\MetaUser', 'user_id');
+                    
     }
   
     public function avatar()  {
