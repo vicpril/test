@@ -25,7 +25,7 @@ $factory->define(Idea\Models\User::class, function (Faker\Generator $faker) use 
         // 'name' => $localisedFaker->name,
         'email' => $localisedFaker->unique()->safeEmail,
         'password' => bcrypt('123'),
-        'alias' => 'user-' . $localisedFaker->unique()->numerify('##'),
+        'alias' => 'user-' . $localisedFaker->unique()->numerify('####'),
         'role' => 'author',
         'orcid' => str_random(6),
     ];
@@ -33,7 +33,7 @@ $factory->define(Idea\Models\User::class, function (Faker\Generator $faker) use 
 
 $factory->afterCreating(Idea\Models\User::class, function ($user, $faker) use ($localisedFaker) {
     
-    $i = $localisedFaker->numerify('##');
+    $i = $localisedFaker->numerify('####');
 
     $gender = $faker->randomElements(['male', 'female'])[0];
 

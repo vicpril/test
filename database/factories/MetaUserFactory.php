@@ -18,7 +18,7 @@ $ruFaker = Faker\Factory::create("ru_RU");
 $enFaker = Faker\Factory::create("en_En");
 
 $name = $ruFaker->name;
-$i = $ruFaker->numerify('##');
+$i = $ruFaker->numerify('####');
 
 // $factory->define(Idea\Models\MetaUser::class, function (Faker\Generator $faker) use ($name) {
 

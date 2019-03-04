@@ -95,8 +95,8 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        factory(User::class, 8)->create();
-        sleep(2);
+        factory(User::class, 300)->create();
+        sleep(1);
 
         $admin->meta()->save(MetaUser::where('id', 1)->first()->replicate());
         $admin->meta()->save(MetaUser::where('id', 2)->first()->replicate());
@@ -202,28 +202,37 @@ class DatabaseSeeder extends Seeder
 	 **************************/
 
 
-	$articles = factory(Article::class, 30)
+	$articles = factory(Article::class, 500)
 					->create()
 					->each(function ($a) {
 						$a->meta()->save(factory(MetaArticle::class)->states('ru')->make());
 						$a->meta()->save(factory(MetaArticle::class)->states('en')->make());
 					});
 
-    sleep(2);
+    sleep(1);
 
 	/***************************************
 	 *			Add Articles_User
 	 ***************************************/
-		for ($a=1; $a <= 30; $a++) { 
-			$users = array(3,4,5,6,7,8,9,10);
-			for ($i=1; $i <= random_int(1, 3); $i++) { 
-				$user_key = array_rand($users);
-				$user_id = $users[$user_key];
-				DB::table('article_user')->insert([
+// 		for ($a=1; $a <= 30; $a++) { 
+// 			$users = array(3,4,5,6,7,8,9,10);
+// 			for ($i=1; $i <= random_int(1, 3); $i++) { 
+// 				$user_key = array_rand($users);
+// 				$user_id = $users[$user_key];
+// 				DB::table('article_user')->insert([
+// 						'article_id' => $a,
+// 						'user_id' => $user_id,
+// 					]);
+// 				unset($users[$user_key]);
+// 			}
+// 		}
+			
+		for ($a=1; $a <= 500; $a++) { 
+			for ($i=1; $i <= random_int(1, 3); $i++) {
+					DB::table('article_user')->insert([
 						'article_id' => $a,
-						'user_id' => $user_id,
+						'user_id' => random_int(1, 300)
 					]);
-				unset($users[$user_key]);
 			}
 		}
 

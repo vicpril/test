@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
 
-        $users = $this->repository->getUsersList($request);
+        $users = $this->repository->getUsersList2($request);
 
         return UserResource::collection($users);
     }

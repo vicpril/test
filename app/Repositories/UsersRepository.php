@@ -58,6 +58,9 @@ class UsersRepository extends Repository
     /*
      *
      *    Get users with conditions
+     *        search in:
+     *                 full_name
+     *                 email
      *          for resources
      */
     public function getUsersList(\Illuminate\Http\Request $request) {
@@ -71,20 +74,37 @@ class UsersRepository extends Repository
                     ->leftjoin('article_user', 'users.id', '=', 'article_user.user_id')
                     ->where('email', 'like', "%".$search."%")
                     ->orWhere('full_name', 'like', "%".$search."%")
-                    // ->orderBy($sortBy, $orderBy)
-                    ->select('users.id as id', 'meta_users.lang as lang', DB::raw("count(article_user.article_id) as count") )
+                    ->orderBy($sortBy, $orderBy)
                     ->groupBy('id')
-                    ->get();
-                    // ->pluck('users.id')->unique()->toArray();
+                    ->pluck('users.id')->unique()->toArray();
 
-                    dump($users_id);
+        $users = User::whereIn('id', $users_id)
+                    ->with('meta', 'articles')
+                    ->orderByRaw("FIELD(id, ".implode(",",$users_id).")")
+                    ->paginate($paginate);
 
-        // $users = User::whereIn('id', $users_id)
-        //             ->with('meta', 'articles')
-        //             ->orderByRaw("FIELD(id, ".implode(",",$users_id).")")
-        //             ->paginate($paginate);
+        return $users;
 
-        return $users_id;
+    }
+  
+    public function getUsersList2(\Illuminate\Http\Request $request) {
+        $paginate = ($request->input('paginate')) ? $request->input('paginate') : '';
+        $search = ($request->input('search')) ? $request->input('search') : '';
+        $sortBy = ($request->input('sortBy')) ? $request->input('sortBy') : '';
+        $orderBy = ($request->input('orderBy')) ? $request->input('orderBy') : '';
+
+        $users = User::with(['meta', 'articles' => function($a) {
+                            $a->with('meta');
+                        }])
+                      ->where('email', 'like', "%".$search."%")
+                      ->orWhereHas('meta', function($query) use ($search) {
+                        $query->where('full_name', 'like', "%".$search."%");
+                      })
+                      ->orderBy($sortBy, $orderBy)
+                      ->paginate($paginate);
+        
+        
+        return $users;
 
     }
 

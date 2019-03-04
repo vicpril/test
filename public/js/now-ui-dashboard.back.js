@@ -493,7 +493,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nth span[data-v-1f022106] {\r\n\tcursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nth span[data-v-1f022106] {\n\tcursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -1800,7 +1800,7 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(user.role))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(user.articles))])
+              _c("td", [_vm._v(_vm._s(user.articles.length))])
             ])
           }),
           0
@@ -4556,8 +4556,8 @@ var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
+__webpack_require__(/*! /home/cabox/workspace/resources/js/now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
 
 
 /***/ })

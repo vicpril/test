@@ -21,12 +21,12 @@ $enFaker = Faker\Factory::create("en_En");
 
 $factory->define(Idea\Models\Article::class, function (Faker\Generator $faker) {
 
-	$i = $faker->unique()->numerify('##');
+	$i = $faker->unique()->numerify('####');
 
 	return [
         'alias' => 'article-'.$i,
         'doi' => 'doi-'.$i,
-        'udk' => $faker->unique()->numerify('###'),
+        'udk' => $faker->unique()->numerify('####'),
         'issue_id' => random_int(1, 8),
         'status_id' => random_int(1, 2),
 
