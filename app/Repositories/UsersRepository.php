@@ -2,7 +2,9 @@
 
 namespace Idea\Repositories;
 
+use DB;
 use Idea\Models\User;
+
 use Transliterate;
 
 class UsersRepository extends Repository
@@ -51,6 +53,38 @@ class UsersRepository extends Repository
         }
 
         return $result;
+    }
+
+    /*
+     *
+     *    Get users with conditions
+     *          for resources
+     */
+    public function getUsersList(\Illuminate\Http\Request $request) {
+        $paginate = ($request->input('paginate')) ? $request->input('paginate') : '';
+        $search = ($request->input('search')) ? $request->input('search') : '';
+        $sortBy = ($request->input('sortBy')) ? $request->input('sortBy') : '';
+        $orderBy = ($request->input('orderBy')) ? $request->input('orderBy') : '';
+
+        $users_id = DB::table('users')
+                    ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
+                    ->leftjoin('article_user', 'users.id', '=', 'article_user.user_id')
+                    ->where('email', 'like', "%".$search."%")
+                    ->orWhere('full_name', 'like', "%".$search."%")
+                    // ->orderBy($sortBy, $orderBy)
+                    ->select('users.id as id', 'meta_users.lang as lang', DB::raw("count(article_user.article_id) as count") )
+                    ->groupBy('id')
+                    ->get();
+                    // ->pluck('users.id')->unique()->toArray();
+
+                    dump($users_id);
+
+        // $users = User::whereIn('id', $users_id)
+        //             ->with('meta', 'articles')
+        //             ->orderByRaw("FIELD(id, ".implode(",",$users_id).")")
+        //             ->paginate($paginate);
+
+        return $users_id;
 
     }
 

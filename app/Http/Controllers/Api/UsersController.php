@@ -24,17 +24,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
 
-        $users_id = DB::table('users')
-                    ->join('meta_users', 'users.id', '=', 'meta_users.user_id')
-                    ->where('email', 'like', "%".$request->input('search')."%")
-                    ->orWhere('full_name', 'like', "%".$request->input('search')."%")
-                    // ->orderBy($request->input('sortBy'), $request->input('orderBy'))
-                    ->pluck('users.id');
-
-        $users = User::whereIn('id', $users_id)
-                    ->with('meta', 'articles')
-                    // ->orderBy($request->input('sortBy'), $request->input('orderBy'))
-                    ->paginate($request->input('paginate'));
+        $users = $this->repository->getUsersList($request);
 
         return UserResource::collection($users);
     }

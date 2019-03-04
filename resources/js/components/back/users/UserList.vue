@@ -47,7 +47,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(user, index) in orderedUsers" :key="index">
+				<tr v-for="(user, index) in users" :key="index">
 					<td>
 						<a :href="user.editLink">{{ user.full_name }}</a>
 					</td>
@@ -145,6 +145,7 @@ export default {
 
 		setOrder(sortBy) {
 			this.sortBy = sortBy;
+			this.fetch();
 		}
 	},
 

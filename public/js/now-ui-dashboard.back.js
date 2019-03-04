@@ -153,6 +153,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     setOrder: function setOrder(sortBy) {
       this.sortBy = sortBy;
+      this.fetch();
     }
   },
   components: {
@@ -1781,7 +1782,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.orderedUsers, function(user, index) {
+          _vm._l(_vm.users, function(user, index) {
             return _c("tr", { key: index }, [
               _c("td", [
                 _c("a", { attrs: { href: user.editLink } }, [
