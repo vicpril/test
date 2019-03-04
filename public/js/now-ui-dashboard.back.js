@@ -1800,7 +1800,7 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(user.role))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(user.articles.length))])
+              _c("td", [_vm._v(_vm._s(user.articles))])
             ])
           }),
           0

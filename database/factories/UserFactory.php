@@ -44,7 +44,7 @@ $factory->afterCreating(Idea\Models\User::class, function ($user, $faker) use ($
 
 	$args_ru = [
         'lang' => 'ru',
-    	'full_name' => $name,
+    		'full_name' => $e[2].' '.$e[0].' '.$e[1],
         'first_name' => $e[0],
         'last_name' => $e[2],
         'patronymic' => $e[1],
@@ -58,7 +58,7 @@ $factory->afterCreating(Idea\Models\User::class, function ($user, $faker) use ($
 
     $args_en = [
         'lang' => 'en',
-    	'full_name' => $name,
+    		'full_name' => $e[2].' '.$e[0].' '.$e[1],
         'first_name' => $e[0],
         'last_name' => $e[2],
         'patronymic' => $e[1],

@@ -54,7 +54,7 @@
 					<td>{{ user.last_name_en }} {{ user.initials_en }}</td>
 					<td>{{ user.email }}</td>
 					<td>{{ user.role }}</td>
-					<td>{{ user.articles.length }}</td>
+					<td>{{ user.articles }}</td>
 				</tr>
 			</tbody>
 		</table>

@@ -71,11 +71,12 @@ class UsersRepository extends Repository
 
         $users_id = DB::table('users')
                     ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
-                    ->leftjoin('article_user', 'users.id', '=', 'article_user.user_id')
+                    ->leftjoin('article_user as a', 'users.id', '=', 'article_user.user_id')
+//                     ->selectRaw('users.*, count(a.user_id) as a_count' )
                     ->where('email', 'like', "%".$search."%")
                     ->orWhere('full_name', 'like', "%".$search."%")
                     ->orderBy($sortBy, $orderBy)
-                    ->groupBy('id')
+                    ->groupBy('users.id')
                     ->pluck('users.id')->unique()->toArray();
 
         $users = User::whereIn('id', $users_id)
@@ -97,12 +98,19 @@ class UsersRepository extends Repository
                             $a->with('meta');
                         }])
                       ->where('email', 'like', "%".$search."%")
-                      ->orWhereHas('meta', function($query) use ($search) {
-                        $query->where('full_name', 'like', "%".$search."%");
-                      })
-                      ->orderBy($sortBy, $orderBy)
-                      ->paginate($paginate);
-        
+                      ->orWhereHas('meta', function($query) use ($search, $sortBy, $orderBy) {
+                          //search in meta
+                          $query->where('full_name', 'like', "%".$search."%");
+                          //sort by meta
+                          if($sortBy == 'full_name') {
+                            $query->orderBy($sortBy, $orderBy);
+                          }
+                      });
+        if($sortBy === 'email') {
+          $users = $users->orderBy($sortBy, $orderBy);
+        }
+          
+        $users = $users->paginate($paginate);
         
         return $users;
 
