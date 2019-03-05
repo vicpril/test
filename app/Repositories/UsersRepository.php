@@ -71,7 +71,7 @@ class UsersRepository extends Repository
 
         $users_id = DB::table('users')
                     ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
-                    ->leftjoin('article_user as a', 'users.id', '=', 'article_user.user_id')
+                    // ->leftjoin('article_user as a', 'users.id', '=', 'article_user.user_id')
 //                     ->selectRaw('users.*, count(a.user_id) as a_count' )
                     ->where('email', 'like', "%".$search."%")
                     ->orWhere('full_name', 'like', "%".$search."%")

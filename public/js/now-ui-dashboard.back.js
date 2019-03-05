@@ -96,20 +96,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       users: [],
       paginateOptions: [5, 10, 25, 50],
-      paginateSelect: 5,
+      paginateSelect: 10,
       search: "",
       sortBy: "full_name",
-      orderBy: "asc"
+      // orderBy: "asc",
+      orderByAsc: true
     };
   },
   computed: {
@@ -124,6 +121,13 @@ __webpack_require__.r(__webpack_exports__);
         to: 1,
         total: 1
       };
+    },
+    orderBy: function orderBy() {
+      if (this.orderByAsc) {
+        return "asc";
+      } else {
+        return "desc";
+      }
     }
   },
   created: function created() {
@@ -139,6 +143,7 @@ __webpack_require__.r(__webpack_exports__);
           paginate: this.paginateSelect,
           page: page,
           sortBy: this.sortBy,
+          orderBy: this.orderBy,
           search: this.search
         }
       }).then(function (_ref) {
@@ -153,7 +158,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     setOrder: function setOrder(sortBy) {
       this.sortBy = sortBy;
+      this.orderByAsc = !this.orderByAsc;
       this.fetch();
+    },
+    showOrder: function showOrder(linkOrder) {
+      if (linkOrder === this.sortBy) {
+        if (this.orderBy === "asc") {
+          return "sorting_asc";
+        } else {
+          return "sorting_desc";
+        }
+      }
     }
   },
   components: {
@@ -493,7 +508,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nth span[data-v-1f022106] {\n\tcursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-1f022106],\r\nthead > tr > th.sorting_desc[data-v-1f022106],\r\nthead > tr > th.sorting[data-v-1f022106],\r\nthead > tr > td.sorting_asc[data-v-1f022106],\r\nthead > tr > td.sorting_desc[data-v-1f022106],\r\nthead > tr > td.sorting[data-v-1f022106] {\r\n\tpadding-right: 30px;\n}\nthead > tr > th[data-v-1f022106]:active,\r\nthead > tr > td[data-v-1f022106]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-1f022106],\r\nthead .sorting_asc[data-v-1f022106],\r\nthead .sorting_desc[data-v-1f022106],\r\nthead .sorting_asc_disabled[data-v-1f022106],\r\nthead .sorting_desc_disabled[data-v-1f022106] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -1732,51 +1747,39 @@ var render = function() {
       [
         _c("thead", { staticClass: "text-primary" }, [
           _c("tr", [
-            _c("th", [
-              _c(
-                "span",
-                {
-                  on: {
-                    click: function($event) {
-                      _vm.setOrder("full_name")
-                    }
+            _c(
+              "th",
+              {
+                staticClass: "sorting",
+                class: _vm.showOrder("full_name"),
+                on: {
+                  click: function($event) {
+                    _vm.setOrder("full_name")
                   }
-                },
-                [_vm._v("Автор")]
-              )
-            ]),
+                }
+              },
+              [_vm._v("Автор")]
+            ),
             _vm._v(" "),
             _c("th", [_vm._v("Eng")]),
             _vm._v(" "),
-            _c("th", [
-              _c(
-                "span",
-                {
-                  on: {
-                    click: function($event) {
-                      _vm.setOrder("email")
-                    }
+            _c(
+              "th",
+              {
+                staticClass: "sorting",
+                class: _vm.showOrder("email"),
+                on: {
+                  click: function($event) {
+                    _vm.setOrder("email")
                   }
-                },
-                [_vm._v("E-mail")]
-              )
-            ]),
+                }
+              },
+              [_vm._v("E-mail")]
+            ),
             _vm._v(" "),
             _c("th", [_vm._v("Роль")]),
             _vm._v(" "),
-            _c("th", [
-              _c(
-                "span",
-                {
-                  on: {
-                    click: function($event) {
-                      _vm.setOrder("articles")
-                    }
-                  }
-                },
-                [_vm._v("Статьи")]
-              )
-            ])
+            _vm._m(0)
           ])
         ]),
         _vm._v(" "),
@@ -1857,7 +1860,14 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", [_c("span", [_vm._v("Статьи")])])
+  }
+]
 render._withStripped = true
 
 
@@ -4556,8 +4566,8 @@ var require;var require;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/cabox/workspace/resources/js/now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
-module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
+__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\now-ui-dashboard.back.js */"./resources/js/now-ui-dashboard.back.js");
+module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\now-ui-dashboard.scss */"./resources/sass/now-ui-dashboard.scss");
 
 
 /***/ })

@@ -33,16 +33,12 @@
 		<table class="table table-striped table-bordered table-responsive-md" style="width:100%" id>
 			<thead class="text-primary">
 				<tr>
-					<th>
-						<span @click="setOrder('full_name')">Автор</span>
-					</th>
+					<th class="sorting" :class="showOrder('full_name')" @click="setOrder('full_name')">Автор</th>
 					<th>Eng</th>
-					<th>
-						<span @click="setOrder('email')">E-mail</span>
-					</th>
+					<th class="sorting" :class="showOrder('email')" @click="setOrder('email')">E-mail</th>
 					<th>Роль</th>
 					<th>
-						<span @click="setOrder('articles')">Статьи</span>
+						<span>Статьи</span>
 					</th>
 				</tr>
 			</thead>
@@ -95,10 +91,11 @@ export default {
 		return {
 			users: [],
 			paginateOptions: [5, 10, 25, 50],
-			paginateSelect: 5,
+			paginateSelect: 10,
 			search: "",
 			sortBy: "full_name",
-			orderBy: "asc"
+			// orderBy: "asc",
+			orderByAsc: true
 		};
 	},
 
@@ -115,6 +112,14 @@ export default {
 				to: 1,
 				total: 1
 			};
+		},
+
+		orderBy() {
+			if (this.orderByAsc) {
+				return "asc";
+			} else {
+				return "desc";
+			}
 		}
 	},
 
@@ -130,6 +135,7 @@ export default {
 						paginate: this.paginateSelect,
 						page: page,
 						sortBy: this.sortBy,
+						orderBy: this.orderBy,
 						search: this.search
 					}
 				})
@@ -145,7 +151,18 @@ export default {
 
 		setOrder(sortBy) {
 			this.sortBy = sortBy;
+			this.orderByAsc = !this.orderByAsc;
 			this.fetch();
+		},
+
+		showOrder(linkOrder) {
+			if (linkOrder === this.sortBy) {
+				if (this.orderBy === "asc") {
+					return "sorting_asc";
+				} else {
+					return "sorting_desc";
+				}
+			}
 		}
 	},
 
@@ -156,7 +173,63 @@ export default {
 </script>
 
 <style scoped>
-th span {
+thead > tr > th.sorting_asc,
+thead > tr > th.sorting_desc,
+thead > tr > th.sorting,
+thead > tr > td.sorting_asc,
+thead > tr > td.sorting_desc,
+thead > tr > td.sorting {
+	padding-right: 30px;
+}
+thead > tr > th:active,
+thead > tr > td:active {
+	outline: none;
+}
+thead .sorting,
+thead .sorting_asc,
+thead .sorting_desc,
+thead .sorting_asc_disabled,
+thead .sorting_desc_disabled {
 	cursor: pointer;
+	position: relative;
+}
+thead .sorting:before,
+thead .sorting:after,
+thead .sorting_asc:before,
+thead .sorting_asc:after,
+thead .sorting_desc:before,
+thead .sorting_desc:after,
+thead .sorting_asc_disabled:before,
+thead .sorting_asc_disabled:after,
+thead .sorting_desc_disabled:before,
+thead .sorting_desc_disabled:after {
+	position: absolute;
+	bottom: 0.9em;
+	display: block;
+	opacity: 0.3;
+}
+thead .sorting:before,
+thead .sorting_asc:before,
+thead .sorting_desc:before,
+thead .sorting_asc_disabled:before,
+thead .sorting_desc_disabled:before {
+	right: 1em;
+	content: "\2191";
+}
+thead .sorting:after,
+thead .sorting_asc:after,
+thead .sorting_desc:after,
+thead .sorting_asc_disabled:after,
+thead .sorting_desc_disabled:after {
+	right: 0.5em;
+	content: "\2193";
+}
+thead .sorting_asc:before,
+thead .sorting_desc:after {
+	opacity: 1;
+}
+thead .sorting_asc_disabled:before,
+thead .sorting_desc_disabled:after {
+	opacity: 0;
 }
 </style>
