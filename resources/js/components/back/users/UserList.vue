@@ -90,7 +90,7 @@ export default {
 	data() {
 		return {
 			users: [],
-			paginateOptions: [5, 10, 25, 50],
+			paginateOptions: [5, 10, 25, 50, 100],
 			paginateSelect: 10,
 			search: "",
 			sortBy: "full_name",

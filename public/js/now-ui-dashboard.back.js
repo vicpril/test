@@ -101,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       users: [],
-      paginateOptions: [5, 10, 25, 50],
+      paginateOptions: [5, 10, 25, 50, 100],
       paginateSelect: 10,
       search: "",
       sortBy: "full_name",
@@ -1754,7 +1754,7 @@ var render = function() {
                 class: _vm.showOrder("full_name"),
                 on: {
                   click: function($event) {
-                    _vm.setOrder("full_name")
+                    return _vm.setOrder("full_name")
                   }
                 }
               },
@@ -1770,7 +1770,7 @@ var render = function() {
                 class: _vm.showOrder("email"),
                 on: {
                   click: function($event) {
-                    _vm.setOrder("email")
+                    return _vm.setOrder("email")
                   }
                 }
               },

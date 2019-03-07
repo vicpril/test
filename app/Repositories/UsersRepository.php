@@ -80,7 +80,7 @@ class UsersRepository extends Repository
                     ->pluck('users.id')->unique()->toArray();
 
         $users = User::whereIn('id', $users_id)
-                    ->with('meta', 'articles')
+                    ->with(['meta', 'articles'])
                     ->orderByRaw("FIELD(id, ".implode(",",$users_id).")")
                     ->paginate($paginate);
 
