@@ -95,7 +95,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        factory(User::class, 300)->create();
+        factory(User::class, 25)->create();
         sleep(1);
 
         $admin->meta()->save(MetaUser::where('id', 1)->first()->replicate());
@@ -202,7 +202,7 @@ class DatabaseSeeder extends Seeder
 	 **************************/
 
 
-	$articles = factory(Article::class, 500)
+	$articles = factory(Article::class, 100)
 					->create()
 					->each(function ($a) {
 						$a->meta()->save(factory(MetaArticle::class)->states('ru')->make());
@@ -227,11 +227,11 @@ class DatabaseSeeder extends Seeder
 // 			}
 // 		}
 			
-		for ($a=1; $a <= 500; $a++) { 
+		for ($a=1; $a <= 100; $a++) { 
 			for ($i=1; $i <= random_int(1, 3); $i++) {
 					DB::table('article_user')->insert([
 						'article_id' => $a,
-						'user_id' => random_int(1, 300)
+						'user_id' => random_int(1, 25)
 					]);
 			}
 		}
@@ -239,7 +239,7 @@ class DatabaseSeeder extends Seeder
 	/***************************************
 	 *			Add Articles_Tag
 	 ***************************************/
-		for ($a=1; $a <= 30; $a++) { 
+		for ($a=1; $a <= 100; $a++) { 
 			$tags = array(1,2,3,4,5,6,7);
 			for ($i=1; $i <= random_int(1, 2); $i++) { 
 				$tag_key = array_rand($tags);
@@ -256,7 +256,7 @@ class DatabaseSeeder extends Seeder
 	/***************************************
 	 *			Add Articles_Category
 	 ***************************************/
-		for ($a=1; $a <= 30; $a++) { 
+		for ($a=1; $a <= 100; $a++) { 
 			$categorys = array(1,2,3,4,5);
 			for ($i=1; $i <= 1; $i++) { 
 				$category_key = array_rand($categorys);
@@ -275,7 +275,7 @@ class DatabaseSeeder extends Seeder
 	/***************************************
 	 *			Add User_Job
 	 ***************************************/
-		for ($u=3; $u <= 10; $u++) { 
+		for ($u=3; $u <= 25; $u++) { 
 			$jobs = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 			for ($i=1; $i <= random_int(1, 3); $i++) { 
 				$job_key = array_rand($jobs);
