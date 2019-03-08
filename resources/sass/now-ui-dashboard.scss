@@ -19,13 +19,11 @@
 // $primary-color: #20748e;
 // $orange-color: #20748e;
 
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+@import "now-ui-dashboard/variables";
 
-
- // Bootstrap
-@import '~bootstrap/scss/bootstrap';
-@import 'now-ui-dashboard/variables';
-
-@import 'now-ui-dashboard/mixins';
+@import "now-ui-dashboard/mixins";
 
 // Plugins CSS
 @import "now-ui-dashboard/plugins/plugin-animate-bootstrap-notify";
@@ -59,30 +57,15 @@
 
 @import "now-ui-dashboard/responsive";
 
-// DataTables
-// @import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
-// @import '~datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css';
-// @import '~datatables.net-select-bs4/css/select.bootstrap4.min.css';
-// @import '~datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css';
-// @import '~datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css';
-// @import '~datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css';
-// @import '~datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css';
-// @import '~datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css';
-
-// Jquery Colorbox
-// @import '~jquery-colorbox/example1/colorbox.css';
-
-
 .form-control {
-    border: 1px solid #89a3d0 ;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    
+   border: 1px solid #89a3d0;
+   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-    &:focus{
-        border: 1px solid $primary-color !important;
-        color: $black-color !important;
-        box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25) !important;
-    }
+   &:focus {
+      border: 1px solid $primary-color !important;
+      color: $black-color !important;
+      box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25) !important;
+   }
 }
 
 // custom
@@ -90,43 +73,41 @@
 // $orange-color: #20748e;
 
 textarea.form-control {
-  border: 1px solid #89a3d0;
-  border-radius: 15px !important;
-  
-  &:focus {
-        border: 1px solid $primary-color;
-  }
+   border: 1px solid #89a3d0;
+   border-radius: 15px !important;
+
+   &:focus {
+      border: 1px solid $primary-color;
+   }
 }
 
 .modal {
-  
-  label {
-        font-size: $font-size-small !important;
-        margin-bottom: 5px !important;
-        color: $dark-gray !important;
-  }
+   label {
+      font-size: $font-size-small !important;
+      margin-bottom: 5px !important;
+      color: $dark-gray !important;
+   }
 }
 
 // Make a button look and behave like a link
 .btn-link {
-  @include hover {
-    color: $link-hover-color;
-    text-decoration: underline !important;
-  }
+   @include hover {
+      color: $link-hover-color;
+      text-decoration: underline !important;
+   }
 
-  &:focus,
-  &.focus {
-    text-decoration: underline !important;
-    box-shadow: none;
-  }
-
+   &:focus,
+   &.focus {
+      text-decoration: underline !important;
+      box-shadow: none;
+   }
 }
 
 //table size
 tbody tr td {
-  font-size: 0.9em;
+   font-size: 0.9em;
 }
 
 .custom-file-input ~ .custom-file-label::after {
-    content: "Открыть" !important;
+   content: "Открыть" !important;
 }

@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+let mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -14,22 +14,32 @@ let mix = require('laravel-mix');
 // mix.js('resources/js/app.js', 'public/js')
 //    .sass('resources/sass/app.scss', 'public/css');
 
-// myTheme - back
-// mix
-//   .js('resources/js/myTheme.back.js', 'public/js/back.js')
-//   .sass('resources/sass/myTheme.back.scss', 'public/css/back.css');
-
 // NOW-UI-DASHBOARD
 // mix
 //   .js('resources/js/now-ui-dashboard.back.js', 'public/js/now-ui-back.js')
 //   .sass('resources/sass/now-ui-dashboard.scss', 'public/css/now-ui-back.css');
 
-mix
-  .js('resources/js/now-ui-dashboard.back.js', 'public/js/')
-  .extract(['lodash', 'bootstrap', 'popper.js', 'axios', 'jquery', 'vue'])
-  .sass('resources/sass/now-ui-dashboard.scss', 'public/css/');
-
-//DataTables.net
 // mix
-//   .js('resources/js/datatables.js', 'public/js')
-//   .sass('resources/sass/datatables.scss', 'public/css/datatables.css');
+//   .js('resources/js/now-ui-dashboard.back.js', 'public/js/')
+//   .extract(['lodash', 'bootstrap', 'popper.js', 'axios', 'jquery', 'vue'])
+//   .sass('resources/sass/now-ui-dashboard.scss', 'public/css/');
+
+// @COREUI - DASHBOARD
+// copy from modules
+
+// mix.copyDirectory(
+//    "node_modules/@coreui/coreui/js/src",
+//    "resources/js/coreui"
+// ).copyDirectory("node_modules/@coreui/coreui/scss", "resources/sass/coreui");
+
+mix.js("resources/js/coreui.js", "public/js/")
+   .extract([
+      "lodash",
+      "jquery",
+      "popper.js",
+      "bootstrap",
+      // "resources/js/coreui/index.js",
+      "axios",
+      "vue"
+   ])
+   .sass("resources/sass/coreui/coreui.scss", "public/css/");

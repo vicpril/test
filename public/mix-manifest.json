@@ -1,6 +1,6 @@
 {
+    "/js/coreui.js": "/js/coreui.js",
+    "/css/coreui.css": "/css/coreui.css",
     "/js/manifest.js": "/js/manifest.js",
-    "/js/now-ui-dashboard.back.js": "/js/now-ui-dashboard.back.js",
-    "/css/now-ui-dashboard.css": "/css/now-ui-dashboard.css",
     "/js/vendor.js": "/js/vendor.js"
 }
