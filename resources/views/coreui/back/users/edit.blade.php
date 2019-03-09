@@ -19,6 +19,11 @@
 
 @section('content')
 <div class="content">
+		<h2 class="mb-3">@isset($id)
+			Редактировать автора
+			@elseНовый автор
+			@endisset
+		</h2>
     <form method="POST" action="{{ route('users.store') }}">
       @csrf
 			<user-profile @isset($id):id="{{ $id }}"@endisset :old="{{ json_encode(Session::getOldInput()) }}"></user-profile>
@@ -90,6 +95,6 @@
     <!-- Upload script -->
     @yield('modal_upload_js')
 
-		@include(env('THEME_BACK').'.back.users.autocomplite')
+		{{-- @include(env('THEME_BACK').'.back.users.autocomplite') --}}
 
 @endsection

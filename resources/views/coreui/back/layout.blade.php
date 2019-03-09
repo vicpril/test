@@ -41,15 +41,15 @@
           {{-- @include(env('THEME_BACK').'.back.breadcrumb') --}}
 
             <!-- Content-->
-            <div class="content mt-4">
-               <div class="container-fluid">
+            <!-- <div class="content mt-4"> -->
+               <div class="container-fluid mt-4">
                   <div class="animated fadeIn">
                      <!-- CONTENT -->
                      @yield('content')
                      <!-- end content -->
                   </div>
                </div>
-            </div>
+            <!-- </div> -->
          </main>
       </div>
       <!-- FOOTER -->

@@ -187,6 +187,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _translat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../translat */ "./resources/js/components/back/translat.js");
 //
 //
 //
@@ -450,22 +451,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['old', 'id'],
+  props: ["old", "id" // 			'user'
+  ],
   data: function data() {
     return {
       user: {}
@@ -482,14 +471,79 @@ __webpack_require__.r(__webpack_exports__);
     fetch: function fetch(id) {
       var _this = this;
 
-      axios.get('/api/users/' + id).then(function (_ref) {
+      axios.get("/api/users/" + id).then(function (_ref) {
         var data = _ref.data;
         //           console.log(data);
         _this.user = data.data;
       });
     },
     autocomplite: function autocomplite() {
-      autocomplite_fields(this.user.full_name);
+      var name = this.user.full_name.split(" ", 3);
+      this.user.email = _translat__WEBPACK_IMPORTED_MODULE_0__["default"].strtr(_translat__WEBPACK_IMPORTED_MODULE_0__["default"].translat(this.user.full_name.toString().toLowerCase()), {
+        " ": "-",
+        ".": "-"
+      }) + "@localhost.lo";
+      var f_name, l_name, pat, ini;
+
+      switch (name.length) {
+        case 1:
+          l_name = name[0];
+          break;
+
+        case 2:
+          l_name = name[0];
+          name[1] = name[1].split(".");
+
+          if (name[1].length == 1) {
+            f_name = name[1][0];
+            ini = f_name.split("")[0] + ".";
+          } else {
+            f_name = name[1][0];
+            pat = name[1][1];
+            ini = f_name.split("")[0] + "." + pat.split("")[0] + ".";
+          }
+
+          break;
+
+        case 3:
+          l_name = name[0];
+          f_name = name[1];
+          pat = name[2];
+          ini = f_name.split("")[0] + "." + pat.split("")[0] + ".";
+          break;
+      }
+
+      if (f_name) {
+        this.user.first_name_ru = f_name;
+        this.user.first_name_en = _translat__WEBPACK_IMPORTED_MODULE_0__["default"].translat(f_name);
+      } else {
+        this.user.first_name_ru = "";
+        this.user.first_name_en = "";
+      }
+
+      if (l_name) {
+        this.user.last_name_ru = l_name;
+        this.user.last_name_en = _translat__WEBPACK_IMPORTED_MODULE_0__["default"].translat(l_name);
+      } else {
+        this.user.last_name_ru = "";
+        this.user.last_name_en = "";
+      }
+
+      if (pat) {
+        this.user.patronymic_ru = pat;
+        this.user.patronymic_en = _translat__WEBPACK_IMPORTED_MODULE_0__["default"].translat(pat);
+      } else {
+        this.user.patronymic_ru = "";
+        this.user.patronymic_en = "";
+      }
+
+      if (ini) {
+        this.user.initials_ru = ini;
+        this.user.initials_en = _translat__WEBPACK_IMPORTED_MODULE_0__["default"].translat(ini);
+      } else {
+        this.user.initials_ru = "";
+        this.user.initials_en = "";
+      }
     }
   }
 });
@@ -3263,15 +3317,14 @@ var render = function() {
                 "div",
                 { staticClass: "col-md-4 col-sm-5 col-xs-5 text-right" },
                 [
-                  _c("label", { staticClass: "d-block" }, [
+                  _c("label", { staticClass: "d-block text-muted" }, [
                     _vm._v("Автозаполнение")
                   ]),
                   _vm._v(" "),
                   _c(
                     "button",
                     {
-                      staticClass:
-                        "btn btn-primary btn-simple btn-round py-2 my-0",
+                      staticClass: "btn btn-outline-info btn-pill my-0",
                       attrs: { type: "button" },
                       on: { click: _vm.autocomplite }
                     },
@@ -3352,7 +3405,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("label", { staticClass: "h6 mt-2" }, [
+            _c("label", { staticClass: "h6 text-muted mt-2 mb-1" }, [
               _vm._v("Данные на русском")
             ]),
             _vm._v(" "),
@@ -3388,91 +3441,97 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-3 px-1" }, [
-                _c("label", { attrs: { for: "first_name_ru" } }, [
-                  _vm._v("Имя")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.first_name_ru,
-                      expression: "user.first_name_ru"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", name: "first_name_ru" },
-                  domProps: { value: _vm.user.first_name_ru },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "first_name_ru" } }, [
+                    _vm._v("Имя")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.first_name_ru,
+                        expression: "user.first_name_ru"
                       }
-                      _vm.$set(_vm.user, "first_name_ru", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "first_name_ru" },
+                    domProps: { value: _vm.user.first_name_ru },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "first_name_ru", $event.target.value)
+                      }
                     }
-                  }
-                })
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-3 px-1" }, [
-                _c("label", { attrs: { for: "patronymic_ru" } }, [
-                  _vm._v("Отчество")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.patronymic_ru,
-                      expression: "user.patronymic_ru"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", name: "patronymic_ru" },
-                  domProps: { value: _vm.user.patronymic_ru },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "patronymic_ru" } }, [
+                    _vm._v("Отчество")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.patronymic_ru,
+                        expression: "user.patronymic_ru"
                       }
-                      _vm.$set(_vm.user, "patronymic_ru", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "patronymic_ru" },
+                    domProps: { value: _vm.user.patronymic_ru },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "patronymic_ru", $event.target.value)
+                      }
                     }
-                  }
-                })
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-2 pl-1" }, [
-                _c("label", { attrs: { for: "initials_ru" } }, [
-                  _vm._v("Инициалы")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.initials_ru,
-                      expression: "user.initials_ru"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", name: "initials_ru" },
-                  domProps: { value: _vm.user.initials_ru },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "initials_ru" } }, [
+                    _vm._v("Инициалы")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.initials_ru,
+                        expression: "user.initials_ru"
                       }
-                      _vm.$set(_vm.user, "initials_ru", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "initials_ru" },
+                    domProps: { value: _vm.user.initials_ru },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "initials_ru", $event.target.value)
+                      }
                     }
-                  }
-                })
+                  })
+                ])
               ])
             ]),
             _vm._v(" "),
-            _c("label", { staticClass: "h6 mt-2" }, [
+            _c("label", { staticClass: "h6 text-muted mt-2 mb-1" }, [
               _vm._v("Данные на английском")
             ]),
             _vm._v(" "),
@@ -3508,95 +3567,101 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-3 px-1" }, [
-                _c("label", { attrs: { for: "first_name_en" } }, [
-                  _vm._v("First Name")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.first_name_en,
-                      expression: "user.first_name_en"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", name: "first_name_en" },
-                  domProps: { value: _vm.user.first_name_en },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "first_name_en" } }, [
+                    _vm._v("First Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.first_name_en,
+                        expression: "user.first_name_en"
                       }
-                      _vm.$set(_vm.user, "first_name_en", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "first_name_en" },
+                    domProps: { value: _vm.user.first_name_en },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "first_name_en", $event.target.value)
+                      }
                     }
-                  }
-                })
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-3 px-1" }, [
-                _c("label", { attrs: { for: "patronymic_en" } }, [
-                  _vm._v("Middle Name")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.patronymic_en,
-                      expression: "user.patronymic_en"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", name: "patronymic_en" },
-                  domProps: { value: _vm.user.patronymic_en },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "patronymic_en" } }, [
+                    _vm._v("Middle Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.patronymic_en,
+                        expression: "user.patronymic_en"
                       }
-                      _vm.$set(_vm.user, "patronymic_en", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "patronymic_en" },
+                    domProps: { value: _vm.user.patronymic_en },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "patronymic_en", $event.target.value)
+                      }
                     }
-                  }
-                })
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-2 pl-1" }, [
-                _c("label", { attrs: { for: "initials_en" } }, [
-                  _vm._v("Initials")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.initials_en,
-                      expression: "user.initials_en"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", name: "initials_en" },
-                  domProps: { value: _vm.user.initials_en },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "initials_en" } }, [
+                    _vm._v("Initials")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.initials_en,
+                        expression: "user.initials_en"
                       }
-                      _vm.$set(_vm.user, "initials_en", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "initials_en" },
+                    domProps: { value: _vm.user.initials_en },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.user, "initials_en", $event.target.value)
+                      }
                     }
-                  }
-                })
+                  })
+                ])
               ])
             ]),
-            _vm._v(" "),
-            _c("label", { staticClass: "h6 mt-2" }, [_vm._v("ORCID")]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-7 pr-1" }, [
                 _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "h6 mt-2" }, [_vm._v("ORCID")]),
+                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -3797,7 +3862,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", { staticClass: "title  mb-0" }, [_vm._v("Персональные данные")])
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Персональные данные")])
     ])
   },
   function() {
@@ -3805,9 +3870,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", { staticClass: "title mb-0" }, [
-        _vm._v("Сведения о месте работы")
-      ])
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Сведения о месте работы")])
     ])
   },
   function() {
@@ -3886,7 +3949,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-4" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
-          _c("h6", [_vm._v("Сохранить изменения")])
+          _c("h5", [_vm._v("Сохранить изменения")])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
@@ -3899,7 +3962,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "card", attrs: { id: "photoCard" } }, [
         _c("div", { staticClass: "card-header" }, [
-          _c("h6", [_vm._v("Фотография")])
+          _c("h5", [_vm._v("Фотография")])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
@@ -4075,6 +4138,108 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/back/translat.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/back/translat.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  translat: function translat(title) {
+    var gost1 = {
+      Є: "EH",
+      І: "I",
+      і: "i",
+      "№": "#",
+      є: "eh",
+      А: "A",
+      Б: "B",
+      В: "V",
+      Г: "G",
+      Д: "D",
+      Е: "E",
+      Ё: "JO",
+      Ж: "ZH",
+      З: "Z",
+      И: "I",
+      Й: "JJ",
+      К: "K",
+      Л: "L",
+      М: "M",
+      Н: "N",
+      О: "O",
+      П: "P",
+      Р: "R",
+      С: "S",
+      Т: "T",
+      У: "U",
+      Ф: "F",
+      Х: "KH",
+      Ц: "C",
+      Ч: "CH",
+      Ш: "Sh",
+      Щ: "Shh",
+      Ъ: "'",
+      Ы: "Y",
+      Ь: "",
+      Э: "EH",
+      Ю: "YU",
+      Я: "YA",
+      а: "a",
+      б: "b",
+      в: "v",
+      г: "g",
+      д: "d",
+      е: "e",
+      ё: "jo",
+      ж: "zh",
+      з: "z",
+      и: "i",
+      й: "jj",
+      к: "k",
+      л: "l",
+      м: "m",
+      н: "n",
+      о: "o",
+      п: "p",
+      р: "r",
+      с: "s",
+      т: "t",
+      у: "u",
+      ф: "f",
+      х: "kh",
+      ц: "c",
+      ч: "ch",
+      ш: "sh",
+      щ: "shh",
+      ъ: "",
+      ы: "y",
+      ь: "",
+      э: "eh",
+      ю: "yu",
+      я: "ya",
+      "«": "",
+      "»": "",
+      "—": "-"
+    };
+    return this.strtr(title.toString(), gost1);
+  },
+  strtr: function strtr(string, dictionary) {
+    return string.replace(/[\s\S]/g, function (x) {
+      if (dictionary.hasOwnProperty(x)) {
+        return dictionary[x];
+      }
+
+      return x;
+    });
+  }
+});
 
 /***/ }),
 

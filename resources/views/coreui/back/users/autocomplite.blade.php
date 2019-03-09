@@ -1,21 +1,52 @@
 <script type="text/javascript">
 $( document ).ready(function() {
-  
+
   (function( $ ) {
-    
+
+    function tranaslat(title) {
+                gost1 = {
+                    "Є": "EH", "І": "I", "і": "i", "№": "#", "є": "eh",
+                    "А": "A", "Б": "B", "В": "V", "Г": "G", "Д": "D",
+                    "Е": "E", "Ё": "JO", "Ж": "ZH",
+                    "З": "Z", "И": "I", "Й": "JJ", "К": "K", "Л": "L",
+                    "М": "M", "Н": "N", "О": "O", "П": "P", "Р": "R",
+                    "С": "S", "Т": "T", "У": "U", "Ф": "F", "Х": "KH",
+                    "Ц": "C", "Ч": "CH", "Ш": "Sh", "Щ": "Shh", "Ъ": "'",
+                    "Ы": "Y", "Ь": "", "Э": "EH", "Ю": "YU", "Я": "YA",
+                    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d",
+                    "е": "e", "ё": "jo", "ж": "zh",
+                    "з": "z", "и": "i", "й": "jj", "к": "k", "л": "l",
+                    "м": "m", "н": "n", "о": "o", "п": "p", "р": "r",
+                    "с": "s", "т": "t", "у": "u", "ф": "f", "х": "kh",
+                    "ц": "c", "ч": "ch", "ш": "sh", "щ": "shh", "ъ": "",
+                    "ы": "y", "ь": "", "э": "eh", "ю": "yu", "я": "ya", "«": "", "»": "", "—": "-"
+                };
+                return strtr(title.toString(), gost1);
+            };
+
+
+            function strtr(string, dictionary) {
+                return string.replace(/[\s\S]/g, function (x) {
+                    if (dictionary.hasOwnProperty(x)) {
+                        return dictionary[ x ];
+                    }
+                    return x;
+                });
+            };
+
   autocomplite_fields = function(name) {
             var f_name, l_name, pat, ini;
             email_field = $('input[name="email"]');
-            alias_field = $('input[name="alias"]');   
-    
+            alias_field = $('input[name="alias"]');
+
             alias_field.val(strtr(tranaslat(name.toString().toLowerCase()), {" ": "-", ".": "-"}));
             email_field.val(strtr(tranaslat(name.toString().toLowerCase()), {" ": "-", ".": "-"}) + '@localhost.lo');
-    
+
             firstname_ru_field = $('input[name="first_name_ru"]');
             lastname_ru_field = $('input[name="last_name_ru"]');
             patronymic_ru_field = $('input[name="patronymic_ru"]');
             initials_ru_field = $('input[name="initials_ru"]');
-    
+
             firstname_en_field = $('input[name="first_name_en"]');
             lastname_en_field = $('input[name="last_name_en"]');
             patronymic_en_field = $('input[name="patronymic_en"]');
@@ -76,41 +107,12 @@ $( document ).ready(function() {
                 initials_ru_field.val('');
                 initials_en_field.val('');
             }
-    
+
         }
+
         
-        function tranaslat(title) {
-                gost1 = {
-                    "Є": "EH", "І": "I", "і": "i", "№": "#", "є": "eh",
-                    "А": "A", "Б": "B", "В": "V", "Г": "G", "Д": "D",
-                    "Е": "E", "Ё": "JO", "Ж": "ZH",
-                    "З": "Z", "И": "I", "Й": "JJ", "К": "K", "Л": "L",
-                    "М": "M", "Н": "N", "О": "O", "П": "P", "Р": "R",
-                    "С": "S", "Т": "T", "У": "U", "Ф": "F", "Х": "KH",
-                    "Ц": "C", "Ч": "CH", "Ш": "Sh", "Щ": "Shh", "Ъ": "'",
-                    "Ы": "Y", "Ь": "", "Э": "EH", "Ю": "YU", "Я": "YA",
-                    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d",
-                    "е": "e", "ё": "jo", "ж": "zh",
-                    "з": "z", "и": "i", "й": "jj", "к": "k", "л": "l",
-                    "м": "m", "н": "n", "о": "o", "п": "p", "р": "r",
-                    "с": "s", "т": "t", "у": "u", "ф": "f", "х": "kh",
-                    "ц": "c", "ч": "ch", "ш": "sh", "щ": "shh", "ъ": "",
-                    "ы": "y", "ь": "", "э": "eh", "ю": "yu", "я": "ya", "«": "", "»": "", "—": "-"
-                };
-                return strtr(title.toString(), gost1);
-            };
 
-
-            function strtr(string, dictionary) {
-                return string.replace(/[\s\S]/g, function (x) {
-                    if (dictionary.hasOwnProperty(x)) {
-                        return dictionary[ x ];
-                    }
-                    return x;
-                });
-            };
-    
     })( jQuery );
-  
+
 });
 </script>

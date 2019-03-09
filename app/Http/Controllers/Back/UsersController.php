@@ -25,37 +25,43 @@ class UsersController extends AdminController
         $this->table = 'users';
     }
 
-    public function profile()
-    {
+/*
+* Test upload profile
+*
+ */
 
-        $this->subtitle = "Аватар";
+    // public function profile()
+    // {
 
-        $this->template = env('THEME_BACK') . '.back.users.profile';
+    //     $this->subtitle = "Аватар";
 
-        $user = auth()->user();
+    //     $this->template = env('THEME_BACK') . '.back.users.profile';
 
-        return $this->renderOutput(compact('user', $user));
-    }
+    //     $user = auth()->user();
 
-    public function update_avatar(Request $request)
-    {
-        $request->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+    //     return $this->renderOutput(compact('user', $user));
+    // }
 
-        $user = auth()->user();
+    // public function update_avatar(Request $request)
+    // {
+    //     $request->validate([
+    //         'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //     ]);
 
-        $avatarName = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
+    //     $user = auth()->user();
 
-        $request->avatar->storeAs('avatars', $avatarName);
+    //     $avatarName = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
 
-        $user->avatar = $avatarName;
-        $user->save();
+    //     $request->avatar->storeAs('avatars', $avatarName);
 
-        return back()
-            ->with('success', 'You have successfully upload image.');
+    //     $user->avatar = $avatarName;
+    //     $user->save();
 
-    }
+    //     return back()
+    //         ->with('success', 'You have successfully upload image.');
+
+    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -79,7 +85,7 @@ class UsersController extends AdminController
     {
         $this->subtitle = "Новый автор";
 
-        $this->template = env('THEME_BACK') . '.back.users.create';
+        $this->template = env('THEME_BACK') . '.back.users.edit';
 
         return $this->renderOutput();
     }
@@ -122,7 +128,7 @@ class UsersController extends AdminController
     {
         $this->subtitle = "Редактировать автора";
 
-        $this->template = env('THEME_BACK') . '.back.users.create';
+        $this->template = env('THEME_BACK') . '.back.users.edit';
 
 //         $user = $this->repository->get('*', ['id', $id]);
         //         if($user){
