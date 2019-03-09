@@ -8,6 +8,12 @@
 
 // Override Boostrap variables
 @import "variables";
+// Custom icons
+@import "~simple-line-icons/scss/simple-line-icons";
+@import "~font-awesome/scss/font-awesome";
+
+// Custom style
+@import "style.scss";
 
 // Import Bootstrap source files
 @import "~bootstrap/scss/bootstrap"; // from bootstrap node_modules
@@ -62,7 +68,3 @@
 
 // Custom Properties support for Internet Explorer
 @import "ie-custom-properties";
-
-// Custom icons
-@import "~simple-line-icons/scss/simple-line-icons";
-@import "~font-awesome/scss/font-awesome";

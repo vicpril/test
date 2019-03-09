@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="row">
+		<div class="row mb-2">
 			<div class="col-sm-12 col-md-6">
 				<div class="form-inline">
 					<label>
@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		<table class="table table-striped table-bordered table-responsive-md" style="width:100%" id>
-			<thead class="text-primary">
+			<thead class="text-black">
 				<tr>
 					<th class="sorting" :class="showOrder('full_name')" @click="setOrder('full_name')">Автор</th>
 					<th>Eng</th>
@@ -180,6 +180,7 @@ thead > tr > td.sorting_asc,
 thead > tr > td.sorting_desc,
 thead > tr > td.sorting {
 	padding-right: 30px;
+	color: var(--primary);
 }
 thead > tr > th:active,
 thead > tr > td:active {

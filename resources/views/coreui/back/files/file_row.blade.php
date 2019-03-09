@@ -1,0 +1,1 @@
+<span class="text-muted" style="font-size: 0.8em">{{ $year }}/{{ $month }}/</span>{{ $title }}
