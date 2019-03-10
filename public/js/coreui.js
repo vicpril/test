@@ -481,28 +481,21 @@ __webpack_require__.r(__webpack_exports__);
   ],
   data: function data() {
     return {
-      user: {},
-      jobs: [// {
-        // 	// id: 1,
-        // 	ru: "Русское название 111",
-        // 	en: "Английское название 111"
-        // },
-        // {
-        // 	// id: 2,
-        // 	ru: "Русское название 2",
-        // 	en: "Английское название 2"
-        // },
-        // {
-        // 	// id: 3,
-        // 	ru: "Русское название 33",
-        // 	en: "Английское название 333"
-        // },
-        // {
-        // 	// id: 4,
-        // 	ru: "Русское название 4",
-        // 	en: "Английское название 4444"
-        // }
-      ]
+      user: {
+        email: "",
+        first_name_en: "",
+        first_name_ru: "",
+        full_name: "",
+        initials_en: "",
+        initials_ru: "",
+        last_name_en: "",
+        last_name_ru: "",
+        patronymic_en: "",
+        patronymic_ru: "",
+        short_name_en: "",
+        short_name_ru: ""
+      },
+      jobs: []
     };
   },
   created: function created() {
@@ -510,8 +503,6 @@ __webpack_require__.r(__webpack_exports__);
       this.user = this.old;
     } else if (this.id) {
       this.fetch(this.id);
-    } else {
-      this.user = {};
     }
   },
   watch: {
