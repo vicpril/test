@@ -510,6 +510,8 @@ __webpack_require__.r(__webpack_exports__);
       this.user = this.old;
     } else if (this.id) {
       this.fetch(this.id);
+    } else {
+      this.user = {};
     }
   },
   watch: {
@@ -561,7 +563,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteJob: function deleteJob(index) {
-      this.jobs.splice(index, 1);
+      if (confirm("Удалить место работы?")) {
+        this.jobs.splice(index, 1);
+      }
     },
     autocomplite: function autocomplite() {
       var name = this.user.full_name.split(" ", 3);

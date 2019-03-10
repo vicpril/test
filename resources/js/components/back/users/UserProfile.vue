@@ -324,6 +324,8 @@ export default {
 			this.user = this.old;
 		} else if (this.id) {
 			this.fetch(this.id);
+		} else {
+			this.user = {};
 		}
 	},
 	watch: {
@@ -375,7 +377,9 @@ export default {
 		},
 
 		deleteJob(index) {
-			this.jobs.splice(index, 1);
+			if (confirm("Удалить место работы?")) {
+				this.jobs.splice(index, 1);
+			}
 		},
 
 		autocomplite() {
