@@ -42,6 +42,7 @@
         "simple-line-icons": "^2.4.1",
         "vue-router": "^3.0.2",
         "vue-upload-component": "^2.8.19",
+        "vuedraggable": "^2.19.1",
         "vuejs-paginate": "^2.1.0"
     }
 }

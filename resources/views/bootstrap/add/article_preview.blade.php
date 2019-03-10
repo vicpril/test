@@ -34,7 +34,7 @@
       <ul class="article-preview-authors-list">
          @foreach($article->users as $user)
             <li class="article-preview-author-link">
-               <a href="{{ route('authors.show', ['alias' => $user->alias]) }}">{{ $user->loc->shortName }}</a>
+               <a href="{{ route('authors.show', ['alias' => $user->alias]) }}">{{ $user->loc->short_name }}</a>
             </li>
          @endforeach
       </ul>

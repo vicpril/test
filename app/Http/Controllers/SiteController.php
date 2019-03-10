@@ -60,8 +60,8 @@ class SiteController extends Controller
         $this->vars = array_add($this->vars, 'footer', $footer);
 
         if (auth()->check()) {
-            dump(auth()->user()->loc->fullName . ' - '. auth()->user()->role);
-            dump(auth()->user()->loc->shortName . ' - '. auth()->user()->role);
+            dump(auth()->user()->loc->full_name . ' - '. auth()->user()->role);
+            dump(auth()->user()->loc->short_name . ' - '. auth()->user()->role);
 
         }
 

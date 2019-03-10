@@ -37,9 +37,11 @@
 					<th>Eng</th>
 					<th class="sorting" :class="showOrder('email')" @click="setOrder('email')">E-mail</th>
 					<th>Роль</th>
-					<th>
-						<span>Статьи</span>
-					</th>
+					<th
+						class="sorting"
+						:class="showOrder('articles_count')"
+						@click="setOrder('articles_count')"
+					>Статьи</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -47,7 +49,7 @@
 					<td>
 						<a :href="user.editLink">{{ user.full_name }}</a>
 					</td>
-					<td>{{ user.last_name_en }} {{ user.initials_en }}</td>
+					<td>{{ user.short_name_en }}</td>
 					<td>{{ user.email }}</td>
 					<td>{{ user.role }}</td>
 					<td>{{ user.articles }}</td>

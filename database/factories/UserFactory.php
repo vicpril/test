@@ -34,36 +34,53 @@ $factory->define(Idea\Models\User::class, function (Faker\Generator $faker) use 
 $factory->afterCreating(Idea\Models\User::class, function ($user, $faker) use ($localisedFaker) {
     
     $i = $localisedFaker->numerify('####');
+    $j = $localisedFaker->numerify('####');
+    $k = $localisedFaker->numerify('####');
+
 
     $gender = $faker->randomElements(['male', 'female'])[0];
 
     $name = ($gender == 'female') ? $localisedFaker->firstName($gender) . ' ' . $localisedFaker->middleName($gender) . ' ' .$localisedFaker->lastName . 'a' : $localisedFaker->firstName($gender) . ' ' . $localisedFaker->middleName($gender) . ' ' .$localisedFaker->lastName;
 
 
-	$e = explode(' ', $name);
+    $e = explode(' ', $name);
+    $ini = mb_substr($e[0], 0, 1) . '.' . mb_substr($e[1], 0, 1) . '.';
 
 	$args_ru = [
         'lang' => 'ru',
-    		'full_name' => $e[2].' '.$e[0].' '.$e[1],
+        'full_name' => $e[2].' '.$e[0].' '.$e[1],
+        'short_name' => $e[2].' '.$ini,
         'first_name' => $e[0],
         'last_name' => $e[2],
         'patronymic' => $e[1],
-        'initials' => mb_substr($e[0], 0, 1) . '.' . mb_substr($e[1], 0, 1) . '.',
-        'post' => 'Должность - '. $i,
+        'initials' => $ini,
+        'degree' => 'Степень - '. $i,
+        'jobs' => [
+            'Должность - ' . $i,
+            'Должность - ' . $j,
+            'Должность - ' . $k,
+        ],
         'description' => 'Биография - ' . $i,
     ];
 
     $name = Transliterate::make($name);
     $e = explode(' ', $name);
+    $ini = substr($e[0], 0, 1) . '.' . substr($e[1], 0, 1) . '.';
 
     $args_en = [
         'lang' => 'en',
-    		'full_name' => $e[2].' '.$e[0].' '.$e[1],
+        'full_name' => $e[2].' '.$e[0].' '.$e[1],
+        'short_name' => $e[2].' '.$ini,
         'first_name' => $e[0],
         'last_name' => $e[2],
         'patronymic' => $e[1],
-        'initials' => substr($e[0], 0, 1) . '.' . substr($e[1], 0, 1) . '.',
-        'post' => 'Post - '. $i,
+        'initials' => $ini,
+        'degree' => 'Degree - '. $i,
+        'jobs' => [
+            'Job - ' . $i,
+            'Job - ' . $j,
+            'Job - ' . $k,
+        ],
         'description' => 'Biography - ' . $i,
     ];
 

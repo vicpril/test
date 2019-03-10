@@ -35,13 +35,15 @@ $i = $ruFaker->numerify('####');
 
 $factory->state(Idea\Models\MetaUser::class, 'ru', function (Faker\Generator $faker) use ($name, $i) {
     $e = explode(' ', $name);
+    $ini = explode('', $e[0]) + '.' + explode('', $e[1]) + '.';
 	return [
         'lang' => 'ru',
     	'full_name' => $name,
         'first_name' => $e[0],
         'last_name' => $e[2],
         'patronymic' => $e[1],
-        'initials' => explode('', $e[0]) + '.' + explode('', $e[1]) + '.',
+        'short_name' => $e[2] . ' ' . $ini,
+        'initials' => $ini,
         'post' => 'Должность - '. $i,
         'description' => 'Биография - ' . $i,
     ];
@@ -49,13 +51,15 @@ $factory->state(Idea\Models\MetaUser::class, 'ru', function (Faker\Generator $fa
 
 $factory->state(Idea\Models\MetaUser::class, 'en', function (Faker\Generator $faker) use ($name, $i) {
     $e = explode(' ', $name);
+    $ini = explode('', $e[0]) + '.' + explode('', $e[1]) + '.';
     return [
         'lang' => 'en',
         'full_name' => $name,
         'first_name' => $e[0],
         'last_name' => $e[2],
         'patronymic' => $e[1],
-        'initials' => explode('', $e[0]) + '.' + explode('', $e[1]) + '.',
+        'short_name' => $e[2] . ' ' . $ini,
+        'initials' => $ini,
         'post' => 'Должность - '. $i,
         'description' => 'Биография - ' . $i,
     ];

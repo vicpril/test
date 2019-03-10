@@ -14,38 +14,22 @@ class MetaUser extends Model
      *
      * @var array
      */
-    protected $fillable = ['lang' , 'full_name', 'first_name', 'last_name', 'patronymic', 'initials', 'post', 'description'];
+    protected $fillable = ['lang', 'full_name', 'short_name', 'first_name', 'last_name', 'patronymic', 'initials', 'degree', 'post', 'description'];
 
     public $timestamps = false;
 
-    public function user() {
-    	return $this->belongsTo('Idea\Models\User');
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'jobs' => 'array',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo('Idea\Models\User');
     }
 
-  
-    /*
-    *   Name getters
-    */
-    
-    public function getFullNameAttribute () {
-        $fullName = $this->last_name .' '. $this->first_name;
-        $fullName .= ($this->patronymic) ? ' ' . $this->patronymic : '';
-        return $fullName;
-//         dump($this->last_name 
-//                .' '. $this->first_name 
-//                . ($this->patronymic) ? ' ' . $this->patronymic : '');
-    }
-  
-    public function getShortNameAttribute() {
-        $shortName = $this->last_name;
-        if ($this->initials) {
-            $shortName .=  ' '. $this->initials;
-        } elseif ($this->first_name) {
-            $shortName .=  ' '. substr($this->first_name, 0, 1) . '.';
-            if ($this->patronymic) {
-                $shortName .=  ' '. substr($this->patronymic, 0, 1) . '.';
-            }
-        }
-        return $shortName;
-    }
 }

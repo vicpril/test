@@ -18,11 +18,13 @@ class CreateMetaUsersTable extends Migration
             $table->integer('user_id')->unsigned()->default(0);
             $table->string('lang');
             $table->string('full_name');
+            $table->string('short_name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('patronymic')->nullable();
             $table->string('initials')->nullable();
-            $table->string('post')->nullable();
+            $table->string('degree')->nullable();
+            $table->string('jobs')->nullable();
             $table->string('description')->nullable();
 
             // $table->timestamps();

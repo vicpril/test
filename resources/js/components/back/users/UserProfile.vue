@@ -56,56 +56,72 @@
 						</div>
 						<label class="h6 text-muted mt-2 mb-1">Данные на русском</label>
 						<div class="row">
-							<div class="col-md-4 pr-1">
+							<div class="col-4 pr-1">
 								<div class="form-group">
 									<label for="last_name_ru">Фамилия</label>
 									<input type="text" class="form-control" name="last_name_ru" v-model="user.last_name_ru">
 								</div>
 							</div>
-							<div class="col-md-3 px-1">
+							<div class="col-3 px-1">
 								<div class="form-group">
 									<label for="first_name_ru">Имя</label>
 									<input type="text" class="form-control" name="first_name_ru" v-model="user.first_name_ru">
 								</div>
 							</div>
-							<div class="col-md-3 px-1">
+							<div class="col-3 px-1">
 								<div class="form-group">
 									<label for="patronymic_ru">Отчество</label>
 									<input type="text" class="form-control" name="patronymic_ru" v-model="user.patronymic_ru">
 								</div>
 							</div>
-							<div class="col-md-2 pl-1">
+							<div class="col-2 pl-1">
 								<div class="form-group">
 									<label for="initials_ru">Инициалы</label>
 									<input type="text" class="form-control" name="initials_ru" v-model="user.initials_ru">
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-4 pr-1">
+								<div class="form-group">
+									<label for="short_name_ru">Короткое имя</label>
+									<input type="text" class="form-control" name="short_name_ru" v-model="user.short_name_ru">
+								</div>
+							</div>
+						</div>
 
 						<label class="h6 text-muted mt-2 mb-1">Данные на английском</label>
 						<div class="row">
-							<div class="col-md-4 pr-1">
+							<div class="col-4 pr-1">
 								<div class="form-group">
 									<label for="last_name_en">Last Name</label>
 									<input type="text" class="form-control" name="last_name_en" v-model="user.last_name_en">
 								</div>
 							</div>
-							<div class="col-md-3 px-1">
+							<div class="col-3 px-1">
 								<div class="form-group">
 									<label for="first_name_en">First Name</label>
 									<input type="text" class="form-control" name="first_name_en" v-model="user.first_name_en">
 								</div>
 							</div>
-							<div class="col-md-3 px-1">
+							<div class="col-3 px-1">
 								<div class="form-group">
 									<label for="patronymic_en">Middle Name</label>
 									<input type="text" class="form-control" name="patronymic_en" v-model="user.patronymic_en">
 								</div>
 							</div>
-							<div class="col-md-2 pl-1">
+							<div class="col-2 pl-1">
 								<div class="form-group">
 									<label for="initials_en">Initials</label>
 									<input type="text" class="form-control" name="initials_en" v-model="user.initials_en">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-4 pr-1">
+								<div class="form-group">
+									<label for="short_name_en">Short name</label>
+									<input type="text" class="form-control" name="short_name_en" v-model="user.short_name_en">
 								</div>
 							</div>
 						</div>
@@ -126,56 +142,59 @@
 						<h5 class="h5 mb-0">Сведения о месте работы</h5>
 					</div>
 					<div class="card-body">
-						<label class="h6 mt-2">Степень и звание</label>
+						<label class="h6 text-muted mt-2">Степень и звание</label>
 						<div class="row">
 							<div class="col-md-6 pr-1">
 								<div class="form-group">
-									<label for="graduate_ru">На русском</label>
-									<input type="text" class="form-control" name="graduate_ru" v-model="user.graduate_ru">
+									<label for="degree_ru">На русском</label>
+									<input type="text" class="form-control" name="degree_ru" v-model="user.degree_ru">
 								</div>
 							</div>
 							<div class="col-md-6 pl-1">
-								<label for="graduate_en">На английском</label>
-								<input type="text" class="form-control" name="graduate_en" v-model="user.graduate_en">
+								<div class="form-group">
+									<label for="degree_en">На английском</label>
+									<input type="text" class="form-control" name="degree_en" v-model="user.degree_en">
+								</div>
 							</div>
 						</div>
 
-						<label class="h6 mt-3">Место работы (должность)</label>
+						<label class="h6 text-muted mt-3">Место работы (должность)</label>
 						<div class="row">
 							<div class="col-12">
-								<table
-									class="table table-striped table-bordered table-responsive-md"
-									style="width:100%"
-									id="jobsTable"
-								>
-									<thead>
+								<table class="table table-hover table-responsive-md" style="width:100%" id="jobsTable">
+									<thead class="bg-secondary">
 										<th class></th>
-										<th class>На русском</th>
-										<th class>На английском</th>
+										<th class="text-muted">На русском</th>
+										<th class="text-muted">На английском</th>
+										<th class></th>
 									</thead>
-									<tbody>
-										<tr>
-											<td>1</td>
-											<td>Русское название 111</td>
-											<td>Английское название 111</td>
+									<draggable tag="tbody" handle=".handle" :list="jobs">
+										<tr class v-for="(job, index) in jobs" :key="index">
+											<td class="handle">
+												<i class="fa fa-align-justify"></i>
+											</td>
+											<td class="p-1">
+												<textarea type="text" class="form-control" v-model="job.ru" @input="saveJobsIntoUser"></textarea>
+											</td>
+											<td class="p-1">
+												<textarea type="text" class="form-control" v-model="job.en" @input="saveJobsIntoUser"></textarea>
+											</td>
+											<td class="text-muted">
+												<i
+													class="fa fa-close"
+													@mouseover="$event.target.classList.add('text-danger')"
+													@mouseout="$event.target.classList.remove('text-danger')"
+													@click="deleteJob(index)"
+												></i>
+											</td>
 										</tr>
-										<tr>
-											<td>22</td>
-											<td>Русское название 2222</td>
-											<td>Английское название 2222</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>Русское название 33</td>
-											<td>Английское название 333</td>
-										</tr>
-										<tr>
-											<td>24</td>
-											<td>Русское название 44</td>
-											<td>Английское название 444</td>
-										</tr>
-									</tbody>
+									</draggable>
 								</table>
+								<button
+									type="button"
+									class="btn btn-outline-info btn-sm"
+									@click="addJob"
+								>Добавить место работы</button>
 							</div>
 						</div>
 					</div>
@@ -263,6 +282,7 @@
 
 <script>
 import translat from "../translat";
+import draggable from "vuedraggable";
 
 export default {
 	props: [
@@ -273,7 +293,29 @@ export default {
 
 	data: function() {
 		return {
-			user: {}
+			user: {},
+			jobs: [
+				// {
+				// 	// id: 1,
+				// 	ru: "Русское название 111",
+				// 	en: "Английское название 111"
+				// },
+				// {
+				// 	// id: 2,
+				// 	ru: "Русское название 2",
+				// 	en: "Английское название 2"
+				// },
+				// {
+				// 	// id: 3,
+				// 	ru: "Русское название 33",
+				// 	en: "Английское название 333"
+				// },
+				// {
+				// 	// id: 4,
+				// 	ru: "Русское название 4",
+				// 	en: "Английское название 4444"
+				// }
+			]
 		};
 	},
 
@@ -284,13 +326,56 @@ export default {
 			this.fetch(this.id);
 		}
 	},
+	watch: {
+		jobs: function(value, oldValue) {
+			this.saveJobsIntoUser();
+		}
+	},
 
 	methods: {
 		fetch(id) {
 			axios.get("/api/users/" + id).then(({ data }) => {
 				//           console.log(data);
 				this.user = data.data;
+				this.jobs = this.getUserJobs(data.data);
 			});
+		},
+
+		getUserJobs(user) {
+			var res = [];
+			if (user.jobs_ru) {
+				user.jobs_ru.forEach((el, i) => {
+					res.push({
+						ru: user.jobs_ru[i],
+						en: user.jobs_en[i]
+					});
+				});
+			}
+			return res;
+		},
+
+		saveJobsIntoUser() {
+			var ru = [];
+			var en = [];
+			this.jobs.forEach(el => {
+				ru.push(el.ru);
+				en.push(el.en);
+			});
+			this.user.jobs_ru = ru;
+			this.user.jobs_en = en;
+		},
+
+		addJob() {
+			const new_id = this.jobs.length + 1;
+			this.jobs.push({
+				// id: new_id,
+				ru: "",
+				en: ""
+			});
+		},
+
+		deleteJob(index) {
+			this.jobs.splice(index, 1);
 		},
 
 		autocomplite() {
@@ -355,11 +440,19 @@ export default {
 			if (ini) {
 				this.user.initials_ru = ini;
 				this.user.initials_en = translat.translat(ini);
+				this.user.short_name_ru = l_name + " " + ini;
+				this.user.short_name_en = translat.translat(l_name + " " + ini);
 			} else {
 				this.user.initials_ru = "";
 				this.user.initials_en = "";
+				this.user.short_name_ru = l_name;
+				this.user.short_name_en = translat.translat(l_name);
 			}
 		}
+	},
+
+	components: {
+		draggable
 	}
 };
 </script>
