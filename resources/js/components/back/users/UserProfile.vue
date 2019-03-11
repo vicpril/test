@@ -209,9 +209,10 @@
 							<div class="row">
 								<div class="form-group">
 									<label class="h6">На русском</label>
+									<ckeditor :editor="editor" v-model="user.description_ru" :config="editorConfig"></ckeditor>
 									<textarea
 										name="description_ru"
-										id
+										id="description_ru"
 										cols="100"
 										rows="3"
 										class="form-control description"
@@ -227,7 +228,7 @@
 									<label class="h6 mt-2">На английском</label>
 									<textarea
 										name="description_en"
-										id
+										id="description_en"
 										cols="100"
 										rows="3"
 										class="form-control description"
@@ -283,6 +284,8 @@
 <script>
 import translat from "../translat";
 import draggable from "vuedraggable";
+import "@ckeditor/ckeditor5-build-classic/build/translations/ru";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default {
 	props: [
@@ -307,7 +310,15 @@ export default {
 				short_name_en: "",
 				short_name_ru: ""
 			},
-			jobs: []
+			jobs: [],
+			editor: ClassicEditor,
+			editorConfig: {
+				// The configuration of the rich-text editor.
+				language: "ru",
+				alignment: {
+					options: ["left", "right"]
+				}
+			}
 		};
 	},
 
