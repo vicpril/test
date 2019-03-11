@@ -71,7 +71,7 @@
             aria-haspopup="true"
             aria-expanded="false"
          >
-            Привет, {{ Auth::user()->ru->full_name }}
+            <span class="	d-none d-lg-inline-block">Привет, {{ Auth::user()->ru->full_name }}</span>
             <i class="icon-user icons"></i>
          </a>
          <div class="dropdown-menu dropdown-menu-right">

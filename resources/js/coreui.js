@@ -17,8 +17,8 @@ window.Vue = require("vue");
 window.VueRouter = require("vue-router");
 
 //CKEditor
-import CKEditor from "@ckeditor/ckeditor5-vue";
-Vue.use(CKEditor);
+// import CKEditor from "@ckeditor/ckeditor5-vue";
+// Vue.use(CKEditor);
 
 /**
  * The following block of code may be used to automatically register your

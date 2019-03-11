@@ -144,13 +144,13 @@
 					<div class="card-body">
 						<label class="h6 text-muted mt-2">Степень и звание</label>
 						<div class="row">
-							<div class="col-md-6 pr-1">
+							<div class="col-md pr-md-1">
 								<div class="form-group">
 									<label for="degree_ru">На русском</label>
 									<input type="text" class="form-control" name="degree_ru" v-model="user.degree_ru">
 								</div>
 							</div>
-							<div class="col-md-6 pl-1">
+							<div class="col-md pl-md-1">
 								<div class="form-group">
 									<label for="degree_en">На английском</label>
 									<input type="text" class="form-control" name="degree_en" v-model="user.degree_en">
@@ -161,7 +161,7 @@
 						<label class="h6 text-muted mt-3">Место работы (должность)</label>
 						<div class="row">
 							<div class="col-12">
-								<table class="table table-hover table-responsive-md" style="width:100%" id="jobsTable">
+								<table class="table table-hover table-responsive-xs" style="width:100%" id="jobsTable">
 									<thead class="bg-secondary">
 										<th class></th>
 										<th class="text-muted">На русском</th>
@@ -212,7 +212,8 @@
 									<ckeditor :editor="editor" v-model="user.description_ru" :config="editorConfig"></ckeditor>
 									<textarea
 										name="description_ru"
-										id="description_ru"
+										id="editor"
+										ref="description_ru"
 										cols="100"
 										rows="3"
 										class="form-control description"
@@ -284,8 +285,13 @@
 <script>
 import translat from "../translat";
 import draggable from "vuedraggable";
-import "@ckeditor/ckeditor5-build-classic/build/translations/ru";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+	
+import CKEditor from "@ckeditor/ckeditor5-vue"
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic/build/ckeditor";
+
+import EditorConfig from "../../../plugins/@ckeditor/ckeditor";
+// import editor from "../../../plugins/@ckeditor/ckeditor";
+
 
 export default {
 	props: [
@@ -312,13 +318,7 @@ export default {
 			},
 			jobs: [],
 			editor: ClassicEditor,
-			editorConfig: {
-				// The configuration of the rich-text editor.
-				language: "ru",
-				alignment: {
-					options: ["left", "right"]
-				}
-			}
+			editorConfig: EditorConfig
 		};
 	},
 
@@ -327,8 +327,9 @@ export default {
 			this.user = this.old;
 		} else if (this.id) {
 			this.fetch(this.id);
-		}
+		};
 	},
+	
 	watch: {
 		jobs: function(value, oldValue) {
 			this.saveJobsIntoUser();
@@ -457,7 +458,9 @@ export default {
 	},
 
 	components: {
-		draggable
-	}
+		draggable,
+		ckeditor: CKEditor.component
+	},
+	
 };
 </script>
