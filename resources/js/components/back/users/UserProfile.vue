@@ -209,7 +209,7 @@
 							<div class="row">
 								<div class="form-group">
 									<label class="h6">На русском</label>
-									<ckeditor :editor="editor" v-model="user.description_ru" :config="editorConfig"></ckeditor>
+									<ckeditor v-model="user.description_ru"></ckeditor>
 									<textarea
 										name="description_ru"
 										id="editor"
@@ -285,15 +285,21 @@
 <script>
 import translat from "../translat";
 import draggable from "vuedraggable";
-	
-import CKEditor from "@ckeditor/ckeditor5-vue"
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic/build/ckeditor";
 
-import EditorConfig from "../../../plugins/@ckeditor/ckeditor";
+import ckeditor from "../plugins/CKEditor.vue";
+
+// import CKEditor from "@ckeditor/ckeditor5-vue"
+// import ClassicEditor from "@ckeditor/ckeditor5-build-classic/build/ckeditor";
+
+// import EditorConfig from "../../../plugins/@ckeditor/ckeditor";
 // import editor from "../../../plugins/@ckeditor/ckeditor";
 
-
 export default {
+	components: {
+		draggable,
+		ckeditor
+	},
+
 	props: [
 		"old",
 		"id"
@@ -316,9 +322,9 @@ export default {
 				short_name_en: "",
 				short_name_ru: ""
 			},
-			jobs: [],
-			editor: ClassicEditor,
-			editorConfig: EditorConfig
+			jobs: []
+			// editor: ClassicEditor,
+			// editorConfig: EditorConfig
 		};
 	},
 
@@ -327,9 +333,9 @@ export default {
 			this.user = this.old;
 		} else if (this.id) {
 			this.fetch(this.id);
-		};
+		}
 	},
-	
+
 	watch: {
 		jobs: function(value, oldValue) {
 			this.saveJobsIntoUser();
@@ -455,12 +461,6 @@ export default {
 				this.user.short_name_en = translat.translat(l_name);
 			}
 		}
-	},
-
-	components: {
-		draggable,
-		ckeditor: CKEditor.component
-	},
-	
+	}
 };
 </script>
