@@ -24,6 +24,23 @@
 			@elseНовый автор
 			@endisset
 		</h2>
+		<div class="mb-3">
+		<textarea class="mb-3" name="editor1" id="editor1" rows="10" cols="80">
+<p>xyz</p>
+<p>n (untested); hope this helps.</p>
+<blockquote>
+<p style="margin-left:80px; text-align:justify">In the&nbsp;<a href="https://ckeditor.com/cke4/addon/pastefromword" rel="nofollow noreferrer">Paste from Word plugin&#39;s page</a>, co</p>
+<hr />
+<h5 style="margin-left:80px; text-align:justify">mpatibility with CKEditor 4.6 is not specified (it is guaranteed just with 4.9+).</h5>
+</blockquote>
+<h5 style="color:#aaaaaa; font-style:italic">n (untested); hope this helps.</h5>
+<h5 style="color:#aaaaaa; font-style:italic">CKFinder.widget( &#39;ckfinder-widget&#39;, { wi<span style="color:#000000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">dth</span><span style="color:#666600; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">:</span><span style="color:#000000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px"> </span><span style="color:#008800; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">&#39;100%&#39;</span><span style="color:#666600; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">,</span><span style="color:#000000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px"> height</span><span style="color:#666600; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">:</span><span style="color:#000000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px"> </span><span style="color:#006666; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">500</span><span style="color:#666600; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">,</span><span style="color:#000000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px"> plugins</span><span style="color:#666600; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">:</span><span style="color:#000000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px"> </span><span style="color:#666600; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">[</span><span style="color:#000000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px"> </span><span style="color:#880000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif; font-size:11.888px">// Th<span style="font-size:11px">e path must be relative to the location of the ckfinder.js file.</span></span><span style="font-size:11px"><span style="color:#000000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif"> </span><span style="color:#008800; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif">&#39;../samples/plugins/StatusBarInfo/StatusBarInfo&#39;</span><span style="color:#000000; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif"> </span><span style="color:#666600; font-family:Consolas,Menlo,Monaco,&quot;Lucida Console&quot;,&quot;Liberation Mono&quot;,&quot;DejaVu Sans Mono&quot;,&quot;Bitstream Vera Sans Mono&quot;,&quot;Courier New&quot;,monospace,serif">]</span> </span></h5>
+<p style="margin-left:0px; margin-right:0px; text-align:left"><span style="font-size:11px">In the&nbsp;<a href="https://ckeditor.com/cke4/addon/pastefromword" rel="nofollow noreferrer" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-size: 15px; vertical-align: baseline; box-sizing: inherit; color: rgb(0, 89, 153); text-decoration: underline; cursor: pointer;">Paste from Word plugin&#39;s p<span style="font-family:Comic Sans MS,cursive">age</span></a><span style="font-family:Comic Sans MS,cursive">, compatibility with CKEdito</span>r 4.6 is not specified (it is gua</span>ranteed just with 4.9+).</p>
+<p>&nbsp;</p>
+
+            </textarea>
+		</div>
+
     <form method="POST" action="{{ route('users.store') }}">
       @csrf
 			<user-profile @isset($id):id="{{ $id }}"@endisset :old="{{ json_encode(Session::getOldInput()) }}"></user-profile>
@@ -90,8 +107,22 @@
     <script type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
 
 		<!-- CKEditor -->
-		<!-- <script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script> -->
-    <!-- <script type="text/javascript" src="https://cdn.ckeditor.com/4.11.3/standard/ckeditor.js"></script> -->
+		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+		<script src="{{ URL::to('ckeditor/ckeditor.js') }}"></script>
+
+		<script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+								// instance, using default configuration.
+								CKEDITOR.basePath = '/ckeditor/';
+								CKEDITOR.replace( 'editor1' );
+								CKEDITOR.cleanWord = function( data, editor )
+								{
+									alert("clean word called");
+									return 'xyz';
+								}
+            </script>
+
+
     <!-- Set script -->
     @yield('modal_set_js')
 
