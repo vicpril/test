@@ -6,8 +6,8 @@
 
 
   <script>
-import { CKEDITOR } from "ckeditor";
-window.CKEDITOR_BASEPATH = "node_modules/ckeditor/ckeditor.js";
+import editor1 from "ckeditor";
+// window.CKEDITOR_BASEPATH = "node_modules/ckeditor/ckeditor.js";
 
 export default {
 	props: {
@@ -31,10 +31,10 @@ export default {
 				["Cut", "Copy", "Paste"]
 			]
 		},
-		// language: {
-		// 	type: String,
-		// 	default: "en"
-		// },
+		language: {
+			type: String,
+			default: "en"
+		},
 		extraplugins: {
 			type: String,
 			default: ""
@@ -48,6 +48,8 @@ export default {
 		}
 	},
 	mounted() {
+		CKEDITOR.basePath = "/js/plugins/ckeditor/";
+		// alert(CKEDITOR.basePath);
 		const ckeditorId = this.id;
 		console.log(this.value);
 		const ckeditorConfig = {

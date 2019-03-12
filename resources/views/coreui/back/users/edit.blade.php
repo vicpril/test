@@ -91,7 +91,7 @@
 
 		<!-- CKEditor -->
 		<!-- <script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script> -->
-    <!-- <script src="https://cdn.ckeditor.com/4.11.3/standard/ckeditor.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdn.ckeditor.com/4.11.3/standard/ckeditor.js"></script> -->
     <!-- Set script -->
     @yield('modal_set_js')
 

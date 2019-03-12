@@ -209,10 +209,12 @@
 							<div class="row">
 								<div class="form-group">
 									<label class="h6">На русском</label>
-									<ckeditor v-model="user.description_ru"></ckeditor>
+									<div class="form-group">
+										<ckeditor v-model="user.description_ru"></ckeditor>
+									</div>
 									<textarea
 										name="description_ru"
-										id="editor"
+										id="description_ru"
 										ref="description_ru"
 										cols="100"
 										rows="3"
@@ -286,7 +288,7 @@
 import translat from "../translat";
 import draggable from "vuedraggable";
 
-import ckeditor from "../plugins/CKEditor.vue";
+import ckeditor from "../plugins/ckeditor/CKEditor.vue";
 
 // import CKEditor from "@ckeditor/ckeditor5-vue"
 // import ClassicEditor from "@ckeditor/ckeditor5-build-classic/build/ckeditor";
