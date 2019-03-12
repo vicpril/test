@@ -181,6 +181,7 @@ return [
         ElForastero\Transliterate\TransliterationServiceProvider::class,
         // Barryvdh\Elfinder\ElfinderServiceProvider::class,
         Idea\Providers\Select2ServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
         
 
     ],
