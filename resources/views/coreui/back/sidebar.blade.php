@@ -42,6 +42,11 @@
             <i class="nav-icon icon-folder-alt"></i> Медиафайлы</a
          >
       </li>
+     <li class="nav-item">
+         <a class="nav-link text-warning" href="{{ route('ckeditor-test') }}">
+            <i class="nav-icon icon-folder-alt"></i> Test</a
+         >
+      </li>
    </ul>
 </nav>
 <button class="sidebar-minimizer brand-minimizer" type="button"></button>

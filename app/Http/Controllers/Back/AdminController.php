@@ -84,5 +84,14 @@ class AdminController extends Controller
 
         return $this->renderOutput();
     }
+  
+  public function test()
+    {
+        $this->subtitle = "Панель администратора";
+
+        $this->template = env('THEME_BACK').'.back.test';
+
+        return $this->renderOutput();
+    }
 
 }

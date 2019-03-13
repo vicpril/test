@@ -91,13 +91,14 @@
     <script type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
 
 		<!-- CKEditor -->
-		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+<!-- <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script> -->
+<!-- 		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script> -->
 
 		<script>
 			// Replace the <textarea id="editor1"> with a CKEditor
 			// instance, using default configuration.
-			CKEDITOR.basePath = '/vendor/ckeditor/';
-			CKEDITOR.replace('description_ru');
+// 			CKEDITOR.basePath = '/vendor/ckeditor/';
+// 			CKEDITOR.replace('description_ru');
 		</script>
 
 

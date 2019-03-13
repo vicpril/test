@@ -71,7 +71,7 @@
       <!-- MODALS -->
       @yield('modals')
       <!-- end modals -->
-
+<script type="text/javascript" src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
       <script src="{{ mix('js/manifest.js') }}"></script>
       <script src="{{ mix('js/vendor.js') }}"></script>
       <script src="{{ mix('js/coreui.js') }}"></script>

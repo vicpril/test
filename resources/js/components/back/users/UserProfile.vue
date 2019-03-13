@@ -209,8 +209,11 @@
 							<div class="row">
 								<div class="form-group">
 									<label class="h6">На русском</label>
-									<div class="form-group">
-									</div>
+<vue-ckeditor 
+      v-model="content" 
+      :config="config" 
+      />
+									
 									<textarea
 										name="description_ru"
 										id="description_ru"
@@ -287,18 +290,24 @@
 import translat from "../translat";
 import draggable from "vuedraggable";
 
-// import ckeditor from "../plugins/ckeditor/CKEditor.vue";
 
-// import CKEditor from "@ckeditor/ckeditor5-vue"
-// import ClassicEditor from "@ckeditor/ckeditor5-build-classic/build/ckeditor";
-
-// import EditorConfig from "../../../plugins/@ckeditor/ckeditor";
-// import editor from "../../../plugins/@ckeditor/ckeditor";
+import VueCkeditor from "../VueCkeditor.vue";
+// import VueCkeditor from "vue-ckeditor2/src/VueCkeditor.vue";
+// import VueCkeditor from 'vue-ckeditor2';
 
 export default {
 	components: {
 		draggable,
-		// ckeditor
+		VueCkeditor
+	},
+
+	created() {
+		console.log('created');
+		if (this.old.length !== 0) {
+			this.user = this.old;
+		} else if (this.id) {
+			this.fetch(this.id);
+		}
 	},
 
 	props: [
@@ -323,18 +332,15 @@ export default {
 				short_name_en: "",
 				short_name_ru: ""
 			},
-			jobs: []
-			// editor: ClassicEditor,
-			// editorConfig: EditorConfig
+			jobs: [],
+			content: '',
+      config: {
+        toolbar: [
+          ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']
+        ],
+        height: 300
+      }
 		};
-	},
-
-	created: function() {
-		if (this.old.length !== 0) {
-			this.user = this.old;
-		} else if (this.id) {
-			this.fetch(this.id);
-		}
 	},
 
 	watch: {

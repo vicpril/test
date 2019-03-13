@@ -38,6 +38,10 @@ Vue.component(
    "user-profile",
    require("./components/back/users/UserProfile.vue").default
 );
+Vue.component(
+   "editor-test",
+   require("./components/back/EditorTest.vue").default
+);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
