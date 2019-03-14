@@ -25,7 +25,7 @@
 								<label class="d-block text-muted">Автозаполнение</label>
 								<button
 									type="button"
-									class="btn btn-outline-info btn-pill my-0"
+									class="btn btn-outline-info my-0"
 									@click="autocomplite"
 								>Заполнить</button>
 							</div>
@@ -282,10 +282,7 @@
 	import translat from "../translat";
 	import draggable from "vuedraggable";
 
-
 	import VueCkeditor from "../VueCkeditor.vue";
-	// import VueCkeditor from "vue-ckeditor2/src/VueCkeditor.vue";
-	// import VueCkeditor from 'vue-ckeditor2';
 
 	export default {
 		components: {
@@ -294,7 +291,6 @@
 		},
 
 		created() {
-			console.log('created');
 			if (this.old.length !== 0) {
 				this.user = this.old;
 			} else if (this.id) {

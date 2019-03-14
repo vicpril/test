@@ -73,7 +73,6 @@ export default {
     }
   },
   mounted() {
-//     Vue.use(editor);
     this.create();
   },
   methods: {

@@ -24,9 +24,9 @@ class UserRequest extends FormRequest
     public function rules()
     {
         $id = (isset($this->route()->parameter('user')->id)) ? $this->route()->parameter('user')->id : '';
-      
+        
         $this->sanitize();
-      
+        
         return [
             'full_name' => 'required|max:50', 
             'alias' => 'unique:users,alias|max:100'.$id,
@@ -54,12 +54,12 @@ class UserRequest extends FormRequest
         $this->replace($input);     
     }
   
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            if ($validator->errors()->any()) {
-                $validator->errors()->add('title', 'Неверное заполнение формы!');
-            }
-        });
-    }
+//     public function withValidator($validator)
+//     {
+//         $validator->after(function ($validator) {
+//             if ($validator->errors()->any()) {
+//                 $validator->errors()->add('title', 'Неверное заполнение формы!');
+//             }
+//         });
+//     }
 }

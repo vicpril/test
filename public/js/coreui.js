@@ -157,7 +157,6 @@ var inc = new Date().getTime(); // import editor from '../../../../public/vendor
     }
   },
   mounted: function mounted() {
-    //     Vue.use(editor);
     this.create();
   },
   methods: {
@@ -736,8 +735,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
- // import VueCkeditor from "vue-ckeditor2/src/VueCkeditor.vue";
-// import VueCkeditor from 'vue-ckeditor2';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -745,8 +742,6 @@ __webpack_require__.r(__webpack_exports__);
     VueCkeditor: _VueCkeditor_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   created: function created() {
-    console.log('created');
-
     if (this.old.length !== 0) {
       this.user = this.old;
     } else if (this.id) {
@@ -6137,7 +6132,7 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-outline-info btn-pill my-0",
+                      staticClass: "btn btn-outline-info my-0",
                       attrs: { type: "button" },
                       on: { click: _vm.autocomplite }
                     },
