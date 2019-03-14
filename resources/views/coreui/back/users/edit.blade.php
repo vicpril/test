@@ -16,7 +16,6 @@
       {!! $navbar !!}
 @endsection
 
-
 @section('content')
 <div class="content">
 		<h2 class="mb-3">@isset($id)
@@ -27,7 +26,11 @@
 
     <form method="POST" action="{{ route('users.store') }}">
       @csrf
-			<user-profile @isset($id):id="{{ $id }}"@endisset :old="{{ json_encode(Session::getOldInput()) }}"></user-profile>
+			<user-profile 
+										@isset($id):id="{{ $id }}"@endisset 
+										:old="{{ json_encode(Session::getOldInput(), JSON_FORCE_OBJECT) }}"
+										:errors="{{ $errors }}"
+										></user-profile>
       
     </form>
 </div>

@@ -29,13 +29,15 @@ class AppServiceProvider extends ServiceProvider
             // dump(app()->getLocale());
         });
 
+        Blade::component(env('THEME_BACK').'.back.components.alert', 'alert');
+      
         // create custom directive for blade: @set($i,10)
         Blade::directive('set', function($exp) {
             list($name, $val) = explode(',', $exp);
             return "<?php $name = $val; ?>";
         });      
 
-        view()->composer('back/layout', HeaderComposer::class);
+//         view()->composer('back/layout', HeaderComposer::class);
 
     }
 

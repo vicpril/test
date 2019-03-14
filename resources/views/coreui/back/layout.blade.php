@@ -45,6 +45,29 @@
             <!-- <div class="content mt-4"> -->
                <div class="container-fluid mt-4">
                   <div class="animated fadeIn">
+                    
+                    <!-- Alert -->
+										@if (count($errors) > 0)
+												@alert(['type'=>'danger'])
+													@foreach ($errors->all() as $error)
+															<p><i class="icon fa fa-check"></i> {{ $error }}</p>
+													@endforeach
+												@endalert
+										@endif
+
+										@if (session('status'))
+												<div class="alert alert-success" role="alert">
+														{{ session('status') }}
+												</div>
+										@endif
+
+										@if (session('error'))
+												<div class="alert alert-danger" role="alert">
+														{{ session('error') }}
+												</div>
+										@endif
+				
+                    
                      <!-- CONTENT -->
                      @yield('content')
                      <!-- end content -->

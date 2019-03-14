@@ -16,9 +16,9 @@ require("./plugins/bootstrap-notify");
 window.Vue = require("vue");
 // window.VueRouter = require("vue-router");
 
-//CKEditor
-// import CKEditor from "@ckeditor/ckeditor5-vue";
-// Vue.use(CKEditor);
+import Notify from 'vue2-notify';
+// Use Notify
+Vue.use(Notify);
 
 /**
  * The following block of code may be used to automatically register your

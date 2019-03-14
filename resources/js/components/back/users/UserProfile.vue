@@ -17,7 +17,7 @@
 										name="full_name"
 										placeholder="Ф.И.О."
 										v-model="user.full_name"
-										required
+										
 									>
 								</div>
 							</div>
@@ -41,7 +41,7 @@
 										name="email"
 										placeholder="Email"
 										v-model="user.email"
-										required
+										
 									>
 									<div class="invalid-feedback"></div>
 								</div>
@@ -296,13 +296,24 @@
 			} else if (this.id) {
 				this.fetch(this.id);
 			}
+// 			if(this.errors.length>)
 		},
 
-		props: [
-			"old",
-			"id"
+		props: {
+				old: {
+					type: Object,
+					default: () => {}
+				},
+				id: {
+					type: Number,
+					default: ''
+				},
+				errors: {
+					type: Object,
+					default: () => {}
+				}
 			// 			'user'
-		],
+			},
 
 		data: function() {
 			return {
