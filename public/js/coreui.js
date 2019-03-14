@@ -734,19 +734,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
  // import VueCkeditor from "vue-ckeditor2/src/VueCkeditor.vue";
@@ -6780,55 +6767,67 @@ var render = function() {
           _vm._m(3),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "col-md-12" }, [
-              _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", { staticClass: "h6" }, [_vm._v("На русском")]),
+                _vm._v(" "),
                 _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _c("label", { staticClass: "h6" }, [_vm._v("На русском")]),
-                    _vm._v(" "),
-                    _c("vue-ckeditor", {
-                      attrs: { name: "description_ru", id: "description_ru" },
-                      model: {
-                        value: _vm.user.description_ru,
-                        callback: function($$v) {
-                          _vm.$set(_vm.user, "description_ru", $$v)
-                        },
-                        expression: "user.description_ru"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ])
-            ]),
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-danger btn-sm float-right",
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Заполнить")]
+                ),
+                _vm._v(" "),
+                _c("vue-ckeditor", {
+                  ref: "description_ru",
+                  staticClass: "mt-2",
+                  attrs: { name: "description_ru", id: "description_ru" },
+                  model: {
+                    value: _vm.user.description_ru,
+                    callback: function($$v) {
+                      _vm.$set(_vm.user, "description_ru", $$v)
+                    },
+                    expression: "user.description_ru"
+                  }
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-12" }, [
-              _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", { staticClass: "h6" }, [_vm._v("На английском")]),
+                _vm._v(" "),
                 _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
-                    _c("label", { staticClass: "h6 mt-2" }, [
-                      _vm._v("На английском")
-                    ]),
-                    _vm._v(" "),
-                    _c("vue-ckeditor", {
-                      attrs: { name: "description_en", id: "description_en" },
-                      model: {
-                        value: _vm.user.description_en,
-                        callback: function($$v) {
-                          _vm.$set(_vm.user, "description_en", $$v)
-                        },
-                        expression: "user.description_en"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ])
-            ])
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-danger btn-sm float-right",
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Заполнить")]
+                ),
+                _vm._v(" "),
+                _c("vue-ckeditor", {
+                  ref: "description_en",
+                  staticClass: "mt-2",
+                  attrs: { name: "description_en", id: "description_en" },
+                  model: {
+                    value: _vm.user.description_en,
+                    callback: function($$v) {
+                      _vm.$set(_vm.user, "description_en", $$v)
+                    },
+                    expression: "user.description_en"
+                  }
+                })
+              ],
+              1
+            )
           ])
         ])
       ]),

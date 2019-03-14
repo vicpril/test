@@ -205,48 +205,35 @@
 						<h5 class="title mb-0">Биография</h5>
 					</div>
 					<div class="card-body">
-						<div class="col-md-12">
-							<div class="row">
 								<div class="form-group">
 									<label class="h6">На русском</label>
+									<button
+									type="button"
+									class="btn btn-outline-danger btn-sm float-right"
+								>Заполнить</button>
 									<vue-ckeditor 
+												class="mt-2"
 												name="description_ru"
 												id="description_ru"
+												ref="description_ru"
 												v-model="user.description_ru" 
 												/>
-<!-- 									<textarea
-										name="description_ru"
-										id="description_ru"
-										ref="description_ru"
-										cols="100"
-										rows="3"
-										class="form-control description"
-										v-model="user.description_ru"
-									></textarea> -->
-								</div>
 							</div>
-						</div>
 
-						<div class="col-md-12">
-							<div class="row">
-								<div class="form-group">
-									<label class="h6 mt-2">На английском</label>
+						<div class="form-group">
+									<label class="h6">На английском</label>
+									<button
+									type="button"
+									class="btn btn-outline-danger btn-sm float-right"
+								>Заполнить</button>
 									<vue-ckeditor 
+												class="mt-2"
 												name="description_en"
 												id="description_en"
+												ref="description_en"
 												v-model="user.description_en" 
 												/>
-<!-- 									<textarea
-										name="description_en"
-										id="description_en"
-										cols="100"
-										rows="3"
-										class="form-control description"
-										v-model="user.description_en"
-									></textarea> -->
-								</div>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -292,187 +279,188 @@
 </template>
 
 <script>
-import translat from "../translat";
-import draggable from "vuedraggable";
+	import translat from "../translat";
+	import draggable from "vuedraggable";
 
 
-import VueCkeditor from "../VueCkeditor.vue";
-// import VueCkeditor from "vue-ckeditor2/src/VueCkeditor.vue";
-// import VueCkeditor from 'vue-ckeditor2';
+	import VueCkeditor from "../VueCkeditor.vue";
+	// import VueCkeditor from "vue-ckeditor2/src/VueCkeditor.vue";
+	// import VueCkeditor from 'vue-ckeditor2';
 
-export default {
-	components: {
-		draggable,
-		VueCkeditor
-	},
-
-	created() {
-		console.log('created');
-		if (this.old.length !== 0) {
-			this.user = this.old;
-		} else if (this.id) {
-			this.fetch(this.id);
-		}
-	},
-
-	props: [
-		"old",
-		"id"
-		// 			'user'
-	],
-
-	data: function() {
-		return {
-			user: {
-				email: "",
-				first_name_en: "",
-				first_name_ru: "",
-				full_name: "",
-				initials_en: "",
-				initials_ru: "",
-				last_name_en: "",
-				last_name_ru: "",
-				patronymic_en: "",
-				patronymic_ru: "",
-				short_name_en: "",
-				short_name_ru: ""
-			},
-			jobs: [],
-			content: '',
-      config: {
-        toolbar: [
-          ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']
-        ],
-        height: 300
-      }
-		};
-	},
-
-	watch: {
-		jobs: function(value, oldValue) {
-			this.saveJobsIntoUser();
-		}
-	},
-
-	methods: {
-		fetch(id) {
-			axios.get("/api/users/" + id).then(({ data }) => {
-				//           console.log(data);
-				this.user = data.data;
-				this.jobs = this.getUserJobs(data.data);
-			});
+	export default {
+		components: {
+			draggable,
+			VueCkeditor
 		},
 
-		getUserJobs(user) {
-			var res = [];
-			if (user.jobs_ru) {
-				user.jobs_ru.forEach((el, i) => {
-					res.push({
-						ru: user.jobs_ru[i],
-						en: user.jobs_en[i]
-					});
+		created() {
+			console.log('created');
+			if (this.old.length !== 0) {
+				this.user = this.old;
+			} else if (this.id) {
+				this.fetch(this.id);
+			}
+		},
+
+		props: [
+			"old",
+			"id"
+			// 			'user'
+		],
+
+		data: function() {
+			return {
+				user: {
+					email: "",
+					first_name_en: "",
+					first_name_ru: "",
+					full_name: "",
+					initials_en: "",
+					initials_ru: "",
+					last_name_en: "",
+					last_name_ru: "",
+					patronymic_en: "",
+					patronymic_ru: "",
+					short_name_en: "",
+					short_name_ru: ""
+				},
+				jobs: [],
+				content: '',
+				config: {
+					toolbar: [
+						['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']
+					],
+					height: 300
+				}
+			};
+		},
+
+		watch: {
+			jobs: function(value, oldValue) {
+				this.saveJobsIntoUser();
+			}
+		},
+
+		methods: {
+			fetch(id) {
+				axios.get("/api/users/" + id).then(({
+					data
+				}) => {
+					//           console.log(data);
+					this.user = data.data;
+					this.jobs = this.getUserJobs(data.data);
 				});
-			}
-			return res;
-		},
+			},
 
-		saveJobsIntoUser() {
-			var ru = [];
-			var en = [];
-			this.jobs.forEach(el => {
-				ru.push(el.ru);
-				en.push(el.en);
-			});
-			this.user.jobs_ru = ru;
-			this.user.jobs_en = en;
-		},
+			getUserJobs(user) {
+				var res = [];
+				if (user.jobs_ru) {
+					user.jobs_ru.forEach((el, i) => {
+						res.push({
+							ru: user.jobs_ru[i],
+							en: user.jobs_en[i]
+						});
+					});
+				}
+				return res;
+			},
 
-		addJob() {
-			const new_id = this.jobs.length + 1;
-			this.jobs.push({
-				// id: new_id,
-				ru: "",
-				en: ""
-			});
-		},
+			saveJobsIntoUser() {
+				var ru = [];
+				var en = [];
+				this.jobs.forEach(el => {
+					ru.push(el.ru);
+					en.push(el.en);
+				});
+				this.user.jobs_ru = ru;
+				this.user.jobs_en = en;
+			},
 
-		deleteJob(index) {
-			if (confirm("Удалить место работы?")) {
-				this.jobs.splice(index, 1);
-			}
-		},
+			addJob() {
+				const new_id = this.jobs.length + 1;
+				this.jobs.push({
+					// id: new_id,
+					ru: "",
+					en: ""
+				});
+			},
 
-		autocomplite() {
-			const name = this.user.full_name.split(" ", 3);
+			deleteJob(index) {
+				if (confirm("Удалить место работы?")) {
+					this.jobs.splice(index, 1);
+				}
+			},
 
-			this.user.email =
-				translat.strtr(
-					translat.translat(this.user.full_name.toString().toLowerCase()),
-					{
-						" ": "-",
-						".": "-"
-					}
-				) + "@localhost.lo";
-			var f_name, l_name, pat, ini;
-			switch (name.length) {
-				case 1:
-					l_name = name[0];
-					break;
-				case 2:
-					l_name = name[0];
-					name[1] = name[1].split(".");
-					if (name[1].length == 1) {
-						f_name = name[1][0];
-						ini = f_name.split("")[0] + ".";
-					} else {
-						f_name = name[1][0];
-						pat = name[1][1];
+			autocomplite() {
+				const name = this.user.full_name.split(" ", 3);
+
+				this.user.email =
+					translat.strtr(
+						translat.translat(this.user.full_name.toString().toLowerCase()), {
+							" ": "-",
+							".": "-"
+						}
+					) + "@localhost.lo";
+				var f_name, l_name, pat, ini;
+				switch (name.length) {
+					case 1:
+						l_name = name[0];
+						break;
+					case 2:
+						l_name = name[0];
+						name[1] = name[1].split(".");
+						if (name[1].length == 1) {
+							f_name = name[1][0];
+							ini = f_name.split("")[0] + ".";
+						} else {
+							f_name = name[1][0];
+							pat = name[1][1];
+							ini = f_name.split("")[0] + "." + pat.split("")[0] + ".";
+						}
+						break;
+					case 3:
+						l_name = name[0];
+						f_name = name[1];
+						pat = name[2];
 						ini = f_name.split("")[0] + "." + pat.split("")[0] + ".";
-					}
-					break;
-				case 3:
-					l_name = name[0];
-					f_name = name[1];
-					pat = name[2];
-					ini = f_name.split("")[0] + "." + pat.split("")[0] + ".";
-					break;
-			}
+						break;
+				}
 
-			if (f_name) {
-				this.user.first_name_ru = f_name;
-				this.user.first_name_en = translat.translat(f_name);
-			} else {
-				this.user.first_name_ru = "";
-				this.user.first_name_en = "";
-			}
+				if (f_name) {
+					this.user.first_name_ru = f_name;
+					this.user.first_name_en = translat.translat(f_name);
+				} else {
+					this.user.first_name_ru = "";
+					this.user.first_name_en = "";
+				}
 
-			if (l_name) {
-				this.user.last_name_ru = l_name;
-				this.user.last_name_en = translat.translat(l_name);
-			} else {
-				this.user.last_name_ru = "";
-				this.user.last_name_en = "";
-			}
+				if (l_name) {
+					this.user.last_name_ru = l_name;
+					this.user.last_name_en = translat.translat(l_name);
+				} else {
+					this.user.last_name_ru = "";
+					this.user.last_name_en = "";
+				}
 
-			if (pat) {
-				this.user.patronymic_ru = pat;
-				this.user.patronymic_en = translat.translat(pat);
-			} else {
-				this.user.patronymic_ru = "";
-				this.user.patronymic_en = "";
-			}
-			if (ini) {
-				this.user.initials_ru = ini;
-				this.user.initials_en = translat.translat(ini);
-				this.user.short_name_ru = l_name + " " + ini;
-				this.user.short_name_en = translat.translat(l_name + " " + ini);
-			} else {
-				this.user.initials_ru = "";
-				this.user.initials_en = "";
-				this.user.short_name_ru = l_name;
-				this.user.short_name_en = translat.translat(l_name);
+				if (pat) {
+					this.user.patronymic_ru = pat;
+					this.user.patronymic_en = translat.translat(pat);
+				} else {
+					this.user.patronymic_ru = "";
+					this.user.patronymic_en = "";
+				}
+				if (ini) {
+					this.user.initials_ru = ini;
+					this.user.initials_en = translat.translat(ini);
+					this.user.short_name_ru = l_name + " " + ini;
+					this.user.short_name_en = translat.translat(l_name + " " + ini);
+				} else {
+					this.user.initials_ru = "";
+					this.user.initials_en = "";
+					this.user.short_name_ru = l_name;
+					this.user.short_name_en = translat.translat(l_name);
+				}
 			}
 		}
-	}
-};
+	};
 </script>
