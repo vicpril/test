@@ -1,10 +1,10 @@
 @extends(env('THEME_BACK').'.back.layout')
 
-@section('css')
+@push('css')
 <!--  Select2     -->
 <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.css') }}">
 
-@endsection
+@endpush
 
 
 @section('sidebar')
@@ -85,29 +85,19 @@
   {!! $footer !!}
 @endsection
 
-
-@section('js')
+@push('lib')
     <!-- Select 2 -->
-    <script type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
+    <script defer type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
 
 		<!-- CKEditor -->
-<!-- <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script> -->
-<!-- 		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script> -->
+		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+@endpush
 
-		<script>
-			// Replace the <textarea id="editor1"> with a CKEditor
-			// instance, using default configuration.
-// 			CKEDITOR.basePath = '/vendor/ckeditor/';
-// 			CKEDITOR.replace('description_ru');
-		</script>
-
-
+@push('js')
     <!-- Set script -->
     @yield('modal_set_js')
 
     <!-- Upload script -->
     @yield('modal_upload_js')
 
-		{{-- @include(env('THEME_BACK').'.back.users.autocomplite') --}}
-
-@endsection
+@endpush

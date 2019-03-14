@@ -18,6 +18,7 @@
       </title>
       <!-- Icons-->
       <link href="{{ asset('css/coreui.css') }}" rel="stylesheet" />
+      $stack('css')
       <!-- <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet"> -->
    </head>
 
@@ -56,6 +57,10 @@
       @yield('footer')
       <!-- end footer -->
 
+      <!-- MODALS -->
+      @yield('modals')
+      <!-- end modals -->
+     
       <!-- CoreUI and necessary plugins-->
       <!-- <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
@@ -68,14 +73,12 @@
     <script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
     <script src="js/main.js"></script> -->
 
-      <!-- MODALS -->
-      @yield('modals')
-      <!-- end modals -->
-<script type="text/javascript" src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
       <script src="{{ mix('js/manifest.js') }}"></script>
       <script src="{{ mix('js/vendor.js') }}"></script>
+  @stack('lib')
       <script src="{{ mix('js/coreui.js') }}"></script>
+  @stack('js')
 
-      @yield('js')
+
    </body>
 </html>

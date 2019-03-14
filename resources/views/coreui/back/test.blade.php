@@ -1,8 +1,7 @@
 @extends(env('THEME_BACK').'.back.layout')
 
-@section('css')
-  
-@endsection
+@push('css')
+@endpush
 
 
 @section('sidebar')
@@ -27,7 +26,6 @@
 
 
 @section('modals')
-  
 @endsection
 
 @section('footer')
@@ -35,9 +33,9 @@
 @endsection
 
 
-@section('js')
+@push('js')
 
-<!-- 		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script> -->
+		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 
-@endsection
+@endpush
  

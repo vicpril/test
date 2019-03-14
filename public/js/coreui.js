@@ -164,64 +164,63 @@ var inc = new Date().getTime(); // import editor from '../../../../public/vendor
     create: function create() {
       var _this = this;
 
-      //       if (typeof CKEDITOR === 'undefined') {
-      //         console.log('CKEDITOR is missing (http://ckeditor.com/)');
-      //       } else {
-      //         CKEDITOR_BASEPATH = '/vendor/ckeditor/';
-      //         console.log(CKEDITOR_BASEPATH);
-      CKEDITOR.basePath = this.basePath; //           CKEDITOR.plugins.basePath = this.basePath + 'plugins/';
-
-      if (this.types === 'inline') {
-        CKEDITOR.inline(this.id, this.config);
+      if (typeof CKEDITOR === 'undefined') {
+        console.log('CKEDITOR is missing (http://ckeditor.com/)');
       } else {
-        CKEDITOR.replace(this.id, this.config);
+        CKEDITOR.basePath = this.basePath;
+
+        if (this.types === 'inline') {
+          CKEDITOR.inline(this.id, this.config);
+        } else {
+          CKEDITOR.replace(this.id, this.config);
+        }
+
+        this.instance.setData(this.value);
+        this.instance.on('instanceReady', function () {
+          _this.instance.setData(_this.value);
+        }); // Ckeditor change event
+
+        this.instance.on('change', this.onChange); // Ckeditor mode html or source
+
+        this.instance.on('mode', this.onMode); // Ckeditor blur event
+
+        this.instance.on('blur', function (evt) {
+          _this.$emit('blur', evt);
+        }); // Ckeditor focus event
+
+        this.instance.on('focus', function (evt) {
+          _this.$emit('focus', evt);
+        }); // Ckeditor contentDom event
+
+        this.instance.on('contentDom', function (evt) {
+          _this.$emit('contentDom', evt);
+        }); // Ckeditor dialog definition event
+
+        CKEDITOR.on('dialogDefinition', function (evt) {
+          _this.$emit('dialogDefinition', evt);
+        }); // Ckeditor file upload request event
+
+        this.instance.on('fileUploadRequest', function (evt) {
+          _this.$emit('fileUploadRequest', evt);
+        }); // Ckditor file upload response event
+
+        this.instance.on('fileUploadResponse', function (evt) {
+          setTimeout(function () {
+            _this.onChange();
+          }, 0);
+
+          _this.$emit('fileUploadResponse', evt);
+        }); // Listen for instanceReady event
+
+        if (typeof this.instanceReadyCallback !== 'undefined') {
+          this.instance.on('instanceReady', this.instanceReadyCallback);
+        } // Registering the beforeDestroyed hook right after creating the instance
+
+
+        this.$once('hook:beforeDestroy', function () {
+          _this.destroy();
+        });
       }
-
-      this.instance.setData(this.value);
-      this.instance.on('instanceReady', function () {
-        _this.instance.setData(_this.value);
-      }); // Ckeditor change event
-
-      this.instance.on('change', this.onChange); // Ckeditor mode html or source
-
-      this.instance.on('mode', this.onMode); // Ckeditor blur event
-
-      this.instance.on('blur', function (evt) {
-        _this.$emit('blur', evt);
-      }); // Ckeditor focus event
-
-      this.instance.on('focus', function (evt) {
-        _this.$emit('focus', evt);
-      }); // Ckeditor contentDom event
-
-      this.instance.on('contentDom', function (evt) {
-        _this.$emit('contentDom', evt);
-      }); // Ckeditor dialog definition event
-
-      CKEDITOR.on('dialogDefinition', function (evt) {
-        _this.$emit('dialogDefinition', evt);
-      }); // Ckeditor file upload request event
-
-      this.instance.on('fileUploadRequest', function (evt) {
-        _this.$emit('fileUploadRequest', evt);
-      }); // Ckditor file upload response event
-
-      this.instance.on('fileUploadResponse', function (evt) {
-        setTimeout(function () {
-          _this.onChange();
-        }, 0);
-
-        _this.$emit('fileUploadResponse', evt);
-      }); // Listen for instanceReady event
-
-      if (typeof this.instanceReadyCallback !== 'undefined') {
-        this.instance.on('instanceReady', this.instanceReadyCallback);
-      } // Registering the beforeDestroyed hook right after creating the instance
-
-
-      this.$once('hook:beforeDestroy', function () {
-        _this.destroy();
-      }); //       }
     },
     update: function update(val) {
       if (this.instanceValue !== val) {
@@ -455,6 +454,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.min.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _VueCkeditor_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../VueCkeditor.vue */ "./resources/js/components/back/VueCkeditor.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6785,45 +6789,13 @@ var render = function() {
                     _c("label", { staticClass: "h6" }, [_vm._v("На русском")]),
                     _vm._v(" "),
                     _c("vue-ckeditor", {
-                      attrs: { config: _vm.config },
+                      attrs: { name: "description_ru", id: "description_ru" },
                       model: {
-                        value: _vm.content,
+                        value: _vm.user.description_ru,
                         callback: function($$v) {
-                          _vm.content = $$v
+                          _vm.$set(_vm.user, "description_ru", $$v)
                         },
-                        expression: "content"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.user.description_ru,
-                          expression: "user.description_ru"
-                        }
-                      ],
-                      ref: "description_ru",
-                      staticClass: "form-control description",
-                      attrs: {
-                        name: "description_ru",
-                        id: "description_ru",
-                        cols: "100",
-                        rows: "3"
-                      },
-                      domProps: { value: _vm.user.description_ru },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.user,
-                            "description_ru",
-                            $event.target.value
-                          )
-                        }
+                        expression: "user.description_ru"
                       }
                     })
                   ],
@@ -6834,42 +6806,27 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-md-12" }, [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { staticClass: "h6 mt-2" }, [
-                    _vm._v("На английском")
-                  ]),
-                  _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { staticClass: "h6 mt-2" }, [
+                      _vm._v("На английском")
+                    ]),
+                    _vm._v(" "),
+                    _c("vue-ckeditor", {
+                      attrs: { name: "description_en", id: "description_en" },
+                      model: {
                         value: _vm.user.description_en,
+                        callback: function($$v) {
+                          _vm.$set(_vm.user, "description_en", $$v)
+                        },
                         expression: "user.description_en"
                       }
-                    ],
-                    staticClass: "form-control description",
-                    attrs: {
-                      name: "description_en",
-                      id: "description_en",
-                      cols: "100",
-                      rows: "3"
-                    },
-                    domProps: { value: _vm.user.description_en },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.user,
-                          "description_en",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
+                    })
+                  ],
+                  1
+                )
               ])
             ])
           ])
@@ -7535,8 +7492,8 @@ __webpack_require__(/*! ./coreui/index.js */ "./resources/js/coreui/index.js"); 
 __webpack_require__(/*! ./plugins/bootstrap-notify */ "./resources/js/plugins/bootstrap-notify.js"); //Vue
 
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-window.VueRouter = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js"); //CKEditor
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // window.VueRouter = require("vue-router");
+//CKEditor
 // import CKEditor from "@ckeditor/ckeditor5-vue";
 // Vue.use(CKEditor);
 
@@ -7948,22 +7905,20 @@ var AsideMenu = function ($) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./polyfill */ "./resources/js/coreui/polyfill.js");
 /* harmony import */ var _polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _ajax_load__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ajax-load */ "./resources/js/coreui/ajax-load.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AjaxLoad", function() { return _ajax_load__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+/* harmony import */ var _ajax_load__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ajax-load */ "./resources/js/coreui/ajax-load.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AjaxLoad", function() { return _ajax_load__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _aside_menu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./aside-menu */ "./resources/js/coreui/aside-menu.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AsideMenu", function() { return _aside_menu__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+/* harmony import */ var _aside_menu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./aside-menu */ "./resources/js/coreui/aside-menu.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AsideMenu", function() { return _aside_menu__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sidebar */ "./resources/js/coreui/sidebar.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Sidebar", function() { return _sidebar__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sidebar */ "./resources/js/coreui/sidebar.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Sidebar", function() { return _sidebar__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _utilities_get_style__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utilities/get-style */ "./resources/js/coreui/utilities/get-style.js");
-/* harmony import */ var _utilities_hex_to_rgb__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utilities/hex-to-rgb */ "./resources/js/coreui/utilities/hex-to-rgb.js");
-/* harmony import */ var _utilities_hex_to_rgba__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utilities/hex-to-rgba */ "./resources/js/coreui/utilities/hex-to-rgba.js");
-/* harmony import */ var _utilities_rgb_to_hex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utilities/rgb-to-hex */ "./resources/js/coreui/utilities/rgb-to-hex.js");
-
+/* harmony import */ var _utilities_get_style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utilities/get-style */ "./resources/js/coreui/utilities/get-style.js");
+/* harmony import */ var _utilities_hex_to_rgb__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utilities/hex-to-rgb */ "./resources/js/coreui/utilities/hex-to-rgb.js");
+/* harmony import */ var _utilities_hex_to_rgba__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utilities/hex-to-rgba */ "./resources/js/coreui/utilities/hex-to-rgba.js");
+/* harmony import */ var _utilities_rgb_to_hex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utilities/rgb-to-hex */ "./resources/js/coreui/utilities/rgb-to-hex.js");
+ // import $ from 'jquery'
 
 
 
@@ -7990,18 +7945,18 @@ __webpack_require__.r(__webpack_exports__);
   if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
     throw new Error('CoreUI\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
   }
-})(jquery__WEBPACK_IMPORTED_MODULE_1___default.a);
+})($);
 
  // Global functions
 
 
-window.getStyle = _utilities_get_style__WEBPACK_IMPORTED_MODULE_5__["default"];
+window.getStyle = _utilities_get_style__WEBPACK_IMPORTED_MODULE_4__["default"];
 
-window.hexToRgb = _utilities_hex_to_rgb__WEBPACK_IMPORTED_MODULE_6__["default"];
+window.hexToRgb = _utilities_hex_to_rgb__WEBPACK_IMPORTED_MODULE_5__["default"];
 
-window.hexToRgba = _utilities_hex_to_rgba__WEBPACK_IMPORTED_MODULE_7__["default"];
+window.hexToRgba = _utilities_hex_to_rgba__WEBPACK_IMPORTED_MODULE_6__["default"];
 
-window.rgbToHex = _utilities_rgb_to_hex__WEBPACK_IMPORTED_MODULE_8__["default"];
+window.rgbToHex = _utilities_rgb_to_hex__WEBPACK_IMPORTED_MODULE_7__["default"];
 
 /***/ }),
 

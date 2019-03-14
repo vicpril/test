@@ -209,12 +209,12 @@
 							<div class="row">
 								<div class="form-group">
 									<label class="h6">На русском</label>
-<vue-ckeditor 
-      v-model="content" 
-      :config="config" 
-      />
-									
-									<textarea
+									<vue-ckeditor 
+												name="description_ru"
+												id="description_ru"
+												v-model="user.description_ru" 
+												/>
+<!-- 									<textarea
 										name="description_ru"
 										id="description_ru"
 										ref="description_ru"
@@ -222,7 +222,7 @@
 										rows="3"
 										class="form-control description"
 										v-model="user.description_ru"
-									></textarea>
+									></textarea> -->
 								</div>
 							</div>
 						</div>
@@ -231,14 +231,19 @@
 							<div class="row">
 								<div class="form-group">
 									<label class="h6 mt-2">На английском</label>
-									<textarea
+									<vue-ckeditor 
+												name="description_en"
+												id="description_en"
+												v-model="user.description_en" 
+												/>
+<!-- 									<textarea
 										name="description_en"
 										id="description_en"
 										cols="100"
 										rows="3"
 										class="form-control description"
 										v-model="user.description_en"
-									></textarea>
+									></textarea> -->
 								</div>
 							</div>
 						</div>

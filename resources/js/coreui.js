@@ -14,7 +14,7 @@ require("./plugins/bootstrap-notify");
 
 //Vue
 window.Vue = require("vue");
-window.VueRouter = require("vue-router");
+// window.VueRouter = require("vue-router");
 
 //CKEditor
 // import CKEditor from "@ckeditor/ckeditor5-vue";

@@ -27,8 +27,9 @@
   @include(env('THEME_BACK').'.back.footer')
 @endsection
 
+@push('lib')
+@endpush
 
-@section('js')
-
-@endsection
+@push('js')
+@endpush
  

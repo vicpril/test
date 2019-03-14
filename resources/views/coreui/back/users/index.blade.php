@@ -1,8 +1,8 @@
 @extends(env('THEME_BACK').'.back.layout')
 
-@section('css')
+@push('css')
   
-@endsection
+@endpush
 
 
 @section('sidebar')
@@ -46,7 +46,8 @@
   {!! $footer !!}
 @endsection
 
+@push('lib')
+@endpush    
 
-@section('js')
-    
-@endsection
+@push('js')
+@endpush

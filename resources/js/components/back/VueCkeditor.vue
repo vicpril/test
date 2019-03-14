@@ -78,15 +78,10 @@ export default {
   },
   methods: {
     create() {
-//       if (typeof CKEDITOR === 'undefined') {
-//         console.log('CKEDITOR is missing (http://ckeditor.com/)');
-//       } else {
-//         CKEDITOR_BASEPATH = '/vendor/ckeditor/';
-//         console.log(CKEDITOR_BASEPATH);
-        
+      if (typeof CKEDITOR === 'undefined') {
+        console.log('CKEDITOR is missing (http://ckeditor.com/)');
+      } else {
           CKEDITOR.basePath = this.basePath;
-//           CKEDITOR.plugins.basePath = this.basePath + 'plugins/';
-
         if (this.types === 'inline') {
           CKEDITOR.inline(this.id, this.config);
         } else {
@@ -147,7 +142,7 @@ export default {
         this.$once('hook:beforeDestroy', () => {
           this.destroy();
         });
-//       }
+      }
     },
     update(val) {
       if (this.instanceValue !== val) {
