@@ -290,27 +290,15 @@
 			VueCkeditor
 		},
 
-// 	props: [
-// 			'old',
-// 			'id',
-// // 			'user'
-// 	],
-		
 		props: {
 				old: {
 					type: Object,
-					default: () => {}
+					default: () => ({})
 				},
 				id: {
 					type: Number,
 					default: 0
 				},
-// 				errors: {
-// 					type: Object,
-// 					default: () => {}
-// 				}
-// 			
-						
 			},
 
 		data: function() {

@@ -18,7 +18,7 @@
       </title>
       <!-- Icons-->
       <link href="{{ asset('css/coreui.css') }}" rel="stylesheet" />
-      $stack('css')
+      @stack('css')
       <!-- <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet"> -->
    </head>
 
@@ -47,13 +47,14 @@
                   <div class="animated fadeIn">
                     
                     <!-- Alert -->
+										{{-- 
 										@if (count($errors) > 0)
 												@alert(['type'=>'danger'])
 													@foreach ($errors->all() as $error)
 															<p><i class="icon fa fa-check"></i> {{ $error }}</p>
 													@endforeach
 												@endalert
-										@endif
+										@endif 
 
 										@if (session('status'))
 												<div class="alert alert-success" role="alert">
@@ -66,6 +67,8 @@
 														{{ session('error') }}
 												</div>
 										@endif
+										
+										--}}
 				
                     
                      <!-- CONTENT -->

@@ -741,25 +741,17 @@ __webpack_require__.r(__webpack_exports__);
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a,
     VueCkeditor: _VueCkeditor_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  // 	props: [
-  // 			'old',
-  // 			'id',
-  // // 			'user'
-  // 	],
   props: {
     old: {
       type: Object,
-      default: function _default() {}
+      default: function _default() {
+        return {};
+      }
     },
     id: {
       type: Number,
       default: 0
-    } // 				errors: {
-    // 					type: Object,
-    // 					default: () => {}
-    // 				}
-    // 			
-
+    }
   },
   data: function data() {
     return {
@@ -12010,6 +12002,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/back/notify.config.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/back/notify.config.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  position: 'top-right',
+  visibility: 10000
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/back/translat.js":
 /*!**************************************************!*\
   !*** ./resources/js/components/back/translat.js ***!
@@ -12279,6 +12287,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_notify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-notify */ "./node_modules/vue2-notify/dist/build.js");
 /* harmony import */ var vue2_notify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_notify__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_back_notify_config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/back/notify.config.js */ "./resources/js/components/back/notify.config.js");
 // jquery
 // popper
 // bootstrap
@@ -12295,9 +12304,10 @@ __webpack_require__(/*! ./plugins/bootstrap-notify */ "./resources/js/plugins/bo
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // window.VueRouter = require("vue-router");
 
+
  // Use Notify
 
-Vue.use(vue2_notify__WEBPACK_IMPORTED_MODULE_0___default.a);
+Vue.use(vue2_notify__WEBPACK_IMPORTED_MODULE_0___default.a, _components_back_notify_config_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -12330,15 +12340,17 @@ Vue.mixin({
       return Object.entries(someObject).length === 0 && someObject.constructor === Object;
     },
     showErrors: function showErrors(errors) {
-      var mes = ''; //       Object.keys(errors).forEach((name) => {
+      //       var mes = '';
+      //       Object.keys(errors).forEach((name) => {
       //         mes = mes + name + ": ";
       //         errors[name].forEach((err) => {
       //           mes = mes + err + ", ";
       //         })
       //         mes = mes + "<br>";
       //       });
-
-      alert(mes);
+      this.$notify('A message that should be displayed', 'success');
+      this.$notify('A message that should be displayed', 'danger');
+      this.$notify('A message that should be displayed', 'warning'); //       alert(mes);
     }
   }
 });

@@ -17,8 +17,9 @@ window.Vue = require("vue");
 // window.VueRouter = require("vue-router");
 
 import Notify from 'vue2-notify';
+import notifyConfig from './components/back/notify.config.js';
 // Use Notify
-Vue.use(Notify);
+Vue.use(Notify, notifyConfig);
 
 /**
  * The following block of code may be used to automatically register your
@@ -63,7 +64,7 @@ Vue.mixin({
     },
     
     showErrors(errors) {
-      var mes = '';
+//       var mes = '';
 //       Object.keys(errors).forEach((name) => {
 //         mes = mes + name + ": ";
 //         errors[name].forEach((err) => {
@@ -71,8 +72,11 @@ Vue.mixin({
 //         })
 //         mes = mes + "<br>";
 //       });
-      
-      alert(mes);
+      this.$notify('A message that should be displayed', 'success')
+      this.$notify('A message that should be displayed', 'danger')
+      this.$notify('A message that should be displayed', 'warning')
+
+//       alert(mes);
     }
     
   }
