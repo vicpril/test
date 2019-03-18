@@ -27,10 +27,12 @@
     <form method="POST" action="{{ route('users.store') }}">
       @csrf
 			<user-profile 
-										@isset($id):id="{{ $id }}"@endisset 
-										:old="{{ json_encode(Session::getOldInput(), JSON_FORCE_OBJECT) }}"
-										:errors="{{ $errors }}"
-										></user-profile>
+				@isset($id):id="{{ $id }}"@endisset 
+				:old="{{ json_encode(Session::getOldInput(), JSON_FORCE_OBJECT) }}"
+				@if(count($errors) > 0)
+					:errors="{{$errors}}"
+				@endif
+				></user-profile>
       
     </form>
 </div>

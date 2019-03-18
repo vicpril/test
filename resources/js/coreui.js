@@ -43,6 +43,41 @@ Vue.component(
    require("./components/back/EditorTest.vue").default
 );
 
+
+Vue.mixin({
+  props: {
+    errors: {
+					type: Object,
+					default: () => ({})
+				}
+  },
+  created() {
+    if(! this.isEmptyObject(this.errors)) {
+      this.showErrors(this.errors);
+    }
+    
+  },
+  methods: {
+    isEmptyObject(someObject){
+      return Object.entries(someObject).length === 0 && someObject.constructor === Object;
+    },
+    
+    showErrors(errors) {
+      var mes = '';
+//       Object.keys(errors).forEach((name) => {
+//         mes = mes + name + ": ";
+//         errors[name].forEach((err) => {
+//           mes = mes + err + ", ";
+//         })
+//         mes = mes + "<br>";
+//       });
+      
+      alert(mes);
+    }
+    
+  }
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -50,5 +85,5 @@ Vue.component(
  */
 
 const app = new Vue({
-   el: "#app"
+   el: "#app",
 });

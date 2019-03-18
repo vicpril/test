@@ -741,14 +741,11 @@ __webpack_require__.r(__webpack_exports__);
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a,
     VueCkeditor: _VueCkeditor_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  created: function created() {
-    if (this.old.length !== 0) {
-      this.user = this.old;
-    } else if (this.id) {
-      this.fetch(this.id);
-    } // 			if(this.errors.length>)
-
-  },
+  // 	props: [
+  // 			'old',
+  // 			'id',
+  // // 			'user'
+  // 	],
   props: {
     old: {
       type: Object,
@@ -756,13 +753,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     id: {
       type: Number,
-      default: ''
-    },
-    errors: {
-      type: Object,
-      default: function _default() {} // 			'user'
+      default: 0
+    } // 				errors: {
+    // 					type: Object,
+    // 					default: () => {}
+    // 				}
+    // 			
 
-    }
   },
   data: function data() {
     return {
@@ -778,7 +775,9 @@ __webpack_require__.r(__webpack_exports__);
         patronymic_en: "",
         patronymic_ru: "",
         short_name_en: "",
-        short_name_ru: ""
+        short_name_ru: "",
+        description_ru: "",
+        description_en: ""
       },
       jobs: [],
       content: '',
@@ -787,6 +786,13 @@ __webpack_require__.r(__webpack_exports__);
         height: 300
       }
     };
+  },
+  created: function created() {
+    if (!this.isEmptyObject(this.old)) {
+      this.user = this.old;
+    } else if (this.id !== 0) {
+      this.fetch(this.id);
+    }
   },
   watch: {
     jobs: function jobs(value, oldValue) {
@@ -799,7 +805,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/users/" + id).then(function (_ref) {
         var data = _ref.data;
-        //           console.log(data);
         _this.user = data.data;
         _this.jobs = _this.getUserJobs(data.data);
       });
@@ -12306,6 +12311,37 @@ Vue.use(vue2_notify__WEBPACK_IMPORTED_MODULE_0___default.a);
 Vue.component("user-list", __webpack_require__(/*! ./components/back/users/UserList.vue */ "./resources/js/components/back/users/UserList.vue").default);
 Vue.component("user-profile", __webpack_require__(/*! ./components/back/users/UserProfile.vue */ "./resources/js/components/back/users/UserProfile.vue").default);
 Vue.component("editor-test", __webpack_require__(/*! ./components/back/EditorTest.vue */ "./resources/js/components/back/EditorTest.vue").default);
+Vue.mixin({
+  props: {
+    errors: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    }
+  },
+  created: function created() {
+    if (!this.isEmptyObject(this.errors)) {
+      this.showErrors(this.errors);
+    }
+  },
+  methods: {
+    isEmptyObject: function isEmptyObject(someObject) {
+      return Object.entries(someObject).length === 0 && someObject.constructor === Object;
+    },
+    showErrors: function showErrors(errors) {
+      var mes = ''; //       Object.keys(errors).forEach((name) => {
+      //         mes = mes + name + ": ";
+      //         errors[name].forEach((err) => {
+      //           mes = mes + err + ", ";
+      //         })
+      //         mes = mes + "<br>";
+      //       });
+
+      alert(mes);
+    }
+  }
+});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

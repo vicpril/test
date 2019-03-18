@@ -290,15 +290,12 @@
 			VueCkeditor
 		},
 
-		created() {
-			if (this.old.length !== 0) {
-				this.user = this.old;
-			} else if (this.id) {
-				this.fetch(this.id);
-			}
-// 			if(this.errors.length>)
-		},
-
+// 	props: [
+// 			'old',
+// 			'id',
+// // 			'user'
+// 	],
+		
 		props: {
 				old: {
 					type: Object,
@@ -306,13 +303,14 @@
 				},
 				id: {
 					type: Number,
-					default: ''
+					default: 0
 				},
-				errors: {
-					type: Object,
-					default: () => {}
-				}
-			// 			'user'
+// 				errors: {
+// 					type: Object,
+// 					default: () => {}
+// 				}
+// 			
+						
 			},
 
 		data: function() {
@@ -329,7 +327,10 @@
 					patronymic_en: "",
 					patronymic_ru: "",
 					short_name_en: "",
-					short_name_ru: ""
+					short_name_ru: "",
+					description_ru: "",
+					description_en: "",
+
 				},
 				jobs: [],
 				content: '',
@@ -340,6 +341,14 @@
 					height: 300
 				}
 			};
+		},
+		
+		created() {
+			if (! this.isEmptyObject(this.old)) {
+				this.user = this.old;
+			} else if (this.id !== 0) {
+				this.fetch(this.id);
+			}
 		},
 
 		watch: {
@@ -353,7 +362,6 @@
 				axios.get("/api/users/" + id).then(({
 					data
 				}) => {
-					//           console.log(data);
 					this.user = data.data;
 					this.jobs = this.getUserJobs(data.data);
 				});
