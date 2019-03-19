@@ -80,12 +80,13 @@ class UsersRepository extends Repository
 
     }
   
-    private function getSortedIdArray ($search = '', $sortBy = 'full_name', $orderBy = 'asc') {
+    private function getSortedIdArray ($search = '', $sortBy = 'full_name', $orderBy = 'asc', $role = 'author') {
         switch ($sortBy) {
             // sort by atricle_user table
             case 'articles_count':
             $users_id_articles_sorted = DB::table('users')
                     ->leftjoin("article_user as a", 'users.id', '=', 'a.user_id')
+                    ->where('users.role', $role)
                     ->selectRaw("users.id, count(a.user_id) as $sortBy" )
                     ->orderBy($sortBy, $orderBy)
                     ->groupBy('users.id')
@@ -93,8 +94,11 @@ class UsersRepository extends Repository
 
             $users_id_searched = DB::table('users')
                     ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
-                    ->where('email', 'like', "%".$search."%")
-                    ->orWhere('full_name', 'like', "%".$search."%")
+                    ->where('users.role', $role)
+                    ->where(function($query) use ($search) {
+                        $query->where('email', 'like', "%".$search."%")
+                              ->orWhere('full_name', 'like', "%".$search."%");
+                    })
                     ->groupBy('users.id')
                     ->pluck('users.id')->unique()->toArray();
 
@@ -108,8 +112,11 @@ class UsersRepository extends Repository
                     ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
                     // ->leftjoin('article_user as a', 'users.id', '=', 'article_user.user_id')
                     //->selectRaw('users.*, count(a.user_id) as a_count' )
-                    ->where('email', 'like', "%".$search."%")
-                    ->orWhere('full_name', 'like', "%".$search."%")
+                    ->where('users.role', $role)
+                    ->where(function($query) use ($search) {
+                        $query->where('email', 'like', "%".$search."%")
+                              ->orWhere('full_name', 'like', "%".$search."%");
+                    })
                     ->orderBy($sortBy, $orderBy)
                     ->groupBy('users.id')
                     ->pluck('users.id')->unique()->toArray();
