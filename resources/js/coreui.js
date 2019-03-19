@@ -16,10 +16,9 @@ require("./plugins/bootstrap-notify");
 window.Vue = require("vue");
 // window.VueRouter = require("vue-router");
 
-import Notify from 'vue2-notify';
-import notifyConfig from './components/back/notify.config.js';
-// Use Notify
-Vue.use(Notify, notifyConfig);
+//Notification
+import Notifications from 'vue-notification'
+Vue.use(Notifications)
 
 /**
  * The following block of code may be used to automatically register your
@@ -44,7 +43,6 @@ Vue.component(
    require("./components/back/EditorTest.vue").default
 );
 
-
 Vue.mixin({
   props: {
     errors: {
@@ -52,7 +50,7 @@ Vue.mixin({
 					default: () => ({})
 				}
   },
-  created() {
+  mounted() {
     if(! this.isEmptyObject(this.errors)) {
       this.showErrors(this.errors);
     }
@@ -64,19 +62,33 @@ Vue.mixin({
     },
     
     showErrors(errors) {
-//       var mes = '';
-//       Object.keys(errors).forEach((name) => {
-//         mes = mes + name + ": ";
-//         errors[name].forEach((err) => {
-//           mes = mes + err + ", ";
-//         })
-//         mes = mes + "<br>";
-//       });
-      this.$notify('A message that should be displayed', 'success')
-      this.$notify('A message that should be displayed', 'danger')
-      this.$notify('A message that should be displayed', 'warning')
-
-//       alert(mes);
+      console.log('try note');
+			Object.keys(errors).forEach((key)=>{
+				const title = key;
+				var text = '';
+				errors[key].forEach((err)=>{
+					text = text + '<p><i class="fa fa-circle"></i> ' + err + '</p>' ;
+				});
+				Vue.notify({
+					group: 'notify',
+					title: title,
+					text: text,
+					
+					type: 'alert',
+					classes: 'alert',
+					duration: 10000
+					
+					
+				});
+				
+// 				Vue.notify({
+// 					group: 'custom',
+// 					title: title,
+// 					text: text
+// 				});
+				
+			})
+				
     }
     
   }

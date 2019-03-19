@@ -18,6 +18,7 @@
 
 @section('content')
 <div class="content">
+	
 		<h2 class="mb-3">@isset($id)
 			Редактировать автора
 			@elseНовый автор
@@ -33,7 +34,6 @@
 					:errors="{{$errors}}"
 				@endif
 				></user-profile>
-      
     </form>
 </div>
 @endsection

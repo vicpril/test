@@ -36,6 +36,8 @@
             @yield('sidebar')
             <!-- end sidebar -->
          </div>
+				<notifications group="notify"></notifications>		
+	
 
          <main class="main">
           <!-- Breadcrumb-->
@@ -45,7 +47,6 @@
             <!-- <div class="content mt-4"> -->
                <div class="container-fluid mt-4">
                   <div class="animated fadeIn">
-                    
                     <!-- Alert -->
 										{{-- 
 										@if (count($errors) > 0)
@@ -74,6 +75,8 @@
                      <!-- CONTENT -->
                      @yield('content')
                      <!-- end content -->
+										
+
                   </div>
                </div>
             <!-- </div> -->

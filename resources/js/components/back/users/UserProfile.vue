@@ -273,8 +273,28 @@
 						<input type="text" class="d-none" name="avatar" value>
 					</div>
 				</div>
+				
+				<button class="btn btn-primary" type="button" @click="note">Note</button>
 			</div>
 		</div>
+		
+		<notifications group="custom-template"  
+               		position="top right"
+									width="40%"
+									class="mt-4">
+			 <template slot="body" slot-scope="props">
+				 
+				 <div class="alert alert-dismissible fade show mr-3" 
+							:class="props.item.type"
+							role="alert">
+					 <strong>{{props.item.title}} {{props.item.status}}</strong> <div v-html="props.item.text"></div>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</template>
+		</notifications>
+		
 	</div>
 </template>
 
@@ -346,6 +366,17 @@
 		},
 
 		methods: {
+			note(){
+				console.log('try note');
+				this.$notify({
+					group: 'custom-template',
+					type: 'alert-danger',
+					title: 'Important message',
+					text: 'Hello user! This is a notification!Hello user!',
+					duration: -1,
+				});
+			},
+			
 			fetch(id) {
 				axios.get("/api/users/" + id).then(({
 					data
