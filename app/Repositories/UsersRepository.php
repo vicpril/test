@@ -191,5 +191,19 @@ class UsersRepository extends Repository
 
         return ['status' => 'Пользователь добавлен'];
     }
+  
+    public function deleteUser($user) {
+
+      $user->articles()->detach();
+      $user->avatar()->dissociate();
+
+      if($user->delete()) {
+        return ['status' => 'success',
+                'message' => 'Пользователь удален'];	
+      } else {
+        return ['status' => 'error',
+                'message' => 'Что-то пошло не так'];	
+      }
+    }
 
 }

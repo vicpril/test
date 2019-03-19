@@ -93,6 +93,10 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $result = $this->repository->deleteUser($user);
+
+        if (is_array($result)) {
+            return response()->json($result);
+        }
     }
 }

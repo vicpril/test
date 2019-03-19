@@ -36,7 +36,8 @@
             @yield('sidebar')
             <!-- end sidebar -->
          </div>
-				<notifications group="notify"></notifications>		
+					<!-- Notification -->
+					<alert></alert>	
 	
 
          <main class="main">

@@ -42,6 +42,10 @@ Vue.component(
    "editor-test",
    require("./components/back/EditorTest.vue").default
 );
+Vue.component(
+   "alert",
+   require("./components/back/Alert.vue").default
+);
 
 Vue.mixin({
   props: {
@@ -51,11 +55,11 @@ Vue.mixin({
 				}
   },
   mounted() {
-    if(! this.isEmptyObject(this.errors)) {
-      this.showErrors(this.errors);
-    }
-    
+//     if(! this.isEmptyObject(this.errors)) {
+//       this.showErrors(this.errors);
+//     }
   },
+	
   methods: {
     isEmptyObject(someObject){
       return Object.entries(someObject).length === 0 && someObject.constructor === Object;
@@ -64,33 +68,20 @@ Vue.mixin({
     showErrors(errors) {
       console.log('try note');
 			Object.keys(errors).forEach((key)=>{
-				const title = key;
+				const title = '';
 				var text = '';
 				errors[key].forEach((err)=>{
 					text = text + '<p><i class="fa fa-circle"></i> ' + err + '</p>' ;
+					Vue.notify({
+						group: 'custom-template',
+						title: title,
+						text: err,
+						type: 'alert-danger',
+						duration: -1
+					});
 				});
-				Vue.notify({
-					group: 'notify',
-					title: title,
-					text: text,
-					
-					type: 'alert',
-					classes: 'alert',
-					duration: 10000
-					
-					
-				});
-				
-// 				Vue.notify({
-// 					group: 'custom',
-// 					title: title,
-// 					text: text
-// 				});
-				
 			})
-				
     }
-    
   }
 });
 

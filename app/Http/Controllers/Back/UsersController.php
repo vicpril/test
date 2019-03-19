@@ -61,8 +61,6 @@ class UsersController extends AdminController
      */
     public function store(UserRequest $request)
     {
-        dd($request);
-      
         $result = $this->repository->create($request->except('_token'));
 
         if (is_array($result) && !empty($result['error'])) {
@@ -110,9 +108,9 @@ class UsersController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user)
     {
-        //
+        dd($user);
     }
 
     /**

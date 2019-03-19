@@ -25,7 +25,14 @@
 			@endisset
 		</h2>
 
-    <form method="POST" action="{{ route('users.store') }}">
+    <form method="POST" 
+					@if(isset($id))
+						action="{{ route('users.update', $id) }}"
+					@else
+						action="{{ route('users.store') }}"
+					@endif
+					>
+			@if(isset($id)) @method('PUT') @endif
       @csrf
 			<user-profile 
 				@isset($id):id="{{ $id }}"@endisset 

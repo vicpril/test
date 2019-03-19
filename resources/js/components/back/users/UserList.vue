@@ -42,6 +42,7 @@
 						:class="showOrder('articles_count')"
 						@click="setOrder('articles_count')"
 					>Статьи</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -53,6 +54,14 @@
 					<td>{{ user.email }}</td>
 					<td>{{ user.role }}</td>
 					<td>{{ user.articles }}</td>
+					<td>
+								<i
+									class="fa fa-close"
+									@mouseover="$event.target.classList.add('text-danger')"
+									@mouseout="$event.target.classList.remove('text-danger')"
+									@click="deleteUser(index)"
+								></i>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -149,6 +158,26 @@ export default {
 					this.pagination.to = data.meta.to;
 					this.pagination.total = data.meta.total;
 				});
+		},
+		
+		deleteUser(index) {
+			if(confirm('Удалить пользователя ' + this.users[index].full_name + '?')) {
+				axios
+					.delete("/api/users/" + this.users[index].id)
+					.then( ( resp ) => {
+						if(resp.data.status === 'success') {
+							this.fetch();
+							
+							this.$notify({
+								group: 'custom-template',
+								type: 'alert-success',
+								text: resp.data.message
+							});
+// 							this.users.splice( index, 1 );
+							
+						}
+				});
+			}
 		},
 
 		setOrder(sortBy) {

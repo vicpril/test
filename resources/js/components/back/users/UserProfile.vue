@@ -14,11 +14,15 @@
 									<input
 										type="text"
 										class="form-control mr-2"
+										:class="checkError('full_name')"
 										name="full_name"
 										placeholder="Ф.И.О."
 										v-model="user.full_name"
-										
 									>
+									<div class="invalid-feedback"
+											 v-for="(error, key) in errors['full_name']" :key="key">
+											{{error}}
+									</div>
 								</div>
 							</div>
 							<div class="col-md-4 col-sm-5 col-xs-5 text-right">
@@ -38,19 +42,27 @@
 									<input
 										type="email"
 										class="form-control"
+										:class="checkError('email')"
 										name="email"
 										placeholder="Email"
 										v-model="user.email"
-										
 									>
-									<div class="invalid-feedback"></div>
+									<div class="invalid-feedback"
+											 v-for="(error, key) in errors['email']" :key="key">
+											{{error}}
+									</div>
 								</div>
 							</div>
 							<div class="col-md-5 pl-1">
 								<div class="form-group">
 									<label class="h6" for="alias">Логин</label>
-									<input type="text" class="form-control" name="alias" v-model="user.alias" :disabled="id">
-									<div class="invalid-feedback"></div>
+									<input type="text" class="form-control" 
+												 :class="checkError('alias')"
+												 name="alias" v-model="user.alias">
+									<div class="invalid-feedback"
+											 v-for="(error, key) in errors['alias']" :key="key">
+											{{error}}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -59,13 +71,25 @@
 							<div class="col-4 pr-1">
 								<div class="form-group">
 									<label for="last_name_ru">Фамилия</label>
-									<input type="text" class="form-control" name="last_name_ru" v-model="user.last_name_ru">
+									<input type="text" class="form-control" 
+												 :class="checkError('last_name_ru')" 
+												 name="last_name_ru" v-model="user.last_name_ru">
+									<div class="invalid-feedback"
+											 v-for="(error, key) in errors['last_name_ru']" :key="key">
+											{{error}}
+									</div>
 								</div>
 							</div>
 							<div class="col-3 px-1">
 								<div class="form-group">
 									<label for="first_name_ru">Имя</label>
-									<input type="text" class="form-control" name="first_name_ru" v-model="user.first_name_ru">
+									<input type="text" class="form-control" 
+												 :class="checkError('first_name_ru')" 
+												 name="first_name_ru" v-model="user.first_name_ru">
+									<div class="invalid-feedback"
+											 v-for="(error, key) in errors['first_name_ru']" :key="key">
+											{{error}}
+									</div>
 								</div>
 							</div>
 							<div class="col-3 px-1">
@@ -85,7 +109,14 @@
 							<div class="col-4 pr-1">
 								<div class="form-group">
 									<label for="short_name_ru">Короткое имя</label>
-									<input type="text" class="form-control" name="short_name_ru" v-model="user.short_name_ru">
+									<input type="text" class="form-control" 
+												 :class="checkError('short_name_ru')"
+												 name="short_name_ru" 
+												 v-model="user.short_name_ru">
+									<div class="invalid-feedback"
+											 v-for="(error, key) in errors['short_name_ru']" :key="key">
+											{{error}}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -95,13 +126,26 @@
 							<div class="col-4 pr-1">
 								<div class="form-group">
 									<label for="last_name_en">Last Name</label>
-									<input type="text" class="form-control" name="last_name_en" v-model="user.last_name_en">
+									<input type="text" class="form-control" 
+												  :class="checkError('last_name_en')"
+												 name="last_name_en" 
+												 v-model="user.last_name_en">
+									<div class="invalid-feedback"
+											 v-for="(error, key) in errors['last_name_en']" :key="key">
+											{{error}}
+									</div>
 								</div>
 							</div>
 							<div class="col-3 px-1">
 								<div class="form-group">
 									<label for="first_name_en">First Name</label>
-									<input type="text" class="form-control" name="first_name_en" v-model="user.first_name_en">
+									<input type="text" class="form-control" 
+												 :class="checkError('first_name_en')"
+												 name="first_name_en" v-model="user.first_name_en">
+									<div class="invalid-feedback"
+											 v-for="(error, key) in errors['first_name_en']" :key="key">
+											{{error}}
+									</div>
 								</div>
 							</div>
 							<div class="col-3 px-1">
@@ -121,7 +165,13 @@
 							<div class="col-4 pr-1">
 								<div class="form-group">
 									<label for="short_name_en">Short name</label>
-									<input type="text" class="form-control" name="short_name_en" v-model="user.short_name_en">
+									<input type="text" class="form-control" 
+												 :class="checkError('short_name_en')"
+												 name="short_name_en" v-model="user.short_name_en">
+									<div class="invalid-feedback"
+											 v-for="(error, key) in errors['short_name_en']" :key="key">
+											{{error}}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -273,27 +323,8 @@
 						<input type="text" class="d-none" name="avatar" value>
 					</div>
 				</div>
-				
-				<button class="btn btn-primary" type="button" @click="note">Note</button>
 			</div>
 		</div>
-		
-		<notifications group="custom-template"  
-               		position="top right"
-									width="40%"
-									class="mt-4">
-			 <template slot="body" slot-scope="props">
-				 
-				 <div class="alert alert-dismissible fade show mr-3" 
-							:class="props.item.type"
-							role="alert">
-					 <strong>{{props.item.title}} {{props.item.status}}</strong> <div v-html="props.item.text"></div>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-			</template>
-		</notifications>
 		
 	</div>
 </template>
@@ -301,13 +332,12 @@
 <script>
 	import translat from "../translat";
 	import draggable from "vuedraggable";
-
 	import VueCkeditor from "../VueCkeditor.vue";
 
 	export default {
 		components: {
 			draggable,
-			VueCkeditor
+			VueCkeditor,
 		},
 
 		props: {
@@ -358,6 +388,16 @@
 				this.fetch(this.id);
 			}
 		},
+		mounted() {
+			if(! this.isEmptyObject(this.errors)) {
+				this.$notify({
+						group: 'custom-template',
+						text: this.errors.title[0],
+						type: 'alert-danger',
+						duration: -1
+				})
+			}
+		},
 
 		watch: {
 			jobs: function(value, oldValue) {
@@ -366,16 +406,6 @@
 		},
 
 		methods: {
-			note(){
-				console.log('try note');
-				this.$notify({
-					group: 'custom-template',
-					type: 'alert-danger',
-					title: 'Important message',
-					text: 'Hello user! This is a notification!Hello user!',
-					duration: -1,
-				});
-			},
 			
 			fetch(id) {
 				axios.get("/api/users/" + id).then(({
@@ -384,6 +414,12 @@
 					this.user = data.data;
 					this.jobs = this.getUserJobs(data.data);
 				});
+			},
+			
+			checkError(error) {
+				if( this.errors.hasOwnProperty(error) ) {
+					return 'is-invalid';
+				}
 			},
 
 			getUserJobs(user) {
