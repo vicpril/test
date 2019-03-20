@@ -47,6 +47,13 @@
             <i class="nav-icon icon-folder-alt"></i> Test</a
          >
       </li>
+     <li class="nav-item">
+         <a class="nav-link" href="https://coreui.io/vue/demo/#/dashboard" target="_blank">
+            <i class="nav-icon icon-folder-alt"></i> Demo</a
+         >
+      </li>
    </ul>
 </nav>
 <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+
+

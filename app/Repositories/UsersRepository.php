@@ -201,16 +201,16 @@ class UsersRepository extends Repository
   
     public function deleteUser($user) {
 
-      $user->articles()->detach();
-      $user->avatar()->dissociate();
+    //   $user->articles()->detach();
+    //   $user->avatar()->dissociate();
 
-      if($user->delete()) {
+    //   if($user->delete()) {
         return ['status' => 'success',
                 'message' => 'Пользователь удален'];	
-      } else {
+    //   } else {
         return ['status' => 'error',
                 'message' => 'Что-то пошло не так'];	
-      }
+    //   }
     }
 
 }

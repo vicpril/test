@@ -119,8 +119,12 @@ class UsersController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $result = $this->repository->deleteUser($user);
+        
+        if (is_array($result)) {
+            return route('users.index');
+        }
     }
 }

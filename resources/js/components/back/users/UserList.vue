@@ -30,7 +30,11 @@
 				</div>
 			</div>
 		</div>
-		<table class="table table-striped table-bordered table-responsive-md" style="width:100%" id>
+		<table
+			class="table table-striped table-hover table-bordered table-responsive-md"
+			style="width:100%"
+			id
+		>
 			<thead class="text-black">
 				<tr>
 					<th class="sorting" :class="showOrder('full_name')" @click="setOrder('full_name')">Автор</th>
@@ -54,13 +58,13 @@
 					<td>{{ user.email }}</td>
 					<td>{{ user.role }}</td>
 					<td>{{ user.articles }}</td>
-					<td>
-								<i
-									class="fa fa-close"
-									@mouseover="$event.target.classList.add('text-danger')"
-									@mouseout="$event.target.classList.remove('text-danger')"
-									@click="deleteUser(index)"
-								></i>
+					<td class="text-secondary">
+						<i
+							class="fa fa-close"
+							@mouseover="$event.target.classList.add('text-danger')"
+							@mouseout="$event.target.classList.remove('text-danger')"
+							@click="deleteUser(index)"
+						></i>
 					</td>
 				</tr>
 			</tbody>
@@ -159,23 +163,20 @@ export default {
 					this.pagination.total = data.meta.total;
 				});
 		},
-		
+
 		deleteUser(index) {
-			if(confirm('Удалить пользователя ' + this.users[index].full_name + '?')) {
-				axios
-					.delete("/api/users/" + this.users[index].id)
-					.then( ( resp ) => {
-						if(resp.data.status === 'success') {
-							this.fetch();
-							
-							this.$notify({
-								group: 'custom-template',
-								type: 'alert-success',
-								text: resp.data.message
-							});
-// 							this.users.splice( index, 1 );
-							
-						}
+			if (
+				confirm("Удалить пользователя " + this.users[index].full_name + "?")
+			) {
+				axios.delete("/api/users/" + this.users[index].id).then(resp => {
+					if (resp.data.status === "success") {
+						this.fetch();
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message
+						});
+					}
 				});
 			}
 		},

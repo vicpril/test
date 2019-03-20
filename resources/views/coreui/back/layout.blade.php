@@ -37,7 +37,9 @@
             <!-- end sidebar -->
          </div>
 					<!-- Notification -->
-					<alert></alert>	
+					<alert
+               @isset($message):message="{{ $message }}"@endisset 
+               ></alert>	
 	
 
          <main class="main">
