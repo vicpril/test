@@ -78,7 +78,7 @@ class UsersController extends AdminController
      */
     public function show($id)
     {
-        //
+        dd('user - show');
     }
 
     /**
@@ -122,9 +122,23 @@ class UsersController extends AdminController
     public function destroy(User $user)
     {
         $result = $this->repository->deleteUser($user);
-        
-        if (is_array($result)) {
-            return route('users.index');
+      
+        if(request()->ajax()) {
+          
+          if (is_array($result) && ($result['status'] === 'success')) {
+                $result = array_add($result, 'redirect', route('users.index'));
+          }
+          
+          return response()->json($result);
+          
+        } else {
+          
+           if (is_array($result) && ($result['status'] !== 'success')) {
+                return back()->with($result);
+           } 
+          
+          return redirect(route('users.index'))->with($result);
         }
+    
     }
 }

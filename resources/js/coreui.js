@@ -14,7 +14,8 @@ require("./plugins/bootstrap-notify");
 
 //Vue
 window.Vue = require("vue");
-// window.VueRouter = require("vue-router");
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 //Notification
 import Notifications from 'vue-notification'
@@ -90,7 +91,11 @@ Vue.mixin({
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+const router = new VueRouter({
+	mode: 'history'
+});
 
 const app = new Vue({
+	 router,
    el: "#app",
 });

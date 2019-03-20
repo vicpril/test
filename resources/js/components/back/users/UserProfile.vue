@@ -317,9 +317,8 @@
 
 				<button
 					class="btn btn-link text-danger mb-3"
-					type="button"
 					v-show="user.id"
-					@click="deleteUser"
+					@click.prevent="deleteUser"
 				>Удалить автора</button>
 
 				<div class="card" id="photoCard">
@@ -444,20 +443,19 @@ export default {
 
 		deleteUser() {
 			if (confirm("Удалить пользователя " + this.user.full_name + "?")) {
-				this.$http.delete("/admin/users/" + this.user.id);
-				//
-				// axios.delete("/admin/users/" + this.user.id);
-				// .then(resp => {
-				// 	if (resp.data.status === "success") {
-				// 		this.fetch();
-				// 		this.$notify({
-				// 			group: "custom-template",
-				// 			type: "alert-success",
-				// 			text: resp.data.message
-				// 		});
-				// 	}
-				// }
-				// );
+				axios.delete('/admin/users/' + this.user.id)
+							.then((resp) => {
+									if(resp.data.status == 'success'){
+										 window.location = resp.data.redirect + '?userdeleted=1';
+									} else {
+										this.$notify({
+												group: "custom-template",
+												text: resp.data.message.title[0],
+												type: "alert-danger",
+												duration: -1
+											});
+									}
+							})
 			}
 		},
 

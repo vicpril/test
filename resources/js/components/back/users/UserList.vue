@@ -141,6 +141,17 @@ export default {
 	created: function() {
 		this.fetch();
 	},
+	
+	mounted() {
+		if (this.$route.query.userdeleted) {
+			this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: "Пользователь удален",
+							duration: -1
+						});
+		};
+	},
 
 	methods: {
 		fetch(page = 1) {
@@ -174,7 +185,8 @@ export default {
 						this.$notify({
 							group: "custom-template",
 							type: "alert-success",
-							text: resp.data.message
+							text: resp.data.message,
+							duration: -1
 						});
 					}
 				});
