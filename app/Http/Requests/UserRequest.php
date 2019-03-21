@@ -42,8 +42,11 @@ class UserRequest extends FormRequest
             'short_name_en' => 'required|max:20',
             'initials_en' => 'max:20', 
             'avatar' => 'integer|nullable', 
-            'orcid' => 'max:20', 
-
+            'orcid' => 'max:20|nullable',
+            'post_ru' => 'string|max:250|nullable',
+            'post_en' => 'string|max:250|nullable',
+            'jobs_ru' => 'array|nullable',
+            'jobs_en' => 'array|nullable',
         ];
     }
   

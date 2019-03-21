@@ -15,7 +15,13 @@ class UsersRepository extends Repository
         $this->model = $user;
 
     }
-
+    
+    /*
+     *    Get one user by alias
+     *          load  'jobs'
+     *                'articles' -> 'status',
+     *                              'issue'
+     */
     public function one($alias)
     {
 
@@ -31,9 +37,9 @@ class UsersRepository extends Repository
     }
 
     /*
-     *
      *    Get all users with select
-     *
+     *          load  'meta_users', 
+     *                'articles'
      */
     public function get(
         $select = '*',
@@ -61,7 +67,7 @@ class UsersRepository extends Repository
      *        search in:
      *                 full_name
      *                 email
-     *          for resources
+     *    For resources
      */
     public function getUsersList(\Illuminate\Http\Request $request) {
         $paginate = ($request->input('paginate')) ? $request->input('paginate') : '';
@@ -134,10 +140,6 @@ class UsersRepository extends Repository
     {
         $result = parent::all();
         $result->loadMissing($relationsip);
-        // foreach ($relationsip as $model) {
-        // $result->loadMissing($model);
-        // }
-
         return $result;
     }
 
@@ -151,6 +153,11 @@ class UsersRepository extends Repository
         return $user;
     }
 
+    /*
+    *
+    *   Add new user to database
+    *
+    */
     public function create($data)
     {
         $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
@@ -177,8 +184,10 @@ class UsersRepository extends Repository
             'last_name' => $data['last_name_ru'],
             'patronymic' => $data['patronymic_ru'],
             'initials' => $data['initials_ru'],
-//             'post' => $data['full_name'],
-            //             'description' => $data['full_name'],
+            'short_name' => $data['short_name_ru'],
+            'degree' => $data['degree_ru'],
+            'jobs' => (isset($data['jobs_ru'])) ? $data['jobs_ru'] : [],
+            'description' => (isset($data['description_ru'])) ? $data['description_ru'] : '',
         ]);
 
         $en_name = $data['last_name_en'];
@@ -192,13 +201,79 @@ class UsersRepository extends Repository
             'last_name' => $data['last_name_en'],
             'patronymic' => $data['patronymic_en'],
             'initials' => $data['initials_en'],
-//             'post' => $data['full_name'],
-            //             'description' => $data['full_name'],
+            'short_name' => $data['short_name_en'],
+            'degree' => $data['degree_en'],
+            'jobs' => (isset($data['jobs_en'])) ? $data['jobs_en'] : [],
+            'description' => (isset($data['description_en'])) ? $data['description_en'] : '',
         ]);
 
-        return ['status' => 'Пользователь добавлен'];
+        return ['status' => 'Новый автор добавлен'];
     }
   
+   /*
+    *
+    *   Update user in database
+    *
+    */
+    public function update(User $user, $data)
+    {
+        $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
+        $user->update([
+            'alias' => $alias,
+            'email' => $data['email'],
+            'password' => bcrypt('123'),
+            'role' => 'author',
+            'orcid' => (isset($data['orcid'])) ? $data['orcid'] : null,
+        ]);
+
+        if ($data['avatar'] > 0) {
+            $user->avatar()->associate($data['avatar']);
+        } else {
+            $user->avatar()->dissociate();
+        }
+
+        $user->ru->update([
+                  'lang' => 'ru',
+                  'full_name' => $data['full_name'],
+                  'first_name' => $data['first_name_ru'],
+                  'last_name' => $data['last_name_ru'],
+                  'patronymic' => $data['patronymic_ru'],
+                  'initials' => $data['initials_ru'],
+                  'short_name' => $data['short_name_ru'],
+                  'degree' => $data['degree_ru'],
+                  'jobs' => $data['jobs_ru'],
+                  'description' => $data['description_ru'],
+              ]);
+
+        $en_name = $data['last_name_en'];
+        $en_name .= ($data['first_name_en']) ? " " . $data['first_name_en'] : "";
+        $en_name .= ($data['patronymic_en']) ? " " . $data['patronymic_en'] : "";
+
+        $user->en->update([
+                  'lang' => 'en',
+                  'full_name' => $en_name,
+                  'first_name' => $data['first_name_en'],
+                  'last_name' => $data['last_name_en'],
+                  'patronymic' => $data['patronymic_en'],
+                  'initials' => $data['initials_en'],
+                  'short_name' => $data['short_name_en'],
+                  'degree' => $data['degree_en'],
+                  'jobs' => $data['jobs_en'],
+                  'description' => $data['description_en'],
+              ]);
+
+        return [
+          'status' => 'success',
+          'message' => 'Данные автора обновлены'
+        ];
+    }
+    
+  
+    /*
+    *
+    *   Remove user from database
+    *           relations will be dissociate
+    */
     public function deleteUser($user) {
 
       $user->articles()->detach();

@@ -61,7 +61,7 @@ class UsersController extends AdminController
      */
     public function store(UserRequest $request)
     {
-        $result = $this->repository->create($request->except('_token'));
+        $result = $this->repository->create($request->except('_token', '_method'));
 
         if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
@@ -110,7 +110,13 @@ class UsersController extends AdminController
      */
     public function update(Request $request, $user)
     {
-        dd($user);
+        $result = $this->repository->update($user, $request->except('_token', '_method'));
+
+        if (is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+      
+        return redirect(route('users.index'))->with($result);
     }
 
     /**

@@ -14,7 +14,7 @@ class MetaUser extends Model
      *
      * @var array
      */
-    protected $fillable = ['lang', 'full_name', 'short_name', 'first_name', 'last_name', 'patronymic', 'initials', 'degree', 'post', 'description'];
+    protected $fillable = ['lang', 'full_name', 'short_name', 'first_name', 'last_name', 'patronymic', 'initials', 'degree', 'post', 'jobs','description'];
 
     public $timestamps = false;
 

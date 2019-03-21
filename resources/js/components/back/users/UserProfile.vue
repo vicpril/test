@@ -247,10 +247,10 @@
 												<i class="fa fa-align-justify"></i>
 											</td>
 											<td class="p-1">
-												<textarea type="text" class="form-control" v-model="job.ru" @input="saveJobsIntoUser"></textarea>
+												<textarea type="text" class="form-control" name="jobs_ru[]" v-model="job.ru" @input="saveJobsIntoUser"></textarea>
 											</td>
 											<td class="p-1">
-												<textarea type="text" class="form-control" v-model="job.en" @input="saveJobsIntoUser"></textarea>
+												<textarea type="text" class="form-control" name="jobs_en[]" v-model="job.en" @input="saveJobsIntoUser"></textarea>
 											</td>
 											<td class="text-muted">
 												<i
@@ -410,11 +410,7 @@ export default {
 	},
 
 	created() {
-		if (!this.isEmptyObject(this.old)) {
-			this.user = this.old;
-		} else if (this.id !== 0) {
-			this.fetch(this.id);
-		}
+		
 	},
 	mounted() {
 		if (!this.isEmptyObject(this.errors)) {
@@ -424,7 +420,13 @@ export default {
 				type: "alert-danger",
 				duration: -1
 			});
-		}
+		};
+
+		if (!this.isEmptyObject(this.old)) {
+			this.user = this.old;
+		} else if (this.id !== 0) {
+			this.fetch(this.id);
+		}	
 	},
 
 	watch: {
@@ -574,6 +576,14 @@ export default {
 				this.user.short_name_ru = l_name;
 				this.user.short_name_en = translat.translat(l_name);
 			}
+			this.user.alias =
+				translat.strtr(
+					translat.translat(this.user.short_name_en.toString().toLowerCase()),
+					{
+						" ": "-",
+						".": "-"
+					}
+				);
 		}
 	}
 };

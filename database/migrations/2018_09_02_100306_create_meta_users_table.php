@@ -25,7 +25,7 @@ class CreateMetaUsersTable extends Migration
             $table->string('initials')->nullable();
             $table->string('degree')->nullable();
             $table->string('jobs')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
 
             // $table->timestamps();
         });

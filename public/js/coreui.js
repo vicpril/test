@@ -941,13 +941,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  created: function created() {
-    if (!this.isEmptyObject(this.old)) {
-      this.user = this.old;
-    } else if (this.id !== 0) {
-      this.fetch(this.id);
-    }
-  },
+  created: function created() {},
   mounted: function mounted() {
     if (!this.isEmptyObject(this.errors)) {
       this.$notify({
@@ -956,6 +950,14 @@ __webpack_require__.r(__webpack_exports__);
         type: "alert-danger",
         duration: -1
       });
+    }
+
+    ;
+
+    if (!this.isEmptyObject(this.old)) {
+      this.user = this.old;
+    } else if (this.id !== 0) {
+      this.fetch(this.id);
     }
   },
   watch: {
@@ -1104,6 +1106,11 @@ __webpack_require__.r(__webpack_exports__);
         this.user.short_name_ru = l_name;
         this.user.short_name_en = _translat__WEBPACK_IMPORTED_MODULE_0__["default"].translat(l_name);
       }
+
+      this.user.alias = _translat__WEBPACK_IMPORTED_MODULE_0__["default"].strtr(_translat__WEBPACK_IMPORTED_MODULE_0__["default"].translat(this.user.short_name_en.toString().toLowerCase()), {
+        " ": "-",
+        ".": "-"
+      });
     }
   }
 });
@@ -7113,7 +7120,7 @@ var render = function() {
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: { type: "text" },
+                              attrs: { type: "text", name: "jobs_ru[]" },
                               domProps: { value: job.ru },
                               on: {
                                 input: [
@@ -7140,7 +7147,7 @@ var render = function() {
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: { type: "text" },
+                              attrs: { type: "text", name: "jobs_en[]" },
                               domProps: { value: job.en },
                               on: {
                                 input: [

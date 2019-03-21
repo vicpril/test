@@ -43,6 +43,10 @@
 	
 
          <main class="main">
+					<p>
+123
+							 @isset($status){{$status}}@endisset
+				</p>
           <!-- Breadcrumb-->
           {{-- @include(env('THEME_BACK').'.back.breadcrumb') --}}
 
