@@ -392,26 +392,12 @@ export default {
 				description_en: ""
 			},
 			jobs: [],
-			content: "",
-			config: {
-				toolbar: [
-					[
-						"Bold",
-						"Italic",
-						"Underline",
-						"Strike",
-						"Subscript",
-						"Superscript"
-					]
-				],
-				height: 300
-			}
 		};
 	},
 
 	created() {
-		
 	},
+	
 	mounted() {
 		if (!this.isEmptyObject(this.errors)) {
 			this.$notify({

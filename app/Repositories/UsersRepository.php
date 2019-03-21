@@ -207,7 +207,10 @@ class UsersRepository extends Repository
             'description' => (isset($data['description_en'])) ? $data['description_en'] : '',
         ]);
 
-        return ['status' => 'Новый автор добавлен'];
+        return [
+          'status' => 'success',
+          'message' => 'Новый автор добавлен'
+        ];
     }
   
    /*

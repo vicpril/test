@@ -25,8 +25,8 @@ export default {
 		if (!this.isEmptyObject(this.message)) {
 			this.$notify({
 				group: "custom-template",
-				text: this.message.message[0],
-				type: "alert-" + this.message.status[0],
+				text: this.message.message,
+				type: "alert-" + this.message.status,
 				duration: -1
 			});
 		}

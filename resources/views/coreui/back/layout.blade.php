@@ -37,16 +37,14 @@
             <!-- end sidebar -->
          </div>
 					<!-- Notification -->
-					<alert
-               @isset($message):message="{{ $message }}"@endisset 
+					@if(Session::get('message'))
+							<alert
+								 :message="{{ json_encode(Session::get('message'), JSON_FORCE_OBJECT) }}"
                ></alert>	
-	
+					@endif
 
          <main class="main">
-					<p>
-123
-							 @isset($status){{$status}}@endisset
-				</p>
+							 
           <!-- Breadcrumb-->
           {{-- @include(env('THEME_BACK').'.back.breadcrumb') --}}
 

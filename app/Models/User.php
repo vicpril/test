@@ -24,7 +24,7 @@ class User extends Authenticatable
     ];
 
     protected $relation = ['meta', 'articles'];
-
+  
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -33,7 +33,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+  
 
     public function articles() {
         return $this->belongsToMany('Idea\Models\Article', 'article_user');

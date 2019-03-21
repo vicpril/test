@@ -36,8 +36,8 @@ __webpack_require__.r(__webpack_exports__);
     if (!this.isEmptyObject(this.message)) {
       this.$notify({
         group: "custom-template",
-        text: this.message.message[0],
-        type: "alert-" + this.message.status[0],
+        text: this.message.message,
+        type: "alert-" + this.message.status,
         duration: -1
       });
     }
@@ -317,6 +317,8 @@ var inc = new Date().getTime(); // import editor from '../../../../public/vendor
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
 /* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
 //
 //
 //
@@ -933,12 +935,7 @@ __webpack_require__.r(__webpack_exports__);
         description_ru: "",
         description_en: ""
       },
-      jobs: [],
-      content: "",
-      config: {
-        toolbar: [["Bold", "Italic", "Underline", "Strike", "Subscript", "Superscript"]],
-        height: 300
-      }
+      jobs: []
     };
   },
   created: function created() {},
@@ -6209,8 +6206,7 @@ var render = function() {
     _c(
       "table",
       {
-        staticClass:
-          "table table-striped table-hover table-bordered table-responsive-md",
+        staticClass: "table table-striped table-bordered table-responsive-md",
         staticStyle: { width: "100%" },
         attrs: { id: "" }
       },
@@ -6263,6 +6259,20 @@ var render = function() {
               [_vm._v("Статьи")]
             ),
             _vm._v(" "),
+            _c(
+              "th",
+              {
+                staticClass: "sorting",
+                class: _vm.showOrder("updated_at"),
+                on: {
+                  click: function($event) {
+                    return _vm.setOrder("updated_at")
+                  }
+                }
+              },
+              [_vm._v("Дата")]
+            ),
+            _vm._v(" "),
             _c("th")
           ])
         ]),
@@ -6284,6 +6294,8 @@ var render = function() {
               _c("td", [_vm._v(_vm._s(user.role))]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(user.articles))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(user.updated_at))]),
               _vm._v(" "),
               _c("td", { staticClass: "text-secondary" }, [
                 _c("i", {

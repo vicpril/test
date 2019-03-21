@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		<table
-			class="table table-striped table-hover table-bordered table-responsive-md"
+			class="table table-striped table-bordered table-responsive-md"
 			style="width:100%"
 			id
 		>
@@ -46,6 +46,7 @@
 						:class="showOrder('articles_count')"
 						@click="setOrder('articles_count')"
 					>Статьи</th>
+					<th class="sorting" :class="showOrder('updated_at')" @click="setOrder('updated_at')">Дата</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -58,6 +59,7 @@
 					<td>{{ user.email }}</td>
 					<td>{{ user.role }}</td>
 					<td>{{ user.articles }}</td>
+					<td>{{ user.updated_at }}</td>
 					<td class="text-secondary">
 						<i
 							class="fa fa-close"

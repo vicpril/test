@@ -67,7 +67,7 @@ class UsersController extends AdminController
             return back()->with($result);
         }
       
-        return redirect(route('users.index'))->with($result);
+        return redirect(route('users.index'))->with(['message' => $result]);
     }
 
     /**
@@ -93,11 +93,6 @@ class UsersController extends AdminController
 
         $this->template = env('THEME_BACK') . '.back.users.edit';
 
-//         $user = $this->repository->get('*', ['id', $id]);
-        //         if($user){
-        //           $user->loadMissing(['meta', 'articles']);
-        //         }
-
         return $this->renderOutput(['id' => $user->id]);
     }
 
@@ -116,7 +111,7 @@ class UsersController extends AdminController
             return back()->with($result);
         }
       
-        return redirect(route('users.index'))->with($result);
+        return redirect(route('users.index'))->with(['message' => $result]);
     }
 
     /**

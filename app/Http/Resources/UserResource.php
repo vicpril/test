@@ -41,6 +41,8 @@ class UserResource extends JsonResource
           "orcid" => $this->orcid,
           "patronymic_en" => $this->en->patronymic,
           "patronymic_ru" => $this->ru->patronymic,
+          "updated_at" => $this->updated_at->format('Y-m-d H:i:s'),
+          "created_at" => $this->created_at->format('Y-m-d H:i:s'),
 //           'date' => $this->created_at->diffForHumans()
           
         ];
