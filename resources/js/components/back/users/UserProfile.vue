@@ -295,7 +295,7 @@
 							<button
 								type="button"
 								class="btn btn-outline-primary btn-sm float-right"
-								@click="autocompliteDescriptionRu"
+								@click="autocompliteDescription('ru')"
 							>Заполнить</button>
 							<vue-ckeditor
 								class="mt-2"
@@ -311,7 +311,7 @@
 							<button
 								type="button"
 								class="btn btn-outline-primary btn-sm float-right"
-								@click="autocompliteDescriptionEn"
+								@click="autocompliteDescription('en')"
 							>Заполнить</button>
 							<vue-ckeditor
 								class="mt-2"
@@ -375,11 +375,14 @@
 import translat from "../translat";
 import draggable from "vuedraggable";
 import VueCkeditor from "../VueCkeditor.vue";
+import jsrender from 'jsrender';
+	
+// let	jsrender = require('jsrender');
 
 export default {
 	components: {
 		draggable,
-		VueCkeditor
+		VueCkeditor,
 	},
 
 	props: {
@@ -448,7 +451,34 @@ export default {
 			});
 		},
 
-		autocompliteDescriptionRu() {},
+		autocompliteDescription(lang = 'ru') {
+			var template = require("./descriptionTemplate.html");
+			jsrender.templates("tmpl", template);
+			
+			if(lang == 'ru'){
+					if(!confirm('ВНИМАНИЕ! Теуцщия биография на РУССКОМ языке будет удалена. Продолжить?')) return;
+					var data = {
+						full_name: this.user.full_name,
+						degree: this.user.degree_ru,
+						jobs: this.user.jobs_ru,
+						orcid: this.user.orcid,
+					};
+				
+					this.user.description_ru = $.render.tmpl(data);
+			}
+			
+			if(lang == 'en'){
+					if(!confirm('ВНИМАНИЕ! Теуцщия биография на АНГЛИЙСКОМ языке будет удалена. Продолжить?')) return;
+					var data = {
+						full_name: this.user.short_name_en,
+						degree: this.user.degree_en,
+						jobs: this.user.jobs_en,
+						orcid: this.user.orcid,
+					};
+				
+					this.user.description_en = $.render.tmpl(data);
+			}
+		},
 
 		autocompliteDescriptionEn() {},
 

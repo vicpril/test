@@ -1,0 +1,30 @@
+<p>
+  {{if full_name}}
+  <span style="font-family: times new roman,times,serif;">
+    <strong>
+      <span style="font-size: 18pt;">{{:full_name}}</span>
+    </strong>
+  </span>
+  {{/if}}
+  {{if degree}}
+  <span style="font-family: times new roman,times,serif;">
+    <span style="font-size: 14pt;">
+      <i><br>{{:degree}}</i>
+    </span>
+  </span>
+  {{/if}}
+  
+  {{if jobs}}
+  {{for jobs}}
+  <span style="font-family: times new roman,times,serif;">
+    <span style="font-size: 14pt;"><i>,<br>{{:}}</i></span>
+  </span>
+  {{/for}}
+  {{/if}}
+  
+  {{if orcid}}
+  <span style="font-family: times new roman,times,serif;">
+    <span style="font-size: 14pt;"><br>ORCID: {{:orcid}} </span>
+  </span>
+  {{/if}}
+</p>
