@@ -37,11 +37,11 @@
             <!-- end sidebar -->
          </div>
 					<!-- Notification -->
-					@if(Session::get('message'))
 							<alert
+					@if(Session::get('message'))
 								 :message="{{ json_encode(Session::get('message'), JSON_FORCE_OBJECT) }}"
-               ></alert>	
 					@endif
+               ></alert>	
 
          <main class="main">
 							 

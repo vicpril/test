@@ -247,10 +247,22 @@
 												<i class="fa fa-align-justify"></i>
 											</td>
 											<td class="p-1">
-												<textarea type="text" class="form-control" name="jobs_ru[]" v-model="job.ru" @input="saveJobsIntoUser"></textarea>
+												<textarea
+													type="text"
+													class="form-control"
+													name="jobs_ru[]"
+													v-model="job.ru"
+													@input="saveJobsIntoUser"
+												></textarea>
 											</td>
 											<td class="p-1">
-												<textarea type="text" class="form-control" name="jobs_en[]" v-model="job.en" @input="saveJobsIntoUser"></textarea>
+												<textarea
+													type="text"
+													class="form-control"
+													name="jobs_en[]"
+													v-model="job.en"
+													@input="saveJobsIntoUser"
+												></textarea>
 											</td>
 											<td class="text-muted">
 												<i
@@ -280,7 +292,11 @@
 					<div class="card-body">
 						<div class="form-group">
 							<label class="h6">На русском</label>
-							<button type="button" class="btn btn-outline-danger btn-sm float-right">Заполнить</button>
+							<button
+								type="button"
+								class="btn btn-outline-primary btn-sm float-right"
+								@click="autocompliteDescriptionRu"
+							>Заполнить</button>
 							<vue-ckeditor
 								class="mt-2"
 								name="description_ru"
@@ -292,7 +308,11 @@
 
 						<div class="form-group">
 							<label class="h6">На английском</label>
-							<button type="button" class="btn btn-outline-danger btn-sm float-right">Заполнить</button>
+							<button
+								type="button"
+								class="btn btn-outline-primary btn-sm float-right"
+								@click="autocompliteDescriptionEn"
+							>Заполнить</button>
 							<vue-ckeditor
 								class="mt-2"
 								name="description_en"
@@ -391,13 +411,12 @@ export default {
 				description_ru: "",
 				description_en: ""
 			},
-			jobs: [],
+			jobs: []
 		};
 	},
 
-	created() {
-	},
-	
+	created() {},
+
 	mounted() {
 		if (!this.isEmptyObject(this.errors)) {
 			this.$notify({
@@ -406,13 +425,13 @@ export default {
 				type: "alert-danger",
 				duration: -1
 			});
-		};
+		}
 
 		if (!this.isEmptyObject(this.old)) {
 			this.user = this.old;
 		} else if (this.id !== 0) {
 			this.fetch(this.id);
-		}	
+		}
 	},
 
 	watch: {
@@ -429,21 +448,24 @@ export default {
 			});
 		},
 
+		autocompliteDescriptionRu() {},
+
+		autocompliteDescriptionEn() {},
+
 		deleteUser() {
 			if (confirm("Удалить пользователя " + this.user.full_name + "?")) {
-				axios.delete('/admin/users/' + this.user.id)
-							.then((resp) => {
-									if(resp.data.status == 'success'){
-										 window.location = resp.data.redirect + '?userdeleted=1';
-									} else {
-										this.$notify({
-												group: "custom-template",
-												text: resp.data.message.title[0],
-												type: "alert-danger",
-												duration: -1
-											});
-									}
-							})
+				axios.delete("/admin/users/" + this.user.id).then(resp => {
+					if (resp.data.status == "success") {
+						window.location = resp.data.redirect + "?userdeleted=1";
+					} else {
+						this.$notify({
+							group: "custom-template",
+							text: resp.data.message.title[0],
+							type: "alert-danger",
+							duration: -1
+						});
+					}
+				});
 			}
 		},
 
@@ -562,14 +584,13 @@ export default {
 				this.user.short_name_ru = l_name;
 				this.user.short_name_en = translat.translat(l_name);
 			}
-			this.user.alias =
-				translat.strtr(
-					translat.translat(this.user.short_name_en.toString().toLowerCase()),
-					{
-						" ": "-",
-						".": "-"
-					}
-				);
+			this.user.alias = translat.strtr(
+				translat.translat(this.user.short_name_en.toString().toLowerCase()),
+				{
+					" ": "-",
+					".": "-"
+				}
+			);
 		}
 	}
 };

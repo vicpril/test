@@ -897,6 +897,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -949,8 +969,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
-    ;
-
     if (!this.isEmptyObject(this.old)) {
       this.user = this.old;
     } else if (this.id !== 0) {
@@ -972,13 +990,15 @@ __webpack_require__.r(__webpack_exports__);
         _this.jobs = _this.getUserJobs(data.data);
       });
     },
+    autocompliteDescriptionRu: function autocompliteDescriptionRu() {},
+    autocompliteDescriptionEn: function autocompliteDescriptionEn() {},
     deleteUser: function deleteUser() {
       var _this2 = this;
 
       if (confirm("Удалить пользователя " + this.user.full_name + "?")) {
-        axios.delete('/admin/users/' + this.user.id).then(function (resp) {
-          if (resp.data.status == 'success') {
-            window.location = resp.data.redirect + '?userdeleted=1';
+        axios.delete("/admin/users/" + this.user.id).then(function (resp) {
+          if (resp.data.status == "success") {
+            window.location = resp.data.redirect + "?userdeleted=1";
           } else {
             _this2.$notify({
               group: "custom-template",
@@ -1126,7 +1146,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-1f022106],\nthead > tr > th.sorting_desc[data-v-1f022106],\nthead > tr > th.sorting[data-v-1f022106],\nthead > tr > td.sorting_asc[data-v-1f022106],\nthead > tr > td.sorting_desc[data-v-1f022106],\nthead > tr > td.sorting[data-v-1f022106] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-1f022106]:active,\nthead > tr > td[data-v-1f022106]:active {\n\toutline: none;\n}\nthead .sorting[data-v-1f022106],\nthead .sorting_asc[data-v-1f022106],\nthead .sorting_desc[data-v-1f022106],\nthead .sorting_asc_disabled[data-v-1f022106],\nthead .sorting_desc_disabled[data-v-1f022106] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-1f022106]:before,\nthead .sorting[data-v-1f022106]:after,\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_asc[data-v-1f022106]:after,\nthead .sorting_desc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:after,\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_asc_disabled[data-v-1f022106]:after,\nthead .sorting_desc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-1f022106]:before,\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:before,\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-1f022106]:after,\nthead .sorting_asc[data-v-1f022106]:after,\nthead .sorting_desc[data-v-1f022106]:after,\nthead .sorting_asc_disabled[data-v-1f022106]:after,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\topacity: 0;\n}\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-1f022106],\r\nthead > tr > th.sorting_desc[data-v-1f022106],\r\nthead > tr > th.sorting[data-v-1f022106],\r\nthead > tr > td.sorting_asc[data-v-1f022106],\r\nthead > tr > td.sorting_desc[data-v-1f022106],\r\nthead > tr > td.sorting[data-v-1f022106] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-1f022106]:active,\r\nthead > tr > td[data-v-1f022106]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-1f022106],\r\nthead .sorting_asc[data-v-1f022106],\r\nthead .sorting_desc[data-v-1f022106],\r\nthead .sorting_asc_disabled[data-v-1f022106],\r\nthead .sorting_desc_disabled[data-v-1f022106] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -7230,8 +7250,9 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-outline-danger btn-sm float-right",
-                    attrs: { type: "button" }
+                    staticClass: "btn btn-outline-primary btn-sm float-right",
+                    attrs: { type: "button" },
+                    on: { click: _vm.autocompliteDescriptionRu }
                   },
                   [_vm._v("Заполнить")]
                 ),
@@ -7261,8 +7282,9 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-outline-danger btn-sm float-right",
-                    attrs: { type: "button" }
+                    staticClass: "btn btn-outline-primary btn-sm float-right",
+                    attrs: { type: "button" },
+                    on: { click: _vm.autocompliteDescriptionEn }
                   },
                   [_vm._v("Заполнить")]
                 ),
@@ -9704,8 +9726,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/cabox/workspace/resources/js/coreui.js */"./resources/js/coreui.js");
-module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/coreui/coreui.scss */"./resources/sass/coreui/coreui.scss");
+__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\coreui.js */"./resources/js/coreui.js");
+module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\coreui\coreui.scss */"./resources/sass/coreui/coreui.scss");
 
 
 /***/ })
