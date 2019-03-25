@@ -456,7 +456,7 @@ export default {
 			jsrender.templates("tmpl", template);
 			
 			if(lang == 'ru'){
-					if(!confirm('ВНИМАНИЕ! Теуцщия биография на РУССКОМ языке будет удалена. Продолжить?')) return;
+					if(!confirm('ВНИМАНИЕ! Текущая биография на РУССКОМ языке будет удалена. Продолжить?')) return;
 					var data = {
 						full_name: this.user.full_name,
 						degree: this.user.degree_ru,
@@ -468,7 +468,7 @@ export default {
 			}
 			
 			if(lang == 'en'){
-					if(!confirm('ВНИМАНИЕ! Теуцщия биография на АНГЛИЙСКОМ языке будет удалена. Продолжить?')) return;
+					if(!confirm('ВНИМАНИЕ! Текущая биография на АНГЛИЙСКОМ языке будет удалена. Продолжить?')) return;
 					var data = {
 						full_name: this.user.short_name_en,
 						degree: this.user.degree_en,

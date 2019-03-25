@@ -14,8 +14,23 @@ require("./plugins/bootstrap-notify");
 
 //Vue
 window.Vue = require("vue");
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+
+//Vue-router
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
+//Vuex
+import Vuex from 'vuex';
+Vue.use(Vuex);
+// create Vuex store
+import {store} from './components/back/store/store.js';
+// const store = new Vuex.Store({state});
+
+
+//Vue Laravel FileManager https://github.com/alexusmai/vue-laravel-file-manager
+import FileManager from 'laravel-file-manager';
+import filemanagerConfig from './plugins/filemanager/config.js';
+Vue.use(FileManager, {store, filemanagerConfig});
 
 //Notification
 import Notifications from 'vue-notification'
@@ -39,13 +54,17 @@ Vue.component(
    "user-profile",
    require("./components/back/users/UserProfile.vue").default
 );
-Vue.component(
-   "editor-test",
-   require("./components/back/EditorTest.vue").default
-);
+// Vue.component(
+//    "editor-test",
+//    require("./components/back/EditorTest.vue").default
+// );
 Vue.component(
    "alert",
    require("./components/back/Alert.vue").default
+);
+Vue.component(
+   "vue-test",
+   require("./components/back/VueTest.vue").default
 );
 
 Vue.mixin({
@@ -97,5 +116,6 @@ const router = new VueRouter({
 
 const app = new Vue({
 	 router,
+	 store,
    el: "#app",
 });
