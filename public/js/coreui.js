@@ -282,12 +282,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     VueCkeditor: _VueCkeditor_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById('button-image').addEventListener('click', function (event) {
+    event.preventDefault();
+    window.open('/file-manager/fm-button', 'fm', 'width=1400,height=800');
+  });
+}); // set file link
+
+function fmSetLink($url) {
+  document.getElementById('image_label').value = $url;
+}
 
 /***/ }),
 
@@ -48108,20 +48131,35 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c(
+      "div",
+      { staticClass: "row mb-5" },
+      [
+        _c("h2", [_vm._v("Test vue + filemanager")]),
+        _vm._v(" "),
+        _c("file-manager", { staticStyle: { width: "100%" } })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
         { staticClass: "form-group" },
         [
-          _c("h2", [_vm._v("Test vue + filemanager")]),
+          _c("h2", [_vm._v("Test vue + ckeditor 4")]),
           _vm._v(" "),
-          _c("file-manager")
+          _c("vue-ckeditor", {
+            ref: "description_ru",
+            staticClass: "mt-2",
+            attrs: { name: "description_ru", id: "description_ru" }
+          })
         ],
         1
       )
-    ]),
-    _vm._v(" "),
-    _vm._m(0)
+    ])
   ])
 }
 var staticRenderFns = [
@@ -48129,9 +48167,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("h2", [_vm._v("Test vue + ckeditor 4")])
+    return _c("div", { staticClass: "row mb-5" }, [
+      _c("div", { staticClass: "input-group" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "image_label",
+            name: "image",
+            "aria-label": "Image",
+            "aria-describedby": "button-image"
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group-append" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-secondary",
+              attrs: { type: "button", id: "button-image" }
+            },
+            [_vm._v("Select")]
+          )
+        ])
       ])
     ])
   }
@@ -50143,8 +50201,7 @@ Vue.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); // create Vuex store
 
 
 Vue.use(laravel_file_manager__WEBPACK_IMPORTED_MODULE_3__["default"], {
-  store: _components_back_store_store_js__WEBPACK_IMPORTED_MODULE_2__["store"],
-  filemanagerConfig: _plugins_filemanager_config_js__WEBPACK_IMPORTED_MODULE_4__["default"]
+  store: _components_back_store_store_js__WEBPACK_IMPORTED_MODULE_2__["store"]
 }); //Notification
 
 
@@ -51806,8 +51863,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   // overwrite default header Axios
   //     baseUrl: 'http://my_url:80/file-manager/', // overwrite base url Axios
-  windowsConfig: 2,
-  lang: 'ru' // set language
+  windowsConfig: 1,
+  lang: 'de' // set language
 
 });
 

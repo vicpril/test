@@ -30,7 +30,7 @@ import {store} from './components/back/store/store.js';
 //Vue Laravel FileManager https://github.com/alexusmai/vue-laravel-file-manager
 import FileManager from 'laravel-file-manager';
 import filemanagerConfig from './plugins/filemanager/config.js';
-Vue.use(FileManager, {store, filemanagerConfig});
+Vue.use(FileManager, {store});
 
 //Notification
 import Notifications from 'vue-notification'

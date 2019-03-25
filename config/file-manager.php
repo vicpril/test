@@ -42,7 +42,7 @@ return [
      *
      * !!! For using ACL - add 'fm-acl' to array !!! ['web', 'fm-acl']
      */
-    'middleware' => ['web'],
+    'middleware' => ['web', 'auth', 'admin'],
 
     /***************************************************************************
      * ACL mechanism ON/OFF

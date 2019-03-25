@@ -36,4 +36,7 @@ CKEDITOR.editorConfig = function(config) {
 
    config.removeButtons =
       "Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Replace,Save,NewPage,Preview,Print,Templates,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,Flash,Smiley,Iframe,About,SelectAll,Scayt,Find,Cut,Paste,PasteText,Copy,PasteFromWord";
+  
+  // Upload image
+  config.filebrowserImageBrowseUrl = '/file-manager/ckeditor';
 };

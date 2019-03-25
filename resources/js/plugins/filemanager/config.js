@@ -6,6 +6,6 @@ export default {
     // OR
     headers: {'X-CSRF-TOKEN': 'token'}, // overwrite default header Axios
 //     baseUrl: 'http://my_url:80/file-manager/', // overwrite base url Axios
-    windowsConfig: 2,
-    lang: 'ru',     // set language
+    windowsConfig: 1,
+    lang: 'de',     // set language
 }
