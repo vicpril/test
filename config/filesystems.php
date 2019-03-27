@@ -53,9 +53,24 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL').'/storage/public',
             'visibility' => 'public',
         ],
+      
+          'docs' => [
+                'driver' => 'local',
+                'root' => storage_path('app/docs'),
+                'url' => env('APP_URL').'/storage/docs',
+//                 'visibility' => 'docs',
+            ],
+      
+          // images folder in public path
+          'images' => [
+              'driver' => 'local',
+//               'root' => public_path('images'),
+              'root' => storage_path('app/images'),
+              'url' => env('APP_URL').'/storage/images',
+          ],
 
         's3' => [
             'driver' => 's3',

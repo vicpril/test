@@ -16,7 +16,8 @@
         <input type="text" id="image_label" class="form-control" name="image"
                aria-label="Image" aria-describedby="button-image">
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-image">Select</button>
+            <button class="btn btn-outline-secondary" type="button" id="button-image"
+                    @click.prevent="openFinder">Select</button>
         </div>
     </div>
     
@@ -47,20 +48,31 @@
 
   export default {
     components: { VueCkeditor },
+    
+    methods: {
+      openFinder() {
+        window.open('/file-manager/fm-button', 'fm', 'width=800,height=400');
+      },
+      
+      fmSetLink: function($url) {
+        document.getElementById('image_label').value = $url;
+       }
+      
+    },
   }
   
-  document.addEventListener("DOMContentLoaded", function() {
+//   document.addEventListener("DOMContentLoaded", function() {
 
-      document.getElementById('button-image').addEventListener('click', (event) => {
-        event.preventDefault();
+//     document.getElementById('button-image').addEventListener('click', (event) => {
+//       event.preventDefault();
 
-        window.open('/file-manager/fm-button', 'fm', 'width=1400,height=800');
-      });
-    });
-
-    // set file link
-    function fmSetLink($url) {
-      document.getElementById('image_label').value = $url;
-    }
+//       window.open('/file-manager/fm-button', 'fm', 'width=800,height=400');
+//     });
+//   // set file link
+//   function fmSetLink($url) {
+//     document.getElementById('image_label').value = $url;
+//    }
+     
+//   });
 
 </script>

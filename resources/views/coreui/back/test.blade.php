@@ -39,6 +39,20 @@
 @endpush
 
 @push('js')
+	<script>
+// 		  document.addEventListener("DOMContentLoaded", function() {
 
+// 		    document.getElementById('button-image').addEventListener('click', (event) => {
+// 		      event.preventDefault();
+
+// 		      window.open('/file-manager/fm-button', 'fm', 'width=800,height=400');
+// 		    });
+		  // set file link
+		  function fmSetLink($url) {
+		    document.getElementById('image_label').value = $url;
+		   }
+
+// 		  });
+	</script>
 @endpush
  
