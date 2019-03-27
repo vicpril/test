@@ -15,15 +15,19 @@ class Tag extends Model
     	return $this->belongsToMany('Idea\Models\Article', 'article_tag');
     }
 
-    public function name() {
-    	return $this->name[app()->getLocale()];
+    public function getLocAttribute() {
+//         return $this->name[app()->getLocale()];
+				switch (app()->getLocale()) {
+					case 'ru': return $this->name_ru;
+					case 'en': return $this->name_en;
+				}
     }
 
     public function getRuAttribute() {
-        return $this->name['ru'];
+        return $this->name_ru;
     }
 
     public function getEnAttribute() {
-        return $this->name['en'];
+        return $this->name_en;
     }
 }

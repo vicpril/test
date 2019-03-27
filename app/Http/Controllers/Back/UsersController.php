@@ -76,10 +76,10 @@ class UsersController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        dd('user - show');
-    }
+//     public function show($id)
+//     {
+//         dd('user - show');
+//     }
 
     /**
      * Show the form for editing the specified resource.

@@ -51,7 +51,7 @@
          @if($article->tags)
             @foreach ($article->tags as $key => $tag)
                <div class="article-preview-tags">
-                  <b>TAG: </b><span>{{ $tag->name[Config::get('app.locale')] }}</span>
+                  <b>TAG: </b><span>{{ $tag->loc }}</span>
                </div>
             @endforeach
          @endif

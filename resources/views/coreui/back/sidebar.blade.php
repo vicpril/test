@@ -8,7 +8,7 @@
          <a class="nav-link text-danger" href="colors.html">
             <i class="nav-icon icon-docs"></i> Статьи</a
          >
-         <a class="nav-link text-danger" href="colors.html">
+         <a class="nav-link" href="{{ route('categories.index') }}">
             <i class="fa fa-bookmark px-1 mr-2"></i> Рубрики</a
          >
          <a class="nav-link text-danger" href="colors.html">

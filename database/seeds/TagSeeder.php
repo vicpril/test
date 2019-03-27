@@ -14,7 +14,7 @@ class TagSeeder extends Seeder
     {
         //
         $tags = [
-        			'искусствоведение',
+        		'искусствоведение',
 				    'история',
 				    'культурология',
 				    'образование',
@@ -26,10 +26,12 @@ class TagSeeder extends Seeder
 
        		Tag::make([
        			'alias' => 'tag-'.$i,
-       			'name' => [
-       				'ru' => $tag,
-       				'en' => Transliterate::make($tag),
-       			],
+						'name_ru' => $tag,
+        		'name_en' => Transliterate::make($tag),
+//        			'name' => [
+//        				'ru' => $tag,
+//        				'en' => Transliterate::make($tag),
+//        			],
        		])->save();
        	}
     }

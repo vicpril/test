@@ -69,10 +69,9 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 		
 		Route::resource('files', 'FilesController')->except(['create']);
 		Route::resource('jobs', 'JobsController')->except(['create', 'show']);
-		Route::resource('users', 'UsersController');
-		//test upload avatar
-		Route::get('profile', 'UsersController@profile');
-		Route::post('profile', 'UsersController@update_avatar');
+		Route::resource('users', 'UsersController')->except(['show', ]);
+		Route::resource('categories', 'CategoriesController')->only(['index']);
+
 		// template's examples
 		Route::get('icons', function() {return view(env('THEME_BACK').'.examples.icons')->render();});
 		Route::get('test', 'AdminController@test')->name('ckeditor-test');
