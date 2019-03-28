@@ -17,10 +17,10 @@ class CategoriesController extends Controller
       $this->repository = $c_rep;
     }
   
-    public function index () {
+    public function index (Request $request) {
         $cats = $this->repository->getCategoriesList($request);
-
-        return CategoryResource::collection($cats);
+        return $cats;
+//         return CategoryResource::collection($cats);
     }
   
     public function save (Request $request, Category $cat) {

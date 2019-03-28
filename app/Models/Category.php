@@ -7,13 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
   protected $fillable = [
-		'name', 'alias', 'parent_id'
+		'name_ru', 'name_en', 'alias', 'parent_id'
 	]; 
 	
 	//
 	protected $casts = [
-		'name' => 'array',
+// 		'name' => 'array',
 	];
+	
+		/**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [];
 
 
     public function articles() {

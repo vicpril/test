@@ -20,17 +20,7 @@
   <h2 class="mb-3">{{ $subtitle }}</h2>
   <div class="row">
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="d-inline-block mr-3 mb-0">Список рубрик</h4>
-            <a class="btn btn-primary btn-round d-inline-block float-right my-0" href="{{ route('users.create') }}">
-              Добавить новую
-            </a>
-          </div>
-          <div class="card-body">
-
-          </div>
-        </div>
+        <categories-list></categories-list>
       </div>
     </div>
 </div>

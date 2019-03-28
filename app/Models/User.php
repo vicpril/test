@@ -68,21 +68,6 @@ class User extends Authenticatable
         return $this->meta->where('lang', 'en')->first();
     }
 
-  
-    // public function getDisplayNameAttribute() {
-    //     $displayName = $this->meta->where('lang', app()->getLocale())->first();
-    //     return ($displayName && $displayName->full_name) ? $displayName->full_name : $this->alias;
-    // }
-
-    // public function getShortNameAttribute() {
-        
-    //     if ($this->meta->where('lang', app()->getLocale())->first()) {
-    //         return $this->meta->where('lang', app()->getLocale())->first()->shortName;
-    //     } else {
-    //         return $this->alias;
-    //     }
-    // }
-  
     public function getEditLinkAttribute(){
         return route('users.edit', $this->id);
     }

@@ -140,7 +140,7 @@ export default {
 		}
 	},
 
-	created: function() {
+	created() {
 		this.fetch();
 	},
 	
@@ -213,7 +213,7 @@ export default {
 	},
 
 	components: {
-		paginate: Paginate
+		Paginate
 	}
 };
 </script>

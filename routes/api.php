@@ -18,3 +18,5 @@ use Illuminate\Http\Request;
 // });
 
 Route::apiResource('users', 'Api\UsersController');
+Route::apiResource('categories', 'Api\CategoriesController');
+

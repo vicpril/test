@@ -54,6 +54,10 @@ Vue.component(
    "user-profile",
    require("./components/back/users/UserProfile.vue").default
 );
+Vue.component(
+   "categories-list",
+   require("./components/back/categories/CategoriesList.vue").default
+);
 // Vue.component(
 //    "editor-test",
 //    require("./components/back/EditorTest.vue").default
