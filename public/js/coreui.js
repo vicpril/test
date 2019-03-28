@@ -446,6 +446,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -48583,63 +48585,65 @@ var render = function() {
               },
               [
                 _c("thead", { staticClass: "text-black" }, [
-                  _c(
-                    "th",
-                    {
-                      staticClass: "sorting",
-                      class: _vm.showOrder("name_ru"),
-                      on: {
-                        click: function($event) {
-                          return _vm.setOrder("name_ru")
+                  _c("tr", [
+                    _c(
+                      "th",
+                      {
+                        staticClass: "sorting",
+                        class: _vm.showOrder("name_ru"),
+                        on: {
+                          click: function($event) {
+                            return _vm.setOrder("name_ru")
+                          }
                         }
-                      }
-                    },
-                    [_vm._v("Название - рус")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    {
-                      staticClass: "sorting",
-                      class: _vm.showOrder("name_en"),
-                      on: {
-                        click: function($event) {
-                          return _vm.setOrder("name_en")
+                      },
+                      [_vm._v("Название - рус")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "th",
+                      {
+                        staticClass: "sorting",
+                        class: _vm.showOrder("name_en"),
+                        on: {
+                          click: function($event) {
+                            return _vm.setOrder("name_en")
+                          }
                         }
-                      }
-                    },
-                    [_vm._v("Название - eng")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    {
-                      staticClass: "sorting",
-                      class: _vm.showOrder("articles"),
-                      on: {
-                        click: function($event) {
-                          return _vm.setOrder("articles")
+                      },
+                      [_vm._v("Название - eng")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "th",
+                      {
+                        staticClass: "sorting",
+                        class: _vm.showOrder("articles"),
+                        on: {
+                          click: function($event) {
+                            return _vm.setOrder("articles")
+                          }
                         }
-                      }
-                    },
-                    [_vm._v("Статьи")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    {
-                      staticClass: "sorting",
-                      class: _vm.showOrder("updated_at"),
-                      on: {
-                        click: function($event) {
-                          return _vm.setOrder("updated_at")
+                      },
+                      [_vm._v("Статьи")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "th",
+                      {
+                        staticClass: "sorting",
+                        class: _vm.showOrder("updated_at"),
+                        on: {
+                          click: function($event) {
+                            return _vm.setOrder("updated_at")
+                          }
                         }
-                      }
-                    },
-                    [_vm._v("Дата")]
-                  ),
-                  _vm._v(" "),
-                  _c("th")
+                      },
+                      [_vm._v("Дата")]
+                    ),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
                 ]),
                 _vm._v(" "),
                 _c(

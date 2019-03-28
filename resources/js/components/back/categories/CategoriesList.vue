@@ -43,15 +43,17 @@
               style="width:100%"
             >
               <thead class="text-black">
-                <th class="sorting" :class="showOrder('name_ru')" @click="setOrder('name_ru')">Название - рус</th>
-                <th class="sorting" :class="showOrder('name_en')" @click="setOrder('name_en')">Название - eng</th>
-                <th
-                  class="sorting"
-                  :class="showOrder('articles')"
-                  @click="setOrder('articles')"
-                >Статьи</th>
-                <th class="sorting" :class="showOrder('updated_at')" @click="setOrder('updated_at')">Дата</th>
-                <th></th>
+								<tr>
+									<th class="sorting" :class="showOrder('name_ru')" @click="setOrder('name_ru')">Название - рус</th>
+									<th class="sorting" :class="showOrder('name_en')" @click="setOrder('name_en')">Название - eng</th>
+									<th
+										class="sorting"
+										:class="showOrder('articles')"
+										@click="setOrder('articles')"
+									>Статьи</th>
+									<th class="sorting" :class="showOrder('updated_at')" @click="setOrder('updated_at')">Дата</th>
+									<th></th>
+								</tr>
               </thead>
               <tbody>
                 <tr v-for="(cat, index) in categories" :key="index">
