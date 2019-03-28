@@ -448,6 +448,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -456,25 +508,49 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       categories: [],
+      currentCat: {
+        id: "",
+        name_ru: "",
+        name_en: "",
+        parent_id: 0
+      },
       paginateOptions: [5, 10, 25, 50, 100],
       paginateSelect: 10,
       search: "",
       sortBy: "name_ru",
       // orderBy: "asc",
-      orderByAsc: true
+      orderByAsc: true,
+      title: "Новая рубрика",
+      submitBtnTitle: "Добавить новую рубрику",
+      page: 1
     };
   },
   computed: {
+    searchedCategories: function searchedCategories() {
+      if (!this.search) {
+        return this.categories;
+      }
+
+      ;
+      var self = this;
+      return this.categories.filter(function (cat) {
+        if (cat.name_ru.toLowerCase().indexOf(self.search.toLowerCase()) !== -1 || cat.name_en.toLowerCase().indexOf(self.search.toLowerCase()) !== -1) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    },
     orderedCategories: function orderedCategories() {
-      return _.orderBy(this.users, this.sortBy, this.orderBy);
+      return _.orderBy(this.searchedCategories, this.sortBy, this.orderBy);
     },
     pagination: function pagination() {
       return {
-        pageCount: 1,
-        currentPage: 1,
-        from: 1,
-        to: 1,
-        total: 1
+        pageCount: Math.ceil(this.orderedCategories.length / this.paginateSelect),
+        currentPage: this.page,
+        from: 1 + this.paginateSelect * (this.page - 1),
+        to: Math.min(this.orderedCategories.length, this.paginateSelect * this.page),
+        total: this.orderedCategories.length
       };
     },
     orderBy: function orderBy() {
@@ -483,6 +559,15 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return "desc";
       }
+    },
+    clearBtnClass: function clearBtnClass() {
+      if (this.currentCat.id) {
+        return 'btn-outline-primary';
+      } else {
+        return 'btn-outline-secondary disabled';
+      }
+
+      ;
     }
   },
   created: function created() {
@@ -495,30 +580,38 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get("/api/categories", {
         params: {
-          paginate: this.paginateSelect,
-          page: page,
+          // 						paginate: this.paginateSelect,
+          // 						page: page,
           sortBy: this.sortBy,
           orderBy: this.orderBy,
           search: this.search
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        _this.categories = data.data;
-        _this.pagination.pageCount = data.last_page;
-        _this.pagination.currentPage = data.current_page;
-        _this.pagination.from = data.from;
-        _this.pagination.to = data.to;
-        _this.pagination.total = data.total;
+        _this.categories = data;
       });
     },
     saveCategory: function saveCategory(index) {},
-    showCategory: function showCategory(index) {},
+    showCategory: function showCategory(index) {
+      this.title = "Рубрика №" + this.categories[index].id;
+      this.submitBtnTitle = "Обновить";
+      this.currentCat = this.categories[index];
+    },
     deleteCategory: function deleteCategory(index) {},
-    clearForm: function clearForm() {},
+    clearForm: function clearForm() {
+      this.titile = "Новая рубрика";
+      this.submitBtnTitle = "Добавить новую рубрику";
+      this.currentCat = {
+        id: "",
+        name_ru: "",
+        name_en: "",
+        parent_id: 0
+      };
+    },
     setOrder: function setOrder(sortBy) {
       this.sortBy = sortBy;
       this.orderByAsc = !this.orderByAsc;
-      this.fetch();
+      this.page = 1; // 			this.fetch();
     },
     showOrder: function showOrder(linkOrder) {
       if (linkOrder === this.sortBy) {
@@ -48485,7 +48578,166 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "col-md-5" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h5", { staticClass: "h5 mb-0" }, [_vm._v(_vm._s(_vm.title))])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body px-0" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { staticClass: "h6" }, [_vm._v("Название - рус")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.currentCat.name_ru,
+                      expression: "currentCat.name_ru"
+                    }
+                  ],
+                  staticClass: "form-control mr-2",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.currentCat.name_ru },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.currentCat, "name_ru", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { staticClass: "h6" }, [_vm._v("Название - eng")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.currentCat.name_en,
+                      expression: "currentCat.name_en"
+                    }
+                  ],
+                  staticClass: "form-control mr-2",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.currentCat.name_en },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.currentCat, "name_en", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { staticClass: "h6" }, [
+                  _vm._v("Родительская рубрика")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.currentCat.parent_id,
+                        expression: "currentCat.parent_id"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.currentCat,
+                          "parent_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "0" } }, [_vm._v("Нет")]),
+                    _vm._v(" "),
+                    _vm._l(_vm.categories, function(cat, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: cat.id } },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t\t\t\t" +
+                              _vm._s(cat.name_ru) +
+                              "\n\t\t\t\t\t\t\t\t\t"
+                          )
+                        ]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer " }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn float-left",
+                class: _vm.clearBtnClass,
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.clearForm($event)
+                  }
+                }
+              },
+              [_vm._v("Очистить форму")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary float-right",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.saveCategory($event)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(_vm.submitBtnTitle))]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-7" }, [
         _c("div", { staticClass: "card" }, [
           _vm._m(0),
           _vm._v(" "),
@@ -48525,7 +48777,9 @@ var render = function() {
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             },
-                            _vm.fetch
+                            function($event) {
+                              _vm.page = 1
+                            }
                           ]
                         }
                       },
@@ -48562,7 +48816,6 @@ var render = function() {
                       attrs: { type: "search" },
                       domProps: { value: _vm.search },
                       on: {
-                        blur: _vm.fetch,
                         input: function($event) {
                           if ($event.target.composing) {
                             return
@@ -48579,8 +48832,7 @@ var render = function() {
             _c(
               "table",
               {
-                staticClass:
-                  "table table-striped table-bordered table-responsive-md",
+                staticClass: "table table-striped table-responsive-md",
                 staticStyle: { width: "100%" }
               },
               [
@@ -48614,6 +48866,8 @@ var render = function() {
                       [_vm._v("Название - eng")]
                     ),
                     _vm._v(" "),
+                    _c("th", [_vm._v("Род.")]),
+                    _vm._v(" "),
                     _c(
                       "th",
                       {
@@ -48628,125 +48882,117 @@ var render = function() {
                       [_vm._v("Статьи")]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass: "sorting",
-                        class: _vm.showOrder("updated_at"),
-                        on: {
-                          click: function($event) {
-                            return _vm.setOrder("updated_at")
-                          }
-                        }
-                      },
-                      [_vm._v("Дата")]
-                    ),
-                    _vm._v(" "),
                     _c("th")
                   ])
                 ]),
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.categories, function(cat, index) {
-                    return _c("tr", { key: index }, [
-                      _c("td", [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.showCategory(index)
+                  _vm._l(_vm.orderedCategories, function(cat, index) {
+                    return index >= _vm.pagination.from - 1 &&
+                      index <= _vm.pagination.to - 1
+                      ? _c("tr", { key: index }, [
+                          _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.showCategory(index)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(cat.name_ru))]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(cat.name_en) +
+                                "\n                  "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(cat.parent_id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(cat.articles))]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-secondary" }, [
+                            _c("i", {
+                              staticClass: "fa fa-close",
+                              on: {
+                                mouseover: function($event) {
+                                  return $event.target.classList.add(
+                                    "text-danger"
+                                  )
+                                },
+                                mouseout: function($event) {
+                                  return $event.target.classList.remove(
+                                    "text-danger"
+                                  )
+                                },
+                                click: function($event) {
+                                  return _vm.deleteCategory(index)
+                                }
                               }
-                            }
-                          },
-                          [_vm._v(_vm._s(cat.name_ru))]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(cat.name_en) +
-                            "\n                  "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cat.articles))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cat.updated_at))]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-secondary" }, [
-                        _c("i", {
-                          staticClass: "fa fa-close",
-                          on: {
-                            mouseover: function($event) {
-                              return $event.target.classList.add("text-danger")
-                            },
-                            mouseout: function($event) {
-                              return $event.target.classList.remove(
-                                "text-danger"
-                              )
-                            },
-                            click: function($event) {
-                              return _vm.deleteCategory(index)
-                            }
-                          }
-                        })
-                      ])
-                    ])
+                            })
+                          ])
+                        ])
+                      : _vm._e()
                   }),
                   0
                 )
               ]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-sm-12 col-md-5" }, [
-              _c("div", { staticClass: "form-inline" }, [
-                _vm._v(
-                  "Записи с " +
-                    _vm._s(_vm.pagination.from) +
-                    " до " +
-                    _vm._s(_vm.pagination.to) +
-                    " из " +
-                    _vm._s(_vm.pagination.total) +
-                    " записей"
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-12 col-md-5" }, [
+                _c("div", { staticClass: "d-inline" }, [
+                  _vm._v(
+                    "Записи с " +
+                      _vm._s(_vm.pagination.from) +
+                      " до " +
+                      _vm._s(_vm.pagination.to) +
+                      " из " +
+                      _vm._s(_vm.pagination.total) +
+                      " записей"
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-12 col-md-7" }, [
+                _c(
+                  "div",
+                  { staticClass: "float-right" },
+                  [
+                    _c("paginate", {
+                      attrs: {
+                        "page-count": _vm.pagination.pageCount,
+                        "prev-text": "«",
+                        "next-text": "»",
+                        "container-class": "pagination mb-0",
+                        "page-class": "page-item",
+                        "prev-class": "page-item",
+                        "next-class": "page-item",
+                        "page-link-class": "page-link",
+                        "prev-link-class": "page-link",
+                        "next-link-class": "page-link"
+                      },
+                      model: {
+                        value: _vm.page,
+                        callback: function($$v) {
+                          _vm.page = $$v
+                        },
+                        expression: "page"
+                      }
+                    })
+                  ],
+                  1
                 )
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-12 col-md-7" }, [
-              _c(
-                "div",
-                { staticClass: "float-right" },
-                [
-                  _c("paginate", {
-                    attrs: {
-                      "page-count": _vm.pagination.pageCount,
-                      "click-handler": _vm.fetch,
-                      "prev-text": "Предыдущая",
-                      "next-text": "Следующая",
-                      "container-class": "pagination mb-0",
-                      "page-class": "page-item",
-                      "prev-class": "page-item",
-                      "next-class": "page-item",
-                      "page-link-class": "page-link",
-                      "prev-link-class": "page-link",
-                      "next-link-class": "page-link"
-                    },
-                    model: {
-                      value: _vm.pagination.currentPage,
-                      callback: function($$v) {
-                        _vm.$set(_vm.pagination, "currentPage", $$v)
-                      },
-                      expression: "pagination.currentPage"
-                    }
-                  })
-                ],
-                1
-              )
             ])
           ])
         ])
@@ -48760,7 +49006,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Список категорий")])
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Список рубрик")])
     ])
   }
 ]
@@ -48869,7 +49115,7 @@ var render = function() {
     _c(
       "table",
       {
-        staticClass: "table table-striped table-bordered table-responsive-md",
+        staticClass: "table table-striped table-responsive-md",
         staticStyle: { width: "100%" },
         attrs: { id: "" }
       },

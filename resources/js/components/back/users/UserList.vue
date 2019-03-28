@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		<table
-			class="table table-striped table-bordered table-responsive-md"
+			class="table table-striped table-responsive-md"
 			style="width:100%"
 			id
 		>

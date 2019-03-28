@@ -1,10 +1,58 @@
 <template>
 <div>
   <div class="row">
-    <div class="col-md-12">
+		<div class="col-md-5">
+			<div class="card">
+				<div class="card-header"><h5 class="h5 mb-0">{{ title }}</h5></div>
+				<div class="card-body px-0">
+					<div class="col-md-12">
+							<div class="form-group">
+									<label class="h6">Название - рус</label>
+									<input
+										type="text"
+										class="form-control mr-2"
+										v-model="currentCat.name_ru"
+									>
+							</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+								<label class="h6">Название - eng</label>
+								<input
+									type="text"
+									class="form-control mr-2"
+									v-model="currentCat.name_en"
+								>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+								<label class="h6">Родительская рубрика</label>
+								<select class="form-control" v-model="currentCat.parent_id">
+									<option value="0">Нет</option>
+									<option v-for="(cat, index) in categories" :key="index" v-bind:value="cat.id">
+										{{ cat.name_ru }}
+									</option>
+								</select>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer ">
+					<button type="button"
+									class="btn float-left"
+									:class="clearBtnClass"
+									@click.prevent="clearForm">Очистить форму</button>
+					<button type="button"
+									class="btn btn-primary float-right"
+									@click.prevent="saveCategory">{{ submitBtnTitle }}</button>
+				</div>
+			</div>
+		</div>
+		
+    <div class="col-md-7">
         <div class="card">
           <div class="card-header">
-            <h5 class="h5 mb-0">Список категорий</h5>
+            <h5 class="h5 mb-0">Список рубрик</h5>
           </div>
           <div class="card-body">
             <div class="row mb-2">
@@ -15,7 +63,7 @@
                     <select
                       class="custom-select custom-select-sm form-control form-control-sm d-flex mx-1"
                       v-model="paginateSelect"
-                      @change="fetch"
+											@change="page = 1"
                     >
                       <option v-for="(option, i) in paginateOptions" :key="i" :value="option">{{ option }}</option>
                     </select> записей
@@ -31,7 +79,6 @@
                       type="search"
                       class="form-control form-control-sm ml-1"
                       v-model="search"
-                      @blur="fetch"
                     >
                   </label>
                 </div>
@@ -39,24 +86,26 @@
             </div>
             
             <table
-              class="table table-striped table-bordered table-responsive-md"
+              class="table table-striped table-responsive-md"
               style="width:100%"
             >
               <thead class="text-black">
 								<tr>
 									<th class="sorting" :class="showOrder('name_ru')" @click="setOrder('name_ru')">Название - рус</th>
 									<th class="sorting" :class="showOrder('name_en')" @click="setOrder('name_en')">Название - eng</th>
+									<th>Род.</th>
 									<th
 										class="sorting"
 										:class="showOrder('articles')"
 										@click="setOrder('articles')"
 									>Статьи</th>
-									<th class="sorting" :class="showOrder('updated_at')" @click="setOrder('updated_at')">Дата</th>
+<!-- 									<th class="sorting" :class="showOrder('updated_at')" @click="setOrder('updated_at')">Дата</th> -->
 									<th></th>
 								</tr>
               </thead>
               <tbody>
-                <tr v-for="(cat, index) in categories" :key="index">
+                <tr v-for="(cat, index) in orderedCategories " :key="index"
+										v-if="index >= pagination.from - 1 && index <= pagination.to - 1">
                   <td>
                     <a  href=""
                         @click.prevent="showCategory(index)"
@@ -65,8 +114,9 @@
                   <td>
                     {{ cat.name_en }}
                   </td>
+									<td>{{ cat.parent_id }}</td>
                   <td>{{ cat.articles }}</td>
-                  <td>{{ cat.updated_at }}</td>
+<!--                   <td>{{ cat.updated_at }}</td> -->
                   <td class="text-secondary">
                     <i
                       class="fa fa-close"
@@ -78,30 +128,32 @@
                 </tr>
               </tbody>
             </table>
-            <div class="col-sm-12 col-md-5">
-              <div
-                  class="form-inline"
-                >Записи с {{ pagination.from }} до {{ pagination.to }} из {{ pagination.total }} записей</div>
-            </div>
+						<div class="row">
+							<div class="col-sm-12 col-md-5">
+								<div
+										class="d-inline"
+									>Записи с {{ pagination.from }} до {{ pagination.to }} из {{ pagination.total }} записей</div>
+							</div>
 
-            <div class="col-sm-12 col-md-7">
-              <div class="float-right">
-                <paginate
-                  v-model="pagination.currentPage"
-                  :page-count="pagination.pageCount"
-                  :click-handler="fetch"
-                  :prev-text="'Предыдущая'"
-                  :next-text="'Следующая'"
-                  :container-class="'pagination mb-0'"
-                  :page-class="'page-item'"
-                  :prev-class="'page-item'"
-                  :next-class="'page-item'"
-                  :page-link-class="'page-link'"
-                  :prev-link-class="'page-link'"
-                  :next-link-class="'page-link'"
-                ></paginate>
-              </div>
-            </div>
+							<div class="col-sm-12 col-md-7">
+								<div class="float-right">
+									<paginate
+										v-model="page"
+										:page-count="pagination.pageCount"
+										:prev-text="'«'"
+										:next-text="'»'"
+										:container-class="'pagination mb-0'"
+										:page-class="'page-item'"
+										:prev-class="'page-item'"
+										:next-class="'page-item'"
+										:page-link-class="'page-link'"
+										:prev-link-class="'page-link'"
+										:next-link-class="'page-link'"
+									></paginate>
+								</div>
+							</div>
+	
+						</div>
         </div>
       </div>
     </div>
@@ -122,28 +174,52 @@ export default {
   data() {
     return {
       categories: [],
+			currentCat: {
+				id: "",
+				name_ru: "",
+				name_en: "",
+				parent_id: 0,
+			},
       paginateOptions: [5, 10, 25, 50, 100],
 			paginateSelect: 10,
+			
 			search: "",
 			sortBy: "name_ru",
 			// orderBy: "asc",
-			orderByAsc: true
+			orderByAsc: true,
+			
+			title: "Новая рубрика",
+			submitBtnTitle: "Добавить новую рубрику",
+			
+			page: 1,
     }
   },
   
   computed: {
-		orderedCategories: function() {
-			return _.orderBy(this.users, this.sortBy, this.orderBy);
+		searchedCategories: function() {
+			if (!this.search) { return this.categories	};
+			var self = this;
+			return this.categories.filter(function (cat) {
+				if( cat.name_ru.toLowerCase().indexOf(self.search.toLowerCase()) !== -1 ||
+						cat.name_en.toLowerCase().indexOf(self.search.toLowerCase()) !== -1
+					) {
+					 return true;
+				}	else { return false }
+			})
 		},
-
+		
+		orderedCategories: function() {
+			return _.orderBy(this.searchedCategories, this.sortBy, this.orderBy);
+		},
+		
 		pagination() {
-			return {
-				pageCount: 1,
-				currentPage: 1,
-				from: 1,
-				to: 1,
-				total: 1
-			};
+				return {
+					pageCount: Math.ceil(this.orderedCategories.length / this.paginateSelect),
+					currentPage: this.page,
+					from: 1 + this.paginateSelect * (this.page - 1),
+					to: Math.min(this.orderedCategories.length, this.paginateSelect * this.page),
+					total: this.orderedCategories.length
+				};
 		},
 
 		orderBy() {
@@ -152,6 +228,10 @@ export default {
 			} else {
 				return "desc";
 			}
+		},
+		
+		clearBtnClass() {
+			if (this.currentCat.id) {return 'btn-outline-primary'} else {return 'btn-outline-secondary disabled'}; 
 		}
 	},
   
@@ -164,20 +244,15 @@ export default {
 			axios
 				.get("/api/categories", {
 					params: {
-						paginate: this.paginateSelect,
-						page: page,
+// 						paginate: this.paginateSelect,
+// 						page: page,
 						sortBy: this.sortBy,
 						orderBy: this.orderBy,
 						search: this.search
 					}
 				})
 				.then(({ data }) => {
-					this.categories = data.data;
-					this.pagination.pageCount = data.last_page;
-					this.pagination.currentPage = data.current_page;
-					this.pagination.from = data.from;
-					this.pagination.to = data.to;
-					this.pagination.total = data.total;
+					this.categories = data;
 				});
 		},
     
@@ -186,7 +261,9 @@ export default {
     },
     
     showCategory(index) {
-      
+			this.title = "Рубрика №" + this.categories[index].id;
+			this.submitBtnTitle = "Обновить"
+      this.currentCat = this.categories[index];
     },
     
     deleteCategory(index) {
@@ -194,13 +271,21 @@ export default {
     },
     
     clearForm() {
-      
+      this.titile = "Новая рубрика";
+			this.submitBtnTitle = "Добавить новую рубрику"
+			this.currentCat = {
+				id: "",
+				name_ru: "",
+				name_en: "",
+				parent_id: 0,
+			};
     },
     
     setOrder(sortBy) {
 			this.sortBy = sortBy;
 			this.orderByAsc = !this.orderByAsc;
-			this.fetch();
+			this.page = 1;
+// 			this.fetch();
 		},
     
     showOrder(linkOrder) {

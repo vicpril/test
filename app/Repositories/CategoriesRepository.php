@@ -38,7 +38,7 @@ class CategoriesRepository extends Repository{
 								->where('c.name_ru', 'like', "%".$search."%")
 								->orWhere('c.name_en', 'like', "%".$search."%")
 								->orderBy($sortBy, $orderBy)
-								->paginate($paginate);
+								->get();
 
         return $cats;
 
