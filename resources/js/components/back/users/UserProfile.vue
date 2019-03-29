@@ -480,8 +480,6 @@ export default {
 			}
 		},
 
-		autocompliteDescriptionEn() {},
-
 		deleteUser() {
 			if (confirm("Удалить пользователя " + this.user.full_name + "?")) {
 				axios.delete("/admin/users/" + this.user.id).then(resp => {

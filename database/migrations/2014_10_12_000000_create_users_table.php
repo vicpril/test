@@ -19,12 +19,19 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('alias')->unique();
             $table->string('password');
+            // API authentication token
+            $table->string('api_token', 80)
+                        ->unique()
+                        ->nullable()
+                        ->default(null);
+          
             $table->string('role');
 //             $table->string('avatar_id')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
 
             $table->string('orcid')->nullable();
+          
 
         });
     }

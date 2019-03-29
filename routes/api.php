@@ -17,6 +17,13 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::apiResource('users', 'Api\UsersController');
-Route::apiResource('categories', 'Api\CategoriesController');
+Route::apiResource('users', 'Api\UsersController')->except('index')->middleware('auth:api');
+Route::apiResource('users', 'Api\UsersController')->only('index');
+
+Route::apiResource('categories', 'Api\CategoriesController')->except('index')->middleware('auth:api');
+Route::apiResource('categories', 'Api\CategoriesController')->only('index');
+
+
+// Route::middleware('auth:api')->get('categories', 'Api\CategoriesController@index');
+
 

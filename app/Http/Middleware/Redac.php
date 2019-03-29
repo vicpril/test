@@ -21,7 +21,8 @@ class Redac
              return $next($request);
         }
 
-        return redirect()->route('login');
+//         return redirect()->route('login');
+        return response('Unauthorized.', 401);
        
     }
 }

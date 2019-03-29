@@ -498,8 +498,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -580,8 +578,6 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get("/api/categories", {
         params: {
-          // 						paginate: this.paginateSelect,
-          // 						page: page,
           sortBy: this.sortBy,
           orderBy: this.orderBy,
           search: this.search
@@ -591,15 +587,68 @@ __webpack_require__.r(__webpack_exports__);
         _this.categories = data;
       });
     },
-    saveCategory: function saveCategory(index) {},
+    saveCategory: function saveCategory() {
+      var _this2 = this;
+
+      var params = {
+        name_ru: this.currentCat.name_ru,
+        name_en: this.currentCat.name_en,
+        parent_id: this.currentCat.parent_id
+      };
+
+      if (this.currentCat.id) {
+        axios.put("/api/categories/" + this.currentCat.id, params).then(function (resp) {
+          if (resp.data.status === "success") {
+            _this2.$notify({
+              group: "custom-template",
+              type: "alert-success",
+              text: resp.data.message,
+              duration: -1
+            });
+
+            _this2.fetch();
+          }
+        });
+      } else {
+        axios.post("/api/categories", params).then(function (resp) {
+          if (resp.data.status === "success") {
+            _this2.$notify({
+              group: "custom-template",
+              type: "alert-success",
+              text: resp.data.message,
+              duration: -1
+            });
+
+            _this2.fetch();
+          }
+        });
+      }
+    },
     showCategory: function showCategory(index) {
       this.title = "Рубрика №" + this.categories[index].id;
       this.submitBtnTitle = "Обновить";
       this.currentCat = this.categories[index];
     },
-    deleteCategory: function deleteCategory(index) {},
+    deleteCategory: function deleteCategory(index) {
+      var _this3 = this;
+
+      if (confirm("Удалить рубрику " + this.categories[index].name_ru + "?")) {
+        axios.delete("/api/categories/" + this.categories[index].id).then(function (resp) {
+          if (resp.data.status === "success") {
+            _this3.categories.splice(index, 1);
+
+            _this3.$notify({
+              group: "custom-template",
+              type: "alert-success",
+              text: resp.data.message,
+              duration: -1
+            });
+          }
+        });
+      }
+    },
     clearForm: function clearForm() {
-      this.titile = "Новая рубрика";
+      this.title = "Новая рубрика";
       this.submitBtnTitle = "Добавить новую рубрику";
       this.currentCat = {
         id: "",
@@ -611,7 +660,7 @@ __webpack_require__.r(__webpack_exports__);
     setOrder: function setOrder(sortBy) {
       this.sortBy = sortBy;
       this.orderByAsc = !this.orderByAsc;
-      this.page = 1; // 			this.fetch();
+      this.page = 1;
     },
     showOrder: function showOrder(linkOrder) {
       if (linkOrder === this.sortBy) {
@@ -1344,7 +1393,6 @@ __webpack_require__.r(__webpack_exports__);
         this.user.description_en = $.render.tmpl(data);
       }
     },
-    autocompliteDescriptionEn: function autocompliteDescriptionEn() {},
     deleteUser: function deleteUser() {
       var _this2 = this;
 
@@ -48685,7 +48733,11 @@ var render = function() {
                     _vm._l(_vm.categories, function(cat, index) {
                       return _c(
                         "option",
-                        { key: index, domProps: { value: cat.id } },
+                        {
+                          key: index,
+                          attrs: { disabled: _vm.currentCat.id === cat.id },
+                          domProps: { value: cat.id }
+                        },
                         [
                           _vm._v(
                             "\n\t\t\t\t\t\t\t\t\t\t" +
@@ -50458,7 +50510,20 @@ if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
+} // API token
+
+
+var api_token = document.head.querySelector('meta[name="api-token"]');
+
+if (api_token) {
+  //   window.axios.defaults.params = {api_token: api_token.content};
+  window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + api_token.content;
+} // else {
+//   console.error(
+//     'API token not found'
+//   );
+// }
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

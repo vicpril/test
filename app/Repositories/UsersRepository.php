@@ -72,8 +72,8 @@ class UsersRepository extends Repository
     public function getUsersList(\Illuminate\Http\Request $request) {
         $paginate = ($request->input('paginate')) ? $request->input('paginate') : '';
         $search = ($request->input('search')) ? $request->input('search') : '';
-        $sortBy = ($request->input('sortBy')) ? $request->input('sortBy') : '';
-        $orderBy = ($request->input('orderBy')) ? $request->input('orderBy') : '';
+        $sortBy = ($request->input('sortBy')) ? $request->input('sortBy') : 'id';
+        $orderBy = ($request->input('orderBy')) ? $request->input('orderBy') : 'asc';
 
         $users_id = $this->getSortedIdArray($search, $sortBy, $orderBy);
 

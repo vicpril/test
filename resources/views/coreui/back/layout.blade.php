@@ -11,6 +11,9 @@
       <meta name="author" content="" />
       <meta name="keyword" content="" />
       <meta name="csrf-token" content="{{ csrf_token() }}" />
+		 	
+		 	@if(Auth::user()->api_token)<meta name="api-token" content="{{ Auth::user()->api_token }}" />@endif
+		 	
       <title>
          {{ $title }}
          @if(isset($subtitle)) | {{ $subtitle }}

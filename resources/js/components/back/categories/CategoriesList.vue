@@ -30,7 +30,8 @@
 								<label class="h6">Родительская рубрика</label>
 								<select class="form-control" v-model="currentCat.parent_id">
 									<option value="0">Нет</option>
-									<option v-for="(cat, index) in categories" :key="index" v-bind:value="cat.id">
+									<option v-for="(cat, index) in categories" :key="index" v-bind:value="cat.id"
+													:disabled="currentCat.id === cat.id">
 										{{ cat.name_ru }}
 									</option>
 								</select>
@@ -99,7 +100,6 @@
 										:class="showOrder('articles')"
 										@click="setOrder('articles')"
 									>Статьи</th>
-<!-- 									<th class="sorting" :class="showOrder('updated_at')" @click="setOrder('updated_at')">Дата</th> -->
 									<th></th>
 								</tr>
               </thead>
@@ -116,7 +116,6 @@
                   </td>
 									<td>{{ cat.parent_id }}</td>
                   <td>{{ cat.articles }}</td>
-<!--                   <td>{{ cat.updated_at }}</td> -->
                   <td class="text-secondary">
                     <i
                       class="fa fa-close"
@@ -158,7 +157,6 @@
       </div>
     </div>
     
-<!--     <div class="col-md-5"></div> -->
   </div>
 </div>
 
@@ -243,12 +241,11 @@ export default {
     fetch(page = 1) {
 			axios
 				.get("/api/categories", {
+					
 					params: {
-// 						paginate: this.paginateSelect,
-// 						page: page,
 						sortBy: this.sortBy,
 						orderBy: this.orderBy,
-						search: this.search
+						search: this.search,
 					}
 				})
 				.then(({ data }) => {
@@ -256,8 +253,37 @@ export default {
 				});
 		},
     
-    saveCategory(index) {
-      
+    saveCategory() {
+			const params = {
+				name_ru: this.currentCat.name_ru,
+				name_en: this.currentCat.name_en,
+				parent_id: this.currentCat.parent_id
+			};
+			if(this.currentCat.id) {
+				axios.put("/api/categories/" + this.currentCat.id, params).then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+						this.fetch();
+					}
+				});
+			}	else {
+				axios.post("/api/categories", params).then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+						this.fetch();
+					}
+				});
+			}
     },
     
     showCategory(index) {
@@ -267,11 +293,25 @@ export default {
     },
     
     deleteCategory(index) {
-      
+      if (
+				confirm("Удалить рубрику " + this.categories[index].name_ru + "?")
+			) {
+				axios.delete("/api/categories/" + this.categories[index].id).then(resp => {
+					if (resp.data.status === "success") {
+						this.categories.splice(index, 1);
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+					}
+				});
+			}
     },
     
     clearForm() {
-      this.titile = "Новая рубрика";
+      this.title = "Новая рубрика";
 			this.submitBtnTitle = "Добавить новую рубрику"
 			this.currentCat = {
 				id: "",
@@ -285,7 +325,6 @@ export default {
 			this.sortBy = sortBy;
 			this.orderByAsc = !this.orderByAsc;
 			this.page = 1;
-// 			this.fetch();
 		},
     
     showOrder(linkOrder) {

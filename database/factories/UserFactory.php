@@ -25,6 +25,7 @@ $factory->define(Idea\Models\User::class, function (Faker\Generator $faker) use 
         // 'name' => $localisedFaker->name,
         'email' => $localisedFaker->unique()->safeEmail,
         'password' => bcrypt('123'),
+// 				'api_token' => str_random(60),
         'alias' => 'user-' . $localisedFaker->unique()->numerify('####'),
         'role' => 'author',
         'orcid' => str_random(6),
