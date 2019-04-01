@@ -23,8 +23,7 @@ Vue.use(VueRouter);
 import Vuex from "vuex";
 Vue.use(Vuex);
 // create Vuex store
-import { store } from "./components/back/store/store.js";
-// const store = new Vuex.Store({state});
+// import { store } from "./components/back/store/store.js";
 
 //Notification
 import Notifications from "vue-notification";
@@ -114,6 +113,6 @@ const router = new VueRouter({
 
 const app = new Vue({
    router,
-   store,
+//    store,
    el: "#app"
 });

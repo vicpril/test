@@ -2858,7 +2858,7 @@ __webpack_require__.r(__webpack_exports__);
     showCategory: function showCategory(index) {
       this.title = "Рубрика №" + this.categories[index].id;
       this.submitBtnTitle = "Обновить";
-      this.currentCat = this.categories[index];
+      this.currentCat = _.cloneDeep(this.categories[index]);
     },
     deleteCategory: function deleteCategory(index) {
       var _this3 = this;
@@ -59746,9 +59746,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_back_store_store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/back/store/store.js */ "./resources/js/components/back/store/store.js");
-/* harmony import */ var vue_notification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-notification */ "./node_modules/vue-notification/dist/index.js");
-/* harmony import */ var vue_notification__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_notification__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_notification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-notification */ "./node_modules/vue-notification/dist/index.js");
+/* harmony import */ var vue_notification__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_notification__WEBPACK_IMPORTED_MODULE_2__);
 // jquery
 // popper
 // bootstrap
@@ -59770,12 +59769,11 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]); //Vuex
 
 
 Vue.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); // create Vuex store
-
- // const store = new Vuex.Store({state});
+// import { store } from "./components/back/store/store.js";
 //Notification
 
 
-Vue.use(vue_notification__WEBPACK_IMPORTED_MODULE_3___default.a); //Media manager
+Vue.use(vue_notification__WEBPACK_IMPORTED_MODULE_2___default.a); //Media manager
 // Laravel v5.7
 
 __webpack_require__(/*! ../assets/vendor/MediaManager/js/manager.js */ "./resources/assets/vendor/MediaManager/js/manager.js");
@@ -59844,7 +59842,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 });
 var app = new Vue({
   router: router,
-  store: _components_back_store_store_js__WEBPACK_IMPORTED_MODULE_2__["store"],
+  //    store,
   el: "#app"
 });
 
@@ -60262,28 +60260,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoriesList_vue_vue_type_template_id_7425bcb0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/back/store/store.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/back/store/store.js ***!
-  \*****************************************************/
-/*! exports provided: store */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  state: {}
-});
 
 /***/ }),
 

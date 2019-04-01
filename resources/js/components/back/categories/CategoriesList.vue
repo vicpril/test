@@ -288,8 +288,8 @@ export default {
     
     showCategory(index) {
 			this.title = "Рубрика №" + this.categories[index].id;
-			this.submitBtnTitle = "Обновить"
-      this.currentCat = this.categories[index];
+			this.submitBtnTitle = "Обновить";
+      this.currentCat = _.cloneDeep(this.categories[index]);
     },
     
     deleteCategory(index) {
