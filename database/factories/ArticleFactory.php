@@ -19,7 +19,7 @@ $ruFaker = Faker\Factory::create("ru_RU");
 $enFaker = Faker\Factory::create("en_En");
 
 
-$factory->define(Idea\Models\Article::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
 
 	$i = $faker->unique()->numerify('####');
 

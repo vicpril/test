@@ -1,10 +1,10 @@
 <?php
 
-namespace Idea\Http\Controllers\Back;
+namespace App\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
-use Idea\Http\Controllers\Controller;
-use Idea\Models\User;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class AdminController extends Controller
 {

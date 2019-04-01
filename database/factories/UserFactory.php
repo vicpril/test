@@ -2,7 +2,7 @@
 
 // use Faker\Generator as Faker;
 
-use Idea\Models\MetaUser as MetaUser;
+use App\Models\MetaUser as MetaUser;
 // use Transliterate;
 
 /*
@@ -19,7 +19,7 @@ use Idea\Models\MetaUser as MetaUser;
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $localisedFaker = Faker\Factory::create("ru_RU");
 
-$factory->define(Idea\Models\User::class, function (Faker\Generator $faker) use ($localisedFaker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) use ($localisedFaker) {
 
     return [
         // 'name' => $localisedFaker->name,
@@ -32,7 +32,7 @@ $factory->define(Idea\Models\User::class, function (Faker\Generator $faker) use 
     ];
 });
 
-$factory->afterCreating(Idea\Models\User::class, function ($user, $faker) use ($localisedFaker) {
+$factory->afterCreating(App\Models\User::class, function ($user, $faker) use ($localisedFaker) {
     
     $i = $localisedFaker->numerify('####');
     $j = $localisedFaker->numerify('####');

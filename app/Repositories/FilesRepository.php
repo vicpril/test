@@ -1,8 +1,8 @@
 <?php 
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
-use Idea\Models\File;
+use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Idea\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,7 +24,7 @@ class Category extends Model
 
 
     public function articles() {
-    	return $this->belongsToMany('Idea\Models\Article', 'article_category');
+    	return $this->belongsToMany('App\Models\Article', 'article_category');
     }
 
 

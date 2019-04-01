@@ -1,12 +1,12 @@
 <?php
 
-namespace Idea\Http\Controllers\Api;
+namespace App\Http\Controllers\Api;
 use DB;
-use Idea\Models\User;
-use Idea\Http\Resources\UserResource;
-use Idea\Repositories\UsersRepository;
+use App\Models\User;
+use App\Http\Resources\UserResource;
+use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
-use Idea\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
@@ -53,7 +53,7 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Idea\Models\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -65,7 +65,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Idea\Models\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -77,7 +77,7 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Idea\Models\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -88,7 +88,7 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Idea\Models\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

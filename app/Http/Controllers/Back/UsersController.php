@@ -1,11 +1,11 @@
 <?php
 
-namespace Idea\Http\Controllers\Back;
+namespace App\Http\Controllers\Back;
 
-use Idea\Http\Controllers\Back\AdminController;
-use Idea\Http\Requests\UserRequest;
-use Idea\Models\User;
-use Idea\Repositories\UsersRepository;
+use App\Http\Controllers\Back\AdminController;
+use App\Http\Requests\UserRequest;
+use App\Models\User;
+use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
 
 class UsersController extends AdminController

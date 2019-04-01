@@ -1,6 +1,6 @@
 <?php
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
 interface RepositoryInterface
 {

@@ -1,8 +1,8 @@
 <?php 
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
-use Idea\Models\SideMenu;
+use App\Models\SideMenu;
 
 class SideMenusRepository extends Repository{
 

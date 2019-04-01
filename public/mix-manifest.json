@@ -1,7 +1,7 @@
 {
     "/js/back.js": "/js/back.js",
     "/css/coreui.css": "/css/coreui.css",
-    "/assets/vendor/MediaManager/style.css": "/assets/vendor/MediaManager/style.css",
     "/js/manifest.js": "/js/manifest.js",
-    "/js/vendor.js": "/js/vendor.js"
+    "/js/vendor.js": "/js/vendor.js",
+    "/assets/vendor/MediaManager/style.css": "/assets/vendor/MediaManager/style.css"
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-// use Idea\Models\Category;
+// use App\Models\Category;
 
 class CategorySeeder extends Seeder
 {
@@ -13,6 +13,6 @@ class CategorySeeder extends Seeder
     public function run()
     {
         //
-        factory(Idea\Models\Category::class, 6)->create();
+        factory(App\Models\Category::class, 6)->create();
     }
 }

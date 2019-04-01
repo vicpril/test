@@ -1,6 +1,6 @@
 <?php
 
-namespace Idea\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,11 +21,11 @@ class MetaArticle extends Model
 
 
     public function article() {
-    	return $this->belongsTo('Idea\Models\Article');
+    	return $this->belongsTo('App\Models\Article');
     }
   
     public function file() {
-      return $this->belongsTo('Idea\Models\File');
+      return $this->belongsTo('App\Models\File');
     }
 
 }

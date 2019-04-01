@@ -17,7 +17,7 @@
 $ruFaker = Faker\Factory::create("ru_RU");
 $enFaker = Faker\Factory::create("en_En");
 
-$factory->define(Idea\Models\MetaArticle::class, function (Faker\Generator $faker) use ($ruFaker) {
+$factory->define(App\Models\MetaArticle::class, function (Faker\Generator $faker) use ($ruFaker) {
 
 	return [
         'lang' => 'ru',
@@ -30,7 +30,7 @@ $factory->define(Idea\Models\MetaArticle::class, function (Faker\Generator $fake
 });
 
 
-$factory->state(Idea\Models\MetaArticle::class, 'ru', function (Faker\Generator $faker) use ($ruFaker) {
+$factory->state(App\Models\MetaArticle::class, 'ru', function (Faker\Generator $faker) use ($ruFaker) {
 
 	return [
         'lang' => 'ru',
@@ -42,7 +42,7 @@ $factory->state(Idea\Models\MetaArticle::class, 'ru', function (Faker\Generator 
     ];
 });
 
-$factory->state(Idea\Models\MetaArticle::class, 'en', function (Faker\Generator $faker) use ($enFaker) {
+$factory->state(App\Models\MetaArticle::class, 'en', function (Faker\Generator $faker) use ($enFaker) {
 
 	return [
         'lang' => 'en',

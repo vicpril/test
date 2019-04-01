@@ -1,6 +1,6 @@
 <?php
 
-namespace Idea\Providers;
+namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Idea\Http\Controllers';
+    protected $namespace = 'App\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -29,15 +29,15 @@ class RouteServiceProvider extends ServiceProvider
         Route::pattern('alias','[\w-]+');
 
         Route::bind('article', function($value) {
-            return \Idea\Models\Article::where('id', $value)->first();
+            return \App\Models\Article::where('id', $value)->first();
         });
       
         Route::bind('user', function($value) {
-            return \Idea\Models\User::where('id', $value)->first();
+            return \App\Models\User::where('id', $value)->first();
         });
       
         Route::bind('category', function($value) {
-            return \Idea\Models\Category::where('id', $value)->first();
+            return \App\Models\Category::where('id', $value)->first();
         });
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Idea\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,10 +14,10 @@ class File extends Model
     public $timestamps = true;
   
     public function article() {
-        return $this->hasMany('Idea\Models\MetaArticle', 'file', 'id');
+        return $this->hasMany('App\Models\MetaArticle', 'file', 'id');
     }
   
     public function user() {
-        return $this->hasMany('Idea\Models\User', 'avatar', 'id');
+        return $this->hasMany('App\Models\User', 'avatar', 'id');
     }
 }

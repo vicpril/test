@@ -1,6 +1,6 @@
 <?php
 
-namespace Idea\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,27 +29,27 @@ class Article extends Model
     
 
     public function status() {
-    	return $this->belongsTo('Idea\Models\Status');
+    	return $this->belongsTo('App\Models\Status');
     }
 
     public function issue() {
-        return $this->belongsTo('Idea\Models\Issue');
+        return $this->belongsTo('App\Models\Issue');
     }
 
     public function tags() {
-    	return $this->belongsToMany('Idea\Models\Tag', 'article_tag');
+    	return $this->belongsToMany('App\Models\Tag', 'article_tag');
     }
 
     public function categories() {
-    	return $this->belongsToMany('Idea\Models\Category', 'article_category');
+    	return $this->belongsToMany('App\Models\Category', 'article_category');
     }
 
     public function users() {
-    	return $this->belongsToMany('Idea\Models\User', 'article_user');
+    	return $this->belongsToMany('App\Models\User', 'article_user');
     }
 
     public function meta()  {
-        return $this->hasMany('Idea\Models\MetaArticle', 'article_id');
+        return $this->hasMany('App\Models\MetaArticle', 'article_id');
     }
 
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace Idea\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Idea\Models\Article;
+use App\Models\Article;
 
 class IndexController extends SiteController
 {
     //
 	public function __construct() {
-		parent::__construct(new \Idea\Repositories\MenusRepository(new \Idea\Models\Menu));
+		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
 
 		$this->template = env('THEME').'.index';
 	}

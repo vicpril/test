@@ -1,8 +1,8 @@
 <?php 
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
-use Idea\Models\Issue;
+use App\Models\Issue;
 
 class IssuesRepository extends Repository{
 

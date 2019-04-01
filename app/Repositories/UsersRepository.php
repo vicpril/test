@@ -1,9 +1,9 @@
 <?php
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
 use DB;
-use Idea\Models\User;
+use App\Models\User;
 
 use Transliterate;
 

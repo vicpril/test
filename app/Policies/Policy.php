@@ -1,8 +1,8 @@
 <?php
 
-namespace Idea\Policies;
+namespace App\Policies;
 
-use Idea\Models\User;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class Policy

@@ -1,8 +1,8 @@
 <?php 
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
-use Idea\Models\Menu;
+use App\Models\Menu;
 
 class MenusRepository extends Repository{
 

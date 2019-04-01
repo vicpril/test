@@ -1,8 +1,8 @@
 <?php 
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
-use Idea\Models\Tag;
+use App\Models\Tag;
 
 class TagsRepository extends Repository{
 

@@ -31,11 +31,11 @@ VueTouch.registerCustomEvent('hold', {type: 'press', time: 500})
 Vue.use(VueTouch)
 
 // axios
-window.axios = require('axios')
-axios.defaults.headers.common = {
-    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    'X-Requested-With': 'XMLHttpRequest'
-}
+// window.axios = require('axios')
+// axios.defaults.headers.common = {
+//     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+//     'X-Requested-With': 'XMLHttpRequest'
+// }
 axios.interceptors.response.use(
     (response) => response,
     (error) => Promise.reject(error.response)

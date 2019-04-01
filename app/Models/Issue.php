@@ -1,6 +1,6 @@
 <?php
 
-namespace Idea\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,7 @@ class Issue extends Model
 	// 						];
     
     public function articles () {
-    	return $this->hasMany('Idea\Models\Article');
+    	return $this->hasMany('App\Models\Article');
     }
 
     

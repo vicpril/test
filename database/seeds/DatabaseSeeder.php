@@ -2,11 +2,11 @@
 
 use Illuminate\Database\Seeder;
 
-use Idea\Models\Article;
-use Idea\Models\MetaArticle;
-use Idea\Models\User;
-use Idea\Models\Job;
-use Idea\Models\MetaUser;
+use App\Models\Article;
+use App\Models\MetaArticle;
+use App\Models\User;
+use App\Models\Job;
+use App\Models\MetaUser;
 
 use Faker\Factory as Faker;
 

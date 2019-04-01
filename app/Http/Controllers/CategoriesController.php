@@ -1,16 +1,16 @@
 <?php
 
-namespace Idea\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Idea\Repositories\CategoriesRepository;
+use App\Repositories\CategoriesRepository;
 
 class CategoriesController extends SiteController
 {
     //
     public function __construct(CategoriesRepository $c_rep) {
-		parent::__construct(new \Idea\Repositories\MenusRepository(new \Idea\Models\Menu));
+		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
 
 		$this->c_rep = $c_rep;
 

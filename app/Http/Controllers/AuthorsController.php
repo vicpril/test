@@ -1,17 +1,17 @@
 <?php
 
-namespace Idea\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Idea\Repositories\UsersRepository;
+use App\Repositories\UsersRepository;
 
 use Config;
 
 class AuthorsController extends SiteController
 {
     public function __construct(UsersRepository $u_rep) {
-		parent::__construct(new \Idea\Repositories\MenusRepository(new \Idea\Models\Menu));
+		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
 
 		$this->u_rep = $u_rep;
 

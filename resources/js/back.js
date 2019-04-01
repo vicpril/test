@@ -26,18 +26,13 @@ Vue.use(Vuex);
 import { store } from "./components/back/store/store.js";
 // const store = new Vuex.Store({state});
 
-//Vue Laravel FileManager https://github.com/alexusmai/vue-laravel-file-manager
-// import FileManager from "laravel-file-manager";
-// import filemanagerConfig from "./plugins/filemanager/config.js";
-// Vue.use(FileManager, { store });
-
 //Notification
 import Notifications from "vue-notification";
 Vue.use(Notifications);
 
 //Media manager
 // Laravel v5.7
-require("../assets/vendor/MediaManager/js/manager");
+require("../assets/vendor/MediaManager/js/manager.js");
 
 /**
  * The following block of code may be used to automatically register your
@@ -62,10 +57,7 @@ Vue.component(
    require("./components/back/categories/CategoriesList.vue").default
 );
 //MediaManager Component
-// Vue.component(
-//    "media-manager",
-//    require("./components/back/MediaManager.vue").default
-// );
+Vue.component('ExampleComp', require('./components/back/MediaManager.vue').default)
 
 Vue.component("alert", require("./components/back/Alert.vue").default);
 Vue.component("vue-test", require("./components/back/VueTest.vue").default);

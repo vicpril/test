@@ -1,12 +1,12 @@
 <?php
 
-namespace Idea\Http\Controllers\Back;
+namespace App\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
-use Idea\Http\Requests\JobRequest;
-use Idea\Http\Controllers\Back\AdminController;
-use Idea\Models\Job;
-use Idea\Repositories\JobsRepository;
+use App\Http\Requests\JobRequest;
+use App\Http\Controllers\Back\AdminController;
+use App\Models\Job;
+use App\Repositories\JobsRepository;
 use Illuminate\Support\Facades\Auth;
 
 class JobsController extends AdminController    

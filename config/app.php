@@ -91,7 +91,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'ru',
+    'fallback_locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -172,15 +172,15 @@ return [
         /*
          * Application Service Providers...
          */
-        Idea\Providers\AppServiceProvider::class,
-        Idea\Providers\AuthServiceProvider::class,
-        // Idea\Providers\BroadcastServiceProvider::class,
-        Idea\Providers\EventServiceProvider::class,
-        Idea\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
         ElForastero\Transliterate\TransliterationServiceProvider::class,
         // Barryvdh\Elfinder\ElfinderServiceProvider::class,
-        Idea\Providers\Select2ServiceProvider::class,
+        App\Providers\Select2ServiceProvider::class,
         //MediaManager
         ctf0\MediaManager\MediaManagerServiceProvider::class,
         

@@ -1,10 +1,10 @@
 <?php 
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
 use DB;
 use Transliterate;
-use Idea\Models\Category;
+use App\Models\Category;
 
 
 class CategoriesRepository extends Repository{

@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 // $ruFaker = Faker\Factory::create("ru_RU");
 
-$factory->define(Idea\Models\Category::class, function (Faker $faker) {
+$factory->define(App\Models\Category::class, function (Faker $faker) {
     $i = $faker->unique()->numerify('##');
     return [
         //

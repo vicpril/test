@@ -1,15 +1,15 @@
 <?php
 
-namespace Idea\Observers;
+namespace App\Observers;
 
-use Idea\Models\Article;
+use App\Models\Article;
 
 class ArticleObserver
 {
     /**
      * Handle the article "created" event.
      *
-     * @param  \Idea\Article  $article
+     * @param  \App\Article  $article
      * @return void
      */
     public function created(Article $article)
@@ -20,7 +20,7 @@ class ArticleObserver
     /**
      * Handle the article "updated" event.
      *
-     * @param  \Idea\Article  $article
+     * @param  \App\Article  $article
      * @return void
      */
     public function updated(Article $article)
@@ -31,7 +31,7 @@ class ArticleObserver
     /**
      * Handle the article "deleting" event.
      *
-     * @param  \Idea\Article  $article
+     * @param  \App\Article  $article
      * @return void
      */
     public function deleting(Article $article)
@@ -52,7 +52,7 @@ class ArticleObserver
     /**
      * Handle the article "restored" event.
      *
-     * @param  \Idea\Article  $article
+     * @param  \App\Article  $article
      * @return void
      */
     public function restored(Article $article)
@@ -63,7 +63,7 @@ class ArticleObserver
     /**
      * Handle the article "force deleted" event.
      *
-     * @param  \Idea\Article  $article
+     * @param  \App\Article  $article
      * @return void
      */
     public function forceDeleted(Article $article)

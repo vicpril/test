@@ -1,6 +1,6 @@
 <?php
 
-namespace Idea\Models;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,20 +36,20 @@ class User extends Authenticatable
   
 
     public function articles() {
-        return $this->belongsToMany('Idea\Models\Article', 'article_user');
+        return $this->belongsToMany('App\Models\Article', 'article_user');
     }
 
     public function jobs() {
-        return $this->belongsToMany('Idea\Models\Job', 'user_job');
+        return $this->belongsToMany('App\Models\Job', 'user_job');
     }
 
     public function meta()  {
-        return $this->hasMany('Idea\Models\MetaUser', 'user_id');
+        return $this->hasMany('App\Models\MetaUser', 'user_id');
                     
     }
   
     public function avatar()  {
-        return $this->belongsTo('Idea\Models\File');
+        return $this->belongsTo('App\Models\File');
     }
 
     /*

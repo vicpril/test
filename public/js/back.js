@@ -1504,16 +1504,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    contentRatio: __webpack_require__(/*! ./utils/ratio.vue */ "./resources/assets/vendor/MediaManager/js/components/utils/ratio.vue"),
-    globalSearchBtn: __webpack_require__(/*! ./globalSearch/button.vue */ "./resources/assets/vendor/MediaManager/js/components/globalSearch/button.vue"),
-    globalSearchPanel: __webpack_require__(/*! ./globalSearch/panel.vue */ "./resources/assets/vendor/MediaManager/js/components/globalSearch/panel.vue"),
-    imageCache: __webpack_require__(/*! ./lazyLoading/cache.vue */ "./resources/assets/vendor/MediaManager/js/components/lazyLoading/cache.vue"),
-    imageEditor: __webpack_require__(/*! ./imageEditor/main.vue */ "./resources/assets/vendor/MediaManager/js/components/imageEditor/main.vue"),
-    imageIntersect: __webpack_require__(/*! ./lazyLoading/normal.vue */ "./resources/assets/vendor/MediaManager/js/components/lazyLoading/normal.vue"),
-    overlay: __webpack_require__(/*! ./utils/overlay.vue */ "./resources/assets/vendor/MediaManager/js/components/utils/overlay.vue"),
-    usageIntroBtn: __webpack_require__(/*! ./usageIntro/button.vue */ "./resources/assets/vendor/MediaManager/js/components/usageIntro/button.vue"),
-    usageIntroPanel: __webpack_require__(/*! ./usageIntro/panel.vue */ "./resources/assets/vendor/MediaManager/js/components/usageIntro/panel.vue"),
-    videoDimension: __webpack_require__(/*! ./utils/video-dim.vue */ "./resources/assets/vendor/MediaManager/js/components/utils/video-dim.vue")
+    contentRatio: __webpack_require__(/*! ./utils/ratio.vue */ "./resources/assets/vendor/MediaManager/js/components/utils/ratio.vue").default,
+    globalSearchBtn: __webpack_require__(/*! ./globalSearch/button.vue */ "./resources/assets/vendor/MediaManager/js/components/globalSearch/button.vue").default,
+    globalSearchPanel: __webpack_require__(/*! ./globalSearch/panel.vue */ "./resources/assets/vendor/MediaManager/js/components/globalSearch/panel.vue").default,
+    imageCache: __webpack_require__(/*! ./lazyLoading/cache.vue */ "./resources/assets/vendor/MediaManager/js/components/lazyLoading/cache.vue").default,
+    imageEditor: __webpack_require__(/*! ./imageEditor/main.vue */ "./resources/assets/vendor/MediaManager/js/components/imageEditor/main.vue").default,
+    imageIntersect: __webpack_require__(/*! ./lazyLoading/normal.vue */ "./resources/assets/vendor/MediaManager/js/components/lazyLoading/normal.vue").default,
+    overlay: __webpack_require__(/*! ./utils/overlay.vue */ "./resources/assets/vendor/MediaManager/js/components/utils/overlay.vue").default,
+    usageIntroBtn: __webpack_require__(/*! ./usageIntro/button.vue */ "./resources/assets/vendor/MediaManager/js/components/usageIntro/button.vue").default,
+    usageIntroPanel: __webpack_require__(/*! ./usageIntro/panel.vue */ "./resources/assets/vendor/MediaManager/js/components/usageIntro/panel.vue").default,
+    videoDimension: __webpack_require__(/*! ./utils/video-dim.vue */ "./resources/assets/vendor/MediaManager/js/components/utils/video-dim.vue").default
   },
   name: 'media-manager',
   mixins: [vue2_filters__WEBPACK_IMPORTED_MODULE_1___default.a.mixin, _modules_broadcast__WEBPACK_IMPORTED_MODULE_2__["default"], _modules_bulk__WEBPACK_IMPORTED_MODULE_3__["default"], _modules_cache__WEBPACK_IMPORTED_MODULE_4__["default"], _modules_computed__WEBPACK_IMPORTED_MODULE_5__["default"], _modules_download__WEBPACK_IMPORTED_MODULE_6__["default"], _modules_form__WEBPACK_IMPORTED_MODULE_7__["default"], _modules_folder__WEBPACK_IMPORTED_MODULE_8__["default"], _modules_gestures__WEBPACK_IMPORTED_MODULE_9__["default"], _modules_image__WEBPACK_IMPORTED_MODULE_10__["default"], _modules_filtration__WEBPACK_IMPORTED_MODULE_11__["default"], _modules_visibility__WEBPACK_IMPORTED_MODULE_12__["default"], _modules_lock__WEBPACK_IMPORTED_MODULE_13__["default"], _modules_media_player__WEBPACK_IMPORTED_MODULE_14__["default"], _modules_restriction__WEBPACK_IMPORTED_MODULE_15__["default"], _modules_scroll__WEBPACK_IMPORTED_MODULE_16__["default"], _modules_selection__WEBPACK_IMPORTED_MODULE_17__["default"], _modules_url__WEBPACK_IMPORTED_MODULE_18__["default"], _modules_utils__WEBPACK_IMPORTED_MODULE_19__["default"], _modules_watch__WEBPACK_IMPORTED_MODULE_20__["default"]],
@@ -1988,6 +1988,70 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'image-modal',
+  props: {
+    'item': {
+      type: String,
+      required: true
+    },
+    'name': {
+      type: String,
+      required: true
+    },
+    'old': {
+      type: String,
+      required: false,
+      default: ''
+    },
+    'type': {
+      type: String,
+      required: false,
+      default: ''
+    },
+    'multi': {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (this.old) {
+      this.$parent[this.item] = this.old;
+    }
+
+    EventHub.listen('file_selected', function (path) {
+      if (_this.item == _this.name && _this.type !== 'folder' && !_this.multi) {
+        _this.$parent[_this.item] = path;
+      }
+    });
+    EventHub.listen('multi_file_selected', function (paths) {
+      if (_this.item == _this.name && _this.type !== 'folder' && _this.multi) {
+        _this.$parent[_this.item] = paths;
+      }
+    });
+    EventHub.listen('folder_selected', function (path) {
+      if (_this.item == _this.name && _this.type == 'folder') {
+        _this.$parent[_this.item] = path;
+      }
+    });
+  },
+  render: function render() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vendor/MediaManager/js/components/utils/overlay.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vendor/MediaManager/js/components/utils/overlay.vue?vue&type=script&lang=js& ***!
@@ -2196,6 +2260,36 @@ __webpack_require__.r(__webpack_exports__);
         duration: -1
       });
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/MediaManager.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/back/MediaManager.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _assets_vendor_MediaManager_js_mixins_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../assets/vendor/MediaManager/js/mixins/modal */ "./resources/assets/vendor/MediaManager/js/mixins/modal.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "example-comp",
+  mixins: [_assets_vendor_MediaManager_js_mixins_modal__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  // the inputs we want to use the manager for
+  // in our case they are the article 'cover' & 'gallery'
+  // for multi-selected files links "https://github.com/ctf0/Laravel-Media-Manager/issues/40#issuecomment-382416243"
+  //
+  // for usage with an editor only, you dont need this part
+  data: function data() {
+    return {
+      cover: "",
+      gallery: "",
+      links: ""
+    };
   }
 });
 
@@ -7508,7 +7602,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-1f022106],\r\nthead > tr > th.sorting_desc[data-v-1f022106],\r\nthead > tr > th.sorting[data-v-1f022106],\r\nthead > tr > td.sorting_asc[data-v-1f022106],\r\nthead > tr > td.sorting_desc[data-v-1f022106],\r\nthead > tr > td.sorting[data-v-1f022106] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-1f022106]:active,\r\nthead > tr > td[data-v-1f022106]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-1f022106],\r\nthead .sorting_asc[data-v-1f022106],\r\nthead .sorting_desc[data-v-1f022106],\r\nthead .sorting_asc_disabled[data-v-1f022106],\r\nthead .sorting_desc_disabled[data-v-1f022106] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-1f022106],\nthead > tr > th.sorting_desc[data-v-1f022106],\nthead > tr > th.sorting[data-v-1f022106],\nthead > tr > td.sorting_asc[data-v-1f022106],\nthead > tr > td.sorting_desc[data-v-1f022106],\nthead > tr > td.sorting[data-v-1f022106] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-1f022106]:active,\nthead > tr > td[data-v-1f022106]:active {\n\toutline: none;\n}\nthead .sorting[data-v-1f022106],\nthead .sorting_asc[data-v-1f022106],\nthead .sorting_desc[data-v-1f022106],\nthead .sorting_asc_disabled[data-v-1f022106],\nthead .sorting_desc_disabled[data-v-1f022106] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-1f022106]:before,\nthead .sorting[data-v-1f022106]:after,\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_asc[data-v-1f022106]:after,\nthead .sorting_desc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:after,\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_asc_disabled[data-v-1f022106]:after,\nthead .sorting_desc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-1f022106]:before,\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:before,\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-1f022106]:after,\nthead .sorting_asc[data-v-1f022106]:after,\nthead .sorting_desc[data-v-1f022106]:after,\nthead .sorting_asc_disabled[data-v-1f022106]:after,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -46133,9 +46227,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\r\n\t\t\t\t\t\t\t\t\t\t" +
+                            "\n\t\t\t\t\t\t\t\t\t\t" +
                               _vm._s(cat.name_ru) +
-                              "\r\n\t\t\t\t\t\t\t\t\t"
+                              "\n\t\t\t\t\t\t\t\t\t"
                           )
                         ]
                       )
@@ -46192,7 +46286,7 @@ var render = function() {
                 _c("div", { staticClass: "form-inline" }, [
                   _c("label", [
                     _vm._v(
-                      "\r\n                    Показать\r\n                    "
+                      "\n                    Показать\n                    "
                     ),
                     _c(
                       "select",
@@ -46237,7 +46331,7 @@ var render = function() {
                       }),
                       0
                     ),
-                    _vm._v(" записей\r\n                  ")
+                    _vm._v(" записей\n                  ")
                   ])
                 ])
               ]),
@@ -46246,7 +46340,7 @@ var render = function() {
                 _c("div", { staticClass: "form-inline float-right" }, [
                   _c("label", [
                     _vm._v(
-                      "\r\n                    Поиск:\r\n                    "
+                      "\n                    Поиск:\n                    "
                     ),
                     _c("input", {
                       directives: [
@@ -46355,9 +46449,9 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              "\r\n                    " +
+                              "\n                    " +
                                 _vm._s(cat.name_en) +
-                                "\r\n                  "
+                                "\n                  "
                             )
                           ]),
                           _vm._v(" "),
@@ -55281,6 +55375,56 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue":
+/*!*************************************************************************************!*\
+  !*** ./resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _external_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./external-modal.vue?vue&type=script&lang=js& */ "./resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _external_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_external_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./external-modal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_external_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/assets/vendor/MediaManager/js/components/utils/overlay.vue":
 /*!******************************************************************************!*\
   !*** ./resources/assets/vendor/MediaManager/js/components/utils/overlay.vue ***!
@@ -55556,12 +55700,12 @@ VueTouch.registerCustomEvent('hold', {
   time: 500
 });
 Vue.use(VueTouch); // axios
+// window.axios = require('axios')
+// axios.defaults.headers.common = {
+//     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+//     'X-Requested-With': 'XMLHttpRequest'
+// }
 
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-axios.defaults.headers.common = {
-  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-  'X-Requested-With': 'XMLHttpRequest'
-};
 axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
@@ -55667,6 +55811,40 @@ __webpack_require__.r(__webpack_exports__);
     },
     fetchImg: function fetchImg() {
       return Object(_webworker__WEBPACK_IMPORTED_MODULE_0__["loadImageWithWorker"])(this.file.path);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/assets/vendor/MediaManager/js/mixins/modal.js":
+/*!*****************************************************************!*\
+  !*** ./resources/assets/vendor/MediaManager/js/mixins/modal.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_utils_external_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/utils/external-modal.vue */ "./resources/assets/vendor/MediaManager/js/components/utils/external-modal.vue");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    MediaModal: _components_utils_external_modal_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      inputName: ''
+    };
+  },
+  methods: {
+    toggleModalFor: function toggleModalFor(name) {
+      this.inputName = name;
+      EventHub.fire('modal-show');
+    },
+    hideInputModal: function hideInputModal() {
+      this.inputName = '';
+      EventHub.fire('modal-hide');
     }
   }
 });
@@ -59594,17 +59772,13 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]); //Vuex
 Vue.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); // create Vuex store
 
  // const store = new Vuex.Store({state});
-//Vue Laravel FileManager https://github.com/alexusmai/vue-laravel-file-manager
-// import FileManager from "laravel-file-manager";
-// import filemanagerConfig from "./plugins/filemanager/config.js";
-// Vue.use(FileManager, { store });
 //Notification
 
 
 Vue.use(vue_notification__WEBPACK_IMPORTED_MODULE_3___default.a); //Media manager
 // Laravel v5.7
 
-__webpack_require__(/*! ../assets/vendor/MediaManager/js/manager */ "./resources/assets/vendor/MediaManager/js/manager.js");
+__webpack_require__(/*! ../assets/vendor/MediaManager/js/manager.js */ "./resources/assets/vendor/MediaManager/js/manager.js");
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -59619,11 +59793,8 @@ __webpack_require__(/*! ../assets/vendor/MediaManager/js/manager */ "./resources
 Vue.component("user-list", __webpack_require__(/*! ./components/back/users/UserList.vue */ "./resources/js/components/back/users/UserList.vue").default);
 Vue.component("user-profile", __webpack_require__(/*! ./components/back/users/UserProfile.vue */ "./resources/js/components/back/users/UserProfile.vue").default);
 Vue.component("categories-list", __webpack_require__(/*! ./components/back/categories/CategoriesList.vue */ "./resources/js/components/back/categories/CategoriesList.vue").default); //MediaManager Component
-// Vue.component(
-//    "media-manager",
-//    require("./components/back/MediaManager.vue").default
-// );
 
+Vue.component('ExampleComp', __webpack_require__(/*! ./components/back/MediaManager.vue */ "./resources/js/components/back/MediaManager.vue").default);
 Vue.component("alert", __webpack_require__(/*! ./components/back/Alert.vue */ "./resources/js/components/back/Alert.vue").default);
 Vue.component("vue-test", __webpack_require__(/*! ./components/back/VueTest.vue */ "./resources/js/components/back/VueTest.vue").default);
 Vue.mixin({
@@ -59816,6 +59987,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alert_vue_vue_type_template_id_6616dec2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/back/MediaManager.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/back/MediaManager.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MediaManager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MediaManager.vue?vue&type=script&lang=js& */ "./resources/js/components/back/MediaManager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _MediaManager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/back/MediaManager.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/back/MediaManager.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/back/MediaManager.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MediaManager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MediaManager.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/MediaManager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MediaManager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -60331,7 +60552,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  {{if full_name}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <strong>\r\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\r\n    </strong>\r\n  </span>\r\n  {{/if}}\r\n  {{if degree}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\">\r\n      <i><br>{{:degree}}</i>\r\n    </span>\r\n  </span>\r\n  {{/if}}\r\n  \r\n  {{if jobs}}\r\n  {{for jobs}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\r\n  </span>\r\n  {{/for}}\r\n  {{/if}}\r\n  \r\n  {{if orcid}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\r\n  </span>\r\n  {{/if}}\r\n</p>\r\n";
+module.exports = "<p>\n  {{if full_name}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <strong>\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\n    </strong>\n  </span>\n  {{/if}}\n  {{if degree}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\">\n      <i><br>{{:degree}}</i>\n    </span>\n  </span>\n  {{/if}}\n  \n  {{if jobs}}\n  {{for jobs}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\n  </span>\n  {{/for}}\n  {{/if}}\n  \n  {{if orcid}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\n  </span>\n  {{/if}}\n</p>\n";
 
 /***/ }),
 
@@ -61920,9 +62141,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\back.js */"./resources/js/back.js");
-__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\coreui\coreui.scss */"./resources/sass/coreui/coreui.scss");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\assets\vendor\MediaManager\sass\manager.scss */"./resources/assets/vendor/MediaManager/sass/manager.scss");
+__webpack_require__(/*! /home/cabox/workspace/resources/js/back.js */"./resources/js/back.js");
+__webpack_require__(/*! /home/cabox/workspace/resources/sass/coreui/coreui.scss */"./resources/sass/coreui/coreui.scss");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/assets/vendor/MediaManager/sass/manager.scss */"./resources/assets/vendor/MediaManager/sass/manager.scss");
 
 
 /***/ })

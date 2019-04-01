@@ -1,17 +1,17 @@
 <?php
 
-namespace Idea\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Idea\Repositories\IssuesRepository;
-use Idea\Repositories\ArticlesRepository;
+use App\Repositories\IssuesRepository;
+use App\Repositories\ArticlesRepository;
 
 class ArticlesController extends SiteController
 {
     //
     public function __construct(IssuesRepository $i_rep, ArticlesRepository $a_rep) {
-		parent::__construct(new \Idea\Repositories\MenusRepository(new \Idea\Models\Menu));
+		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
 
 		$this->i_rep = $i_rep;
 		$this->a_rep = $a_rep;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Idea\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Idea\Repositories\MenusRepository;
+use App\Repositories\MenusRepository;
 
 use Menu;
 

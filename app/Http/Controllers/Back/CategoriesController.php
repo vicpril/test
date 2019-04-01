@@ -1,10 +1,10 @@
 <?php
 
-namespace Idea\Http\Controllers\Back;
+namespace App\Http\Controllers\Back;
 
-use Idea\Categories;
+use App\Categories;
 use Illuminate\Http\Request;
-use Idea\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class CategoriesController extends AdminController
 {
@@ -47,7 +47,7 @@ class CategoriesController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \Idea\Categories  $categories
+     * @param  \App\Categories  $categories
      * @return \Illuminate\Http\Response
      */
     public function show(Categories $categories)
@@ -58,7 +58,7 @@ class CategoriesController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Idea\Categories  $categories
+     * @param  \App\Categories  $categories
      * @return \Illuminate\Http\Response
      */
     public function edit(Categories $categories)
@@ -70,7 +70,7 @@ class CategoriesController extends AdminController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Idea\Categories  $categories
+     * @param  \App\Categories  $categories
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Categories $categories)
@@ -81,7 +81,7 @@ class CategoriesController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Idea\Categories  $categories
+     * @param  \App\Categories  $categories
      * @return \Illuminate\Http\Response
      */
     public function destroy(Categories $categories)

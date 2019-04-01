@@ -2,7 +2,7 @@
 import MediaModal from "../../../assets/vendor/MediaManager/js/mixins/modal";
 
 export default {
-	name: "media-manager",
+	name: "example-comp",
 	mixins: [MediaModal],
 
 	// the inputs we want to use the manager for

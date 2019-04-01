@@ -1,17 +1,17 @@
 <?php
 
-namespace Idea\Http\Controllers\Back;
+namespace App\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
-use Idea\Http\Controllers\Controller;
-use Idea\Repositories\ArticlesRepository;
-use Idea\Repositories\CategoriesRepository;
-use Idea\Repositories\TagsRepository;
-use Idea\Repositories\UsersRepository;
-use Idea\Models\Article;
-use Idea\Models\Category;
-use Idea\Models\Tag;
-use Idea\Models\User;
+use App\Http\Controllers\Controller;
+use App\Repositories\ArticlesRepository;
+use App\Repositories\CategoriesRepository;
+use App\Repositories\TagsRepository;
+use App\Repositories\UsersRepository;
+use App\Models\Article;
+use App\Models\Category;
+use App\Models\Tag;
+use App\Models\User;
 
 
 class ArticlesController extends Controller
@@ -27,7 +27,7 @@ class ArticlesController extends Controller
     /**
      * Create a new ArticleController instance.
      *
-     * @param  \Idea\Repositories\ArticlesRepository $a_rep
+     * @param  \App\Repositories\ArticlesRepository $a_rep
      */
     public function __construct(ArticlesRepository $a_rep, CategoriesRepository $c_rep, TagsRepository $t_rep, UsersRepository $u_rep)
     {

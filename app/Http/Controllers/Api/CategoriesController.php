@@ -1,15 +1,15 @@
 <?php
 
-namespace Idea\Http\Controllers\Api;
+namespace App\Http\Controllers\Api;
 
 use DB;
 use Route;
-use Idea\Models\Category;
-use Idea\Http\Resources\CategoryResource;
-use Idea\Repositories\CategoriesRepository;
+use App\Models\Category;
+use App\Http\Resources\CategoryResource;
+use App\Repositories\CategoriesRepository;
 use Illuminate\Http\Request;
-use Idea\Http\Requests\CategoryRequest;
-use Idea\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
+use App\Http\Controllers\Controller;
 
 class CategoriesController extends Controller
 {

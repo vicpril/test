@@ -1,12 +1,12 @@
 <?php
 
-namespace Idea\Http\Controllers\Back;
+namespace App\Http\Controllers\Back;
 
 use Illuminate\Support\Facades\Storage;
-use Idea\Http\Requests\FileRequest;
-use Idea\Http\Controllers\Controller;
-use Idea\Repositories\FilesRepository;
-use Idea\Models\File;
+use App\Http\Requests\FileRequest;
+use App\Http\Controllers\Controller;
+use App\Repositories\FilesRepository;
+use App\Models\File;
 
 class FilesController extends AdminController
 {

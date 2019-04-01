@@ -1,14 +1,14 @@
 <?php
 
-namespace Idea\Providers;
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Support\Facades\Blade;
 use DB;
-use Idea\Http\ViewComposers\HeaderComposer;
+use App\Http\ViewComposers\HeaderComposer;
 
-use Idea\Models\Article;
+use App\Models\Article;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        Article::observe(\Idea\Observers\ArticleObserver::class);
+        Article::observe(\App\Observers\ArticleObserver::class);
 
         //for watching SQL-query
         DB::listen(function($query) {

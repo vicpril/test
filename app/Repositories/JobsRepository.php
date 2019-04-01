@@ -1,9 +1,9 @@
 <?php 
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
-// use Idea\Repositories\Repository;
-use Idea\Models\Job;
+// use App\Repositories\Repository;
+use App\Models\Job;
 
 class JobsRepository extends Repository{
 

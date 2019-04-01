@@ -1,8 +1,8 @@
 <?php 
 
-namespace Idea\Repositories;
+namespace App\Repositories;
 
-use Idea\Models\Article;
+use App\Models\Article;
 
 class ArticlesRepository extends Repository{
 

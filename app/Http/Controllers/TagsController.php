@@ -1,16 +1,16 @@
 <?php
 
-namespace Idea\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Idea\Repositories\TagsRepository;
+use App\Repositories\TagsRepository;
 
 class TagsController extends SiteController
 {
     //
     public function __construct(TagsRepository $t_rep) {
-		parent::__construct(new \Idea\Repositories\MenusRepository(new \Idea\Models\Menu));
+		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
 
 		$this->t_rep = $t_rep;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Idea\Http\Controllers\Back;
+namespace App\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
-use Idea\Services\Thumb;
+use App\Services\Thumb;
 
 use Illuminate\ {
     View\View,
@@ -15,7 +15,7 @@ trait Indexable
     /**
      * The Repository instance.
      *
-     * @var \Idea\Repositories\
+     * @var \App\Repositories\
      */
     protected $repository;
 
