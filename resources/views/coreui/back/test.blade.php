@@ -1,8 +1,6 @@
 @extends(env('THEME_BACK').'.back.layout')
 
 @push('css')
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
 @endpush
 
 
@@ -17,7 +15,18 @@
 
 @section('content')
 <div class="content">
-		<vue-test></vue-test>
+
+<div class="my-4 py-4"></div>
+<div class="container is-fluid">
+            <div class="columns">
+                {{-- media manager --}}
+                <div class="column">
+                    123 @include('MediaManager::_manager')
+                </div>
+            </div>
+        </div>
+
+		<!-- <vue-test></vue-test> -->
 		
 		
 	</div>
@@ -39,20 +48,5 @@
 @endpush
 
 @push('js')
-	<script>
-// 		  document.addEventListener("DOMContentLoaded", function() {
-
-// 		    document.getElementById('button-image').addEventListener('click', (event) => {
-// 		      event.preventDefault();
-
-// 		      window.open('/file-manager/fm-button', 'fm', 'width=800,height=400');
-// 		    });
-		  // set file link
-		  function fmSetLink($url) {
-		    document.getElementById('image_label').value = $url;
-		   }
-
-// 		  });
-	</script>
 @endpush
  

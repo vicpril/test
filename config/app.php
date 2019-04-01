@@ -181,6 +181,8 @@ return [
         ElForastero\Transliterate\TransliterationServiceProvider::class,
         // Barryvdh\Elfinder\ElfinderServiceProvider::class,
         Idea\Providers\Select2ServiceProvider::class,
+        //MediaManager
+        ctf0\MediaManager\MediaManagerServiceProvider::class,
         
 
     ],

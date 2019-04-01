@@ -3,12 +3,11 @@
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
-
 CKEDITOR.editorConfig = function(config) {
    // Define changes to default configuration here. For example:
    // config.language = 'fr';
    // config.uiColor = '#AADC6E';
-   config.width = '100%'; 
+   config.width = "100%";
 
    config.toolbarGroups = [
       { name: "clipboard", groups: ["undo", "clipboard"] },
@@ -36,7 +35,7 @@ CKEDITOR.editorConfig = function(config) {
 
    config.removeButtons =
       "Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Replace,Save,NewPage,Preview,Print,Templates,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,Flash,Smiley,Iframe,About,SelectAll,Scayt,Find,Cut,Paste,PasteText,Copy,PasteFromWord";
-  
-  // Upload image
-  config.filebrowserImageBrowseUrl = '/file-manager/ckeditor';
+
+   // Upload image
+   //   config.filebrowserImageBrowseUrl = '/file-manager/ckeditor';
 };

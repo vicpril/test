@@ -113,7 +113,7 @@
       <script src="{{ mix('js/manifest.js') }}"></script>
       <script src="{{ mix('js/vendor.js') }}"></script>
   @stack('lib')
-      <script src="{{ mix('js/coreui.js') }}"></script>
+      <script src="{{ mix('js/back.js') }}"></script>
   @stack('js')
 
 
