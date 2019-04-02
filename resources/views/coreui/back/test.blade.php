@@ -43,8 +43,7 @@
 @endpush
 
 @push('js')
-
-<script defer>
+<script>
 $( document ).ready(function() {
     window.input_id = '';
     window.openElFinder = function (event, input_id) {
@@ -52,12 +51,12 @@ $( document ).ready(function() {
         window.single = true;
         window.old = false;
         window.input_id = input_id;
-        window.open('/elfinder/popup/'+input_id, '_blank', 'menubar=no,status=no,toolbar=no,scrollbars=yes,height=500,width=800');
+        window.open('/elfinder/popup/'+input_id, '_blank', 'menubar=no,status=no,toolbar=no,scrollbars=yes,height=500,width=1000');
       
         return false;
     };
     // function to update the file selected by elfinder
-    window.processSelectedFile = function (filePath, requestingField) {
+    function processSelectedFile (filePath, requestingField) {
         $('#' + requestingField).val(filePath).trigger('change');
     }
 });

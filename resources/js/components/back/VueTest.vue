@@ -8,7 +8,7 @@
 			<!--     </div> -->
 		</div>
 
-		<label for="feature_image">Feature Image</label>
+		<!-- <label for="feature_image">Feature Image</label>
 		<input type="text" id="feature_image" name="feature_image" value>
 		<a
 			href="/elfinder"
@@ -31,7 +31,7 @@
 					<button class type="button" id="button-image" data-inputid="feature_image">Select</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!--  CKEditor -->
 		<div class="row">

@@ -10660,32 +10660,6 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("label", { attrs: { for: "feature_image" } }, [_vm._v("Feature Image")]),
-    _vm._v(" "),
-    _c("input", {
-      attrs: {
-        type: "text",
-        id: "feature_image",
-        name: "feature_image",
-        value: ""
-      }
-    }),
-    _vm._v(" "),
-    _c(
-      "a",
-      {
-        staticClass: "popup_selector",
-        attrs: {
-          href: "/elfinder",
-          "data-inputid": "feature_image",
-          target: "_blank"
-        }
-      },
-      [_vm._v("Select Image")]
-    ),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
@@ -10711,39 +10685,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mb-5" }, [
       _c("h2", [_vm._v("Elfinder")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-5" }, [
-      _c("div", { staticClass: "input-group" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            id: "image_label",
-            name: "image",
-            "aria-label": "Image",
-            "aria-describedby": "button-image"
-          }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group-append" }, [
-          _c(
-            "button",
-            {
-              attrs: {
-                type: "button",
-                id: "button-image",
-                "data-inputid": "feature_image"
-              }
-            },
-            [_vm._v("Select")]
-          )
-        ])
-      ])
     ])
   }
 ]
