@@ -10,6 +10,7 @@ require("./bootstrap");
 require("./coreui/index.js");
 
 //plugins
+require("jquery-colorbox");
 require("./plugins/bootstrap-notify");
 
 //Vue
@@ -28,10 +29,6 @@ Vue.use(Vuex);
 //Notification
 import Notifications from "vue-notification";
 Vue.use(Notifications);
-
-//Media manager
-// Laravel v5.7
-require("../assets/vendor/MediaManager/js/manager.js");
 
 /**
  * The following block of code may be used to automatically register your
@@ -55,8 +52,6 @@ Vue.component(
    "categories-list",
    require("./components/back/categories/CategoriesList.vue").default
 );
-//MediaManager Component
-Vue.component('ExampleComp', require('./components/back/MediaManager.vue').default)
 
 Vue.component("alert", require("./components/back/Alert.vue").default);
 Vue.component("vue-test", require("./components/back/VueTest.vue").default);
@@ -113,6 +108,6 @@ const router = new VueRouter({
 
 const app = new Vue({
    router,
-//    store,
+   //    store,
    el: "#app"
 });

@@ -3,10 +3,19 @@
 		<!-- MediaManager -->
 		<div class="row mb-5">
 			<!--     <div class="form-group"> -->
-			<h2>Mediamanager</h2>
+			<h2>Elfinder</h2>
 
 			<!--     </div> -->
 		</div>
+
+		<label for="feature_image">Feature Image</label>
+		<input type="text" id="feature_image" name="feature_image" value>
+		<a
+			href="/elfinder"
+			class="popup_selector"
+			data-inputid="feature_image"
+			target="_blank"
+		>Select Image</a>
 
 		<div class="row mb-5">
 			<div class="input-group">
@@ -19,12 +28,7 @@
 					aria-describedby="button-image"
 				>
 				<div class="input-group-append">
-					<button
-						class="btn btn-outline-secondary"
-						type="button"
-						id="button-image"
-						@click.prevent="openFinder"
-					>Select</button>
+					<button class type="button" id="button-image" data-inputid="feature_image">Select</button>
 				</div>
 			</div>
 		</div>

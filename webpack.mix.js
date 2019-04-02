@@ -43,13 +43,4 @@ mix.js("resources/js/back.js", "public/js/")
       "vue"
       //     "vue-router",
    ])
-   .sass("resources/sass/coreui/coreui.scss", "public/css/")
-    // MediaManage
-   .sass(
-       "resources/assets/vendor/MediaManager/sass/manager.scss",
-       "public/assets/vendor/MediaManager/style.css"
-   )
-//     .copyDirectory(
-//        "resources/assets/vendor/MediaManager/dist",
-//        "public/assets/vendor/MediaManager"
-//     );
+   .sass("resources/sass/coreui/coreui.scss", "public/css/");

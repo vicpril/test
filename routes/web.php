@@ -83,7 +83,3 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
 	});
 });
-
-
-// MediaManager
-ctf0\MediaManager\MediaRoutes::routes();

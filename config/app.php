@@ -179,11 +179,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         ElForastero\Transliterate\TransliterationServiceProvider::class,
-        // Barryvdh\Elfinder\ElfinderServiceProvider::class,
         App\Providers\Select2ServiceProvider::class,
-        //MediaManager
-        ctf0\MediaManager\MediaManagerServiceProvider::class,
-        
+        Barryvdh\Elfinder\ElfinderServiceProvider::class
+       
 
     ],
 
