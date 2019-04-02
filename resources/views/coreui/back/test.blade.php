@@ -52,7 +52,7 @@ $( document ).ready(function() {
         window.single = true;
         window.old = false;
         window.input_id = input_id;
-        window.open('/elfinder/popup?input_id='+input_id, '_blank', 'menubar=no,status=no,toolbar=no,scrollbars=yes,height=500,width=1000');
+        window.open('/elfinder/popup/'+input_id, '_blank', 'menubar=no,status=no,toolbar=no,scrollbars=yes,height=500,width=800');
       
         return false;
     };
