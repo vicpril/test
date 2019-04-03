@@ -1552,7 +1552,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-1f022106],\r\nthead > tr > th.sorting_desc[data-v-1f022106],\r\nthead > tr > th.sorting[data-v-1f022106],\r\nthead > tr > td.sorting_asc[data-v-1f022106],\r\nthead > tr > td.sorting_desc[data-v-1f022106],\r\nthead > tr > td.sorting[data-v-1f022106] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-1f022106]:active,\r\nthead > tr > td[data-v-1f022106]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-1f022106],\r\nthead .sorting_asc[data-v-1f022106],\r\nthead .sorting_desc[data-v-1f022106],\r\nthead .sorting_asc_disabled[data-v-1f022106],\r\nthead .sorting_desc_disabled[data-v-1f022106] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-1f022106],\nthead > tr > th.sorting_desc[data-v-1f022106],\nthead > tr > th.sorting[data-v-1f022106],\nthead > tr > td.sorting_asc[data-v-1f022106],\nthead > tr > td.sorting_desc[data-v-1f022106],\nthead > tr > td.sorting[data-v-1f022106] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-1f022106]:active,\nthead > tr > td[data-v-1f022106]:active {\n\toutline: none;\n}\nthead .sorting[data-v-1f022106],\nthead .sorting_asc[data-v-1f022106],\nthead .sorting_desc[data-v-1f022106],\nthead .sorting_asc_disabled[data-v-1f022106],\nthead .sorting_desc_disabled[data-v-1f022106] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-1f022106]:before,\nthead .sorting[data-v-1f022106]:after,\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_asc[data-v-1f022106]:after,\nthead .sorting_desc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:after,\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_asc_disabled[data-v-1f022106]:after,\nthead .sorting_desc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-1f022106]:before,\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:before,\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-1f022106]:after,\nthead .sorting_asc[data-v-1f022106]:after,\nthead .sorting_desc[data-v-1f022106]:after,\nthead .sorting_asc_disabled[data-v-1f022106]:after,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -10825,9 +10825,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\r\n\t\t\t\t\t\t\t\t\t\t" +
+                            "\n\t\t\t\t\t\t\t\t\t\t" +
                               _vm._s(cat.name_ru) +
-                              "\r\n\t\t\t\t\t\t\t\t\t"
+                              "\n\t\t\t\t\t\t\t\t\t"
                           )
                         ]
                       )
@@ -10884,7 +10884,7 @@ var render = function() {
                 _c("div", { staticClass: "form-inline" }, [
                   _c("label", [
                     _vm._v(
-                      "\r\n                    Показать\r\n                    "
+                      "\n                    Показать\n                    "
                     ),
                     _c(
                       "select",
@@ -10929,7 +10929,7 @@ var render = function() {
                       }),
                       0
                     ),
-                    _vm._v(" записей\r\n                  ")
+                    _vm._v(" записей\n                  ")
                   ])
                 ])
               ]),
@@ -10938,7 +10938,7 @@ var render = function() {
                 _c("div", { staticClass: "form-inline float-right" }, [
                   _c("label", [
                     _vm._v(
-                      "\r\n                    Поиск:\r\n                    "
+                      "\n                    Поиск:\n                    "
                     ),
                     _c("input", {
                       directives: [
@@ -11047,9 +11047,9 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              "\r\n                    " +
+                              "\n                    " +
                                 _vm._s(cat.name_en) +
-                                "\r\n                  "
+                                "\n                  "
                             )
                           ]),
                           _vm._v(" "),
@@ -18204,7 +18204,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  {{if full_name}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <strong>\r\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\r\n    </strong>\r\n  </span>\r\n  {{/if}}\r\n  {{if degree}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\">\r\n      <i><br>{{:degree}}</i>\r\n    </span>\r\n  </span>\r\n  {{/if}}\r\n  \r\n  {{if jobs}}\r\n  {{for jobs}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\r\n  </span>\r\n  {{/for}}\r\n  {{/if}}\r\n  \r\n  {{if orcid}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\r\n  </span>\r\n  {{/if}}\r\n</p>\r\n";
+module.exports = "<p>\n  {{if full_name}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <strong>\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\n    </strong>\n  </span>\n  {{/if}}\n  {{if degree}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\">\n      <i><br>{{:degree}}</i>\n    </span>\n  </span>\n  {{/if}}\n  \n  {{if jobs}}\n  {{for jobs}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\n  </span>\n  {{/for}}\n  {{/if}}\n  \n  {{if orcid}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\n  </span>\n  {{/if}}\n</p>\n";
 
 /***/ }),
 
@@ -19793,8 +19793,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\back.js */"./resources/js/back.js");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\coreui\coreui.scss */"./resources/sass/coreui/coreui.scss");
+__webpack_require__(/*! /home/cabox/workspace/resources/js/back.js */"./resources/js/back.js");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/coreui/coreui.scss */"./resources/sass/coreui/coreui.scss");
 
 
 /***/ })

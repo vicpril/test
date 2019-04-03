@@ -18,7 +18,7 @@
 	
 	<div class="row">
         <!-- main.html (html input and js for open new window with elFinder for select file) -->
-			<input type="text" class="form-control" value="" id="idOfInput" onfocus="return openElFinder(event, 'idOfInput');"/>
+			<input type="text" class="popup_selector form-control" value="" id="idOfInput" />
     </div>
 	
 		<vue-test></vue-test>
@@ -37,13 +37,13 @@
 		<!-- CKEditor -->
 		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 
-<!--    <script defer type="text/javascript" src="/packages/barryvdh/elfinder/js/standalonepopup.min.js"></script> -->
+   <script defer type="text/javascript" src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.min.js') }}"></script>
 <!-- <script defer type="text/javascript" src="{{ asset('packages/barryvdh/elfinder/js/elfinder.min.js') }}"></script> -->
 
 @endpush
 
 @push('js')
-<script>
+<!-- <script>
 $( document ).ready(function() {
     window.input_id = '';
     window.openElFinder = function (event, input_id) {
@@ -60,7 +60,7 @@ $( document ).ready(function() {
         $('#' + requestingField).val(filePath).trigger('change');
     }
 });
-</script>
+</script> -->
 
 @endpush
  
