@@ -5,33 +5,16 @@
 			<!--     <div class="form-group"> -->
 			<h2>Elfinder</h2>
 
-			<!--     </div> -->
+			<div class="input-group">
+					<div class="input-group-btn">
+							<a href="#" class="popup_selector btn btn-primary" data-inputid="file">Select a file</a>
+					</div>
+					<!-- /btn-group -->
+					<input class="form-control" type="text" id="file" name="file" v-model="file">
+			</div>
 		</div>
 
-		<!-- <label for="feature_image">Feature Image</label>
-		<input type="text" id="feature_image" name="feature_image" value>
-		<a
-			href="/elfinder"
-			class="popup_selector"
-			data-inputid="feature_image"
-			target="_blank"
-		>Select Image</a>
 
-		<div class="row mb-5">
-			<div class="input-group">
-				<input
-					type="text"
-					id="image_label"
-					class="form-control"
-					name="image"
-					aria-label="Image"
-					aria-describedby="button-image"
-				>
-				<div class="input-group-append">
-					<button class type="button" id="button-image" data-inputid="feature_image">Select</button>
-				</div>
-			</div>
-		</div> -->
 
 		<!--  CKEditor -->
 		<div class="row">
@@ -49,9 +32,15 @@ import VueCkeditor from "./VueCkeditor.vue";
 
 export default {
 	components: { VueCkeditor },
+	
+	data() {
+		return {
+			file: ""			
+		}
+	},
 
 	methods: {
-		openFinder() {}
+		
 	}
 };
 </script>

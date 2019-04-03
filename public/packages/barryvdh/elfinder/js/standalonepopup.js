@@ -17,4 +17,5 @@ $(document).on('click','.popup_selector',function (event) {
 // function to update the file selected by elfinder
 function processSelectedFile(filePath, requestingField) {
     $('#' + requestingField).val(filePath).trigger('change');
+    $('#' + requestingField)[0].dispatchEvent(new Event('input', { 'bubbles': true }))
 }

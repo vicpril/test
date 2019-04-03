@@ -280,31 +280,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     VueCkeditor: _VueCkeditor_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  methods: {
-    openFinder: function openFinder() {}
-  }
+  data: function data() {
+    return {
+      file: ""
+    };
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -10658,7 +10644,35 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "row mb-5" }, [
+      _c("h2", [_vm._v("Elfinder")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-group" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.file,
+              expression: "file"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", id: "file", name: "file" },
+          domProps: { value: _vm.file },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.file = $event.target.value
+            }
+          }
+        })
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -10683,8 +10697,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-5" }, [
-      _c("h2", [_vm._v("Elfinder")])
+    return _c("div", { staticClass: "input-group-btn" }, [
+      _c(
+        "a",
+        {
+          staticClass: "popup_selector btn btn-primary",
+          attrs: { href: "#", "data-inputid": "file" }
+        },
+        [_vm._v("Select a file")]
+      )
     ])
   }
 ]

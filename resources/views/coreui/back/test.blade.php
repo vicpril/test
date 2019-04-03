@@ -18,7 +18,15 @@
 	
 	<div class="row">
         <!-- main.html (html input and js for open new window with elFinder for select file) -->
-			<input type="text" class="popup_selector form-control" value="" id="idOfInput" />
+<!-- 			 <div class="input-group">
+					<div class="input-group-btn">
+							<a href="#" class="popup_selector btn btn-primary" data-inputid="image">Select an image</a>
+					</div>
+					
+					<input class="form-control" type="text" id="image" name="image" value="">
+			</div> -->
+		
+			<img src="" alt="">
     </div>
 	
 		<vue-test></vue-test>
@@ -37,30 +45,11 @@
 		<!-- CKEditor -->
 		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 
-   <script defer type="text/javascript" src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.min.js') }}"></script>
+   <script defer type="text/javascript" src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.js') }}"></script>
 <!-- <script defer type="text/javascript" src="{{ asset('packages/barryvdh/elfinder/js/elfinder.min.js') }}"></script> -->
 
 @endpush
 
 @push('js')
-<!-- <script>
-$( document ).ready(function() {
-    window.input_id = '';
-    window.openElFinder = function (event, input_id) {
-        event.preventDefault();
-        window.single = true;
-        window.old = false;
-        window.input_id = input_id;
-        window.open('/elfinder/popup/'+input_id, '_blank', 'menubar=no,status=no,toolbar=no,scrollbars=yes,height=500,width=1000');
-      
-        return false;
-    };
-    // function to update the file selected by elfinder
-    function processSelectedFile (filePath, requestingField) {
-        $('#' + requestingField).val(filePath).trigger('change');
-    }
-});
-</script> -->
-
 @endpush
  
