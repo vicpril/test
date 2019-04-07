@@ -31,7 +31,7 @@
                     @if($locale)
                         lang: '{{ $locale }}', // locale
                     @endif
-                    customData: { 
+                    customData: {
                         _token: '{{ csrf_token() }}'
                     },
                     url: '{{ route("elfinder.connector") }}',  // connector URL
@@ -47,10 +47,13 @@
                         window.parent.processSelectedFile(file.path, '{{ $input_id  }}');
                         parent.jQuery.colorbox.close();
                     },
-                      
+
                     // custom
-                    @if(request()->get("target"))
+                    @if(request()->get('target'))
                         startPathHash: '{{ request()->get("target") }}',
+                    @endif
+                    @if(request()->get('mime') && request()->get('mime') === 'image')
+                        onlyMimes: ["image"],
                     @endif
                     handlers : {
                         upload : function(event, instance) {

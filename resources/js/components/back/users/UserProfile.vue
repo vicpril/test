@@ -356,21 +356,6 @@
 							v-model="user.avatar"
 							hidden
 						>
-						<!-- <div class="d-none" id="image">
-							<img src alt>
-							<label>
-								<a href="#" class="text-info text-center p-1" id="destroyImage">Поменять фотографию</a>
-							</label>
-						</div>-->
-
-						<!-- <div class="text-center" id="downloadImage"> -->
-						<!-- <label class="d-block mb-0">Фотография не загружена</label> -->
-						<!-- <button
-								type="button"
-								class="btn btn-sm btn-primary btn-simple btn-round"
-							>Загрузить</button>
-						</div>
-						<input type="text" class="d-none" name="avatar" value>-->
 					</div>
 					<div class="card-footer">
 						<button
@@ -378,6 +363,7 @@
 							type="button"
 							class="popup_selector btn btn-sm btn-primary float-right"
 							data-inputid="avatar"
+							data-mime="image"
 						>Загрузить</button>
 						<button
 							v-show="user.avatar"

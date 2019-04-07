@@ -530,17 +530,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -572,7 +561,6 @@ __webpack_require__.r(__webpack_exports__);
         return this.categories;
       }
 
-      ;
       var self = this;
       return this.categories.filter(function (cat) {
         if (cat.name_ru.toLowerCase().indexOf(self.search.toLowerCase()) !== -1 || cat.name_en.toLowerCase().indexOf(self.search.toLowerCase()) !== -1) {
@@ -584,6 +572,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     orderedCategories: function orderedCategories() {
       return _.orderBy(this.searchedCategories, this.sortBy, this.orderBy);
+    },
+    showedCategories: function showedCategories() {
+      return this.orderedCategories.filter(function (cat, key) {
+        if (key >= this.pagination.from - 1 && key <= this.pagination.to - 1) {
+          return cat;
+        }
+      });
     },
     pagination: function pagination() {
       return {
@@ -603,12 +598,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     clearBtnClass: function clearBtnClass() {
       if (this.currentCat.id) {
-        return 'btn-outline-primary';
+        return "btn-outline-primary";
       } else {
-        return 'btn-outline-secondary disabled';
+        return "btn-outline-secondary disabled";
       }
-
-      ;
     }
   },
   created: function created() {
@@ -959,20 +952,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _VueCkeditor_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../VueCkeditor.vue */ "./resources/js/components/back/VueCkeditor.vue");
 /* harmony import */ var jsrender__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jsrender */ "./node_modules/jsrender/jsrender.js");
 /* harmony import */ var jsrender__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jsrender__WEBPACK_IMPORTED_MODULE_3__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -24618,7 +24597,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\nthead > tr > th.sorting_desc[data-v-7425bcb0],\nthead > tr > th.sorting[data-v-7425bcb0],\nthead > tr > td.sorting_asc[data-v-7425bcb0],\nthead > tr > td.sorting_desc[data-v-7425bcb0],\nthead > tr > td.sorting[data-v-7425bcb0] {\n  padding-right: 30px;\n  color: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\nthead > tr > td[data-v-7425bcb0]:active {\n  outline: none;\n}\nthead .sorting[data-v-7425bcb0],\nthead .sorting_asc[data-v-7425bcb0],\nthead .sorting_desc[data-v-7425bcb0],\nthead .sorting_asc_disabled[data-v-7425bcb0],\nthead .sorting_desc_disabled[data-v-7425bcb0] {\n  cursor: pointer;\n  position: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n  position: absolute;\n  bottom: 0.9em;\n  display: block;\n  opacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\n  right: 1em;\n  content: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n  right: 0.5em;\n  content: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after {\n  opacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\r\nthead > tr > th.sorting_desc[data-v-7425bcb0],\r\nthead > tr > th.sorting[data-v-7425bcb0],\r\nthead > tr > td.sorting_asc[data-v-7425bcb0],\r\nthead > tr > td.sorting_desc[data-v-7425bcb0],\r\nthead > tr > td.sorting[data-v-7425bcb0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\r\nthead > tr > td[data-v-7425bcb0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\r\nthead .sorting_asc[data-v-7425bcb0],\r\nthead .sorting_desc[data-v-7425bcb0],\r\nthead .sorting_asc_disabled[data-v-7425bcb0],\r\nthead .sorting_desc_disabled[data-v-7425bcb0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -34040,13 +34019,7 @@ var render = function() {
                           attrs: { disabled: _vm.currentCat.id === cat.id },
                           domProps: { value: cat.id }
                         },
-                        [
-                          _vm._v(
-                            "\r\n\t\t\t\t\t\t\t\t\t\t" +
-                              _vm._s(cat.name_ru) +
-                              "\r\n\t\t\t\t\t\t\t\t\t"
-                          )
-                        ]
+                        [_vm._v(_vm._s(cat.name_ru))]
                       )
                     })
                   ],
@@ -34056,7 +34029,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-footer " }, [
+          _c("div", { staticClass: "card-footer" }, [
             _c(
               "button",
               {
@@ -34100,9 +34073,7 @@ var render = function() {
               _c("div", { staticClass: "col-sm-12 col-md-6" }, [
                 _c("div", { staticClass: "form-inline" }, [
                   _c("label", [
-                    _vm._v(
-                      "\r\n                    Показать\r\n                    "
-                    ),
+                    _vm._v("\n\t\t\t\t\t\t\t\t\tПоказать\n\t\t\t\t\t\t\t\t\t"),
                     _c(
                       "select",
                       {
@@ -34146,7 +34117,7 @@ var render = function() {
                       }),
                       0
                     ),
-                    _vm._v(" записей\r\n                  ")
+                    _vm._v(" записей\n\t\t\t\t\t\t\t\t")
                   ])
                 ])
               ]),
@@ -34154,9 +34125,7 @@ var render = function() {
               _c("div", { staticClass: "col-sm-12 col-md-6" }, [
                 _c("div", { staticClass: "form-inline float-right" }, [
                   _c("label", [
-                    _vm._v(
-                      "\r\n                    Поиск:\r\n                    "
-                    ),
+                    _vm._v("\n\t\t\t\t\t\t\t\t\tПоиск:\n\t\t\t\t\t\t\t\t\t"),
                     _c("input", {
                       directives: [
                         {
@@ -34242,60 +34211,49 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.orderedCategories, function(cat, index) {
-                    return index >= _vm.pagination.from - 1 &&
-                      index <= _vm.pagination.to - 1
-                      ? _c("tr", { key: index }, [
-                          _c("td", [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.showCategory(index)
-                                  }
-                                }
-                              },
-                              [_vm._v(_vm._s(cat.name_ru))]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "\r\n                    " +
-                                _vm._s(cat.name_en) +
-                                "\r\n                  "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(cat.parent_id))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(cat.articles))]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-secondary" }, [
-                            _c("i", {
-                              staticClass: "fa fa-close",
-                              on: {
-                                mouseover: function($event) {
-                                  return $event.target.classList.add(
-                                    "text-danger"
-                                  )
-                                },
-                                mouseout: function($event) {
-                                  return $event.target.classList.remove(
-                                    "text-danger"
-                                  )
-                                },
-                                click: function($event) {
-                                  return _vm.deleteCategory(index)
-                                }
+                  _vm._l(_vm.showedCategories, function(cat, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.showCategory(index)
                               }
-                            })
-                          ])
-                        ])
-                      : _vm._e()
+                            }
+                          },
+                          [_vm._v(_vm._s(cat.name_ru))]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(cat.name_en))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(cat.parent_id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(cat.articles))]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-secondary" }, [
+                        _c("i", {
+                          staticClass: "fa fa-close",
+                          on: {
+                            mouseover: function($event) {
+                              return $event.target.classList.add("text-danger")
+                            },
+                            mouseout: function($event) {
+                              return $event.target.classList.remove(
+                                "text-danger"
+                              )
+                            },
+                            click: function($event) {
+                              return _vm.deleteCategory(index)
+                            }
+                          }
+                        })
+                      ])
+                    ])
                   }),
                   0
                 )
@@ -35637,7 +35595,11 @@ var render = function() {
                 ],
                 staticClass:
                   "popup_selector btn btn-sm btn-primary float-right",
-                attrs: { type: "button", "data-inputid": "avatar" }
+                attrs: {
+                  type: "button",
+                  "data-inputid": "avatar",
+                  "data-mime": "image"
+                }
               },
               [_vm._v("Загрузить")]
             ),
