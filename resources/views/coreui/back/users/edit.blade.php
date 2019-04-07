@@ -47,14 +47,6 @@
 
 
 @section('modals')
-    <!-- SET FILE MODAL -->
-    @include(env('THEME_BACK').'.back.files.modal_set')
-    <!-- END SET FILE MODAL -->
-
-    <!-- UPLOAD FILE MODAL -->
-    @include(env('THEME_BACK').'.back.files.modal_upload')
-    <!-- END UPLOAD FILE MODAL -->
-		
 		<!-- JOB MODAL -->
 		<div class="modal fade" id="jobModal">
 			<div class="modal-dialog">
@@ -99,10 +91,12 @@
 
 @push('lib')
     <!-- Select 2 -->
-    <script defer type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
+    <!-- <script defer type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script> -->
 
 		<!-- CKEditor -->
 		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+		<!-- elFinder -->
+		<script defer type="text/javascript" src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.js') }}"></script>
 @endpush
 
 @push('js')

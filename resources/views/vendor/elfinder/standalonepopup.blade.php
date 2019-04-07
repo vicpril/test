@@ -12,6 +12,8 @@
         <!-- elFinder CSS (REQUIRED) -->
         <link rel="stylesheet" type="text/css" href="{{ asset($dir . '/css/elfinder.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset($dir . '/css/theme.css') }}">
+        <!-- <link rel="stylesheet" type="text/css" href="{{ asset($dir . '/css/themes/windows-10/css/theme.css') }}"> -->
+
 
         <!-- elFinder JS (REQUIRED) -->
         <script src="{{ asset($dir . '/js/elfinder.min.js') }}"></script>
@@ -44,7 +46,37 @@
                     getFileCallback: function (file) {
                         window.parent.processSelectedFile(file.path, '{{ $input_id  }}');
                         parent.jQuery.colorbox.close();
-                    }
+                    },
+                      
+                    // custom
+                    @if(request()->get("target"))
+                        startPathHash: '{{ request()->get("target") }}',
+                    @endif
+                    handlers : {
+                        upload : function(event, instance) {
+                            const phash = event.data.added[event.data.added.length - 1].phash;
+                            instance.exec('open', phash);
+                        }
+                    },
+                    sortType: 'date',
+                    sortOrder: 'desc',
+                    uiOptions: {
+                        // toolbar configuration
+                        toolbar: [
+                            ['back', 'forward', 'up'],
+                            ['mkdir', 'upload'],
+  //                           ['open', 'download', 'getfile'],
+  //                           ['undo', 'redo'],
+                            ['copy', 'cut', 'paste'],
+  //                           ['duplicate', 'rename', 'edit', 'resize', 'chmod'],
+  //                           ['selectall', 'selectnone', 'selectinvert'],
+                            ['quicklook', 'info'],
+  //                           ['extract', 'archive'],
+                            ['search'],
+                            ['view', 'sort'],
+                            ['fullscreen']
+                        ]
+                    },
                 }).elfinder('instance');
             });
         </script>

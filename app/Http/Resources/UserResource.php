@@ -22,7 +22,7 @@ class UserResource extends JsonResource
           'editLink' => $this->editLink,
           'articles' => $this->articles->count(),
           'role' => $this->role,
-          "avatar" => $this->avatar_id,
+          "avatar" => $this->avatar,
           "description_en" => $this->en->description,
           "description_ru" => $this->ru->description,
           "first_name_en" => $this->en->first_name,

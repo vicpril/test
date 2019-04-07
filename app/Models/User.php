@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'alias', 'role', 'password', 'orcid', 'avatar_id'
+        'email', 'alias', 'role', 'password', 'orcid', 'avatar'
     ];
 
     protected $relation = ['meta', 'articles'];
@@ -48,9 +48,9 @@ class User extends Authenticatable
                     
     }
   
-    public function avatar()  {
-        return $this->belongsTo('App\Models\File');
-    }
+    // public function avatar()  {
+    //     return $this->belongsTo('App\Models\File');
+    // }
 
     /*
     *   Locale getters

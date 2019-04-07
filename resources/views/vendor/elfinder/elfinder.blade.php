@@ -35,7 +35,20 @@
                         _token: '{{ csrf_token() }}'
                     },
                     url : '{{ route("elfinder.connector") }}',  // connector URL
-                    soundPath: '{{ asset($dir.'/sounds') }}'
+                    soundPath: '{{ asset($dir.'/sounds') }}',
+                                          
+                    // custom
+                    @if(request()->get("target"))
+                        startPathHash: '{{ request()->get("target") }}',
+                    @endif
+                    handlers : {
+                        upload : function(event, instance) {
+                            const phash = event.data.added[event.data.added.length - 1].phash;
+                            instance.exec('open', phash);
+                        }
+                    },
+                    sortType: 'date',
+                    sortOrder: 'desc'
                 });
             });
         </script>

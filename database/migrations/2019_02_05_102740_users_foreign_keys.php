@@ -16,11 +16,11 @@ class UsersForeignKeys extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             // create foreign keys
-            $table->integer('avatar_id')->unsigned()->nullable()->default(null);
-            $table->foreign('avatar_id')->references('id')->on('files')
-                            ->onDelete('restrict')
-                            ->onUpdate('restrict')
-            ;
+            // $table->integer('avatar_id')->unsigned()->nullable()->default(null);
+            // $table->foreign('avatar_id')->references('id')->on('files')
+            //                 ->onDelete('restrict')
+            //                 ->onUpdate('restrict')
+            // ;
 
         });
     }
@@ -34,7 +34,7 @@ class UsersForeignKeys extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropForeign('users_avatar_id_foreign');
+            // $table->dropForeign('users_avatar_id_foreign');
 
         });
     }

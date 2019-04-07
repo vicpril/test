@@ -21,10 +21,11 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 //Vuex
-import Vuex from "vuex";
-Vue.use(Vuex);
-// create Vuex store
-// import { store } from "./components/back/store/store.js";
+import { store } from "./components/back/store";
+
+//BootstrapVue
+import BootstrapVue from "bootstrap-vue";
+Vue.use(BootstrapVue);
 
 //Notification
 import Notifications from "vue-notification";
@@ -54,6 +55,10 @@ Vue.component(
 );
 
 Vue.component("alert", require("./components/back/Alert.vue").default);
+Vue.component(
+   "file-picker",
+   require("./components/back/FilePicker.vue").default
+);
 Vue.component("vue-test", require("./components/back/VueTest.vue").default);
 
 Vue.mixin({
@@ -108,6 +113,7 @@ const router = new VueRouter({
 
 const app = new Vue({
    router,
-   //    store,
+   //    storage: {path: window.location.origin + '/storage/'},
+   store,
    el: "#app"
 });

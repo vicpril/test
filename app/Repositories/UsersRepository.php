@@ -167,13 +167,14 @@ class UsersRepository extends Repository
             'password' => bcrypt('123'),
             'role' => 'author',
             'orcid' => (isset($data['orcid'])) ? $data['orcid'] : null,
+            'avatar' => (isset($data['avatar'])) ? $data['avatar'] : null,
         ]);
 
-        if ($data['avatar'] > 0) {
-            $user->avatar()->associate($data['avatar']);
-        } else {
-            $user->avatar()->dissociate();
-        }
+        // if ($data['avatar'] > 0) {
+        //     $user->avatar()->associate($data['avatar']);
+        // } else {
+        //     $user->avatar()->dissociate();
+        // }
 
         $user->save();
 
@@ -227,13 +228,14 @@ class UsersRepository extends Repository
             'password' => bcrypt('123'),
             'role' => 'author',
             'orcid' => (isset($data['orcid'])) ? $data['orcid'] : null,
+            'avatar' => (isset($data['avatar'])) ? $data['avatar'] : null,
         ]);
 
-        if ($data['avatar'] > 0) {
-            $user->avatar()->associate($data['avatar']);
-        } else {
-            $user->avatar()->dissociate();
-        }
+        // if ($data['avatar'] > 0) {
+        //     $user->avatar()->associate($data['avatar']);
+        // } else {
+        //     $user->avatar()->dissociate();
+        // }
 
         $user->ru->update([
                   'lang' => 'ru',
@@ -280,7 +282,7 @@ class UsersRepository extends Repository
     public function deleteUser($user) {
 
       $user->articles()->detach();
-      $user->avatar()->dissociate();
+    //   $user->avatar()->dissociate();
 
       if($user->delete()) {
         return ['status' => 'success',

@@ -1,4 +1,6 @@
 <?php
+use App\Handlers\elFinderSimpleLogger;
+use App\Handlers\elFinderCallback;
 
 return array(
 
@@ -26,7 +28,7 @@ return array(
     |    ]
     */
     'disks' => [
-        'public'
+//         'uploads'
     ],
 
     /*
@@ -64,7 +66,16 @@ return array(
     |
     */
 
-    'roots' => null,
+    'roots' => [
+      [
+        'driver'        => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
+        'path'          =>  storage_path('app/public/uploads'),  // path to files (REQUIRED)
+        
+        'URL'           =>  env('APP_URL').'/storage/uploads',   // URL to files (REQUIRED)
+//         'alias'         => 'First home', // The name to replace your actual path name. (OPTIONAL)
+//         'accessControl' => 'access'      // disable and hide dot starting files (OPTIONAL)
+      ]
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +88,11 @@ return array(
     */
 
     'options' => array(
-      
+      'bind' => array(
+//         'mkdir mkfile rename duplicate upload rm paste' => array(new elFinderSimpleLogger('packages/barryvdh/elfinder/log.txt'), 'log'),
+        'upload.presave' => array(new elFinderCallback(), 'changeUploadPath'),
+
+        ),
     ),
     
     /*
@@ -90,7 +105,11 @@ return array(
     |
     */
     'root_options' => array(
-
+//       'tmbCrop' => false,
+//       'uploadDeny' => array('all')
+//       'uploadMaxSize' => '500K',
+    //   'startPath'     =>  '/2019', 
     ),
 
 );
+

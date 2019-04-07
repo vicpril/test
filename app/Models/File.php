@@ -17,7 +17,7 @@ class File extends Model
         return $this->hasMany('App\Models\MetaArticle', 'file', 'id');
     }
   
-    public function user() {
-        return $this->hasMany('App\Models\User', 'avatar', 'id');
-    }
+    // public function user() {
+    //     return $this->hasMany('App\Models\User', 'avatar', 'id');
+    // }
 }

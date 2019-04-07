@@ -328,7 +328,7 @@
 			<div class="col-md-4">
 				<div class="card mb-1">
 					<div class="card-header">
-						<h5>Сохранить изменения</h5>
+						<h5 class="h5 mb-0">Сохранить изменения</h5>
 					</div>
 					<div class="card-body">
 						<input class="btn btn-primary btn-round btn-block" type="submit" value="Сохранить">
@@ -343,27 +343,48 @@
 
 				<div class="card" id="photoCard">
 					<div class="card-header">
-						<h5>Фотография</h5>
+						<h5 class="h5 mb-0">Фотография</h5>
 					</div>
 
 					<div class="card-body">
-						<div class="d-none" id="image">
+						<file-picker :path="user.avatar"></file-picker>
+						<input
+							class="form-control"
+							type="text"
+							id="avatar"
+							name="avatar"
+							v-model="user.avatar"
+							hidden
+						>
+						<!-- <div class="d-none" id="image">
 							<img src alt>
 							<label>
 								<a href="#" class="text-info text-center p-1" id="destroyImage">Поменять фотографию</a>
 							</label>
-						</div>
+						</div>-->
 
-						<div class="text-center" id="downloadImage">
-							<label class="d-block mb-0">Фотография не загружена</label>
-							<button
+						<!-- <div class="text-center" id="downloadImage"> -->
+						<!-- <label class="d-block mb-0">Фотография не загружена</label> -->
+						<!-- <button
 								type="button"
 								class="btn btn-sm btn-primary btn-simple btn-round"
-								data-toggle="modal"
-								data-target="#setFileModal"
 							>Загрузить</button>
 						</div>
-						<input type="text" class="d-none" name="avatar" value>
+						<input type="text" class="d-none" name="avatar" value>-->
+					</div>
+					<div class="card-footer">
+						<button
+							v-show="!user.avatar"
+							type="button"
+							class="popup_selector btn btn-sm btn-primary float-right"
+							data-inputid="avatar"
+						>Загрузить</button>
+						<button
+							v-show="user.avatar"
+							type="button"
+							@click.prevent="clearAvatar"
+							class="btn btn-sm btn-outline-primary float-left"
+						>Убрать фотографию</button>
 					</div>
 				</div>
 			</div>
@@ -375,14 +396,14 @@
 import translat from "../translat";
 import draggable from "vuedraggable";
 import VueCkeditor from "../VueCkeditor.vue";
-import jsrender from 'jsrender';
-	
+import jsrender from "jsrender";
+
 // let	jsrender = require('jsrender');
 
 export default {
 	components: {
 		draggable,
-		VueCkeditor,
+		VueCkeditor
 	},
 
 	props: {
@@ -412,7 +433,8 @@ export default {
 				short_name_en: "",
 				short_name_ru: "",
 				description_ru: "",
-				description_en: ""
+				description_en: "",
+				avatar: ""
 			},
 			jobs: []
 		};
@@ -451,32 +473,42 @@ export default {
 			});
 		},
 
-		autocompliteDescription(lang = 'ru') {
+		autocompliteDescription(lang = "ru") {
 			var template = require("./descriptionTemplate.html");
 			jsrender.templates("tmpl", template);
-			
-			if(lang == 'ru'){
-					if(!confirm('ВНИМАНИЕ! Текущая биография на РУССКОМ языке будет удалена. Продолжить?')) return;
-					var data = {
-						full_name: this.user.full_name,
-						degree: this.user.degree_ru,
-						jobs: this.user.jobs_ru,
-						orcid: this.user.orcid,
-					};
-				
-					this.user.description_ru = $.render.tmpl(data);
+
+			if (lang == "ru") {
+				if (
+					!confirm(
+						"ВНИМАНИЕ! Текущая биография на РУССКОМ языке будет удалена. Продолжить?"
+					)
+				)
+					return;
+				var data = {
+					full_name: this.user.full_name,
+					degree: this.user.degree_ru,
+					jobs: this.user.jobs_ru,
+					orcid: this.user.orcid
+				};
+
+				this.user.description_ru = $.render.tmpl(data);
 			}
-			
-			if(lang == 'en'){
-					if(!confirm('ВНИМАНИЕ! Текущая биография на АНГЛИЙСКОМ языке будет удалена. Продолжить?')) return;
-					var data = {
-						full_name: this.user.short_name_en,
-						degree: this.user.degree_en,
-						jobs: this.user.jobs_en,
-						orcid: this.user.orcid,
-					};
-				
-					this.user.description_en = $.render.tmpl(data);
+
+			if (lang == "en") {
+				if (
+					!confirm(
+						"ВНИМАНИЕ! Текущая биография на АНГЛИЙСКОМ языке будет удалена. Продолжить?"
+					)
+				)
+					return;
+				var data = {
+					full_name: this.user.short_name_en,
+					degree: this.user.degree_en,
+					jobs: this.user.jobs_en,
+					orcid: this.user.orcid
+				};
+
+				this.user.description_en = $.render.tmpl(data);
 			}
 		},
 
@@ -540,6 +572,10 @@ export default {
 			if (confirm("Удалить место работы?")) {
 				this.jobs.splice(index, 1);
 			}
+		},
+
+		clearAvatar() {
+			this.user.avatar = "";
 		},
 
 		autocomplite() {
