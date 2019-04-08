@@ -61,7 +61,6 @@
 						<button
 							type="button"
 							class="btn btn-outline-primary float-left "
-							:class=""
 							@click.prevent="clearForm"
 						>Очистить форму</button>
 						<button
@@ -329,40 +328,14 @@ export default {
 		},
 		
 		update(id) {
-			
-		},
-		
-		checkError(error) {
-			if (this.errors.hasOwnProperty(error)) {
-				return "is-invalid";
-			}
-		},
-
-		saveCategory() {
 			const params = {
-				name_ru: this.currentCat.name_ru,
-				name_en: this.currentCat.name_en,
-				parent_id: this.currentCat.parent_id
+					name_ru: this.currentCat.name_ru,
+					name_en: this.currentCat.name_en,
+					parent_id: this.currentCat.parent_id,
+					id: id
 			};
-			if (this.currentCat.id) {
-				axios
-					.put("/api/categories/" + this.currentCat.id, params)
-					.then(resp => {
-						if (resp.data.status === "success") {
-							this.$notify({
-								group: "custom-template",
-								type: "alert-success",
-								text: resp.data.message,
-								duration: -1
-							});
-							this.fetch();
-							this.clearForm();
-						} 
-					});
-					
-			} else {
-				axios
-					.post("/api/categories", params)
+			axios
+					.put("/api/categories/" + id, params)
 					.then(resp => {
 						if (resp.data.status === "success") {
 							this.$notify({
@@ -376,14 +349,68 @@ export default {
 						}
 					})
 					.catch(error => {
-							alert('error');
-							 console.log(error);
-								console.log(error.response.data);
-						console.log(error.response.status);
-						console.log(error.response.headers);
-						 });
+							this.errors = error.response.data.errors;
+							this.$notify({
+								group: "custom-template",
+								type: "alert-danger",
+								text: error.response.data.errors.title[0],
+								duration: -1
+							});
+					})
+		},
+		
+		checkError(error) {
+			if (this.errors.hasOwnProperty(error)) {
+				return "is-invalid";
 			}
 		},
+
+// 		saveCategory() {
+// 			const params = {
+// 				name_ru: this.currentCat.name_ru,
+// 				name_en: this.currentCat.name_en,
+// 				parent_id: this.currentCat.parent_id
+// 			};
+// 			if (this.currentCat.id) {
+// 				axios
+// 					.put("/api/categories/" + this.currentCat.id, params)
+// 					.then(resp => {
+// 						if (resp.data.status === "success") {
+// 							this.$notify({
+// 								group: "custom-template",
+// 								type: "alert-success",
+// 								text: resp.data.message,
+// 								duration: -1
+// 							});
+// 							this.fetch();
+// 							this.clearForm();
+// 						} 
+// 					});
+					
+// 			} else {
+// 				axios
+// 					.post("/api/categories", params)
+// 					.then(resp => {
+// 						if (resp.data.status === "success") {
+// 							this.$notify({
+// 								group: "custom-template",
+// 								type: "alert-success",
+// 								text: resp.data.message,
+// 								duration: -1
+// 							});
+// 							this.fetch();
+// 							this.clearForm();
+// 						}
+// 					})
+// 					.catch(error => {
+// 							alert('error');
+// 							 console.log(error);
+// 								console.log(error.response.data);
+// 						console.log(error.response.status);
+// 						console.log(error.response.headers);
+// 						 });
+// 			}
+// 		},
 
 		showCategory(index) {
 			this.title = "Рубрика №" + this.categories[index].id;

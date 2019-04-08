@@ -103,7 +103,7 @@ class UsersController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user)
+    public function update(UserRequest $request, $user)
     {
         $result = $this->repository->update($user, $request->except('_token', '_method'));
 

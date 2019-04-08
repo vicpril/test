@@ -34,6 +34,7 @@ class CategoriesController extends Controller
     }
   
     public function update(CategoryRequest $request, Category $cat) {
+      echo 'update';
       dd($request);
     }
   

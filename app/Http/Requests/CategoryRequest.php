@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Category;
+use Rule;
 
 class CategoryRequest extends FormRequest
 {
@@ -24,12 +26,24 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         $this->sanitize();
-        
-        return [
-            'name_ru' => 'required|unique:categories|max:250',
+      
+        $rules = [
+            'name_ru' => 'required|max:250|unique:categories,name_ru',
             'name_en' => 'max:250',
             'parent_id' => 'integer|nullable',
         ];
+        
+        switch($this->getMethod()) {
+          case 'POST':
+            return $rules;
+          case 'PUT':
+            return [
+              'name_ru' => 'required|max:250|unique:categories,name_ru,'.$this->category->id,
+            ] + $rules;
+          default:
+            return $rules;
+        }
+          
     }
   
     public function sanitize()

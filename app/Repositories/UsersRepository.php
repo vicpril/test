@@ -246,7 +246,7 @@ class UsersRepository extends Repository
                   'initials' => $data['initials_ru'],
                   'short_name' => $data['short_name_ru'],
                   'degree' => $data['degree_ru'],
-                  'jobs' => $data['jobs_ru'],
+                  'jobs' => (isset($data['jobs_ru'])) ? $data['jobs_ru'] : [],
                   'description' => $data['description_ru'],
               ]);
 
@@ -263,7 +263,7 @@ class UsersRepository extends Repository
                   'initials' => $data['initials_en'],
                   'short_name' => $data['short_name_en'],
                   'degree' => $data['degree_en'],
-                  'jobs' => $data['jobs_en'],
+                  'jobs' => (isset($data['jobs_en'])) ? $data['jobs_en'] : [],
                   'description' => $data['description_en'],
               ]);
 

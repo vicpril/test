@@ -23,14 +23,12 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-//         $user = (isset($this->route()->parameter('user')->id)) ? $this->route()->parameter('user') : '';
-        
-        $this->sanitize();
-        
-        return [
+//         $this->sanitize();
+      
+        $rules = [
             'full_name' => 'required|max:50', 
-            'alias' => 'unique:users,alias|max:100'.$this->user,
-            'email' => 'required|unique:users,email|email|max:100'.$this->user, 
+            'alias' => 'max:100|unique:users,alias',
+            'email' => 'required|email|max:100|unique:users,email', 
             'last_name_ru' => 'required|max:20', 
             'first_name_ru' => 'required|max:20', 
             'patronymic_ru' => 'max:20', 
@@ -41,13 +39,25 @@ class UserRequest extends FormRequest
             'patronymic_en' => 'max:20',
             'short_name_en' => 'required|max:20',
             'initials_en' => 'max:20', 
-            'avatar' => 'integer|nullable', 
+            'avatar' => 'string|nullable', 
             'orcid' => 'max:20|nullable',
             'post_ru' => 'string|max:250|nullable',
             'post_en' => 'string|max:250|nullable',
             'jobs_ru' => 'array|nullable',
             'jobs_en' => 'array|nullable',
         ];
+      
+        switch($this->getMethod()) {
+          case 'POST':
+            return $rules;
+          case 'PUT':
+            return [
+              'alias' => 'max:100|unique:users,alias,'.$this->user->id,
+              'email' => 'required|email|max:100|unique:users,email,'.$this->user->id, 
+            ] + $rules;
+          default:
+            return $rules;
+        }
     }
   
     public function sanitize()
