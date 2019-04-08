@@ -4,25 +4,43 @@
 			<div class="col-md-5">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="h5 mb-0">{{ title }}</h5>
+						<h5 v-if="currentCat.id" class="h5 mb-0">Рубрика №{{ currentCat.id }}</h5>
+						<h5 v-else class="h5 mb-0">Новая рубрика</h5>
 					</div>
 					<div class="card-body px-0">
 						<div class="col-md-12">
 							<div class="form-group">
 								<label class="h6">Название - рус</label>
-								<input type="text" class="form-control mr-2" v-model="currentCat.name_ru">
+								<input type="text" 
+											 class="form-control mr-2" 
+											 :class="checkError('name_ru')"
+											 v-model="currentCat.name_ru">
+								<div
+										class="invalid-feedback"
+										v-for="(error, key) in errors['name_ru']"
+										:key="key"
+									>{{error}}</div>
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
 								<label class="h6">Название - eng</label>
-								<input type="text" class="form-control mr-2" v-model="currentCat.name_en">
+								<input type="text" class="form-control mr-2"
+											 :class="checkError('name_en')"
+											 v-model="currentCat.name_en">
+								<div
+										class="invalid-feedback"
+										v-for="(error, key) in errors['name_en']"
+										:key="key"
+									>{{error}}</div>
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
 								<label class="h6">Родительская рубрика</label>
-								<select class="form-control" v-model="currentCat.parent_id">
+								<select class="form-control" 
+												:class="checkError('parent_id')"
+												v-model="currentCat.parent_id">
 									<option value="0">Нет</option>
 									<option
 										v-for="(cat, index) in categories"
@@ -31,21 +49,33 @@
 										:disabled="currentCat.id === cat.id"
 									>{{ cat.name_ru }}</option>
 								</select>
+								<div
+										class="invalid-feedback"
+										v-for="(error, key) in errors['parent_id']"
+										:key="key"
+									>{{error}}</div>
 							</div>
 						</div>
 					</div>
 					<div class="card-footer">
 						<button
 							type="button"
-							class="btn float-left"
-							:class="clearBtnClass"
+							class="btn btn-outline-primary float-left "
+							:class=""
 							@click.prevent="clearForm"
 						>Очистить форму</button>
 						<button
+							v-if="currentCat.id"
 							type="button"
 							class="btn btn-primary float-right"
-							@click.prevent="saveCategory"
-						>{{ submitBtnTitle }}</button>
+							@click.prevent="update(currentCat.id)"
+						>Обновить</button>
+						<button
+							v-else
+							type="button"
+							class="btn btn-primary float-right"
+							@click.prevent="save"
+						>Добавить новую рубрику</button>
 					</div>
 				</div>
 			</div>
@@ -160,6 +190,7 @@ export default {
 
 	data() {
 		return {
+// 			errors: {},
 			categories: [],
 			currentCat: {
 				id: "",
@@ -174,9 +205,6 @@ export default {
 			sortBy: "name_ru",
 			// orderBy: "asc",
 			orderByAsc: true,
-
-			title: "Новая рубрика",
-			submitBtnTitle: "Добавить новую рубрику",
 
 			page: 1
 		};
@@ -207,10 +235,11 @@ export default {
 		},
 
 		showedCategories: function() {
+			var self = this;
 			return this.orderedCategories.filter(function(cat, key) {
 				if (
-					key >= this.pagination.from - 1 &&
-					key <= this.pagination.to - 1
+					key >= self.pagination.from - 1 &&
+					key <= self.pagination.to - 1
 				) {
 					return cat;
 				}
@@ -267,6 +296,47 @@ export default {
 					this.categories = data;
 				});
 		},
+		
+		save() {
+				const params = {
+					name_ru: this.currentCat.name_ru,
+					name_en: this.currentCat.name_en,
+					parent_id: this.currentCat.parent_id
+				};
+				axios
+						.post("/api/categories", params)
+						.then(resp => {
+							if (resp.data.status === "success") {
+								this.$notify({
+									group: "custom-template",
+									type: "alert-success",
+									text: resp.data.message,
+									duration: -1
+								});
+								this.fetch();
+								this.clearForm();
+							}
+						})
+						.catch(error => {
+								this.errors = error.response.data.errors;
+								this.$notify({
+									group: "custom-template",
+									type: "alert-danger",
+									text: error.response.data.errors.title[0],
+									duration: -1
+								});
+						})
+		},
+		
+		update(id) {
+			
+		},
+		
+		checkError(error) {
+			if (this.errors.hasOwnProperty(error)) {
+				return "is-invalid";
+			}
+		},
 
 		saveCategory() {
 			const params = {
@@ -286,20 +356,32 @@ export default {
 								duration: -1
 							});
 							this.fetch();
-						}
+							this.clearForm();
+						} 
 					});
+					
 			} else {
-				axios.post("/api/categories", params).then(resp => {
-					if (resp.data.status === "success") {
-						this.$notify({
-							group: "custom-template",
-							type: "alert-success",
-							text: resp.data.message,
-							duration: -1
-						});
-						this.fetch();
-					}
-				});
+				axios
+					.post("/api/categories", params)
+					.then(resp => {
+						if (resp.data.status === "success") {
+							this.$notify({
+								group: "custom-template",
+								type: "alert-success",
+								text: resp.data.message,
+								duration: -1
+							});
+							this.fetch();
+							this.clearForm();
+						}
+					})
+					.catch(error => {
+							alert('error');
+							 console.log(error);
+								console.log(error.response.data);
+						console.log(error.response.status);
+						console.log(error.response.headers);
+						 });
 			}
 		},
 
@@ -338,6 +420,7 @@ export default {
 				name_en: "",
 				parent_id: 0
 			};
+			this.errors = {};
 		},
 
 		setOrder(sortBy) {

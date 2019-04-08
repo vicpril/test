@@ -530,6 +530,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -537,6 +567,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      // 			errors: {},
       categories: [],
       currentCat: {
         id: "",
@@ -550,8 +581,6 @@ __webpack_require__.r(__webpack_exports__);
       sortBy: "name_ru",
       // orderBy: "asc",
       orderByAsc: true,
-      title: "Новая рубрика",
-      submitBtnTitle: "Добавить новую рубрику",
       page: 1
     };
   },
@@ -574,8 +603,9 @@ __webpack_require__.r(__webpack_exports__);
       return _.orderBy(this.searchedCategories, this.sortBy, this.orderBy);
     },
     showedCategories: function showedCategories() {
+      var self = this;
       return this.orderedCategories.filter(function (cat, key) {
-        if (key >= this.pagination.from - 1 && key <= this.pagination.to - 1) {
+        if (key >= self.pagination.from - 1 && key <= self.pagination.to - 1) {
           return cat;
         }
       });
@@ -623,8 +653,46 @@ __webpack_require__.r(__webpack_exports__);
         _this.categories = data;
       });
     },
-    saveCategory: function saveCategory() {
+    save: function save() {
       var _this2 = this;
+
+      var params = {
+        name_ru: this.currentCat.name_ru,
+        name_en: this.currentCat.name_en,
+        parent_id: this.currentCat.parent_id
+      };
+      axios.post("/api/categories", params).then(function (resp) {
+        if (resp.data.status === "success") {
+          _this2.$notify({
+            group: "custom-template",
+            type: "alert-success",
+            text: resp.data.message,
+            duration: -1
+          });
+
+          _this2.fetch();
+
+          _this2.clearForm();
+        }
+      }).catch(function (error) {
+        _this2.errors = error.response.data.errors;
+
+        _this2.$notify({
+          group: "custom-template",
+          type: "alert-danger",
+          text: error.response.data.errors.title[0],
+          duration: -1
+        });
+      });
+    },
+    update: function update(id) {},
+    checkError: function checkError(error) {
+      if (this.errors.hasOwnProperty(error)) {
+        return "is-invalid";
+      }
+    },
+    saveCategory: function saveCategory() {
+      var _this3 = this;
 
       var params = {
         name_ru: this.currentCat.name_ru,
@@ -635,28 +703,38 @@ __webpack_require__.r(__webpack_exports__);
       if (this.currentCat.id) {
         axios.put("/api/categories/" + this.currentCat.id, params).then(function (resp) {
           if (resp.data.status === "success") {
-            _this2.$notify({
+            _this3.$notify({
               group: "custom-template",
               type: "alert-success",
               text: resp.data.message,
               duration: -1
             });
 
-            _this2.fetch();
+            _this3.fetch();
+
+            _this3.clearForm();
           }
         });
       } else {
         axios.post("/api/categories", params).then(function (resp) {
           if (resp.data.status === "success") {
-            _this2.$notify({
+            _this3.$notify({
               group: "custom-template",
               type: "alert-success",
               text: resp.data.message,
               duration: -1
             });
 
-            _this2.fetch();
+            _this3.fetch();
+
+            _this3.clearForm();
           }
+        }).catch(function (error) {
+          alert('error');
+          console.log(error);
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
         });
       }
     },
@@ -666,14 +744,14 @@ __webpack_require__.r(__webpack_exports__);
       this.currentCat = _.cloneDeep(this.categories[index]);
     },
     deleteCategory: function deleteCategory(index) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (confirm("Удалить рубрику " + this.categories[index].name_ru + "?")) {
         axios.delete("/api/categories/" + this.categories[index].id).then(function (resp) {
           if (resp.data.status === "success") {
-            _this3.categories.splice(index, 1);
+            _this4.categories.splice(index, 1);
 
-            _this3.$notify({
+            _this4.$notify({
               group: "custom-template",
               type: "alert-success",
               text: resp.data.message,
@@ -692,6 +770,7 @@ __webpack_require__.r(__webpack_exports__);
         name_en: "",
         parent_id: 0
       };
+      this.errors = {};
     },
     setOrder: function setOrder(sortBy) {
       this.sortBy = sortBy;
@@ -24597,7 +24676,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\r\nthead > tr > th.sorting_desc[data-v-7425bcb0],\r\nthead > tr > th.sorting[data-v-7425bcb0],\r\nthead > tr > td.sorting_asc[data-v-7425bcb0],\r\nthead > tr > td.sorting_desc[data-v-7425bcb0],\r\nthead > tr > td.sorting[data-v-7425bcb0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\r\nthead > tr > td[data-v-7425bcb0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\r\nthead .sorting_asc[data-v-7425bcb0],\r\nthead .sorting_desc[data-v-7425bcb0],\r\nthead .sorting_asc_disabled[data-v-7425bcb0],\r\nthead .sorting_desc_disabled[data-v-7425bcb0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\nthead > tr > th.sorting_desc[data-v-7425bcb0],\nthead > tr > th.sorting[data-v-7425bcb0],\nthead > tr > td.sorting_asc[data-v-7425bcb0],\nthead > tr > td.sorting_desc[data-v-7425bcb0],\nthead > tr > td.sorting[data-v-7425bcb0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\nthead > tr > td[data-v-7425bcb0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\nthead .sorting_asc[data-v-7425bcb0],\nthead .sorting_desc[data-v-7425bcb0],\nthead .sorting_asc_disabled[data-v-7425bcb0],\nthead .sorting_desc_disabled[data-v-7425bcb0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -24616,7 +24695,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-1f022106],\r\nthead > tr > th.sorting_desc[data-v-1f022106],\r\nthead > tr > th.sorting[data-v-1f022106],\r\nthead > tr > td.sorting_asc[data-v-1f022106],\r\nthead > tr > td.sorting_desc[data-v-1f022106],\r\nthead > tr > td.sorting[data-v-1f022106] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-1f022106]:active,\r\nthead > tr > td[data-v-1f022106]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-1f022106],\r\nthead .sorting_asc[data-v-1f022106],\r\nthead .sorting_desc[data-v-1f022106],\r\nthead .sorting_asc_disabled[data-v-1f022106],\r\nthead .sorting_desc_disabled[data-v-1f022106] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-1f022106]:before,\r\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:before,\r\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-1f022106]:after,\r\nthead .sorting_asc[data-v-1f022106]:after,\r\nthead .sorting_desc[data-v-1f022106]:after,\r\nthead .sorting_asc_disabled[data-v-1f022106]:after,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-1f022106]:before,\r\nthead .sorting_desc[data-v-1f022106]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-1f022106]:before,\r\nthead .sorting_desc_disabled[data-v-1f022106]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-1f022106],\nthead > tr > th.sorting_desc[data-v-1f022106],\nthead > tr > th.sorting[data-v-1f022106],\nthead > tr > td.sorting_asc[data-v-1f022106],\nthead > tr > td.sorting_desc[data-v-1f022106],\nthead > tr > td.sorting[data-v-1f022106] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-1f022106]:active,\nthead > tr > td[data-v-1f022106]:active {\n\toutline: none;\n}\nthead .sorting[data-v-1f022106],\nthead .sorting_asc[data-v-1f022106],\nthead .sorting_desc[data-v-1f022106],\nthead .sorting_asc_disabled[data-v-1f022106],\nthead .sorting_desc_disabled[data-v-1f022106] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-1f022106]:before,\nthead .sorting[data-v-1f022106]:after,\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_asc[data-v-1f022106]:after,\nthead .sorting_desc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:after,\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_asc_disabled[data-v-1f022106]:after,\nthead .sorting_desc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-1f022106]:before,\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:before,\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-1f022106]:after,\nthead .sorting_asc[data-v-1f022106]:after,\nthead .sorting_desc[data-v-1f022106]:after,\nthead .sorting_asc_disabled[data-v-1f022106]:after,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-1f022106]:before,\nthead .sorting_desc[data-v-1f022106]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-1f022106]:before,\nthead .sorting_desc_disabled[data-v-1f022106]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -33910,122 +33989,172 @@ var render = function() {
       _c("div", { staticClass: "col-md-5" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _c("h5", { staticClass: "h5 mb-0" }, [_vm._v(_vm._s(_vm.title))])
+            _vm.currentCat.id
+              ? _c("h5", { staticClass: "h5 mb-0" }, [
+                  _vm._v("Рубрика №" + _vm._s(_vm.currentCat.id))
+                ])
+              : _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Новая рубрика")])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body px-0" }, [
             _c("div", { staticClass: "col-md-12" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { staticClass: "h6" }, [_vm._v("Название - рус")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.currentCat.name_ru,
-                      expression: "currentCat.name_ru"
-                    }
-                  ],
-                  staticClass: "form-control mr-2",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.currentCat.name_ru },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.currentCat, "name_ru", $event.target.value)
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { staticClass: "h6" }, [_vm._v("Название - eng")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.currentCat.name_en,
-                      expression: "currentCat.name_en"
-                    }
-                  ],
-                  staticClass: "form-control mr-2",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.currentCat.name_en },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.currentCat, "name_en", $event.target.value)
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { staticClass: "h6" }, [
-                  _vm._v("Родительская рубрика")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "h6" }, [
+                    _vm._v("Название - рус")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.currentCat.parent_id,
-                        expression: "currentCat.parent_id"
+                        value: _vm.currentCat.name_ru,
+                        expression: "currentCat.name_ru"
                       }
                     ],
-                    staticClass: "form-control",
+                    staticClass: "form-control mr-2",
+                    class: _vm.checkError("name_ru"),
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.currentCat.name_ru },
                     on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.currentCat,
-                          "parent_id",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.currentCat, "name_ru", $event.target.value)
                       }
                     }
-                  },
-                  [
-                    _c("option", { attrs: { value: "0" } }, [_vm._v("Нет")]),
-                    _vm._v(" "),
-                    _vm._l(_vm.categories, function(cat, index) {
-                      return _c(
-                        "option",
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.errors["name_ru"], function(error, key) {
+                    return _c(
+                      "div",
+                      { key: key, staticClass: "invalid-feedback" },
+                      [_vm._v(_vm._s(error))]
+                    )
+                  })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" }, [
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "h6" }, [
+                    _vm._v("Название - eng")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.currentCat.name_en,
+                        expression: "currentCat.name_en"
+                      }
+                    ],
+                    staticClass: "form-control mr-2",
+                    class: _vm.checkError("name_en"),
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.currentCat.name_en },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.currentCat, "name_en", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.errors["name_en"], function(error, key) {
+                    return _c(
+                      "div",
+                      { key: key, staticClass: "invalid-feedback" },
+                      [_vm._v(_vm._s(error))]
+                    )
+                  })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" }, [
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "h6" }, [
+                    _vm._v("Родительская рубрика")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
                         {
-                          key: index,
-                          attrs: { disabled: _vm.currentCat.id === cat.id },
-                          domProps: { value: cat.id }
-                        },
-                        [_vm._v(_vm._s(cat.name_ru))]
-                      )
-                    })
-                  ],
-                  2
-                )
-              ])
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.currentCat.parent_id,
+                          expression: "currentCat.parent_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: _vm.checkError("parent_id"),
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.currentCat,
+                            "parent_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "0" } }, [_vm._v("Нет")]),
+                      _vm._v(" "),
+                      _vm._l(_vm.categories, function(cat, index) {
+                        return _c(
+                          "option",
+                          {
+                            key: index,
+                            attrs: { disabled: _vm.currentCat.id === cat.id },
+                            domProps: { value: cat.id }
+                          },
+                          [_vm._v(_vm._s(cat.name_ru))]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.errors["parent_id"], function(error, key) {
+                    return _c(
+                      "div",
+                      { key: key, staticClass: "invalid-feedback" },
+                      [_vm._v(_vm._s(error))]
+                    )
+                  })
+                ],
+                2
+              )
             ])
           ]),
           _vm._v(" "),
@@ -34033,8 +34162,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn float-left",
-                class: _vm.clearBtnClass,
+                staticClass: "btn btn-outline-primary float-left ",
                 attrs: { type: "button" },
                 on: {
                   click: function($event) {
@@ -34046,20 +34174,35 @@ var render = function() {
               [_vm._v("Очистить форму")]
             ),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary float-right",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.saveCategory($event)
-                  }
-                }
-              },
-              [_vm._v(_vm._s(_vm.submitBtnTitle))]
-            )
+            _vm.currentCat.id
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary float-right",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.update(_vm.currentCat.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Обновить")]
+                )
+              : _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary float-right",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.save($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Добавить новую рубрику")]
+                )
           ])
         ])
       ]),
@@ -41142,14 +41285,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************************!*\
   !*** ./resources/js/components/back/categories/CategoriesList.vue ***!
   \********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CategoriesList_vue_vue_type_template_id_7425bcb0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CategoriesList.vue?vue&type=template&id=7425bcb0&scoped=true& */ "./resources/js/components/back/categories/CategoriesList.vue?vue&type=template&id=7425bcb0&scoped=true&");
 /* harmony import */ var _CategoriesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CategoriesList.vue?vue&type=script&lang=js& */ "./resources/js/components/back/categories/CategoriesList.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _CategoriesList_vue_vue_type_style_index_0_id_7425bcb0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CategoriesList.vue?vue&type=style&index=0&id=7425bcb0&scoped=true&lang=css& */ "./resources/js/components/back/categories/CategoriesList.vue?vue&type=style&index=0&id=7425bcb0&scoped=true&lang=css&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CategoriesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CategoriesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _CategoriesList_vue_vue_type_style_index_0_id_7425bcb0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CategoriesList.vue?vue&type=style&index=0&id=7425bcb0&scoped=true&lang=css& */ "./resources/js/components/back/categories/CategoriesList.vue?vue&type=style&index=0&id=7425bcb0&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -41181,7 +41325,7 @@ component.options.__file = "resources/js/components/back/categories/CategoriesLi
 /*!*********************************************************************************************!*\
   !*** ./resources/js/components/back/categories/CategoriesList.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -41519,7 +41663,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  {{if full_name}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <strong>\r\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\r\n    </strong>\r\n  </span>\r\n  {{/if}}\r\n  {{if degree}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\">\r\n      <i><br>{{:degree}}</i>\r\n    </span>\r\n  </span>\r\n  {{/if}}\r\n  \r\n  {{if jobs}}\r\n  {{for jobs}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\r\n  </span>\r\n  {{/for}}\r\n  {{/if}}\r\n  \r\n  {{if orcid}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\r\n  </span>\r\n  {{/if}}\r\n</p>\r\n";
+module.exports = "<p>\n  {{if full_name}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <strong>\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\n    </strong>\n  </span>\n  {{/if}}\n  {{if degree}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\">\n      <i><br>{{:degree}}</i>\n    </span>\n  </span>\n  {{/if}}\n  \n  {{if jobs}}\n  {{for jobs}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\n  </span>\n  {{/for}}\n  {{/if}}\n  \n  {{if orcid}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\n  </span>\n  {{/if}}\n</p>\n";
 
 /***/ }),
 
@@ -43108,8 +43252,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\back.js */"./resources/js/back.js");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\coreui\coreui.scss */"./resources/sass/coreui/coreui.scss");
+__webpack_require__(/*! /home/cabox/workspace/resources/js/back.js */"./resources/js/back.js");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/coreui/coreui.scss */"./resources/sass/coreui/coreui.scss");
 
 
 /***/ })

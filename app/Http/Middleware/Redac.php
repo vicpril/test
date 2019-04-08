@@ -22,7 +22,7 @@ class Redac
         }
 
 //         return redirect()->route('login');
-        return response('Unauthorized.', 401);
+        return response('Unauthorized. <a href="'.route('login').'">login</a>' , 401);
        
     }
 }

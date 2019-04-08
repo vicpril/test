@@ -26,7 +26,7 @@ class CategoryRequest extends FormRequest
         $this->sanitize();
         
         return [
-            'name_ru' => 'required|max:250',
+            'name_ru' => 'required|unique:categories|max:250',
             'name_en' => 'max:250',
             'parent_id' => 'integer|nullable',
         ];
