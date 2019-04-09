@@ -11,8 +11,8 @@
          <a class="nav-link" href="{{ route('categories.index') }}">
             <i class="fa fa-bookmark px-1 mr-2"></i> Рубрики</a
          >
-         <a class="nav-link text-danger" href="colors.html">
-            <i class="fa fa-thumb-tack px-1 mr-2"></i> Темы</a
+         <a class="nav-link" href="{{ route('tags.index') }}">
+            <i class="fa fa-thumb-tack px-1 mr-2"></i> Метки</a
          >
       </li>
       <li class="nav-title">Авторы</li>

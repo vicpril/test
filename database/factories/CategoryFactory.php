@@ -10,7 +10,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
         //
         'alias' => 'cat-'.$i,
         'parent_id' => 0,
-        'name_ru' => 'Рубрика '. $i,
-        'name_en' => 'Category '. $i,
+        'title_ru' => 'Рубрика '. $i,
+        'title_en' => 'Category '. $i,
     ];
 });

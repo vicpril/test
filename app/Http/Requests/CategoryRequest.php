@@ -28,8 +28,8 @@ class CategoryRequest extends FormRequest
         $this->sanitize();
       
         $rules = [
-            'name_ru' => 'required|max:250|unique:categories,name_ru',
-            'name_en' => 'max:250',
+            'title_ru' => 'required|max:250|unique:categories,title_ru',
+            'title_en' => 'max:250',
             'parent_id' => 'integer|nullable',
         ];
         
@@ -38,7 +38,7 @@ class CategoryRequest extends FormRequest
             return $rules;
           case 'PUT':
             return [
-              'name_ru' => 'required|max:250|unique:categories,name_ru,'.$this->category->id,
+              'title_ru' => 'required|max:250|unique:categories,title_ru,'.$this->category->id,
             ] + $rules;
           default:
             return $rules;

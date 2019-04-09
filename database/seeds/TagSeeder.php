@@ -26,12 +26,8 @@ class TagSeeder extends Seeder
 
        		Tag::make([
        			'alias' => 'tag-'.$i,
-						'name_ru' => $tag,
-        		'name_en' => Transliterate::make($tag),
-//        			'name' => [
-//        				'ru' => $tag,
-//        				'en' => Transliterate::make($tag),
-//        			],
+						'title_ru' => $tag,
+        		'title_en' => Transliterate::make($tag),
        		])->save();
        	}
     }

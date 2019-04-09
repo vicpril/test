@@ -66,7 +66,7 @@ class CategoriesController extends SiteController
 	public function renderCategory($category = FALSE) {
         if ($category) {
             foreach ($category->articles as $article) {
-                echo $category->name . ' - ' ;
+                echo $category->title . ' - ' ;
                 echo $article->id . ' - ' ;
                 echo '<b>'.$article->title . '</b> - ' 
                     . $article->status->name . ' - ' ;

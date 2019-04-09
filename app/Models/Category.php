@@ -6,14 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-  protected $fillable = [
-		'name_ru', 'name_en', 'alias', 'parent_id'
-	]; 
-	
-	//
-	protected $casts = [
-// 		'name' => 'array',
-	];
+		
+		protected $fillable = [
+			'title_ru', 'title_en', 'alias', 'parent_id'
+		]; 
 	
 		/**
      * The attributes that should be hidden for arrays.
@@ -27,25 +23,19 @@ class Category extends Model
     	return $this->belongsToMany('App\Models\Article', 'article_category');
     }
 
-
-    // public function name() {
-    // 	return $this->name[app()->getLocale()];
-    // }
-
-
+	
     public function getLocAttribute() {
-//         return $this->name[app()->getLocale()];
 				switch (app()->getLocale()) {
-					case 'ru': return $this->name_ru;
-					case 'en': return $this->name_en;
+					case 'ru': return $this->title_ru;
+					case 'en': return $this->title_en;
 				}
     }
 
     public function getRuAttribute() {
-        return $this->name_ru;
+        return $this->title_ru;
     }
 
     public function getEnAttribute() {
-        return $this->name_en;
+        return $this->title_en;
     }
 }

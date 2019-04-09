@@ -1,7 +1,7 @@
 
 @if($tag)	
    <h2 class="pb-3 mb-4 font-italic border-bottom">
-      Тема: {{ $tag->name }}
+      Тема: {{ $tag->title }}
    </h2>
 
       <div class="blog-post">
@@ -17,6 +17,6 @@
 
 @else
 
-   <h3>Тема "{{$tag->name}}"" в базе не найдена</h3>
+   <h3>Тема "{{$tag->title}}"" в базе не найдена</h3>
 
 @endif

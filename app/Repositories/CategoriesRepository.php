@@ -20,9 +20,9 @@ class CategoriesRepository extends Repository{
      *
      *    Get categories with conditions
      *        search in:
-     *                 name_ru, name_en
+     *                 title_ru, title_en
 		 *				order by:
-		 * 								name_ru, name_en
+		 * 								title_ru, title_en
      *    For resources
      */
     public function getCategoriesList(\Illuminate\Http\Request $request) {
@@ -35,8 +35,8 @@ class CategoriesRepository extends Repository{
 								->leftjoin('article_category as a', 'c.id', '=', 'a.category_id')
 								->selectRaw("c.*, count(a.category_id) as articles")
 								->groupBy('c.id')
-								->where('c.name_ru', 'like', "%".$search."%")
-								->orWhere('c.name_en', 'like', "%".$search."%")
+								->where('c.title_ru', 'like', "%".$search."%")
+								->orWhere('c.title_en', 'like', "%".$search."%")
 								->orderBy($sortBy, $orderBy)
 								->get();
         return $cats;
@@ -49,7 +49,7 @@ class CategoriesRepository extends Repository{
     */
     public function create($data)
     {
-        $alias = Transliterate::make($data['name_ru'], ['type' => 'url', 'lowercase' => true]);
+        $alias = Transliterate::make($data['title_ru'], ['type' => 'url', 'lowercase' => true]);
 				$data = array_add($data, 'alias', $alias);
         
 				$cat = $this->model->create($data);
@@ -67,8 +67,6 @@ class CategoriesRepository extends Repository{
     */
     public function update(Category $cat, $data)
     {
-//         $alias = Transliterate::make($data['name_ru'], ['type' => 'url', 'lowercase' => true]);
-// 				$data = array_add($data, 'alias', $alias);
         if ($cat->update($data)) {
 					return [
 						'status' => 'success',

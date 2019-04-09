@@ -71,6 +71,8 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 		Route::resource('jobs', 'JobsController')->except(['create', 'show']);
 		Route::resource('users', 'UsersController')->except(['show']);
 		Route::resource('categories', 'CategoriesController')->only(['index']);
+		Route::resource('tags', 'TagsController')->only(['index']);
+
 
 		// template's examples
 		Route::get('icons', function() {return view(env('THEME_BACK').'.examples.icons')->render();});

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Http\Controllers\Back\AdminController;
-use App\Http\Requests\UserRequest;
 use App\Models\User;
-use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Repositories\UsersRepository;
+use App\Http\Controllers\Back\AdminController;
 
 class UsersController extends AdminController
 {
-//     use Indexable;
-
     public function __construct(UsersRepository $u_rep)
     {
         parent::__construct();

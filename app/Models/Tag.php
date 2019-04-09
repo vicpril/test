@@ -6,28 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    //
-    protected $casts = [
-		'name' => 'array',
-	];
+   	protected $fillable = [
+			'title_ru', 'title_en', 'alias'
+		]; 
+	
 	
     public function articles() {
     	return $this->belongsToMany('App\Models\Article', 'article_tag');
     }
 
     public function getLocAttribute() {
-//         return $this->name[app()->getLocale()];
 				switch (app()->getLocale()) {
-					case 'ru': return $this->name_ru;
-					case 'en': return $this->name_en;
+					case 'ru': return $this->title_ru;
+					case 'en': return $this->title_en;
 				}
     }
 
     public function getRuAttribute() {
-        return $this->name_ru;
+        return $this->title_ru;
     }
 
     public function getEnAttribute() {
-        return $this->name_en;
+        return $this->title_en;
     }
 }

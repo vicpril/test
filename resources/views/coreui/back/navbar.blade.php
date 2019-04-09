@@ -42,11 +42,11 @@
             <a class="dropdown-item text-danger" href="#">
                <i class="fa fa-file"></i> Статью</a
             >
-            <a class="dropdown-item text-danger" href="#">
+            <a class="dropdown-item" href="{{ route('categories.index') }}">
                <i class="fa fa-bookmark"></i> Рубрику</a
             >
-            <a class="dropdown-item text-danger" href="#">
-               <i class="fa fa-thumb-tack "></i> Тему</a
+            <a class="dropdown-item" href="{{ route('tags.index') }}">
+               <i class="fa fa-thumb-tack "></i> Метку</a
             >
             <div class="dropdown-header text-center">
                <strong>Авторы</strong>

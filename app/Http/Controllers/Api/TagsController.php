@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers\Api;
 
-// use DB;
-// use Route;
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use App\Http\Requests\TagRequest;
+use App\Http\Resources\TagResource;
+use App\Repositories\TagsRepository;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
-use App\Http\Resources\CategoryResource;
-use App\Repositories\CategoriesRepository;
 
-class CategoriesController extends Controller
+class TagsController extends Controller
 {
     protected $repository;
   
-    public function __construct (CategoriesRepository $c_rep) {
+    public function __construct (TagsRepository $t_rep) {
       
-      $this->repository = $c_rep;
+      $this->repository = $t_rep;
     }
   
     /**
@@ -27,8 +25,8 @@ class CategoriesController extends Controller
      */
     public function index(Request $request) 
     {
-        $cats = $this->repository->getCategoriesList($request);
-        return $cats;
+        $tags = $this->repository->getTagsList($request);
+        return $tags;
     }
   
     /**
@@ -37,7 +35,7 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request) {
+    public function store(TagRequest $request) {
         $result = $this->repository->create($request->except('_token', '_method'));
         return response()->json($result);
     }
@@ -49,8 +47,8 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $cat) {
-        $result = $this->repository->update($cat, $request->except('_token', '_method'));
+    public function update(TagRequest $request, Tag $tag) {
+        $result = $this->repository->update($tag, $request->except('_token', '_method'));
         return response()->json($result);
     }
   
@@ -60,9 +58,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $cat) {
+    public function destroy(Tag $tag) {
         $this->middleware('auth:api');
-        $result = $this->repository->deleteCategory($cat);
+        $result = $this->repository->deleteTag($tag);
 
         if (is_array($result)) {
             return response()->json($result);

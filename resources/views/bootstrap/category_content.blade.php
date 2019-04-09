@@ -1,7 +1,7 @@
 
 @if($category)	
    <h2 class="pb-3 mb-4 font-italic border-bottom">
-      Материалы под рубрикой: {{ $category->name }}
+      Материалы под рубрикой: {{ $category->title }}
    </h2>
 
       <div class="blog-post">

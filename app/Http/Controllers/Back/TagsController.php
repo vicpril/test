@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Categories;
+use App\Tags;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoriesController extends AdminController
+class TagsController extends AdminController
 {
     
     /**
@@ -16,9 +16,9 @@ class CategoriesController extends AdminController
      */
     public function index()
     {
-        $this->subtitle = "Рубрики";
+        $this->subtitle = "Метки";
 
-        $this->template = env('THEME_BACK') . '.back.categories.index';
+        $this->template = env('THEME_BACK') . '.back.tags.index';
       
         return $this->renderOutput();
     }

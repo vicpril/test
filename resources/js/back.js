@@ -53,6 +53,10 @@ Vue.component(
    "categories-list",
    require("./components/back/categories/CategoriesList.vue").default
 );
+Vue.component(
+   "tags-list",
+   require("./components/back/tags/TagsList.vue").default
+);
 
 Vue.component("alert", require("./components/back/Alert.vue").default);
 Vue.component(

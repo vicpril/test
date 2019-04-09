@@ -23,7 +23,7 @@ Route::apiResource('users', 'Api\UsersController')->only('index');
 Route::apiResource('categories', 'Api\CategoriesController')->except('index')->middleware('auth:api');
 Route::apiResource('categories', 'Api\CategoriesController')->only('index');
 
-
-// Route::middleware('auth:api')->get('categories', 'Api\CategoriesController@index');
+Route::apiResource('tags', 'Api\TagsController')->except('index')->middleware('auth:api');
+Route::apiResource('tags', 'Api\TagsController')->only('index');
 
 
