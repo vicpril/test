@@ -114,7 +114,7 @@
 						<table class="table table-striped table-responsive-md" style="width:100%">
 							<thead class="text-black">
 								<tr>
-									<th>ID</th>
+<!-- 									<th>ID</th> -->
 									<th
 										class="sorting"
 										:class="showOrder('title_ru')"
@@ -132,7 +132,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="(cat, index) in showedCategories " :key="index">
-									<td>{{ cat.id }}</td>
+<!-- 									<td>{{ cat.id }}</td> -->
 									<td>
 										<a href @click.prevent="showCategory(index)">{{ cat.title_ru }}</a>
 									</td>

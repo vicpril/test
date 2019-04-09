@@ -950,29 +950,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -980,12 +957,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      categories: [],
-      currentCat: {
+      tags: [],
+      currentTag: {
         id: "",
         title_ru: "",
-        title_en: "",
-        parent_id: 0
+        title_en: ""
       },
       paginateOptions: [5, 10, 25, 50, 100],
       paginateSelect: 10,
@@ -996,38 +972,38 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    searchedCategories: function searchedCategories() {
+    searchedTags: function searchedTags() {
       if (!this.search) {
-        return this.categories;
+        return this.tags;
       }
 
       var self = this;
-      return this.categories.filter(function (cat) {
-        if (cat.title_ru.toLowerCase().indexOf(self.search.toLowerCase()) !== -1 || cat.title_en.toLowerCase().indexOf(self.search.toLowerCase()) !== -1) {
+      return this.tags.filter(function (tag) {
+        if (tag.title_ru.toLowerCase().indexOf(self.search.toLowerCase()) !== -1 || tag.title_en.toLowerCase().indexOf(self.search.toLowerCase()) !== -1) {
           return true;
         } else {
           return false;
         }
       });
     },
-    orderedCategories: function orderedCategories() {
-      return _.orderBy(this.searchedCategories, this.sortBy, this.orderBy);
+    orderedTags: function orderedTags() {
+      return _.orderBy(this.searchedTags, this.sortBy, this.orderBy);
     },
-    showedCategories: function showedCategories() {
+    showedTags: function showedTags() {
       var self = this;
-      return this.orderedCategories.filter(function (cat, key) {
+      return this.orderedTags.filter(function (tag, key) {
         if (key >= self.pagination.from - 1 && key <= self.pagination.to - 1) {
-          return cat;
+          return tag;
         }
       });
     },
     pagination: function pagination() {
       return {
-        pageCount: Math.ceil(this.orderedCategories.length / this.paginateSelect),
+        pageCount: Math.ceil(this.orderedTags.length / this.paginateSelect),
         currentPage: this.page,
         from: 1 + this.paginateSelect * (this.page - 1),
-        to: Math.min(this.orderedCategories.length, this.paginateSelect * this.page),
-        total: this.orderedCategories.length
+        to: Math.min(this.orderedTags.length, this.paginateSelect * this.page),
+        total: this.orderedTags.length
       };
     },
     orderBy: function orderBy() {
@@ -1038,7 +1014,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     clearBtnClass: function clearBtnClass() {
-      if (this.currentCat.id) {
+      if (this.currentTag.id) {
         return "btn-outline-primary";
       } else {
         return "btn-outline-secondary disabled";
@@ -1053,7 +1029,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get("/api/categories", {
+      axios.get("/api/tags", {
         params: {
           sortBy: this.sortBy,
           orderBy: this.orderBy,
@@ -1061,18 +1037,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        _this.categories = data;
+        _this.tags = data;
       });
     },
     save: function save() {
       var _this2 = this;
 
       var params = {
-        title_ru: this.currentCat.title_ru,
-        title_en: this.currentCat.title_en,
-        parent_id: this.currentCat.parent_id
+        title_ru: this.currentTag.title_ru,
+        title_en: this.currentTag.title_en
       };
-      axios.post("/api/categories", params).then(function (resp) {
+      axios.post("/api/tags", params).then(function (resp) {
         if (resp.data.status === "success") {
           _this2.$notify({
             group: "custom-template",
@@ -1100,12 +1075,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var params = {
-        title_ru: this.currentCat.title_ru,
-        title_en: this.currentCat.title_en,
-        parent_id: this.currentCat.parent_id,
+        title_ru: this.currentTag.title_ru,
+        title_en: this.currentTag.title_en,
         id: id
       };
-      axios.put("/api/categories/" + id, params).then(function (resp) {
+      axios.put("/api/tags/" + id, params).then(function (resp) {
         if (resp.data.status === "success") {
           _this3.$notify({
             group: "custom-template",
@@ -1134,23 +1108,23 @@ __webpack_require__.r(__webpack_exports__);
         return "is-invalid";
       }
     },
-    showCategory: function showCategory(index) {
-      this.title = "Рубрика №" + this.showedCategories[index].id;
-      this.currentCat = _.cloneDeep(this.showedCategories[index]);
+    showTag: function showTag(index) {
+      this.title = "Метка №" + this.showedTags[index].id;
+      this.currentTag = _.cloneDeep(this.showedTags[index]);
     },
-    deleteCategory: function deleteCategory(index) {
+    deleteTag: function deleteTag(index) {
       var _this4 = this;
 
-      if (confirm("Удалить рубрику " + this.showedCategories[index].title_ru + "?")) {
-        axios.delete("/api/categories/" + this.showedCategories[index].id).then(function (resp) {
+      if (confirm("Удалить метку " + this.showedTags[index].title_ru + "?")) {
+        axios.delete("/api/tags/" + this.showedTags[index].id).then(function (resp) {
           if (resp.data.status === "success") {
             var self = _this4;
 
-            var i = _this4.categories.findIndex(function (cat) {
-              return cat.id === self.showedCategories[index].id;
+            var i = _this4.tags.findIndex(function (tag) {
+              return tag.id === self.showedTags[index].id;
             });
 
-            _this4.categories.splice(i, 1);
+            _this4.tags.splice(i, 1);
 
             _this4.$notify({
               group: "custom-template",
@@ -1163,11 +1137,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     clearForm: function clearForm() {
-      this.currentCat = {
+      this.currentTag = {
         id: "",
         title_ru: "",
-        title_en: "",
-        parent_id: 0
+        title_en: ""
       };
       this.errors = {};
     },
@@ -34672,7 +34645,9 @@ var render = function() {
               _c("div", { staticClass: "col-sm-12 col-md-6" }, [
                 _c("div", { staticClass: "form-inline" }, [
                   _c("label", [
-                    _vm._v("\n\t\t\t\t\t\t\t\t\tПоказать\n\t\t\t\t\t\t\t\t\t"),
+                    _vm._v(
+                      "\n\t\t\t\t\t\t\t\t\t\tПоказать\n\t\t\t\t\t\t\t\t\t\t"
+                    ),
                     _c(
                       "select",
                       {
@@ -34716,7 +34691,7 @@ var render = function() {
                       }),
                       0
                     ),
-                    _vm._v(" записей\n\t\t\t\t\t\t\t\t")
+                    _vm._v(" записей\n\t\t\t\t\t\t\t\t\t")
                   ])
                 ])
               ]),
@@ -34724,7 +34699,9 @@ var render = function() {
               _c("div", { staticClass: "col-sm-12 col-md-6" }, [
                 _c("div", { staticClass: "form-inline float-right" }, [
                   _c("label", [
-                    _vm._v("\n\t\t\t\t\t\t\t\t\tПоиск:\n\t\t\t\t\t\t\t\t\t"),
+                    _vm._v(
+                      "\n\t\t\t\t\t\t\t\t\t\tПоиск:\n\t\t\t\t\t\t\t\t\t\t"
+                    ),
                     _c("input", {
                       directives: [
                         {
@@ -34760,8 +34737,6 @@ var render = function() {
               [
                 _c("thead", { staticClass: "text-black" }, [
                   _c("tr", [
-                    _c("th", [_vm._v("ID")]),
-                    _vm._v(" "),
                     _c(
                       "th",
                       {
@@ -34814,8 +34789,6 @@ var render = function() {
                   "tbody",
                   _vm._l(_vm.showedCategories, function(cat, index) {
                     return _c("tr", { key: index }, [
-                      _c("td", [_vm._v(_vm._s(cat.id))]),
-                      _vm._v(" "),
                       _c("td", [
                         _c(
                           "a",
@@ -34951,11 +34924,11 @@ var render = function() {
       _c("div", { staticClass: "col-md-5" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm.currentCat.id
+            _vm.currentTag.id
               ? _c("h5", { staticClass: "h5 mb-0" }, [
-                  _vm._v("Рубрика №" + _vm._s(_vm.currentCat.id))
+                  _vm._v("Метка №" + _vm._s(_vm.currentTag.id))
                 ])
-              : _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Новая рубрика")])
+              : _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Новая метка")])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body px-0" }, [
@@ -34973,21 +34946,21 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.currentCat.title_ru,
-                        expression: "currentCat.title_ru"
+                        value: _vm.currentTag.title_ru,
+                        expression: "currentTag.title_ru"
                       }
                     ],
                     staticClass: "form-control mr-2",
                     class: _vm.checkError("title_ru"),
                     attrs: { type: "text" },
-                    domProps: { value: _vm.currentCat.title_ru },
+                    domProps: { value: _vm.currentTag.title_ru },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.currentCat,
+                          _vm.currentTag,
                           "title_ru",
                           $event.target.value
                         )
@@ -35021,21 +34994,21 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.currentCat.title_en,
-                        expression: "currentCat.title_en"
+                        value: _vm.currentTag.title_en,
+                        expression: "currentTag.title_en"
                       }
                     ],
                     staticClass: "form-control mr-2",
                     class: _vm.checkError("title_en"),
                     attrs: { type: "text" },
-                    domProps: { value: _vm.currentCat.title_en },
+                    domProps: { value: _vm.currentTag.title_en },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.currentCat,
+                          _vm.currentTag,
                           "title_en",
                           $event.target.value
                         )
@@ -35044,78 +35017,6 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _vm._l(_vm.errors["title_en"], function(error, key) {
-                    return _c(
-                      "div",
-                      { key: key, staticClass: "invalid-feedback" },
-                      [_vm._v(_vm._s(error))]
-                    )
-                  })
-                ],
-                2
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12" }, [
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", { staticClass: "h6" }, [
-                    _vm._v("Родительская рубрика")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.currentCat.parent_id,
-                          expression: "currentCat.parent_id"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      class: _vm.checkError("parent_id"),
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.currentCat,
-                            "parent_id",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "0" } }, [_vm._v("Нет")]),
-                      _vm._v(" "),
-                      _vm._l(_vm.categories, function(cat, index) {
-                        return _c(
-                          "option",
-                          {
-                            key: index,
-                            attrs: { disabled: _vm.currentCat.id === cat.id },
-                            domProps: { value: cat.id }
-                          },
-                          [_vm._v(_vm._s(cat.title_ru))]
-                        )
-                      })
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _vm._l(_vm.errors["parent_id"], function(error, key) {
                     return _c(
                       "div",
                       { key: key, staticClass: "invalid-feedback" },
@@ -35144,7 +35045,7 @@ var render = function() {
               [_vm._v("Очистить форму")]
             ),
             _vm._v(" "),
-            _vm.currentCat.id
+            _vm.currentTag.id
               ? _c(
                   "button",
                   {
@@ -35153,7 +35054,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.update(_vm.currentCat.id)
+                        return _vm.update(_vm.currentTag.id)
                       }
                     }
                   },
@@ -35171,7 +35072,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Добавить новую рубрику")]
+                  [_vm._v("Добавить новую метку")]
                 )
           ])
         ])
@@ -35304,8 +35205,6 @@ var render = function() {
                       [_vm._v("Название - eng")]
                     ),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Род.")]),
-                    _vm._v(" "),
                     _c(
                       "th",
                       {
@@ -35326,9 +35225,9 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.showedCategories, function(cat, index) {
+                  _vm._l(_vm.showedTags, function(tag, index) {
                     return _c("tr", { key: index }, [
-                      _c("td", [_vm._v(_vm._s(cat.id))]),
+                      _c("td", [_vm._v(_vm._s(tag.id))]),
                       _vm._v(" "),
                       _c("td", [
                         _c(
@@ -35338,19 +35237,17 @@ var render = function() {
                             on: {
                               click: function($event) {
                                 $event.preventDefault()
-                                return _vm.showCategory(index)
+                                return _vm.showTag(index)
                               }
                             }
                           },
-                          [_vm._v(_vm._s(cat.title_ru))]
+                          [_vm._v(_vm._s(tag.title_ru))]
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cat.title_en))]),
+                      _c("td", [_vm._v(_vm._s(tag.title_en))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cat.parent_id))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cat.articles))]),
+                      _c("td", [_vm._v(_vm._s(tag.articles))]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-secondary" }, [
                         _c("i", {
@@ -35365,7 +35262,7 @@ var render = function() {
                               )
                             },
                             click: function($event) {
-                              return _vm.deleteCategory(index)
+                              return _vm.deleteTag(index)
                             }
                           }
                         })
@@ -35435,7 +35332,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Список рубрик")])
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Список меток")])
     ])
   }
 ]

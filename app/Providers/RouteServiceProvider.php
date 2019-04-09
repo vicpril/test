@@ -39,6 +39,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('category', function($value) {
             return \App\Models\Category::where('id', $value)->first();
         });
+      
+        Route::bind('tag', function($value) {
+            return \App\Models\Tag::where('id', $value)->first();
+        });
     }
 
     /**

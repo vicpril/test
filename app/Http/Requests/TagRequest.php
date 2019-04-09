@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class TagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,9 +27,8 @@ class CategoryRequest extends FormRequest
         $this->sanitize();
       
         $rules = [
-            'title_ru' => 'required|max:250|unique:categories,title_ru',
+            'title_ru' => 'required|max:250|unique:tags,title_ru',
             'title_en' => 'max:250',
-            'parent_id' => 'integer|nullable',
         ];
         
         switch($this->getMethod()) {
@@ -37,7 +36,7 @@ class CategoryRequest extends FormRequest
             return $rules;
           case 'PUT':
             return [
-              'title_ru' => 'required|max:250|unique:categories,title_ru,'.$this->category->id,
+              'title_ru' => 'required|max:250|unique:tags,title_ru,'.$this->tag->id,
             ] + $rules;
           default:
             return $rules;

@@ -4,8 +4,8 @@
 			<div class="col-md-5">
 				<div class="card">
 					<div class="card-header">
-						<h5 v-if="currentCat.id" class="h5 mb-0">Рубрика №{{ currentCat.id }}</h5>
-						<h5 v-else class="h5 mb-0">Новая рубрика</h5>
+						<h5 v-if="currentTag.id" class="h5 mb-0">Метка №{{ currentTag.id }}</h5>
+						<h5 v-else class="h5 mb-0">Новая метка</h5>
 					</div>
 					<div class="card-body px-0">
 						<div class="col-md-12">
@@ -14,7 +14,7 @@
 								<input type="text" 
 											 class="form-control mr-2" 
 											 :class="checkError('title_ru')"
-											 v-model="currentCat.title_ru">
+											 v-model="currentTag.title_ru">
 								<div
 										class="invalid-feedback"
 										v-for="(error, key) in errors['title_ru']"
@@ -27,31 +27,10 @@
 								<label class="h6">Название - eng</label>
 								<input type="text" class="form-control mr-2"
 											 :class="checkError('title_en')"
-											 v-model="currentCat.title_en">
+											 v-model="currentTag.title_en">
 								<div
 										class="invalid-feedback"
 										v-for="(error, key) in errors['title_en']"
-										:key="key"
-									>{{error}}</div>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="h6">Родительская рубрика</label>
-								<select class="form-control" 
-												:class="checkError('parent_id')"
-												v-model="currentCat.parent_id">
-									<option value="0">Нет</option>
-									<option
-										v-for="(cat, index) in categories"
-										:key="index"
-										v-bind:value="cat.id"
-										:disabled="currentCat.id === cat.id"
-									>{{ cat.title_ru }}</option>
-								</select>
-								<div
-										class="invalid-feedback"
-										v-for="(error, key) in errors['parent_id']"
 										:key="key"
 									>{{error}}</div>
 							</div>
@@ -64,17 +43,17 @@
 							@click.prevent="clearForm"
 						>Очистить форму</button>
 						<button
-							v-if="currentCat.id"
+							v-if="currentTag.id"
 							type="button"
 							class="btn btn-primary float-right"
-							@click.prevent="update(currentCat.id)"
+							@click.prevent="update(currentTag.id)"
 						>Обновить</button>
 						<button
 							v-else
 							type="button"
 							class="btn btn-primary float-right"
 							@click.prevent="save"
-						>Добавить новую рубрику</button>
+						>Добавить новую метку</button>
 					</div>
 				</div>
 			</div>
@@ -82,7 +61,7 @@
 			<div class="col-md-7">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="h5 mb-0">Список рубрик</h5>
+						<h5 class="h5 mb-0">Список меток</h5>
 					</div>
 					<div class="card-body">
 						<div class="row mb-2">
@@ -125,26 +104,24 @@
 										:class="showOrder('title_en')"
 										@click="setOrder('title_en')"
 									>Название - eng</th>
-									<th>Род.</th>
 									<th class="sorting" :class="showOrder('articles')" @click="setOrder('articles')">Статьи</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(cat, index) in showedCategories " :key="index">
-									<td>{{ cat.id }}</td>
+								<tr v-for="(tag, index) in showedTags " :key="index">
+									<td>{{ tag.id }}</td>
 									<td>
-										<a href @click.prevent="showCategory(index)">{{ cat.title_ru }}</a>
+										<a href @click.prevent="showTag(index)">{{ tag.title_ru }}</a>
 									</td>
-									<td>{{ cat.title_en }}</td>
-									<td>{{ cat.parent_id }}</td>
-									<td>{{ cat.articles }}</td>
+									<td>{{ tag.title_en }}</td>
+									<td>{{ tag.articles }}</td>
 									<td class="text-secondary">
 										<i
 											class="fa fa-close"
 											@mouseover="$event.target.classList.add('text-danger')"
 											@mouseout="$event.target.classList.remove('text-danger')"
-											@click="deleteCategory(index)"
+											@click="deleteTag(index)"
 										></i>
 									</td>
 								</tr>
@@ -191,12 +168,11 @@ export default {
 
 	data() {
 		return {
-			categories: [],
-			currentCat: {
+			tags: [],
+			currentTag: {
 				id: "",
 				title_ru: "",
 				title_en: "",
-				parent_id: 0
 			},
 			paginateOptions: [5, 10, 25, 50, 100],
 			paginateSelect: 10,
@@ -210,16 +186,16 @@ export default {
 	},
 
 	computed: {
-		searchedCategories: function() {
+		searchedTags: function() {
 			if (!this.search) {
-				return this.categories;
+				return this.tags;
 			}
 			var self = this;
-			return this.categories.filter(function(cat) {
+			return this.tags.filter(function(tag) {
 				if (
-					cat.title_ru.toLowerCase().indexOf(self.search.toLowerCase()) !==
+					tag.title_ru.toLowerCase().indexOf(self.search.toLowerCase()) !==
 						-1 ||
-					cat.title_en.toLowerCase().indexOf(self.search.toLowerCase()) !==
+					tag.title_en.toLowerCase().indexOf(self.search.toLowerCase()) !==
 						-1
 				) {
 					return true;
@@ -229,18 +205,18 @@ export default {
 			});
 		},
 
-		orderedCategories: function() {
-			return _.orderBy(this.searchedCategories, this.sortBy, this.orderBy);
+		orderedTags: function() {
+			return _.orderBy(this.searchedTags, this.sortBy, this.orderBy);
 		},
 
-		showedCategories: function() {
+		showedTags: function() {
 			var self = this;
-			return this.orderedCategories.filter(function(cat, key) {
+			return this.orderedTags.filter(function(tag, key) {
 				if (
 					key >= self.pagination.from - 1 &&
 					key <= self.pagination.to - 1
 				) {
-					return cat;
+					return tag;
 				}
 			});
 		},
@@ -248,15 +224,15 @@ export default {
 		pagination() {
 			return {
 				pageCount: Math.ceil(
-					this.orderedCategories.length / this.paginateSelect
+					this.orderedTags.length / this.paginateSelect
 				),
 				currentPage: this.page,
 				from: 1 + this.paginateSelect * (this.page - 1),
 				to: Math.min(
-					this.orderedCategories.length,
+					this.orderedTags.length,
 					this.paginateSelect * this.page
 				),
-				total: this.orderedCategories.length
+				total: this.orderedTags.length
 			};
 		},
 
@@ -269,7 +245,7 @@ export default {
 		},
 
 		clearBtnClass() {
-			if (this.currentCat.id) {
+			if (this.currentTag.id) {
 				return "btn-outline-primary";
 			} else {
 				return "btn-outline-secondary disabled";
@@ -284,7 +260,7 @@ export default {
 	methods: {
 		fetch(page = 1) {
 			axios
-				.get("/api/categories", {
+				.get("/api/tags", {
 					params: {
 						sortBy: this.sortBy,
 						orderBy: this.orderBy,
@@ -292,18 +268,17 @@ export default {
 					}
 				})
 				.then(({ data }) => {
-					this.categories = data;
+					this.tags = data;
 				});
 		},
 		
 		save() {
 				const params = {
-					title_ru: this.currentCat.title_ru,
-					title_en: this.currentCat.title_en,
-					parent_id: this.currentCat.parent_id
+					title_ru: this.currentTag.title_ru,
+					title_en: this.currentTag.title_en,
 				};
 				axios
-						.post("/api/categories", params)
+						.post("/api/tags", params)
 						.then(resp => {
 							if (resp.data.status === "success") {
 								this.$notify({
@@ -329,13 +304,12 @@ export default {
 		
 		update(id) {
 			const params = {
-					title_ru: this.currentCat.title_ru,
-					title_en: this.currentCat.title_en,
-					parent_id: this.currentCat.parent_id,
+					title_ru: this.currentTag.title_ru,
+					title_en: this.currentTag.title_en,
 					id: id
 			};
 			axios
-					.put("/api/categories/" + id, params)
+					.put("/api/tags/" + id, params)
 					.then(resp => {
 						if (resp.data.status === "success") {
 							this.$notify({
@@ -365,22 +339,22 @@ export default {
 			}
 		},
 
-		showCategory(index) {
-			this.title = "Рубрика №" + this.showedCategories[index].id;
-			this.currentCat = _.cloneDeep(this.showedCategories[index]);
+		showTag(index) {
+			this.title = "Метка №" + this.showedTags[index].id;
+			this.currentTag = _.cloneDeep(this.showedTags[index]);
 		},
 
-		deleteCategory(index) {
+		deleteTag(index) {
 			if (
-				confirm("Удалить рубрику " + this.showedCategories[index].title_ru + "?")
+				confirm("Удалить метку " + this.showedTags[index].title_ru + "?")
 			) {
 				axios
-					.delete("/api/categories/" + this.showedCategories[index].id)
+					.delete("/api/tags/" + this.showedTags[index].id)
 					.then(resp => {
 						if (resp.data.status === "success") {
 							var self = this;
-							const i = this.categories.findIndex((cat) => {return cat.id === self.showedCategories[index].id});
-							this.categories.splice(i, 1);
+							const i = this.tags.findIndex((tag) => {return tag.id === self.showedTags[index].id});
+							this.tags.splice(i, 1);
 							
 							this.$notify({
 								group: "custom-template",
@@ -394,11 +368,10 @@ export default {
 		},
 
 		clearForm() {
-			this.currentCat = {
+			this.currentTag = {
 				id: "",
 				title_ru: "",
 				title_en: "",
-				parent_id: 0
 			};
 			this.errors = {};
 		},
