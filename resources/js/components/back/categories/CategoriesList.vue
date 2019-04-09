@@ -114,6 +114,7 @@
 						<table class="table table-striped table-responsive-md" style="width:100%">
 							<thead class="text-black">
 								<tr>
+									<th>ID</th>
 									<th
 										class="sorting"
 										:class="showOrder('name_ru')"
@@ -131,6 +132,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="(cat, index) in showedCategories " :key="index">
+									<td>{{ cat.id }}</td>
 									<td>
 										<a href @click.prevent="showCategory(index)">{{ cat.name_ru }}</a>
 									</td>
@@ -189,7 +191,6 @@ export default {
 
 	data() {
 		return {
-// 			errors: {},
 			categories: [],
 			currentCat: {
 				id: "",
@@ -202,7 +203,6 @@ export default {
 
 			search: "",
 			sortBy: "name_ru",
-			// orderBy: "asc",
 			orderByAsc: true,
 
 			page: 1
@@ -365,68 +365,23 @@ export default {
 			}
 		},
 
-// 		saveCategory() {
-// 			const params = {
-// 				name_ru: this.currentCat.name_ru,
-// 				name_en: this.currentCat.name_en,
-// 				parent_id: this.currentCat.parent_id
-// 			};
-// 			if (this.currentCat.id) {
-// 				axios
-// 					.put("/api/categories/" + this.currentCat.id, params)
-// 					.then(resp => {
-// 						if (resp.data.status === "success") {
-// 							this.$notify({
-// 								group: "custom-template",
-// 								type: "alert-success",
-// 								text: resp.data.message,
-// 								duration: -1
-// 							});
-// 							this.fetch();
-// 							this.clearForm();
-// 						} 
-// 					});
-					
-// 			} else {
-// 				axios
-// 					.post("/api/categories", params)
-// 					.then(resp => {
-// 						if (resp.data.status === "success") {
-// 							this.$notify({
-// 								group: "custom-template",
-// 								type: "alert-success",
-// 								text: resp.data.message,
-// 								duration: -1
-// 							});
-// 							this.fetch();
-// 							this.clearForm();
-// 						}
-// 					})
-// 					.catch(error => {
-// 							alert('error');
-// 							 console.log(error);
-// 								console.log(error.response.data);
-// 						console.log(error.response.status);
-// 						console.log(error.response.headers);
-// 						 });
-// 			}
-// 		},
-
 		showCategory(index) {
-			this.title = "Рубрика №" + this.categories[index].id;
-			this.submitBtnTitle = "Обновить";
-			this.currentCat = _.cloneDeep(this.categories[index]);
+			this.title = "Рубрика №" + this.showedCategories[index].id;
+			this.currentCat = _.cloneDeep(this.showedCategories[index]);
 		},
 
 		deleteCategory(index) {
 			if (
-				confirm("Удалить рубрику " + this.categories[index].name_ru + "?")
+				confirm("Удалить рубрику " + this.showedCategories[index].name_ru + "?")
 			) {
 				axios
-					.delete("/api/categories/" + this.categories[index].id)
+					.delete("/api/categories/" + this.showedCategories[index].id)
 					.then(resp => {
 						if (resp.data.status === "success") {
-							this.categories.splice(index, 1);
+							var self = this;
+							const i = this.categories.findIndex((cat) => {return cat.id === self.showedCategories[index].id});
+							this.categories.splice(i, 1);
+							
 							this.$notify({
 								group: "custom-template",
 								type: "alert-success",
@@ -439,8 +394,6 @@ export default {
 		},
 
 		clearForm() {
-			this.title = "Новая рубрика";
-			this.submitBtnTitle = "Добавить новую рубрику";
 			this.currentCat = {
 				id: "",
 				name_ru: "",

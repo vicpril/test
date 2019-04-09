@@ -559,6 +559,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -566,7 +568,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      // 			errors: {},
       categories: [],
       currentCat: {
         id: "",
@@ -578,7 +579,6 @@ __webpack_require__.r(__webpack_exports__);
       paginateSelect: 10,
       search: "",
       sortBy: "name_ru",
-      // orderBy: "asc",
       orderByAsc: true,
       page: 1
     };
@@ -722,63 +722,23 @@ __webpack_require__.r(__webpack_exports__);
         return "is-invalid";
       }
     },
-    // 		saveCategory() {
-    // 			const params = {
-    // 				name_ru: this.currentCat.name_ru,
-    // 				name_en: this.currentCat.name_en,
-    // 				parent_id: this.currentCat.parent_id
-    // 			};
-    // 			if (this.currentCat.id) {
-    // 				axios
-    // 					.put("/api/categories/" + this.currentCat.id, params)
-    // 					.then(resp => {
-    // 						if (resp.data.status === "success") {
-    // 							this.$notify({
-    // 								group: "custom-template",
-    // 								type: "alert-success",
-    // 								text: resp.data.message,
-    // 								duration: -1
-    // 							});
-    // 							this.fetch();
-    // 							this.clearForm();
-    // 						} 
-    // 					});
-    // 			} else {
-    // 				axios
-    // 					.post("/api/categories", params)
-    // 					.then(resp => {
-    // 						if (resp.data.status === "success") {
-    // 							this.$notify({
-    // 								group: "custom-template",
-    // 								type: "alert-success",
-    // 								text: resp.data.message,
-    // 								duration: -1
-    // 							});
-    // 							this.fetch();
-    // 							this.clearForm();
-    // 						}
-    // 					})
-    // 					.catch(error => {
-    // 							alert('error');
-    // 							 console.log(error);
-    // 								console.log(error.response.data);
-    // 						console.log(error.response.status);
-    // 						console.log(error.response.headers);
-    // 						 });
-    // 			}
-    // 		},
     showCategory: function showCategory(index) {
-      this.title = "Рубрика №" + this.categories[index].id;
-      this.submitBtnTitle = "Обновить";
-      this.currentCat = _.cloneDeep(this.categories[index]);
+      this.title = "Рубрика №" + this.showedCategories[index].id;
+      this.currentCat = _.cloneDeep(this.showedCategories[index]);
     },
     deleteCategory: function deleteCategory(index) {
       var _this4 = this;
 
-      if (confirm("Удалить рубрику " + this.categories[index].name_ru + "?")) {
-        axios.delete("/api/categories/" + this.categories[index].id).then(function (resp) {
+      if (confirm("Удалить рубрику " + this.showedCategories[index].name_ru + "?")) {
+        axios.delete("/api/categories/" + this.showedCategories[index].id).then(function (resp) {
           if (resp.data.status === "success") {
-            _this4.categories.splice(index, 1);
+            var self = _this4;
+
+            var i = _this4.categories.findIndex(function (cat) {
+              return cat.id === self.showedCategories[index].id;
+            });
+
+            _this4.categories.splice(i, 1);
 
             _this4.$notify({
               group: "custom-template",
@@ -791,8 +751,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     clearForm: function clearForm() {
-      this.title = "Новая рубрика";
-      this.submitBtnTitle = "Добавить новую рубрику";
       this.currentCat = {
         id: "",
         name_ru: "",
@@ -34333,6 +34291,8 @@ var render = function() {
               [
                 _c("thead", { staticClass: "text-black" }, [
                   _c("tr", [
+                    _c("th", [_vm._v("ID")]),
+                    _vm._v(" "),
                     _c(
                       "th",
                       {
@@ -34385,6 +34345,8 @@ var render = function() {
                   "tbody",
                   _vm._l(_vm.showedCategories, function(cat, index) {
                     return _c("tr", { key: index }, [
+                      _c("td", [_vm._v(_vm._s(cat.id))]),
+                      _vm._v(" "),
                       _c("td", [
                         _c(
                           "a",

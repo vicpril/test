@@ -64,6 +64,7 @@ class UserRequest extends FormRequest
     {
         $input = $this->all();
 
+        
         $input = filter_var_array($input, FILTER_SANITIZE_STRING);
 
         $this->replace($input);     

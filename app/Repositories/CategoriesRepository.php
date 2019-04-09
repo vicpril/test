@@ -51,12 +51,35 @@ class CategoriesRepository extends Repository{
     {
         $alias = Transliterate::make($data['name_ru'], ['type' => 'url', 'lowercase' => true]);
 				$data = array_add($data, 'alias', $alias);
-        $cat = $this->model->create($data);
+        
+				$cat = $this->model->create($data);
 
         return [
           'status' => 'success',
           'message' => 'Новая рубрика добавлена'
         ];
+    }
+	
+		/*
+    *
+    *   Update category in database
+    *
+    */
+    public function update(Category $cat, $data)
+    {
+//         $alias = Transliterate::make($data['name_ru'], ['type' => 'url', 'lowercase' => true]);
+// 				$data = array_add($data, 'alias', $alias);
+        if ($cat->update($data)) {
+					return [
+						'status' => 'success',
+						'message' => 'Рубрика обновлена'
+					];
+				} else {
+					return [
+						'status' => 'error',
+						'message' => 'Что-то пошло не так'
+					];
+				}
     }
 	
 		/*

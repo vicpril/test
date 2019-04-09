@@ -29,13 +29,12 @@ class CategoriesController extends Controller
   
     public function store(CategoryRequest $request) {
         $result = $this->repository->create($request->except('_token', '_method'));
-
-         return response()->json($result);
+        return response()->json($result);
     }
   
     public function update(CategoryRequest $request, Category $cat) {
-      echo 'update';
-      dd($request);
+        $result = $this->repository->update($cat, $request->except('_token', '_method'));
+        return response()->json($result);
     }
   
     public function destroy(Category $cat) {
