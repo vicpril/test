@@ -226,7 +226,6 @@ class UsersRepository extends Repository
             'alias' => $alias,
             'email' => $data['email'],
             'password' => bcrypt('123'),
-            'role' => 'author',
             'orcid' => (isset($data['orcid'])) ? $data['orcid'] : null,
             'avatar' => (isset($data['avatar'])) ? $data['avatar'] : null,
         ]);

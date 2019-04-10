@@ -42,8 +42,12 @@ Vue.use(Notifications);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component(
-   "user-list",
-   require("./components/back/users/UserList.vue").default
+   "articles-list",
+   require("./components/back/articles/ArticlesList.vue").default
+);
+Vue.component(
+   "users-list",
+   require("./components/back/users/UsersList.vue").default
 );
 Vue.component(
    "user-profile",

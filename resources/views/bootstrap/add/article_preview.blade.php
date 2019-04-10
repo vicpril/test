@@ -35,6 +35,10 @@
          @foreach($article->users as $user)
             <li class="article-preview-author-link">
                <a href="{{ route('authors.show', ['alias' => $user->alias]) }}">{{ $user->loc->short_name }}</a>
+              <div class="card border-primary">
+                <div class="card-header">{{ $user->loc->degree }}</div>
+                <div class="card-body">{!! $user->loc->description !!}</div>
+              </div>
             </li>
          @endforeach
       </ul>

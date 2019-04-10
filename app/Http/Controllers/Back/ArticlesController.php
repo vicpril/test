@@ -2,41 +2,39 @@
 
 namespace App\Http\Controllers\Back;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Repositories\ArticlesRepository;
-use App\Repositories\CategoriesRepository;
-use App\Repositories\TagsRepository;
-use App\Repositories\UsersRepository;
 use App\Models\Article;
-use App\Models\Category;
-use App\Models\Tag;
-use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
+use App\Repositories\ArticlesRepository;
+use App\Http\Controllers\Back\AdminController;
 
-
-class ArticlesController extends Controller
+class ArticlesController extends AdminController
 {
-    use Indexable;
-
-    // Repositories
-    
-    public $c_rep;
-    public $t_rep;
-    public $u_rep;
-
-    /**
-     * Create a new ArticleController instance.
-     *
-     * @param  \App\Repositories\ArticlesRepository $a_rep
-     */
-    public function __construct(ArticlesRepository $a_rep, CategoriesRepository $c_rep, TagsRepository $t_rep, UsersRepository $u_rep)
+    public function __construct(ArticlesRepository $a_rep)
     {
+        parent::__construct();
+
+        $this->subtitle = "Статьи";
+
+        $this->template = env('THEME_BACK') . '.back.articles.index';
+
         $this->repository = $a_rep;
-        $this->c_rep = $c_rep;
-        $this->t_rep = $t_rep;
-        $this->u_rep = $u_rep;
 
         $this->table = 'articles';
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $this->subtitle = "Статьи";
+
+        $this->template = env('THEME_BACK') . '.back.articles.index';
+
+        return $this->renderOutput();
     }
 
     /**
@@ -46,13 +44,11 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        //
-        $users = $this->u_rep->all()->where('role', 'author')->pluck('shortName', 'id')->sort();
-        $categories = $this->c_rep->all()->pluck('ru', 'id');
-        $tags = $this->t_rep->all()->pluck('ru', 'id');
+        $this->subtitle = "Новая статья";
 
+        $this->template = env('THEME_BACK') . '.back.articles.edit';
 
-        return view("back.$this->table.create", compact('tags', 'categories', 'users'));
+        return $this->renderOutput();
     }
 
     /**
@@ -61,10 +57,15 @@ class ArticlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        //
-      dd($request);
+        $result = $this->repository->create($request->except('_token', '_method'));
+
+        if (is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+      
+        return redirect(route('articles.index'))->with(['message' => $result]);
     }
 
     /**
@@ -73,10 +74,10 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+//     public function show($id)
+//     {
+//         dd('article - show');
+//     }
 
     /**
      * Show the form for editing the specified resource.
@@ -84,9 +85,13 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        //
+        $this->subtitle = "Редактировать статью";
+
+        $this->template = env('THEME_BACK') . '.back.articles.edit';
+
+        return $this->renderOutput(['id' => $article->id]);
     }
 
     /**
@@ -96,9 +101,15 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticleRequest $request, $article)
     {
-        //
+        $result = $this->repository->update($article, $request->except('_token', '_method'));
+
+        if (is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+      
+        return redirect(route('articles.index'))->with(['message' => $result]);
     }
 
     /**
@@ -109,15 +120,24 @@ class ArticlesController extends Controller
      */
     public function destroy(Article $article)
     {
-        // dd($article);
-
-        $this->authorize('manage', $article);
-
         $result = $this->repository->deleteArticle($article);
-
-        return redirect('/admin/articles')->with($result);
-
-        return response()->json();
-
+      
+        if(request()->ajax()) {
+          
+          if (is_array($result) && ($result['status'] === 'success')) {
+                $result = array_add($result, 'redirect', route('articles.index'));
+          }
+          
+          return response()->json($result);
+          
+        } else {
+          
+           if (is_array($result) && ($result['status'] !== 'success')) {
+                return back()->with($result);
+           } 
+          
+          return redirect(route('articles.index'))->with($result);
+        }
+    
     }
 }

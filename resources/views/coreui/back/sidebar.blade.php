@@ -5,7 +5,7 @@
          <a class="nav-link text-danger" href="colors.html">
             <i class="nav-icon icon-book-open"></i> Выпуски</a
          >
-         <a class="nav-link text-danger" href="colors.html">
+         <a class="nav-link" href="{{ route('articles.index') }}">
             <i class="nav-icon icon-docs"></i> Статьи</a
          >
          <a class="nav-link" href="{{ route('categories.index') }}">

@@ -54,7 +54,7 @@
       ],
       "post-install-cmd": [
          "Illuminate\\Foundation\\ComposerScripts::postInstall",
-         "mkdir storage/app/public/uploads",
+         "mkdir -p storage/app/public/uploads",
          "php artisan storage:link"
       ],
       "post-update-cmd": [
