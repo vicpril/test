@@ -28,7 +28,7 @@
             </a>
           </div>
           <div class="card-body">
-            <user-list></user-list>
+            <users-list></users-list>
           </div>
         </div>
       </div>

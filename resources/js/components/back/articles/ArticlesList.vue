@@ -70,7 +70,7 @@
 						<p class="my-0"
 							 v-for="(category, index) in article.categories"
 							 :key="index"
-							 >{{ category }}</p>
+							 >{{ category | cutString}}</p>
 					</td>
 					<td>
 						<p class="my-0"
@@ -83,7 +83,7 @@
 									 >
 							<input type="checkbox" class="switch-input" 
 										 v-model="article.status"
-										 @change="publish(article.id)">
+										 @change="statusChange(article.id, article.status)">
 							<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 						</label>
 					</td>
@@ -206,13 +206,28 @@ export default {
 				});
 		},
 		
-		publish(id) {
-			console.log("ID: "+id);
+		statusChange(id, newStatus) {
+			axios
+				.post("/api/articles/status/" + id, 
+						{
+							status: (newStatus) ? 'public' : 'private',
+						})
+				.then((resp) => {
+					if (resp.data.status === "success") {
+						this.fetch();
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+					}
+			})
 		},
 
 		deleteArticle(index) {
 			if (
-				confirm("Удалить статью " + this.articles[index].full_name + "?")
+				confirm('Удалить статью "' + this.articles[index].title_ru + '"?')
 			) {
 				axios.delete("/api/articles/" + this.articles[index].id).then(resp => {
 					if (resp.data.status === "success") {

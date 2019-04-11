@@ -32,8 +32,8 @@ class TagsRepository extends Repository{
         $orderBy = ($request->input('orderBy')) ? $request->input('orderBy') : 'asc';
 
 				$tags = DB::table('tags as t')
-								->leftjoin('article_category as a', 't.id', '=', 'a.category_id')
-								->selectRaw("t.*, count(a.category_id) as articles")
+								->leftjoin('article_tag as a', 't.id', '=', 'a.tag_id')
+								->selectRaw("t.*, count(a.tag_id) as articles")
 								->groupBy('t.id')
 								->where('t.title_ru', 'like', "%".$search."%")
 								->orWhere('t.title_en', 'like', "%".$search."%")

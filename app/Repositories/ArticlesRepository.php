@@ -138,10 +138,20 @@ class ArticlesRepository extends Repository{
 
 	public function deleteArticle(Article $article)
 	{
-
-		if ($article->delete()) {
-			return ['status' => 'Материал удален'];
-		}
+				$article->meta->each(function ($meta) {
+            $meta->delete();
+        });
+        $article->users()->detach();
+        $article->categories()->detach();
+        $article->tags()->detach();
+		
+			if($article->delete()) {
+        return ['status' => 'success',
+                'message' => 'Статья удалена'];	
+      } else {
+        return ['status' => 'error',
+                'message' => 'Что-то пошло не так'];	
+      }
 	}
 
 }

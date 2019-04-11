@@ -580,18 +580,33 @@ __webpack_require__.r(__webpack_exports__);
         _this.pagination.total = data.meta.total;
       });
     },
-    publish: function publish(id) {
-      console.log("ID: " + id);
-    },
-    deleteArticle: function deleteArticle(index) {
+    statusChange: function statusChange(id, newStatus) {
       var _this2 = this;
 
-      if (confirm("Удалить статью " + this.articles[index].full_name + "?")) {
+      axios.post("/api/articles/status/" + id, {
+        status: newStatus ? 'public' : 'private'
+      }).then(function (resp) {
+        if (resp.data.status === "success") {
+          _this2.fetch();
+
+          _this2.$notify({
+            group: "custom-template",
+            type: "alert-success",
+            text: resp.data.message,
+            duration: -1
+          });
+        }
+      });
+    },
+    deleteArticle: function deleteArticle(index) {
+      var _this3 = this;
+
+      if (confirm('Удалить статью "' + this.articles[index].title_ru + '"?')) {
         axios.delete("/api/articles/" + this.articles[index].id).then(function (resp) {
           if (resp.data.status === "success") {
-            _this2.fetch();
+            _this3.fetch();
 
-            _this2.$notify({
+            _this3.$notify({
               group: "custom-template",
               type: "alert-success",
               text: resp.data.message,
@@ -34914,7 +34929,7 @@ var render = function() {
                 "td",
                 _vm._l(article.categories, function(category, index) {
                   return _c("p", { key: index, staticClass: "my-0" }, [
-                    _vm._v(_vm._s(category))
+                    _vm._v(_vm._s(_vm._f("cutString")(category)))
                   ])
                 }),
                 0
@@ -34979,7 +34994,7 @@ var render = function() {
                             }
                           },
                           function($event) {
-                            return _vm.publish(article.id)
+                            return _vm.statusChange(article.id, article.status)
                           }
                         ]
                       }
@@ -42472,6 +42487,11 @@ Vue.mixin({
       });
     }
   }
+});
+Vue.filter('cutString', function (value) {
+  var lenght = 25;
+  if (value.length < lenght) return value;
+  return value.substring(0, lenght) + '...';
 });
 /**
  * Next, we will create a fresh Vue application instance and attach it to

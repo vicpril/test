@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
@@ -72,6 +73,35 @@ class ArticlesController extends Controller
     {
         $result = $this->repository->deleteArticle($article);
 
+        if (is_array($result)) {
+            return response()->json($result);
+        }
+    }
+    
+    
+    public function statusChange(Request $request, Article $article) {
+//       dd($article);
+        $status = \App\Models\Status::where('title_en', $request->get('status'))->first();
+        if ($status) {
+            $message = ($status->title_en === 'public') ? 'Статья опубликована' : 'Статья снята с публикации';
+            if ($article->status()->associate($status->id)) {
+              $result = [
+                'status' => 'success',
+                'message' => $message
+              ];
+            } else {
+              $result = [
+                'status' => 'error',
+                'message' => 'Что-то пошло не так'
+              ];
+            }
+        } else {
+          $result = [
+                'status' => 'error',
+                'message' => 'Новый статус не задан'
+              ];
+        }
+      
         if (is_array($result)) {
             return response()->json($result);
         }

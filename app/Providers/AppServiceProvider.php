@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        Article::observe(\App\Observers\ArticleObserver::class);
+//         Article::observe(\App\Observers\ArticleObserver::class);
 
         //for watching SQL-query
         DB::listen(function($query) {

@@ -22,6 +22,7 @@ Route::apiResource('users', 'Api\UsersController')->only('index');
 
 Route::apiResource('articles', 'Api\ArticlesController')->except('index')->middleware('auth:api');
 Route::apiResource('articles', 'Api\ArticlesController')->only('index');
+Route::post('articles/status/{article}', 'Api\ArticlesController@statusChange')->middleware('auth:api');
 
 Route::apiResource('categories', 'Api\CategoriesController')->except('index')->middleware('auth:api');
 Route::apiResource('categories', 'Api\CategoriesController')->only('index');

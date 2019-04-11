@@ -110,6 +110,12 @@ Vue.mixin({
    }
 });
 
+Vue.filter('cutString', function (value) {
+  const lenght = 25
+  if (value.length < lenght) return value;
+  return value.substring(0, lenght) + '...';
+})
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
