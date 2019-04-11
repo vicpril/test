@@ -129,8 +129,14 @@ class DatabaseSeeder extends Seeder
 	/**************************
 	 *			Add Status
 	 **************************/
-	 	DB::table('status')->insert(['name'=>'public']);
-	 	DB::table('status')->insert(['name'=>'private']);
+	 	DB::table('status')->insert([
+																	'title_en'=>'public',
+																	'title_ru'=>'Опубликована'
+																]);
+	 	DB::table('status')->insert([
+																	'title_en'=>'private',
+																	'title_ru'=>'Черновик'
+																]);
 
 			
 			
@@ -148,59 +154,67 @@ class DatabaseSeeder extends Seeder
 	 **************************/
 		DB::table('issues')->insert([
 			'year' => 2017,
+			'tom' => 2017-2009+1,
 			'no' => 2,
-	        'tom' => 1,
-	        'full_no' => 32,
+			'part' => 1,
+			'full_no' => 32,
 		]);
 
 		DB::table('issues')->insert([
 			'year' => 2017,
 			'no' => 2,
-	        'tom' => 2,
-	        'full_no' => 32,
+	    'tom' => 2017-2009+1,
+			'part' => 2,
+	    'full_no' => 32,
 		]);
 
 		DB::table('issues')->insert([
 			'year' => 2017,
 			'no' => 3,
-	        'tom' => 1,
-	        'full_no' => 33,
+	    'tom' => 2017-2009+1,
+			'part' => 1,
+	    'full_no' => 33,
 		]);
 
 		DB::table('issues')->insert([
 			'year' => 2017,
+	        'tom' => 2017-2009+1,
 			'no' => 3,
-	        'tom' => 2,
 	        'full_no' => 33,
+			'part' => 2,
 		]);
 
 		DB::table('issues')->insert([
 			'year' => 2017,
+	        'tom' => 2017-2009+1,
 			'no' => 4,
-	        'tom' => 1,
 	        'full_no' => 34,
+			'part' => 1,
 		]);
 
 		DB::table('issues')->insert([
 			'year' => 2017,
+	        'tom' => 2017-2009+1,
 			'no' => 4,
-	        'tom' => 2,
 	        'full_no' => 34,
+			'part' => 2,
 
 		]);
 
 		DB::table('issues')->insert([
 			'year' => 2018,
+	        'tom' => 2018-2009+1,
 			'no' => 1,
-	        'tom' => 1,
 	        'full_no' => 35,
+			'part' => 1,
 		]);
 
 		DB::table('issues')->insert([
 			'year' => 2018,
+	        'tom' => 2018-2009+1,
 			'no' => 1,
-	        'tom' => 2,
 	        'full_no' => 35,
+			'part' => 2,
 		]);
 	/**************************
 	 *			Add Aticles

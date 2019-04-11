@@ -54,8 +54,31 @@ class Article extends Model
 
 
 
-    public function title() {
-        return $this->meta->where('lang', app()->getLocale())->first()->title;
+//     public function title() {
+//         return $this->meta->where('lang', app()->getLocale())->first()->title;
+//     }
+    
+    /*
+    *   Locale getters
+    */
+  
+    public function getLocAttribute(){
+        return $this->meta->where('lang', app()->getLocale())->first();
+    }
+
+    public function getRuAttribute(){
+        return $this->meta->where('lang', 'ru')->first();
+    }
+
+    public function getEnAttribute(){
+        return $this->meta->where('lang', 'en')->first();
+    }
+  
+    /*
+    *   Get edit link
+    */
+    public function getEditLinkAttribute(){
+        return route('articles.edit', $this->id);
     }
 
 }

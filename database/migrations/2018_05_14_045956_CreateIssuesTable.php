@@ -16,8 +16,9 @@ class CreateIssuesTable extends Migration
         Schema::create('issues', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('year')->unsigned()->default(2000);
-            $table->integer('no')->unsigned()->default(1);
             $table->integer('tom')->unsigned()->default(1);
+            $table->integer('no')->unsigned()->default(1);
+            $table->integer('part')->unsigned()->default(1);
             $table->integer('full_no')->unsigned()->default(1);
 
 

@@ -38,8 +38,10 @@
 			<thead class="text-black">
 				<tr>
 					<th class="sorting" :class="showOrder('title')" @click="setOrder('title')">Заголовок</th>
+					<th>Выпуск</th>
 					<th>Авторы</th>
-					
+					<th class="sorting" :class="showOrder('category')" @click="setOrder('category')">Рубрики</th>
+					<th class="sorting" :class="showOrder('tag')" @click="setOrder('tag')">Метки</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -47,11 +49,32 @@
 				<tr v-for="(article, index) in articles" :key="index">
 					<td>
 						<a :href="article.editLink">{{ article.title_ru }}</a>
+						<br>
+						<span class="text-muted">{{ article.title_en }}</span>
+					</td>
+					<td>
+						<p class="my-0">Год: {{ article.year }}</p>
+						<p class="my-0">Номер: {{ article.no }}</p>
+						<p class="my-0">Часть: {{ article.part }}</p>
 					</td>
 					<td>
 						<p class="my-0"
-							 v-for="(user, index) in users"
-							 :key="index">{{ user }}</p> 
+							 v-for="(user, index) in article.users"
+							 :key="index">
+							<a :href="user.editLink">{{ user.short_name_ru }}</a>
+						</p> 
+					</td>
+					<td>
+						<p class="my-0"
+							 v-for="(category, index) in article.categories"
+							 :key="index"
+							 >{{ category }}</p>
+					</td>
+					<td>
+						<p class="my-0"
+							 v-for="(tag, index) in article.tags"
+							 :key="index"
+							 >{{ tag }}</p>
 					</td>
 					
 					<td class="text-secondary">

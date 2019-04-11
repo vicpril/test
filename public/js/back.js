@@ -473,6 +473,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -34778,7 +34801,37 @@ var render = function() {
               [_vm._v("Заголовок")]
             ),
             _vm._v(" "),
+            _c("th", [_vm._v("Выпуск")]),
+            _vm._v(" "),
             _c("th", [_vm._v("Авторы")]),
+            _vm._v(" "),
+            _c(
+              "th",
+              {
+                staticClass: "sorting",
+                class: _vm.showOrder("category"),
+                on: {
+                  click: function($event) {
+                    return _vm.setOrder("category")
+                  }
+                }
+              },
+              [_vm._v("Рубрики")]
+            ),
+            _vm._v(" "),
+            _c(
+              "th",
+              {
+                staticClass: "sorting",
+                class: _vm.showOrder("tag"),
+                on: {
+                  click: function($event) {
+                    return _vm.setOrder("tag")
+                  }
+                }
+              },
+              [_vm._v("Метки")]
+            ),
             _vm._v(" "),
             _c("th")
           ])
@@ -34791,14 +34844,56 @@ var render = function() {
               _c("td", [
                 _c("a", { attrs: { href: article.editLink } }, [
                   _vm._v(_vm._s(article.title_ru))
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(article.title_en))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("p", { staticClass: "my-0" }, [
+                  _vm._v("Год: " + _vm._s(article.year))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "my-0" }, [
+                  _vm._v("Номер: " + _vm._s(article.no))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "my-0" }, [
+                  _vm._v("Часть: " + _vm._s(article.part))
                 ])
               ]),
               _vm._v(" "),
               _c(
                 "td",
-                _vm._l(_vm.users, function(user, index) {
+                _vm._l(article.users, function(user, index) {
                   return _c("p", { key: index, staticClass: "my-0" }, [
-                    _vm._v(_vm._s(user))
+                    _c("a", { attrs: { href: user.editLink } }, [
+                      _vm._v(_vm._s(user.short_name_ru))
+                    ])
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                _vm._l(article.categories, function(category, index) {
+                  return _c("p", { key: index, staticClass: "my-0" }, [
+                    _vm._v(_vm._s(category))
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                _vm._l(article.tags, function(tag, index) {
+                  return _c("p", { key: index, staticClass: "my-0" }, [
+                    _vm._v(_vm._s(tag))
                   ])
                 }),
                 0

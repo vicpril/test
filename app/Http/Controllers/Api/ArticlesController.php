@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
+use App\Http\Resources\ArticleListResource;
 use App\Repositories\ArticlesRepository;
 
 class ArticlesController extends Controller
@@ -23,7 +24,7 @@ class ArticlesController extends Controller
     public function index(Request $request)
     {
         $articles = $this->repository->getArticlesList($request);
-        return ArticleResource::collection($articles);
+        return ArticleListResource::collection($articles);
     }
 
     /**
