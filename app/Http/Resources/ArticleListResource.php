@@ -41,7 +41,7 @@ class ArticleListResource extends JsonResource
           'no' =>           $this->issue->no,
           'part' =>         $this->issue->part,
           'full_no' =>      $this->issue->full_no,
-          'status' =>       $this->status->title_ru,
+          'status' =>       ($this->status->title_en === 'public') ? true : false,
           "updated_at" =>   $this->updated_at->format('Y-m-d H:i:s'),
           "created_at" =>   $this->created_at->format('Y-m-d H:i:s'),
           

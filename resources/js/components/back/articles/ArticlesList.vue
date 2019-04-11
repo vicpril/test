@@ -37,11 +37,13 @@
 		>
 			<thead class="text-black">
 				<tr>
-					<th class="sorting" :class="showOrder('title')" @click="setOrder('title')">Заголовок</th>
-					<th>Выпуск</th>
+					<th class="title-column sorting" :class="showOrder('title')" @click="setOrder('title')">Заголовок</th>
+					<th class="sorting" :class="showOrder('issue')" @click="setOrder('issue')">Выпуск</th>
 					<th>Авторы</th>
-					<th class="sorting" :class="showOrder('category')" @click="setOrder('category')">Рубрики</th>
-					<th class="sorting" :class="showOrder('tag')" @click="setOrder('tag')">Метки</th>
+					<th>Рубрики</th>
+					<th>Метки</th>
+					<th class="sorting" :class="showOrder('status')" @click="setOrder('status')">Опуб.</th>
+					<th class="sorting" :class="showOrder('updated_at')" @click="setOrder('updated_at')">Дата</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -50,7 +52,7 @@
 					<td>
 						<a :href="article.editLink">{{ article.title_ru }}</a>
 						<br>
-						<span class="text-muted">{{ article.title_en }}</span>
+						<span class="text-muted d-none d-xl-block">{{ article.title_en }}</span>
 					</td>
 					<td>
 						<p class="my-0">Год: {{ article.year }}</p>
@@ -76,6 +78,16 @@
 							 :key="index"
 							 >{{ tag }}</p>
 					</td>
+					<td>
+						<label class="mx-1 switch switch-label switch-3d switch-success form-check-label"
+									 >
+							<input type="checkbox" class="switch-input" 
+										 v-model="article.status"
+										 @change="publish(article.id)">
+							<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
+						</label>
+					</td>
+					<td>{{ article.updated_at }}</td>
 					
 					<td class="text-secondary">
 						<i
@@ -193,6 +205,10 @@ export default {
 					this.pagination.total = data.meta.total;
 				});
 		},
+		
+		publish(id) {
+			console.log("ID: "+id);
+		},
 
 		deleteArticle(index) {
 			if (
@@ -236,6 +252,10 @@ export default {
 </script>
 
 <style scoped>
+	.title-column {
+		width: 40% !important;
+	}	
+	
 thead > tr > th.sorting_asc,
 thead > tr > th.sorting_desc,
 thead > tr > th.sorting,

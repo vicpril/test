@@ -496,6 +496,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -567,6 +579,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.pagination.to = data.meta.to;
         _this.pagination.total = data.meta.total;
       });
+    },
+    publish: function publish(id) {
+      console.log("ID: " + id);
     },
     deleteArticle: function deleteArticle(index) {
       var _this2 = this;
@@ -25290,7 +25305,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-95859fe0],\nthead > tr > th.sorting_desc[data-v-95859fe0],\nthead > tr > th.sorting[data-v-95859fe0],\nthead > tr > td.sorting_asc[data-v-95859fe0],\nthead > tr > td.sorting_desc[data-v-95859fe0],\nthead > tr > td.sorting[data-v-95859fe0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-95859fe0]:active,\nthead > tr > td[data-v-95859fe0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-95859fe0],\nthead .sorting_asc[data-v-95859fe0],\nthead .sorting_desc[data-v-95859fe0],\nthead .sorting_asc_disabled[data-v-95859fe0],\nthead .sorting_desc_disabled[data-v-95859fe0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-95859fe0]:before,\nthead .sorting[data-v-95859fe0]:after,\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_asc[data-v-95859fe0]:after,\nthead .sorting_desc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:after,\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\nthead .sorting_desc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-95859fe0]:before,\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:before,\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-95859fe0]:after,\nthead .sorting_asc[data-v-95859fe0]:after,\nthead .sorting_desc[data-v-95859fe0]:after,\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\topacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.title-column[data-v-95859fe0] {\n\t\twidth: 40% !important;\n}\nthead > tr > th.sorting_asc[data-v-95859fe0],\nthead > tr > th.sorting_desc[data-v-95859fe0],\nthead > tr > th.sorting[data-v-95859fe0],\nthead > tr > td.sorting_asc[data-v-95859fe0],\nthead > tr > td.sorting_desc[data-v-95859fe0],\nthead > tr > td.sorting[data-v-95859fe0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-95859fe0]:active,\nthead > tr > td[data-v-95859fe0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-95859fe0],\nthead .sorting_asc[data-v-95859fe0],\nthead .sorting_desc[data-v-95859fe0],\nthead .sorting_asc_disabled[data-v-95859fe0],\nthead .sorting_desc_disabled[data-v-95859fe0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-95859fe0]:before,\nthead .sorting[data-v-95859fe0]:after,\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_asc[data-v-95859fe0]:after,\nthead .sorting_desc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:after,\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\nthead .sorting_desc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-95859fe0]:before,\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:before,\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-95859fe0]:after,\nthead .sorting_asc[data-v-95859fe0]:after,\nthead .sorting_desc[data-v-95859fe0]:after,\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -34790,7 +34805,7 @@ var render = function() {
             _c(
               "th",
               {
-                staticClass: "sorting",
+                staticClass: "title-column sorting",
                 class: _vm.showOrder("title"),
                 on: {
                   click: function($event) {
@@ -34801,36 +34816,52 @@ var render = function() {
               [_vm._v("Заголовок")]
             ),
             _vm._v(" "),
-            _c("th", [_vm._v("Выпуск")]),
+            _c(
+              "th",
+              {
+                staticClass: "sorting",
+                class: _vm.showOrder("issue"),
+                on: {
+                  click: function($event) {
+                    return _vm.setOrder("issue")
+                  }
+                }
+              },
+              [_vm._v("Выпуск")]
+            ),
             _vm._v(" "),
             _c("th", [_vm._v("Авторы")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Рубрики")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Метки")]),
             _vm._v(" "),
             _c(
               "th",
               {
                 staticClass: "sorting",
-                class: _vm.showOrder("category"),
+                class: _vm.showOrder("status"),
                 on: {
                   click: function($event) {
-                    return _vm.setOrder("category")
+                    return _vm.setOrder("status")
                   }
                 }
               },
-              [_vm._v("Рубрики")]
+              [_vm._v("Опуб.")]
             ),
             _vm._v(" "),
             _c(
               "th",
               {
                 staticClass: "sorting",
-                class: _vm.showOrder("tag"),
+                class: _vm.showOrder("updated_at"),
                 on: {
                   click: function($event) {
-                    return _vm.setOrder("tag")
+                    return _vm.setOrder("updated_at")
                   }
                 }
               },
-              [_vm._v("Метки")]
+              [_vm._v("Дата")]
             ),
             _vm._v(" "),
             _c("th")
@@ -34848,7 +34879,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _c("span", { staticClass: "text-muted" }, [
+                _c("span", { staticClass: "text-muted d-none d-xl-block" }, [
                   _vm._v(_vm._s(article.title_en))
                 ])
               ]),
@@ -34898,6 +34929,71 @@ var render = function() {
                 }),
                 0
               ),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "mx-1 switch switch-label switch-3d switch-success form-check-label"
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: article.status,
+                          expression: "article.status"
+                        }
+                      ],
+                      staticClass: "switch-input",
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(article.status)
+                          ? _vm._i(article.status, null) > -1
+                          : article.status
+                      },
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$a = article.status,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(article, "status", $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    article,
+                                    "status",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(article, "status", $$c)
+                            }
+                          },
+                          function($event) {
+                            return _vm.publish(article.id)
+                          }
+                        ]
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "switch-slider",
+                      attrs: { "data-checked": "✓", "data-unchecked": "✕" }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(article.updated_at))]),
               _vm._v(" "),
               _c("td", { staticClass: "text-secondary" }, [
                 _c("i", {

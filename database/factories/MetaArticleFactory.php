@@ -21,7 +21,7 @@ $factory->define(App\Models\MetaArticle::class, function (Faker\Generator $faker
 
 	return [
         'lang' => 'ru',
-    	'title' => $ruFaker->realtext($maxNbChars = 40, $indexSize = 2),
+    		'title' => $ruFaker->realtext($maxNbChars = 100, $indexSize = 2),
         
         'text' => $ruFaker->realtext($maxNbChars = 300, $indexSize = 2),
         'annotation' => $ruFaker->realtext($maxNbChars = 100, $indexSize = 2),
@@ -34,7 +34,7 @@ $factory->state(App\Models\MetaArticle::class, 'ru', function (Faker\Generator $
 
 	return [
         'lang' => 'ru',
-    	'title' => $ruFaker->realtext($maxNbChars = 40, $indexSize = 2),
+    	'title' => $ruFaker->realtext($maxNbChars = 100, $indexSize = 2),
         
         'text' => $ruFaker->realtext($maxNbChars = 300, $indexSize = 2),
         'annotation' => $ruFaker->realtext($maxNbChars = 100, $indexSize = 2),
@@ -46,7 +46,7 @@ $factory->state(App\Models\MetaArticle::class, 'en', function (Faker\Generator $
 
 	return [
         'lang' => 'en',
-    	'title' => $enFaker->realtext($maxNbChars = 40, $indexSize = 2),
+    	'title' => $enFaker->realtext($maxNbChars = 100, $indexSize = 2),
         
         'text' => $enFaker->realtext($maxNbChars = 300, $indexSize = 2),
         'annotation' => $enFaker->realtext($maxNbChars = 100, $indexSize = 2),

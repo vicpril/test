@@ -75,7 +75,7 @@ class ArticlesRepository extends Repository{
 											$query->with('meta');
 										}
 									])
-//                     ->orderByRaw("FIELD(id, ".implode(",",$articles_id).")")
+                    ->orderByRaw("FIELD(id, ".implode(',',$articles_id).")")
 									->paginate($paginate);
 
 			return $articles;
@@ -84,73 +84,51 @@ class ArticlesRepository extends Repository{
 	
 	private function getSortedIdArray ($search = '', $sortBy = 'title', $orderBy = 'asc') {
         switch ($sortBy) {
-            // sort by atricle_user table
-//             case 'articles_count':
-//             $users_id_articles_sorted = DB::table('users')
-//                     ->leftjoin("article_user as a", 'users.id', '=', 'a.user_id')
-//                     ->where('users.role', $role)
-//                     ->selectRaw("users.id, count(a.user_id) as $sortBy" )
-//                     ->orderBy($sortBy, $orderBy)
-//                     ->groupBy('users.id')
-//                     ->pluck('users.id')->unique()->toArray();
+						case 'title': $sortBy = ['meta_articles.title']; break;
+						case 'issue': $sortBy = ['issues.year','issues.no','issues.part']; break;
+						case 'status': $sortBy = ['status.title_ru']; break;
+						case 'updated_at': $sortBy = ['articles.updated_at']; break;
+					default: $sortBy = ['meta_articles.title']; break;
+				}
+            
+						$users_id = DB::table('articles')
+								->leftjoin('meta_articles', 'articles.id', '=', 'meta_articles.article_id')
+								->leftjoin('status', 'articles.status_id', '=', 'status.id')
+								->leftjoin('issues', 'articles.issue_id', '=', 'issues.id')
+								->leftjoin('article_user', 'articles.id', '=', 'article_user.article_id')
+								->leftjoin('users', 'users.id', '=', 'article_user.user_id')
+								->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
+								->leftjoin('article_category', 'articles.id', '=', 'article_category.article_id')
+								->leftjoin('categories', 'categories.id', '=', 'article_category.category_id')
+								->leftjoin('article_tag', 'articles.id', '=', 'article_tag.article_id')
+								->leftjoin('tags', 'tags.id', '=', 'article_tag.tag_id')
+/*        search in:
+*                title
+*                issue: year, tom, no, part
+*								status: title_ru,
+*								users: short_name,
+*								categories: title_ru,
+*								tags: title_ru,
+*/
+								->where(function($query) use ($search) {
+										$query->where('meta_articles.title', 'like', "%".$search."%")
+													->orWhere('status.title_ru', 'like', "%".$search."%")
+													->orWhere('issues.year', 'like', "%".$search."%")
+													->orWhere('issues.tom', 'like', "%".$search."%")
+													->orWhere('issues.no', 'like', "%".$search."%")
+													->orWhere('issues.part', 'like', "%".$search."%")
+													->orWhere('meta_users.short_name', 'like', "%".$search."%")
+													->orWhere('categories.title_ru', 'like', "%".$search."%")
+													->orWhere('tags.title_ru', 'like', "%".$search."%");
+								});
 
-//             $users_id_searched = DB::table('users')
-//                     ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
-//                     ->where('users.role', $role)
-//                     ->where(function($query) use ($search) {
-//                         $query->where('email', 'like', "%".$search."%")
-//                               ->orWhere('full_name', 'like', "%".$search."%");
-//                     })
-//                     ->groupBy('users.id')
-//                     ->pluck('users.id')->unique()->toArray();
-
-//             $users_id = array_intersect($users_id_articles_sorted, $users_id_searched);
-
-//             break;
-                
-            // sort by users, meta_users tables
-            default:
-                $users_id = DB::table('articles')
-                    ->leftjoin('meta_articles', 'articles.id', '=', 'meta_articles.article_id')
-                    ->leftjoin('status', 'articles.status_id', '=', 'status.id')
-                    ->leftjoin('issues', 'articles.issue_id', '=', 'issues.id')
-                    ->leftjoin('article_user', 'articles.id', '=', 'article_user.article_id')
-                    ->leftjoin('users', 'users.id', '=', 'article_user.user_id')
-									  ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
-									  ->leftjoin('article_category', 'articles.id', '=', 'article_category.article_id')
-									  ->leftjoin('categories', 'categories.id', '=', 'article_category.category_id')
-										->leftjoin('article_tag', 'articles.id', '=', 'article_tag.article_id')
-									  ->leftjoin('tags', 'tags.id', '=', 'article_tag.tag_id')
-	/*        search in:
-	 *                title
-	 *                issue: year, tom, no, part
-	 *								status: title_ru,
-	 *								users: short_name,
-	 *								categories: title_ru,
-	 *								tags: title_ru,
-		*/
-                    ->where(function($query) use ($search) {
-                        $query->where('meta_articles.title', 'like', "%".$search."%")
-                              ->orWhere('status.title_ru', 'like', "%".$search."%")
-                              ->orWhere('issues.year', 'like', "%".$search."%")
-                              ->orWhere('issues.tom', 'like', "%".$search."%")
-                              ->orWhere('issues.no', 'like', "%".$search."%")
-                              ->orWhere('issues.part', 'like', "%".$search."%")
-                              ->orWhere('meta_users.short_name', 'like', "%".$search."%")
-															->orWhere('categories.title_ru', 'like', "%".$search."%")
-															->orWhere('tags.title_ru', 'like', "%".$search."%");
-                    })
-
-
-
-                    // ->leftjoin('article_user as a', 'users.id', '=', 'article_user.user_id')
-                    //->selectRaw('users.*, count(a.user_id) as a_count' )
-//                     ->where('articles.role', $role)
-//                     ->orderBy($sortBy, $orderBy)
-                    ->groupBy('articles.id')
-                    ->pluck('articles.id')->unique()->toArray();
-                break;
-        }
+							foreach ($sortBy as $sort) {
+								$users_id = $users_id->orderBy($sort, $orderBy);
+							}
+								
+								$users_id = $users_id->groupBy('articles.id')
+												 ->pluck('articles.id')->unique()->toArray();
+               
         return $users_id;
     }
 	
