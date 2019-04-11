@@ -38,7 +38,7 @@
       <li class="divider"></li>
       <li class="nav-title">Библиотека</li>
       <li class="nav-item">
-         <a class="nav-link text-danger" href="#">
+         <a class="nav-link" href="{{ url('elfinder') }}" target="_blank">
             <i class="nav-icon icon-folder-alt"></i> Медиафайлы</a
          >
       </li>
