@@ -26,8 +26,16 @@ class RouteServiceProvider extends ServiceProvider
         
         parent::boot();
 
-        Route::pattern('alias','[\w-]+');
-
+        Route::pattern('articleAlias','[\w-]+');
+      
+        // Bind parameters for Client
+        Route::bind('articleAlias', function($value) {
+            $object = \App\Models\Article::where('alias', $value)->first();
+            return $object ?: abort(404, 'Статья не найдена');
+        });
+        
+      
+        // Bind parameters for ADMIN
         Route::bind('article', function($value) {
             return \App\Models\Article::where('id', $value)->first();
         });

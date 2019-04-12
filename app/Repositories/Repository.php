@@ -30,8 +30,8 @@ abstract class Repository {
 	}
 
 	public function one($param) {
-		if(is_int($param))
-		$result = $this->model->where('alias', $alias)->first();
+// 		if(is_int($param))
+		$result = $this->model->where('alias', $param)->first();
 		return $result;
 	}
 

@@ -24,7 +24,7 @@ function()
 		// Route::resource('/articles', 'ArticlesController', ['only' => ['index']]);
 
 		Route::name('articles')->get('articles', 'ArticlesController@index');
-		Route::name('article')->get('articles/{alias}', 'ArticlesController@show');
+		Route::name('article')->get('articles/{articleAlias}', 'ArticlesController@show');
 
 		Route::resource('categories', 'CategoriesController', [
 																'only' => ['show'],

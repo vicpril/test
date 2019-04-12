@@ -75,10 +75,14 @@ class Article extends Model
     }
   
     /*
-    *   Get edit link
+    *   Get links
     */
     public function getEditLinkAttribute(){
         return route('articles.edit', $this->id);
+    }
+  
+    public function getLinkAttribute(){
+        return route('article', $this->alias);
     }
 
 }

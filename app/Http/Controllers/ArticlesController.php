@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Article;
 use App\Repositories\IssuesRepository;
 use App\Repositories\ArticlesRepository;
 
@@ -59,10 +59,10 @@ class ArticlesController extends SiteController
     *  Render current article
     *
     */
-    public function show($alias) {
-
-        $article = $this->getArticle($alias);
-        // dump($article);
+    public function show(Article $article) {
+				
+//         $article = $this->getArticle($alias);
+        dump($article);
         // $nextIssue = $this->i_rep->getNextIssue($issue);
         // $prevIssue = $this->i_rep->getPrevIssue($issue);
 
