@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use DB;
 use Config;
 
 abstract class Repository {
@@ -50,7 +51,24 @@ abstract class Repository {
 			return $this->model->find($id)->delete();
 	}
 
-//   public function update($id, array $data);
+	/*
+	*
+	* Get unique aliad/name
+	*
+	*/
+	public function getUnique($title, $table, $field, $i = 0) {
+		$check = ($i > 0) ? $title . '-' . $i : $title;
+		
+		if ( DB::table($table)->where($field, $check)->exists() ) {
+			
+			$check = $this->getUnique($title, $table, $field, $i+1);
+			
+		}
+		
+		return $check;
+	}
+	
+	
 
 }
 

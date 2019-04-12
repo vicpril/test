@@ -50,6 +50,7 @@ class CategoriesRepository extends Repository{
     public function create($data)
     {
         $alias = Transliterate::make($data['title_ru'], ['type' => 'url', 'lowercase' => true]);
+				$alias = $this->getUnique($alias, 'categories', 'alias');
 				$data = array_add($data, 'alias', $alias);
         
 				$cat = $this->model->create($data);
