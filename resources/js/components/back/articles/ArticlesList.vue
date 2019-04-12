@@ -83,7 +83,7 @@
 									 >
 							<input type="checkbox" class="switch-input" 
 										 v-model="article.status"
-										 @change="statusChange(article.id, article.status)">
+										 @change="statusChange(index, article.status)">
 							<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 						</label>
 					</td>
@@ -139,9 +139,8 @@ export default {
 			paginateOptions: [5, 10, 25, 50, 100],
 			paginateSelect: 10,
 			search: "",
-			sortBy: "title",
-			// orderBy: "asc",
-			orderByAsc: true
+			sortBy: "updated_at",
+			orderByAsc: false
 		};
 	},
 
@@ -206,23 +205,37 @@ export default {
 				});
 		},
 		
-		statusChange(id, newStatus) {
-			axios
-				.post("/api/articles/status/" + id, 
-						{
-							status: (newStatus) ? 'public' : 'private',
-						})
-				.then((resp) => {
-					if (resp.data.status === "success") {
-						this.fetch();
-						this.$notify({
-							group: "custom-template",
-							type: "alert-success",
-							text: resp.data.message,
-							duration: -1
-						});
-					}
-			})
+		statusChange(index, newStatus) {
+			const message = (newStatus) ? 'Опубликовать статью "' : 'Снять с публикации статью "';
+			if (
+				confirm(message + this.articles[index].title_ru + '"?')
+			) {
+				axios
+					.post("/api/articles/status/" + this.articles[index].id, {
+						status: (newStatus) ? 'public' : 'private',
+					})
+					.then((resp) => {
+						if (resp.data.status === "success") {
+							// 						this.fetch();
+							this.$notify({
+								group: "custom-template",
+								type: "alert-success",
+								text: resp.data.message,
+								duration: 5000
+							});
+						} else {
+							this.$notify({
+								group: "custom-template",
+								type: "alert-danger",
+								text: resp.data.message,
+								duration: 5000
+							});
+							this.articles[index].status = !newStatus;
+						}
+					})
+			} else {
+				this.articles[index].status = !newStatus;
+			}
 		},
 
 		deleteArticle(index) {
@@ -236,7 +249,7 @@ export default {
 							group: "custom-template",
 							type: "alert-success",
 							text: resp.data.message,
-							duration: -1
+							duration: 8000
 						});
 					}
 				});

@@ -516,9 +516,8 @@ __webpack_require__.r(__webpack_exports__);
       paginateOptions: [5, 10, 25, 50, 100],
       paginateSelect: 10,
       search: "",
-      sortBy: "title",
-      // orderBy: "asc",
-      orderByAsc: true
+      sortBy: "updated_at",
+      orderByAsc: false
     };
   },
   computed: {
@@ -580,23 +579,37 @@ __webpack_require__.r(__webpack_exports__);
         _this.pagination.total = data.meta.total;
       });
     },
-    statusChange: function statusChange(id, newStatus) {
+    statusChange: function statusChange(index, newStatus) {
       var _this2 = this;
 
-      axios.post("/api/articles/status/" + id, {
-        status: newStatus ? 'public' : 'private'
-      }).then(function (resp) {
-        if (resp.data.status === "success") {
-          _this2.fetch();
+      var message = newStatus ? 'Опубликовать статью "' : 'Снять с публикации статью "';
 
-          _this2.$notify({
-            group: "custom-template",
-            type: "alert-success",
-            text: resp.data.message,
-            duration: -1
-          });
-        }
-      });
+      if (confirm(message + this.articles[index].title_ru + '"?')) {
+        axios.post("/api/articles/status/" + this.articles[index].id, {
+          status: newStatus ? 'public' : 'private'
+        }).then(function (resp) {
+          if (resp.data.status === "success") {
+            // 						this.fetch();
+            _this2.$notify({
+              group: "custom-template",
+              type: "alert-success",
+              text: resp.data.message,
+              duration: 5000
+            });
+          } else {
+            _this2.$notify({
+              group: "custom-template",
+              type: "alert-danger",
+              text: resp.data.message,
+              duration: 5000
+            });
+
+            _this2.articles[index].status = !newStatus;
+          }
+        });
+      } else {
+        this.articles[index].status = !newStatus;
+      }
     },
     deleteArticle: function deleteArticle(index) {
       var _this3 = this;
@@ -610,7 +623,7 @@ __webpack_require__.r(__webpack_exports__);
               group: "custom-template",
               type: "alert-success",
               text: resp.data.message,
-              duration: -1
+              duration: 8000
             });
           }
         });
@@ -34994,7 +35007,7 @@ var render = function() {
                             }
                           },
                           function($event) {
-                            return _vm.statusChange(article.id, article.status)
+                            return _vm.statusChange(index, article.status)
                           }
                         ]
                       }

@@ -84,17 +84,22 @@ class ArticlesController extends Controller
         $status = \App\Models\Status::where('title_en', $request->get('status'))->first();
         if ($status) {
             $message = ($status->title_en === 'public') ? 'Статья опубликована' : 'Статья снята с публикации';
-            if ($article->status()->associate($status->id)) {
-              $result = [
-                'status' => 'success',
-                'message' => $message
-              ];
-            } else {
-              $result = [
+            
+          try {
+            $article->status()->associate($status->id);
+            $article->save();
+          }
+          catch (Extension $e) {
+             $result = [
                 'status' => 'error',
                 'message' => 'Что-то пошло не так'
               ];
-            }
+          }
+          $result = [
+            'status' => 'success',
+            'message' => $message
+          ];
+          
         } else {
           $result = [
                 'status' => 'error',
