@@ -50,6 +50,7 @@ class TagsRepository extends Repository{
     public function create($data)
     {
         $alias = Transliterate::make($data['title_ru'], ['type' => 'url', 'lowercase' => true]);
+				$alias = $this->getUnique($alias, 'tags', 'alias');
 				$data = array_add($data, 'alias', $alias);
         
 				$tag = $this->model->create($data);

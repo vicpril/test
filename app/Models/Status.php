@@ -13,4 +13,8 @@ class Status extends Model
     public function articles() {
     	return $this->hasMany('App\Models\Article');
     }
+  
+    public function getTypeAttribute() {
+      return ($this->title_en === 'public') ? true : false;
+    }
 }

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md">
 				<div class="card">
 					<div class="card-header">
 						<h5 class="h5 mb-0">Персональные данные</h5>
@@ -325,7 +325,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md right-sidebar">
 				<div class="card mb-1">
 					<div class="card-header">
 						<h5 class="h5 mb-0">Сохранить изменения</h5>
@@ -645,3 +645,10 @@ export default {
 	}
 };
 </script>
+
+<style scope>
+	.right-sidebar {
+    -ms-flex: 0 0 300px;
+    flex: 0 0 300px;
+	}	
+</style>

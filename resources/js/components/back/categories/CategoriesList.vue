@@ -366,6 +366,7 @@ export default {
 		},
 
 		showCategory(index) {
+			this.errors = {};
 			this.title = "Рубрика №" + this.showedCategories[index].id;
 			this.currentCat = _.cloneDeep(this.showedCategories[index]);
 		},

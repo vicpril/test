@@ -29,8 +29,7 @@ $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
         'udk' => $faker->unique()->numerify('####'),
         'issue_id' => random_int(1, 8),
         'status_id' => random_int(1, 2),
-
-
+				'stol' => $faker->boolean(),
     ];
 
 });

@@ -27,7 +27,7 @@ class CreateArticlesTable extends Migration
             // $table->text('annotation');
             $table->string('doi', 100);
             $table->string('udk', 100)->nullable();
-            // $table->string('keywords')->nullable();
+            $table->boolean('stol')->default(0);
 
             $table->timestamps();
         });

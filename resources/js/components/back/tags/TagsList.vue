@@ -340,6 +340,7 @@ export default {
 		},
 
 		showTag(index) {
+			this.errors = {};
 			this.title = "Метка №" + this.showedTags[index].id;
 			this.currentTag = _.cloneDeep(this.showedTags[index]);
 		},

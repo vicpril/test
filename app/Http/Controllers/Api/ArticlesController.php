@@ -47,7 +47,7 @@ class ArticlesController extends Controller
      */
     public function show(Article $article)
     {
-        $article->loadMissing(['meta', 'status', 'users']);
+        $article->loadMissing(['meta', 'status', 'users', 'tags', 'categories', 'issue']);
         return new ArticleResource($article);
     }
 

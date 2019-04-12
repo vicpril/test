@@ -20,27 +20,27 @@
 <div class="content">
 	
 		<h2 class="mb-3">@isset($id)
-			Редактировать автора
-			@elseНовый автор
+			Редактировать статью
+			@elseНовая статья
 			@endisset
 		</h2>
 
     <form method="POST" 
 					@if(isset($id))
-						action="{{ route('users.update', $id) }}"
+						action="{{ route('articles.update', $id) }}"
 					@else
-						action="{{ route('users.store') }}"
+						action="{{ route('articles.store') }}"
 					@endif
 					>
 			@if(isset($id)) @method('PUT') @endif
       @csrf
-			<user-profile 
+			<article-profile 
 				@isset($id):id="{{ $id }}"@endisset 
 				:old="{{ json_encode(Session::getOldInput(), JSON_FORCE_OBJECT) }}"
 				@if(count($errors) > 0)
 					:errors="{{$errors}}"
 				@endif
-				></user-profile>
+				></article-profile>
     </form>
 </div>
 @endsection
@@ -66,5 +66,10 @@
 @endpush
 
 @push('js')
+    <!-- Set script -->
+<!--     @yield('modal_set_js') -->
+
+    <!-- Upload script -->
+<!--     @yield('modal_upload_js') -->
 
 @endpush

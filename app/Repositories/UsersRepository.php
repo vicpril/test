@@ -161,6 +161,7 @@ class UsersRepository extends Repository
     public function create($data)
     {
         $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
+        $alias = $this->getUnique($alias, 'users', 'alias');
         $user = $this->model->make([
             'alias' => $alias,
             'email' => $data['email'],
@@ -221,9 +222,9 @@ class UsersRepository extends Repository
     */
     public function update(User $user, $data)
     {
-        $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
+//         $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
         $user->update([
-            'alias' => $alias,
+//             'alias' => $alias,
             'email' => $data['email'],
             'password' => bcrypt('123'),
             'orcid' => (isset($data['orcid'])) ? $data['orcid'] : null,

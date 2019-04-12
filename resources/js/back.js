@@ -46,6 +46,10 @@ Vue.component(
    require("./components/back/articles/ArticlesList.vue").default
 );
 Vue.component(
+   "article-profile",
+   require("./components/back/articles/ArticleProfile.vue").default
+);
+Vue.component(
    "users-list",
    require("./components/back/users/UsersList.vue").default
 );
