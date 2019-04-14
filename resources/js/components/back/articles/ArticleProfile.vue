@@ -4,14 +4,59 @@
 			<div class="col-md">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="h5 mb-0">Персональные данные</h5>
+						<h5 class="h5 mb-0">Название</h5>
 					</div>
 					<div class="card-body">
-	
+						<div class="form-group">
+							<label>На русском</label>
+							<input id="title_ru" class="form-control" v-model="article.title_ru">
+						</div>
+						<div class="form-group">
+							<label>На английском</label>
+							<input type="text" class="form-control" v-model="article.title_en">
+						</div>
+						<div class="form-group mb-0">
+							<label>Ссылка на сайте:</label>
+							<a :href="article.link" class="ml-1" target="_blank">{{ article.link }}</a>
+						</div>
 					</div>
-						
 				</div>
 
+				<div class="card">
+					<div class="card-header">
+						<span class="h5 mb-0">Текст статьи</span>
+						<div class="card-header-actions">
+							<b-link class="card-header-action btn-minimize" @click="collapsed.text = !collapsed.text">
+								<i :class="collapsed.text ? 'icon-arrow-down' : 'icon-arrow-up'"></i>
+							</b-link>
+						</div>
+					</div>
+					<b-collapse id="text" v-bind:visible="!collapsed.text">
+						<div class="card-body">
+							<div class="form-group">
+								<label class="h6">На русском</label>
+								<vue-ckeditor
+									class="mt-2"
+									name="article.text_ru"
+									id="article.text_ru"
+									ref="article.text_ru"
+									v-model="article.text_ru"
+								/>
+							</div>
+
+							<div class="form-group">
+								<label class="h6">На английском</label>
+								<vue-ckeditor
+									class="mt-2"
+									name="article.text_en"
+									id="article.text_en"
+									ref="article.text_en"
+									v-model="article.text_en"
+								/>
+							</div>
+						</div>
+					</b-collapse>
+				</div>
 			</div>
 
 			<div class="col-md right-sidebar">
@@ -29,7 +74,6 @@
 					v-show="article.id"
 					@click.prevent="deleteArticle"
 				>Удалить статью</button>
-				
 			</div>
 		</div>
 	</div>
@@ -43,7 +87,7 @@ import VueCkeditor from "../VueCkeditor.vue";
 
 export default {
 	components: {
-// 		draggable,
+		// 		draggable,
 		VueCkeditor
 	},
 
@@ -64,37 +108,42 @@ export default {
 				id: "",
 				link: "",
 				status: false,
-				
+
 				created_at: "",
 				updated_at: "",
-				
+
 				year: "",
 				tom: "",
 				no: "",
 				full_no: "",
 				part: "",
-				
+
 				doi: "",
 				udk: "",
 				stol: false,
-				
+
 				authors: [],
 				tags: [],
 				categories: [],
-				
+
 				title_en: "",
 				title_ru: "",
-        text_ru: "",
-        text_en: "",
-        annotation_ru: "",
-        annotation_en: "",
-        keywords_ru: "",
-        keywords_en: "",
-        file_ru: "",
-        file_en: "",
+				text_ru: "",
+				text_en: "",
+				annotation_ru: "",
+				annotation_en: "",
+				keywords_ru: "",
+				keywords_en: "",
+				file_ru: "",
+				file_en: ""
 			},
+			collapsed: {
+				text: false
+			}
 		};
 	},
+
+	computed: {},
 
 	created() {},
 
@@ -113,6 +162,11 @@ export default {
 		} else if (this.id !== 0) {
 			this.fetch(this.id);
 		}
+
+		this.collapsed.text =
+			this.article.text_ru !== "" || this.article.text_ru !== ""
+				? false
+				: true;
 	},
 
 	methods: {
@@ -143,22 +197,21 @@ export default {
 			if (this.errors.hasOwnProperty(error)) {
 				return "is-invalid";
 			}
-		},
-
-		
-		
-		
-
-		
-
-		
+		}
 	}
 };
 </script>
 
 <style scope>
-	.right-sidebar {
-    -ms-flex: 0 0 300px;
-    flex: 0 0 300px;
-	}	
+/* ADMIN right sidebar */
+.right-sidebar {
+	-ms-flex: 0 0 320px !important;
+	flex: 0 0 320px;
+}
+
+#title_ru {
+	font-size: 20px;
+	height: calc(1.7em + 1px);
+	padding: 3px 8px 3px 8px;
+}
 </style>

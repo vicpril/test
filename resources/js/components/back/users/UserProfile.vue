@@ -647,8 +647,9 @@ export default {
 </script>
 
 <style scope>
-	.right-sidebar {
-    -ms-flex: 0 0 300px;
-    flex: 0 0 300px;
-	}	
+/* ADMIN right sidebar */
+.right-sidebar {
+	-ms-flex: 0 0 300px !important;
+	flex: 0 0 300px;
+}
 </style>
