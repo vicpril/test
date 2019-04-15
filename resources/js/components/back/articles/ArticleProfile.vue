@@ -21,6 +21,22 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="card">
+					<div class="card-header">
+						<h5 class="h5 mb-0">Авторы</h5>
+					</div>
+					<div class="card-body">
+							<v-select :options="users" 
+												label="name_ru"
+												v-model="article.users"
+												:reduce="name_ru => name_ru.id"
+												multiple ></v-select>
+					</div>
+					<div class="card-footer">
+						{{ article.users }}
+					</div>
+				</div>
 
 				<div class="card">
 					<div class="card-header">
@@ -84,11 +100,13 @@
 // import draggable from "vuedraggable";
 import VueCkeditor from "../VueCkeditor.vue";
 // import jsrender from "jsrender";
+import vSelect from "vue-select";
 
 export default {
 	components: {
 		// 		draggable,
-		VueCkeditor
+		VueCkeditor,
+		vSelect
 	},
 
 	props: {
@@ -99,11 +117,12 @@ export default {
 		id: {
 			type: Number,
 			default: 0
-		}
-	},
+		},
+  },
 
 	data: function() {
 		return {
+			users: [],
 			article: {
 				id: "",
 				link: "",
@@ -138,16 +157,15 @@ export default {
 				file_en: ""
 			},
 			collapsed: {
-				text: false
+				text: true
 			}
 		};
 	},
 
 	computed: {},
 
-	created() {},
-
-	mounted() {
+	created() {
+		// show errors
 		if (!this.isEmptyObject(this.errors)) {
 			this.$notify({
 				group: "custom-template",
@@ -156,23 +174,34 @@ export default {
 				duration: -1
 			});
 		}
-
+		// fetching users
+			this.fetchUsers();
+		
+		// fetching article
 		if (!this.isEmptyObject(this.old)) {
 			this.user = this.old;
 		} else if (this.id !== 0) {
-			this.fetch(this.id);
+			this.fetchArticle(this.id);
 		}
-
-		this.collapsed.text =
-			this.article.text_ru !== "" || this.article.text_ru !== ""
-				? false
-				: true;
+		
+		
+	},
+	
+	mounted() {
+		
 	},
 
 	methods: {
-		fetch(id) {
+		fetchUsers() {
+			axios.get("/api/userslist").then(({ data }) => {
+				this.users = data.data;
+			})
+		},
+		fetchArticle(id) {
 			axios.get("/api/articles/" + id).then(({ data }) => {
 				this.article = data.data;
+			}).then(() => {
+				this.collapsed.text =	(this.article.text_ru !== "" || this.article.text_ru !== "")? false : true;
 			});
 		},
 

@@ -2,7 +2,7 @@
 
 @push('css')
 <!--  Select2     -->
-<link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.css') }}">
+<!-- <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.css') }}"> -->
 
 @endpush
 
@@ -57,7 +57,7 @@
 
 @push('lib')
     <!-- Select 2 -->
-    <!-- <script defer type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script> -->
+<!--     <script defer type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script> -->
 
 		<!-- CKEditor -->
 		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>

@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 
 Route::apiResource('users', 'Api\UsersController')->except('index')->middleware('auth:api');
 Route::apiResource('users', 'Api\UsersController')->only('index');
+Route::get('userslist/', 'Api\UsersController@getList');
+
 
 Route::apiResource('articles', 'Api\ArticlesController')->except('index')->middleware('auth:api');
 Route::apiResource('articles', 'Api\ArticlesController')->only('index');

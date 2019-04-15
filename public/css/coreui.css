@@ -4095,6 +4095,371 @@
   clip: auto;
 }
 
+.v-select {
+  position: relative;
+  font-family: inherit;
+}
+
+.v-select,
+.v-select * {
+  box-sizing: border-box;
+}
+
+/* KeyFrames */
+
+@-webkit-keyframes vSelectSpinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes vSelectSpinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+/* Dropdown Default Transition */
+
+.vs__fade-enter-active,
+.vs__fade-leave-active {
+  transition: opacity 0.15s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.vs__fade-enter,
+.vs__fade-leave-to {
+  opacity: 0;
+}
+
+/** Component States */
+
+/*
+ * Disabled
+ *
+ * When the component is disabled, all interaction
+ * should be prevented. Here we modify the bg color,
+ * and change the cursor displayed on the interactive
+ * components.
+ */
+
+.vs--disabled .vs__dropdown-toggle,
+.vs--disabled .vs__clear,
+.vs--disabled .vs__search,
+.vs--disabled .vs__selected,
+.vs--disabled .vs__open-indicator {
+  cursor: not-allowed;
+  background-color: #f8f8f8;
+}
+
+/*
+ *  RTL - Right to Left Support
+ *
+ *  Because we're using a flexbox layout, the `dir="rtl"`
+ *  HTML attribute does most of the work for us by
+ *  rearranging the child elements visually.
+ */
+
+.v-select[dir=rtl] .vs__actions {
+  padding: 0 3px 0 6px;
+}
+
+.v-select[dir=rtl] .vs__clear {
+  margin-left: 6px;
+  margin-right: 0;
+}
+
+.v-select[dir=rtl] .vs__deselect {
+  margin-left: 0;
+  margin-right: 2px;
+}
+
+.v-select[dir=rtl] .vs__dropdown-menu {
+  text-align: right;
+}
+
+/**
+    Dropdown Toggle
+
+    The dropdown toggle is the primary wrapper of the component. It
+    has two direct descendants: .vs__selected-options, and .vs__actions.
+
+    .vs__selected-options holds the .vs__selected's as well as the
+    main search input.
+
+    .vs__actions holds the clear button and dropdown toggle.
+ */
+
+.vs__dropdown-toggle {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  display: flex;
+  padding: 0 0 4px 0;
+  background: none;
+  border: 1px solid rgba(60, 60, 60, 0.26);
+  border-radius: 4px;
+  white-space: normal;
+}
+
+.vs__selected-options {
+  display: flex;
+  flex-basis: 100%;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  padding: 0 2px;
+  position: relative;
+}
+
+.vs__actions {
+  display: flex;
+  align-items: center;
+  padding: 4px 6px 0 3px;
+}
+
+/* Dropdown Toggle States */
+
+.vs--searchable .vs__dropdown-toggle {
+  cursor: text;
+}
+
+.vs--unsearchable .vs__dropdown-toggle {
+  cursor: pointer;
+}
+
+.vs--open .vs__dropdown-toggle {
+  border-bottom-color: transparent;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.vs__open-indicator {
+  fill: rgba(60, 60, 60, 0.5);
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  transition: -webkit-transform 150ms cubic-bezier(1, -0.115, 0.975, 0.855);
+  transition: transform 150ms cubic-bezier(1, -0.115, 0.975, 0.855);
+  transition: transform 150ms cubic-bezier(1, -0.115, 0.975, 0.855), -webkit-transform 150ms cubic-bezier(1, -0.115, 0.975, 0.855);
+  transition-timing-function: cubic-bezier(1, -0.115, 0.975, 0.855);
+}
+
+.vs--open .vs__open-indicator {
+  -webkit-transform: rotate(180deg) scale(1);
+          transform: rotate(180deg) scale(1);
+}
+
+.vs--loading .vs__open-indicator {
+  opacity: 0;
+}
+
+/* Clear Button */
+
+.vs__clear {
+  fill: rgba(60, 60, 60, 0.5);
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+/* Dropdown Menu */
+
+.vs__dropdown-menu {
+  display: block;
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  z-index: 1000;
+  padding: 5px 0;
+  margin: 0;
+  width: 100%;
+  max-height: 350px;
+  min-width: 160px;
+  overflow-y: auto;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(60, 60, 60, 0.26);
+  border-top-style: none;
+  border-radius: 0 0 4px 4px;
+  text-align: left;
+  list-style: none;
+  background: #fff;
+}
+
+.vs__no-options {
+  text-align: center;
+}
+
+/* List Items */
+
+.vs__dropdown-option {
+  line-height: 1.42857143;
+  /* Normalize line height */
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  color: #333;
+  /* Overrides most CSS frameworks */
+  white-space: nowrap;
+}
+
+.vs__dropdown-option:hover {
+  cursor: pointer;
+}
+
+.vs__dropdown-option--highlight {
+  background: #5897fb;
+  color: #fff;
+}
+
+/* Selected Tags */
+
+.vs__selected {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border: 1px solid rgba(60, 60, 60, 0.26);
+  border-radius: 4px;
+  color: #333;
+  line-height: 1.4;
+  margin: 4px 2px 0px 2px;
+  padding: 0 0.25em;
+}
+
+.vs__deselect {
+  display: inline-flex;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  margin-left: 4px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: none;
+  fill: rgba(60, 60, 60, 0.5);
+  text-shadow: 0 1px 0 #fff;
+}
+
+/* States */
+
+.vs--single .vs__selected {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.vs--single.vs--open .vs__selected {
+  position: absolute;
+  opacity: 0.4;
+}
+
+.vs--single.vs--searching .vs__selected {
+  display: none;
+}
+
+/* Search Input */
+
+.vs__search::-webkit-search-decoration,
+.vs__search::-webkit-search-cancel-button,
+.vs__search::-webkit-search-results-button,
+.vs__search::-webkit-search-results-decoration,
+.vs__search::-ms-clear {
+  display: none;
+}
+
+.vs__search,
+.vs__search:focus {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  line-height: 1.4;
+  font-size: 1em;
+  border: 1px solid transparent;
+  border-left: none;
+  outline: none;
+  margin: 4px 0 0 0;
+  padding: 0 7px;
+  background: none;
+  box-shadow: none;
+  width: 0;
+  max-width: 100%;
+  flex-grow: 1;
+}
+
+.vs__search::-webkit-input-placeholder {
+  color: inherit;
+}
+
+.vs__search:-ms-input-placeholder {
+  color: inherit;
+}
+
+.vs__search::-ms-input-placeholder {
+  color: inherit;
+}
+
+.vs__search::placeholder {
+  color: inherit;
+}
+
+/**
+    States
+ */
+
+.vs--unsearchable .vs__search {
+  opacity: 1;
+}
+
+.vs--unsearchable .vs__search:hover {
+  cursor: pointer;
+}
+
+.vs--single.vs--searching:not(.vs--open):not(.vs--loading) .vs__search {
+  opacity: 0.2;
+}
+
+/* Loading Spinner */
+
+.vs__spinner {
+  align-self: center;
+  opacity: 0;
+  font-size: 5px;
+  text-indent: -9999em;
+  overflow: hidden;
+  border-top: 0.9em solid rgba(100, 100, 100, 0.1);
+  border-right: 0.9em solid rgba(100, 100, 100, 0.1);
+  border-bottom: 0.9em solid rgba(100, 100, 100, 0.1);
+  border-left: 0.9em solid rgba(60, 60, 60, 0.45);
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  -webkit-animation: vSelectSpinner 1.1s infinite linear;
+          animation: vSelectSpinner 1.1s infinite linear;
+  transition: opacity 0.1s;
+}
+
+.vs__spinner,
+.vs__spinner:after {
+  border-radius: 50%;
+  width: 5em;
+  height: 5em;
+}
+
+/* Loading Spinner States */
+
+.vs--loading .vs__spinner {
+  opacity: 1;
+}
+
 h6,
 .h6 {
   font-size: 1em;
@@ -9174,7 +9539,7 @@ input[type=button].btn-block {
   display: flex;
   padding-left: 0;
   list-style: none;
-  border-radius: 0.25rem;
+  border-radius: 4px;
 }
 
 .page-link {
@@ -9204,13 +9569,13 @@ input[type=button].btn-block {
 
 .page-item:first-child .page-link {
   margin-left: 0;
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .page-item:last-child .page-link {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .page-item.active .page-link {
@@ -10981,23 +11346,23 @@ button.bg-dark:focus {
 }
 
 .border {
-  border: 1px solid #c8ced3 !important;
+  border: 1px solid rgba(60, 60, 60, 0.26) !important;
 }
 
 .border-top {
-  border-top: 1px solid #c8ced3 !important;
+  border-top: 1px solid rgba(60, 60, 60, 0.26) !important;
 }
 
 .border-right {
-  border-right: 1px solid #c8ced3 !important;
+  border-right: 1px solid rgba(60, 60, 60, 0.26) !important;
 }
 
 .border-bottom {
-  border-bottom: 1px solid #c8ced3 !important;
+  border-bottom: 1px solid rgba(60, 60, 60, 0.26) !important;
 }
 
 .border-left {
-  border-left: 1px solid #c8ced3 !important;
+  border-left: 1px solid rgba(60, 60, 60, 0.26) !important;
 }
 
 .border-0 {
@@ -11061,27 +11426,27 @@ button.bg-dark:focus {
 }
 
 .rounded {
-  border-radius: 0.25rem !important;
+  border-radius: 4px !important;
 }
 
 .rounded-top {
-  border-top-left-radius: 0.25rem !important;
-  border-top-right-radius: 0.25rem !important;
+  border-top-left-radius: 4px !important;
+  border-top-right-radius: 4px !important;
 }
 
 .rounded-right {
-  border-top-right-radius: 0.25rem !important;
-  border-bottom-right-radius: 0.25rem !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
 }
 
 .rounded-bottom {
-  border-bottom-right-radius: 0.25rem !important;
-  border-bottom-left-radius: 0.25rem !important;
+  border-bottom-right-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
 }
 
 .rounded-left {
-  border-top-left-radius: 0.25rem !important;
-  border-bottom-left-radius: 0.25rem !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
 }
 
 .rounded-lg {
@@ -12227,7 +12592,7 @@ button.bg-dark:focus {
 }
 
 .shadow {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15) !important;
 }
 
 .shadow-lg {
@@ -14970,7 +15335,7 @@ a.text-dark:focus {
 }
 
 .aside-menu .nav-tabs {
-  border-color: #c8ced3;
+  border-color: rgba(60, 60, 60, 0.26);
 }
 
 .aside-menu .nav-tabs .nav-link {
@@ -14982,8 +15347,8 @@ a.text-dark:focus {
 
 .aside-menu .nav-tabs .nav-link.active {
   color: #20a8d8;
-  border-right-color: #c8ced3;
-  border-left-color: #c8ced3;
+  border-right-color: rgba(60, 60, 60, 0.26);
+  border-left-color: rgba(60, 60, 60, 0.26);
 }
 
 .aside-menu .nav-tabs .nav-item:first-child .nav-link {
@@ -14995,7 +15360,7 @@ a.text-dark:focus {
   overflow-x: hidden;
   overflow-y: auto;
   border: 0;
-  border-top: 1px solid #c8ced3;
+  border-top: 1px solid rgba(60, 60, 60, 0.26);
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
@@ -15230,12 +15595,12 @@ a.text-dark:focus {
 }
 
 .brand-card-body > *:not(:last-child) {
-  border-right: 1px solid #c8ced3;
+  border-right: 1px solid rgba(60, 60, 60, 0.26);
 }
 
 *[dir=rtl] .brand-card-body > *:not(:last-child) {
   border-right: 0;
-  border-left: 1px solid #c8ced3;
+  border-left: 1px solid rgba(60, 60, 60, 0.26);
 }
 
 .btn-brand {
@@ -16573,8 +16938,8 @@ a.text-dark:focus {
   position: relative;
   padding: 0 1rem;
   margin: 1rem 0;
-  border-left: 4px solid #c8ced3;
-  border-radius: 0.25rem;
+  border-left: 4px solid rgba(60, 60, 60, 0.26);
+  border-radius: 4px;
 }
 
 .callout .chart-wrapper {
@@ -16586,12 +16951,12 @@ a.text-dark:focus {
 }
 
 .callout-bordered {
-  border: 1px solid #c8ced3;
+  border: 1px solid rgba(60, 60, 60, 0.26);
   border-left-width: 4px;
 }
 
 .callout code {
-  border-radius: 0.25rem;
+  border-radius: 4px;
 }
 
 .callout h4 {
@@ -16672,7 +17037,7 @@ a.text-dark:focus {
 }
 
 *[dir=rtl] .callout {
-  border-right: 4px solid #c8ced3;
+  border-right: 4px solid rgba(60, 60, 60, 0.26);
   border-left: 0;
 }
 
@@ -16908,7 +17273,7 @@ a.text-dark:focus {
   margin-right: -10px;
   margin-left: -10px;
   border: 0;
-  border-bottom: 1px solid #c8ced3;
+  border-bottom: 1px solid rgba(60, 60, 60, 0.26);
 }
 
 @media (min-width: 576px) {
@@ -16946,7 +17311,7 @@ canvas {
   transition: all 0.25s ease;
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
-  border-radius: 0.25rem;
+  border-radius: 4px;
 }
 
 .chartjs-tooltip .tooltip-header {
@@ -17345,20 +17710,20 @@ canvas {
 .nav-tabs .nav-link.active {
   color: #2f353a;
   background: #fff;
-  border-color: #c8ced3;
+  border-color: rgba(60, 60, 60, 0.26);
   border-bottom-color: #fff;
 }
 
 .nav-tabs .nav-link.active:focus {
   background: #fff;
-  border-color: #c8ced3;
+  border-color: rgba(60, 60, 60, 0.26);
   border-bottom-color: #fff;
 }
 
 .tab-content {
   margin-top: -1px;
   background: #fff;
-  border: 1px solid #c8ced3;
+  border: 1px solid rgba(60, 60, 60, 0.26);
 }
 
 .tab-content .tab-pane {
@@ -17372,7 +17737,7 @@ canvas {
 
 .nav-fill .nav-link {
   background-color: #fff;
-  border-color: #c8ced3;
+  border-color: rgba(60, 60, 60, 0.26);
 }
 
 .nav-fill .nav-link + .nav-link {
@@ -18144,9 +18509,9 @@ canvas {
   height: inherit;
   cursor: pointer;
   background-color: #fff;
-  border: 1px solid #c8ced3;
+  border: 1px solid rgba(60, 60, 60, 0.26);
   transition: 0.15s ease-out;
-  border-radius: 0.25rem;
+  border-radius: 4px;
 }
 
 .switch-slider::before {
@@ -18158,9 +18523,9 @@ canvas {
   height: 20px;
   content: "";
   background-color: #fff;
-  border: 1px solid #c8ced3;
+  border: 1px solid rgba(60, 60, 60, 0.26);
   transition: 0.15s ease-out;
-  border-radius: 0.125rem;
+  border-radius: 2px;
 }
 
 .switch-input:checked ~ .switch-slider::before {
@@ -20087,43 +20452,43 @@ button.bg-gray-900:focus {
 }
 
 .b-a-1 {
-  border: 1px solid #c8ced3;
+  border: 1px solid rgba(60, 60, 60, 0.26);
 }
 
 .b-t-1 {
-  border-top: 1px solid #c8ced3;
+  border-top: 1px solid rgba(60, 60, 60, 0.26);
 }
 
 .b-r-1 {
-  border-right: 1px solid #c8ced3;
+  border-right: 1px solid rgba(60, 60, 60, 0.26);
 }
 
 .b-b-1 {
-  border-bottom: 1px solid #c8ced3;
+  border-bottom: 1px solid rgba(60, 60, 60, 0.26);
 }
 
 .b-l-1 {
-  border-left: 1px solid #c8ced3;
+  border-left: 1px solid rgba(60, 60, 60, 0.26);
 }
 
 .b-a-2 {
-  border: 2px solid #c8ced3;
+  border: 2px solid rgba(60, 60, 60, 0.26);
 }
 
 .b-t-2 {
-  border-top: 2px solid #c8ced3;
+  border-top: 2px solid rgba(60, 60, 60, 0.26);
 }
 
 .b-r-2 {
-  border-right: 2px solid #c8ced3;
+  border-right: 2px solid rgba(60, 60, 60, 0.26);
 }
 
 .b-b-2 {
-  border-bottom: 2px solid #c8ced3;
+  border-bottom: 2px solid rgba(60, 60, 60, 0.26);
 }
 
 .b-l-2 {
-  border-left: 2px solid #c8ced3;
+  border-left: 2px solid rgba(60, 60, 60, 0.26);
 }
 
 @media (max-width: 575.98px) {

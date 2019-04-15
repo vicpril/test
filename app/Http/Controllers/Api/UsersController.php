@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Repositories\UsersRepository;
+use App\Http\Resources\UserListResource;
 
 class UsersController extends Controller
 {
@@ -28,6 +29,17 @@ class UsersController extends Controller
         $users = $this->repository->getUsersList($request);
 
         return UserResource::collection($users);
+    }
+  
+     /**
+     * Get a list of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getList(Request $request)
+    {
+        $users = $this->repository->getAuthors();
+        return UserListResource::collection($users);
     }
 
     /**
@@ -100,4 +112,5 @@ class UsersController extends Controller
             return response()->json($result);
         }
     }
+    
 }

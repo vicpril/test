@@ -292,5 +292,18 @@ class UsersRepository extends Repository
                 'message' => 'Что-то пошло не так'];	
       }
     }
+  
+   /*
+   *
+   *    Get list all Authors
+   *
+   */
+  
+    public function getAuthors () {
+      $users = $this->model->where('role', 'author')
+                  ->with('meta')
+                  ->get();
+//       $users = $users->sortBy
+    }
 
 }
