@@ -19,8 +19,8 @@ class ArticleResource extends JsonResource
             "link" => $this->link,
             "status" => $this->status->type,
 
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
+            "created_at" => $this->created_at->format('Y-m-d H:i'),
+            "updated_at" => $this->updated_at->format('Y-m-d H:i'),
 
             "year" => $this->issue->year,
             "tom" => $this->issue->tom,
@@ -39,7 +39,10 @@ class ArticleResource extends JsonResource
                 ];
             }),
             "tags" => $this->tags->map(function ($tag) {
-                return $tag->id;
+                return [
+                  'id' => $tag->id,
+                  'title_ru' => $tag->title_ru
+                ];
             }),
             "categories" => $this->categories->map(function ($category) {
                 return $category->id;

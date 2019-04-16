@@ -488,6 +488,157 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import translat from "../translat";
 // import draggable from "vuedraggable";
  // import jsrender from "jsrender";
@@ -514,15 +665,18 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       users: [],
+      tags: [],
+      noArray: [1, 2, 3, 4, 5],
+      partArray: [1, 2],
       article: {
         id: "",
         link: "",
         status: false,
         created_at: "",
         updated_at: "",
-        year: "",
+        year: new Date().getFullYear(),
         tom: "",
-        no: "",
+        no: 1,
         full_no: "",
         part: "",
         doi: "",
@@ -547,7 +701,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  computed: {},
+  computed: {
+    newArticle: function newArticle() {
+      return this.article.id ? false : true;
+    },
+    tom: function tom() {
+      this.article.tom = this.article.year - 2009 + 1;
+      return this.article.tom;
+    }
+  },
   created: function created() {
     // show errors
     if (!this.isEmptyObject(this.errors)) {
@@ -560,7 +722,9 @@ __webpack_require__.r(__webpack_exports__);
     } // fetching users
 
 
-    this.fetchUsers(); // fetching article
+    this.fetchUsers(); // fetching Tags
+
+    this.fetchTags(); // fetching article
 
     if (!this.isEmptyObject(this.old)) {
       this.user = this.old;
@@ -579,25 +743,33 @@ __webpack_require__.r(__webpack_exports__);
         _this.users = data.data;
       });
     },
-    fetchArticle: function fetchArticle(id) {
+    fetchTags: function fetchTags() {
       var _this2 = this;
 
-      axios.get("/api/articles/" + id).then(function (_ref2) {
+      axios.get("/api/tags").then(function (_ref2) {
         var data = _ref2.data;
-        _this2.article = data.data;
+        _this2.tags = data;
+      });
+    },
+    fetchArticle: function fetchArticle(id) {
+      var _this3 = this;
+
+      axios.get("/api/articles/" + id).then(function (_ref3) {
+        var data = _ref3.data;
+        _this3.article = data.data;
       }).then(function () {
-        _this2.collapsed.text = _this2.article.text_ru !== "" || _this2.article.text_ru !== "" ? false : true;
+        _this3.collapsed.text = _this3.article.text_ru !== "" || _this3.article.text_ru !== "" ? false : true;
       });
     },
     deleteArticle: function deleteArticle() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (confirm("Удалить статью ?")) {
         axios.delete("/admin/articles/" + this.article.id).then(function (resp) {
           if (resp.data.status == "success") {
             window.location = resp.data.redirect + "?articledeleted=1";
           } else {
-            _this3.$notify({
+            _this4.$notify({
               group: "custom-template",
               text: resp.data.message.title[0],
               type: "alert-danger",
@@ -606,6 +778,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }
+    },
+    setFullNo: function setFullNo() {
+      this.article.full_no = (this.article.year - 2009 - 1) * 4 + 2 + this.article.no;
     },
     checkError: function checkError(error) {
       if (this.errors.hasOwnProperty(error)) {
@@ -25586,7 +25761,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n\r\n/* v-select */\n#users .vs__selected {\r\n\tbackground-color: rgba(248, 108, 107, 0.5);\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n\r\n/* v-select */\n.vs__dropdown-toggle {\r\n\t/* border: none; */\r\n\t/* height: 100%; */\n}\n#users .vs__selected {\r\n\tbackground-color: var(--primary);\r\n\tcolor: white;\r\n\tfont-weight: 600;\r\n\t/* font-size: 1rem; */\n}\n#tags .vs__selected {\r\n\tbackground-color: var(--warning);\r\n\t/* color: white; */\r\n\t/* font-weight: 600; */\r\n\t/* font-size: 1rem; */\n}\r\n", ""]);
 
 // exports
 
@@ -35175,7 +35350,7 @@ var render = function() {
                 _c(
                   "v-select",
                   {
-                    staticClass: "form-control",
+                    staticClass: "flex-grow-1",
                     attrs: {
                       id: "users",
                       multiple: "",
@@ -35213,7 +35388,26 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2)
+                _c(
+                  "b-button",
+                  {
+                    directives: [
+                      {
+                        name: "b-tooltip",
+                        rawName: "v-b-tooltip.hover",
+                        modifiers: { hover: true }
+                      }
+                    ],
+                    staticClass: "btn-sm ml-2 my-auto",
+                    attrs: {
+                      title: "Обновить список авторов",
+                      type: "button",
+                      variant: "outline-secondary"
+                    },
+                    on: { click: _vm.fetchUsers }
+                  },
+                  [_c("i", { staticClass: "fa fa-refresh" })]
+                )
               ],
               1
             )
@@ -35321,31 +35515,418 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md right-sidebar" }, [
-        _vm._m(3),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            directives: [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _vm.article.status
+                ? _c("strong", [_vm._v("Опублиповано")])
+                : _c("strong", [_vm._v("Черновик")]),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "float-right mx-1 switch switch-label switch-3d switch-success form-check-label"
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.article.status,
+                        expression: "article.status"
+                      }
+                    ],
+                    staticClass: "switch-input",
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.article.status)
+                        ? _vm._i(_vm.article.status, null) > -1
+                        : _vm.article.status
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.article.status = !_vm.article.status
+                      },
+                      change: function($event) {
+                        var $$a = _vm.article.status,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(_vm.article, "status", $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.article,
+                                "status",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.article, "status", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "switch-slider",
+                    attrs: { "data-checked": "✓", "data-unchecked": "✕" }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm.article.updated_at
+              ? _c("div", { staticClass: "form-group mb-0" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.article.updated_at))])
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" }, [
+            _c(
+              "button",
               {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.article.id,
-                expression: "article.id"
-              }
-            ],
-            staticClass: "btn btn-link text-danger mb-3",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.deleteArticle($event)
-              }
-            }
-          },
-          [_vm._v("Удалить статью")]
-        )
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.article.id,
+                    expression: "article.id"
+                  }
+                ],
+                staticClass: "btn btn-link text-danger float-left",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.deleteArticle($event)
+                  }
+                }
+              },
+              [_vm._v("Удалить")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "btn btn-primary btn-round float-right",
+              attrs: { type: "submit" },
+              domProps: { value: _vm.newArticle ? "Опубликовать" : "Обновить" }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _vm._m(5),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "input-group mb-2" }, [
+              _vm._m(6),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.article.year,
+                    expression: "article.year"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number", min: "2009" },
+                domProps: { value: _vm.article.year },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.article, "year", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c("span", { staticClass: "input-group-text" }, [
+                  _vm._v("Том " + _vm._s(_vm.tom))
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group mb-2" }, [
+              _vm._m(7),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.article.no,
+                      expression: "article.no"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.article,
+                        "no",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                _vm._l(_vm.noArray, function(no, index) {
+                  return _c("option", { key: index, domProps: { value: no } }, [
+                    _vm._v(_vm._s(no))
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group mb-2" }, [
+              _vm._m(8),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.article.full_no,
+                    expression: "article.full_no"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number", min: "1" },
+                domProps: { value: _vm.article.full_no },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.article, "full_no", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-info",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.setFullNo($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Авто")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group mb-2" }, [
+              _vm._m(9),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.article.part,
+                      expression: "article.part"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.article,
+                        "part",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                _vm._l(_vm.partArray, function(part, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: part } },
+                    [_vm._v(_vm._s(part))]
+                  )
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "d-flex" }, [
+              _c("label", { staticClass: "align-self-start" }, [
+                _vm._v("Запись относится к круглому столу")
+              ]),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "align-self-end mx-1 my-auto switch switch-label switch-3d switch-warning form-check-label"
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.article.stol,
+                        expression: "article.stol"
+                      }
+                    ],
+                    staticClass: "switch-input",
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.article.stol)
+                        ? _vm._i(_vm.article.stol, null) > -1
+                        : _vm.article.stol
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.article.stol = !_vm.article.stol
+                      },
+                      change: function($event) {
+                        var $$a = _vm.article.stol,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(_vm.article, "stol", $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.article,
+                                "stol",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.article, "stol", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "switch-slider",
+                    attrs: { "data-checked": "✓", "data-unchecked": "✕" }
+                  })
+                ]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _vm._m(10),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "div",
+              { staticClass: "d-flex" },
+              [
+                _c(
+                  "v-select",
+                  {
+                    staticClass: "flex-grow-1",
+                    attrs: {
+                      id: "tags",
+                      multiple: "",
+                      options: _vm.tags,
+                      label: "title_ru"
+                    },
+                    model: {
+                      value: _vm.article.tags,
+                      callback: function($$v) {
+                        _vm.$set(_vm.article, "tags", $$v)
+                      },
+                      expression: "article.tags"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { attrs: { slot: "no-options" }, slot: "no-options" },
+                      [_vm._v("Меток по запросу не найдено.")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    directives: [
+                      {
+                        name: "b-tooltip",
+                        rawName: "v-b-tooltip.hover",
+                        modifiers: { hover: true }
+                      }
+                    ],
+                    staticClass: "btn-sm ml-2 my-auto",
+                    attrs: {
+                      title: "Создать новую метку",
+                      type: "button",
+                      variant: "outline-secondary",
+                      "data-toggle": "modal",
+                      "data-target": "#addNewTag"
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-plus" })]
+                )
+              ],
+              1
+            )
+          ])
+        ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _vm._m(11)
   ])
 }
 var staticRenderFns = [
@@ -35369,31 +35950,138 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-outline-secondary ml-2",
-        attrs: { type: "button" }
-      },
-      [_c("i", { staticClass: "fa fa-refresh" })]
-    )
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Опубликовать")])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card mb-1" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Сохранить изменения")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("input", {
-          staticClass: "btn btn-primary btn-round btn-block",
-          attrs: { type: "submit", value: "Сохранить" }
-        })
-      ])
+    return _c("span", { staticClass: "text-muted" }, [
+      _c("i", { staticClass: "fa fa-check mr-1" }),
+      _vm._v("Статус:\n\t\t\t\t\t\t")
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "text-muted" }, [
+      _c("i", { staticClass: "fa fa-calendar mr-1" }),
+      _vm._v("Дата:\n\t\t\t\t\t\t")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Выпуск")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Год")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Номер")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Полный номер")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Часть")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Метки")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "modal fade", attrs: { id: "addNewTag" } },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c("h5", { staticClass: "modal-title" }, [
+                _vm._v("Создать новую метку")
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "close", attrs: { "data-dismiss": "modal" } },
+                [_vm._v("×")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("form", [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "title_ru" } }, [
+                    _vm._v("Название на русском")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "title_en" } }, [
+                    _vm._v("Название на английском")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text" }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { "data-dismiss": "modal" }
+                },
+                [_vm._v("Создать")]
+              )
+            ])
+          ])
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true

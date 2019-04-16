@@ -5092,8 +5092,8 @@ pre code {
 
 .container {
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 8px;
+  padding-left: 8px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -5124,8 +5124,8 @@ pre code {
 
 .container-fluid {
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 8px;
+  padding-left: 8px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -5133,8 +5133,8 @@ pre code {
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -10px;
-  margin-left: -10px;
+  margin-right: -8px;
+  margin-left: -8px;
 }
 
 .no-gutters {
@@ -5220,8 +5220,8 @@ pre code {
 .col-1 {
   position: relative;
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 
 .col {
@@ -17270,8 +17270,8 @@ a.text-dark:focus {
 
 .card-full {
   margin-top: -1rem;
-  margin-right: -10px;
-  margin-left: -10px;
+  margin-right: -8px;
+  margin-left: -8px;
   border: 0;
   border-bottom: 1px solid rgba(60, 60, 60, 0.26);
 }
@@ -17416,15 +17416,15 @@ canvas {
 }
 
 .row.row-equal {
-  padding-right: 5px;
-  padding-left: 5px;
-  margin-right: -10px;
-  margin-left: -10px;
+  padding-right: 4px;
+  padding-left: 4px;
+  margin-right: -8px;
+  margin-left: -8px;
 }
 
 .row.row-equal [class*=col-] {
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-right: 4px;
+  padding-left: 4px;
 }
 
 .main .container-fluid {

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -20,7 +20,6 @@ use Illuminate\Http\Request;
 Route::apiResource('users', 'Api\UsersController')->except('index')->middleware('auth:api');
 Route::apiResource('users', 'Api\UsersController')->only('index');
 Route::get('userslist/', 'Api\UsersController@getList');
-
 
 Route::apiResource('articles', 'Api\ArticlesController')->except('index')->middleware('auth:api');
 Route::apiResource('articles', 'Api\ArticlesController')->only('index');
@@ -31,5 +30,4 @@ Route::apiResource('categories', 'Api\CategoriesController')->only('index');
 
 Route::apiResource('tags', 'Api\TagsController')->except('index')->middleware('auth:api');
 Route::apiResource('tags', 'Api\TagsController')->only('index');
-
-
+// Route::get('tagslist/', 'Api\TagsController@getList');

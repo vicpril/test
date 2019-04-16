@@ -30,7 +30,7 @@
 						<div class="d-flex">
 							<v-select
 								id="users"
-								class="form-control"
+								class="flex-grow-1"
 								multiple
 								:options="users"
 								label="name"
@@ -44,9 +44,16 @@
 									>Добавить нового автора</a>
 								</div>
 							</v-select>
-							<button type="button" class="btn btn-outline-secondary ml-2">
+							<b-button
+								v-b-tooltip.hover
+								title="Обновить список авторов"
+								type="button"
+								variant="outline-secondary"
+								class="btn-sm ml-2 my-auto"
+								@click="fetchUsers"
+							>
 								<i class="fa fa-refresh"></i>
-							</button>
+							</b-button>
 						</div>
 					</div>
 				</div>
@@ -89,20 +96,164 @@
 			</div>
 
 			<div class="col-md right-sidebar">
-				<div class="card mb-1">
+				<div class="card">
 					<div class="card-header">
-						<h5 class="h5 mb-0">Сохранить изменения</h5>
+						<h5 class="h5 mb-0">Опубликовать</h5>
 					</div>
 					<div class="card-body">
-						<input class="btn btn-primary btn-round btn-block" type="submit" value="Сохранить">
+						<div class="form-group">
+							<span class="text-muted">
+								<i class="fa fa-check mr-1"></i>Статус:
+							</span>
+							<strong v-if="article.status">Опублиповано</strong>
+							<strong v-else>Черновик</strong>
+							<label
+								class="float-right mx-1 switch switch-label switch-3d switch-success form-check-label"
+							>
+								<input
+									type="checkbox"
+									class="switch-input"
+									v-model="article.status"
+									@click="article.status = !article.status"
+								>
+								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
+							</label>
+						</div>
+						<div class="form-group mb-0" v-if="article.updated_at">
+							<span class="text-muted">
+								<i class="fa fa-calendar mr-1"></i>Дата:
+							</span>
+							<strong>{{ article.updated_at }}</strong>
+						</div>
+					</div>
+					<div class="card-footer">
+						<button
+							class="btn btn-link text-danger float-left"
+							v-show="article.id"
+							@click.prevent="deleteArticle"
+						>Удалить</button>
+						<input
+							class="btn btn-primary btn-round float-right"
+							type="submit"
+							:value="newArticle ? 'Опубликовать' : 'Обновить' "
+						>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<h5 class="h5 mb-0">Выпуск</h5>
+					</div>
+					<div class="card-body">
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Год</span>
+							</div>
+							<input type="number" min="2009" class="form-control" v-model="article.year">
+							<div class="input-group-append">
+								<span class="input-group-text">Том {{ tom }}</span>
+							</div>
+						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Номер</span>
+							</div>
+							<select class="form-control" v-model="article.no">
+								<option v-for="(no, index) in noArray" :key="index" :value="no">{{ no }}</option>
+							</select>
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Полный номер</span>
+							</div>
+							<input type="number" min="1" class="form-control" v-model="article.full_no">
+							<div class="input-group-append">
+								<button type="button" class="btn btn-outline-info" @click.prevent="setFullNo">Авто</button>
+							</div>
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Часть</span>
+							</div>
+							<select class="form-control" v-model="article.part">
+								<option v-for="(part, index) in partArray" :key="index" :value="part">{{ part }}</option>
+							</select>
+						</div>
+
+						<div class="d-flex">
+							<label class="align-self-start">Запись относится к круглому столу</label>
+							<label
+								class="align-self-end mx-1 my-auto switch switch-label switch-3d switch-warning form-check-label"
+							>
+								<input
+									type="checkbox"
+									class="switch-input"
+									v-model="article.stol"
+									@click="article.stol = !article.stol"
+								>
+								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
+							</label>
+						</div>
 					</div>
 				</div>
 
-				<button
-					class="btn btn-link text-danger mb-3"
-					v-show="article.id"
-					@click.prevent="deleteArticle"
-				>Удалить статью</button>
+				<div class="card">
+					<div class="card-header">
+						<h5 class="h5 mb-0">Метки</h5>
+					</div>
+					<div class="card-body">
+						<div class="d-flex">
+							<v-select
+								id="tags"
+								class="flex-grow-1"
+								multiple
+								:options="tags"
+								label="title_ru"
+								v-model="article.tags"
+							>
+								<div slot="no-options">Меток по запросу не найдено.</div>
+							</v-select>
+							<b-button
+								v-b-tooltip.hover
+								title="Создать новую метку"
+								type="button"
+								variant="outline-secondary"
+								class="btn-sm ml-2 my-auto"
+								data-toggle="modal"
+								data-target="#addNewTag"
+							>
+								<i class="fa fa-plus"></i>
+							</b-button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Model add new TAG-->
+		<div class="modal fade" id="addNewTag">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Создать новую метку</h5>
+						<button class="close" data-dismiss="modal">×</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group">
+								<label for="title_ru">Название на русском</label>
+								<input type="text" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="title_en">Название на английском</label>
+								<input type="text" class="form-control">
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" data-dismiss="modal">Создать</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -136,6 +287,9 @@ export default {
 	data: function() {
 		return {
 			users: [],
+			tags: [],
+			noArray: [1, 2, 3, 4, 5],
+			partArray: [1, 2],
 			article: {
 				id: "",
 				link: "",
@@ -144,9 +298,9 @@ export default {
 				created_at: "",
 				updated_at: "",
 
-				year: "",
+				year: new Date().getFullYear(),
 				tom: "",
-				no: "",
+				no: 1,
 				full_no: "",
 				part: "",
 
@@ -175,7 +329,15 @@ export default {
 		};
 	},
 
-	computed: {},
+	computed: {
+		newArticle() {
+			return this.article.id ? false : true;
+		},
+		tom() {
+			this.article.tom = this.article.year - 2009 + 1;
+			return this.article.tom;
+		}
+	},
 
 	created() {
 		// show errors
@@ -189,6 +351,9 @@ export default {
 		}
 		// fetching users
 		this.fetchUsers();
+
+		// fetching Tags
+		this.fetchTags();
 
 		// fetching article
 		if (!this.isEmptyObject(this.old)) {
@@ -206,6 +371,11 @@ export default {
 		fetchUsers() {
 			axios.get("/api/userslist").then(({ data }) => {
 				this.users = data.data;
+			});
+		},
+		fetchTags() {
+			axios.get("/api/tags").then(({ data }) => {
+				this.tags = data;
 			});
 		},
 		fetchArticle(id) {
@@ -239,6 +409,11 @@ export default {
 			}
 		},
 
+		setFullNo() {
+			this.article.full_no =
+				(this.article.year - 2009 - 1) * 4 + 2 + this.article.no;
+		},
+
 		checkError(error) {
 			if (this.errors.hasOwnProperty(error)) {
 				return "is-invalid";
@@ -262,7 +437,21 @@ export default {
 }
 
 /* v-select */
+.vs__dropdown-toggle {
+	/* border: none; */
+	/* height: 100%; */
+}
+
 #users .vs__selected {
-	background-color: rgba(248, 108, 107, 0.5);
+	background-color: var(--primary);
+	color: white;
+	font-weight: 600;
+	/* font-size: 1rem; */
+}
+#tags .vs__selected {
+	background-color: var(--warning);
+	/* color: white; */
+	/* font-weight: 600; */
+	/* font-size: 1rem; */
 }
 </style>
