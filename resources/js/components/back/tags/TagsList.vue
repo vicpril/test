@@ -7,39 +7,32 @@
 						<h5 v-if="currentTag.id" class="h5 mb-0">Метка №{{ currentTag.id }}</h5>
 						<h5 v-else class="h5 mb-0">Новая метка</h5>
 					</div>
-					<div class="card-body px-0">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="h6">Название - рус</label>
-								<input type="text" 
-											 class="form-control mr-2" 
-											 :class="checkError('title_ru')"
-											 v-model="currentTag.title_ru">
-								<div
-										class="invalid-feedback"
-										v-for="(error, key) in errors['title_ru']"
-										:key="key"
-									>{{error}}</div>
-							</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label class="h6">Название - рус</label>
+							<input
+								type="text"
+								class="form-control mr-2"
+								:class="checkError('title_ru')"
+								v-model="currentTag.title_ru"
+							>
+							<div class="invalid-feedback" v-for="(error, key) in errors['title_ru']" :key="key">{{error}}</div>
 						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="h6">Название - eng</label>
-								<input type="text" class="form-control mr-2"
-											 :class="checkError('title_en')"
-											 v-model="currentTag.title_en">
-								<div
-										class="invalid-feedback"
-										v-for="(error, key) in errors['title_en']"
-										:key="key"
-									>{{error}}</div>
-							</div>
+						<div class="form-group">
+							<label class="h6">Название - eng</label>
+							<input
+								type="text"
+								class="form-control mr-2"
+								:class="checkError('title_en')"
+								v-model="currentTag.title_en"
+							>
+							<div class="invalid-feedback" v-for="(error, key) in errors['title_en']" :key="key">{{error}}</div>
 						</div>
 					</div>
 					<div class="card-footer">
 						<button
 							type="button"
-							class="btn btn-outline-primary float-left "
+							class="btn btn-outline-primary float-left"
 							@click.prevent="clearForm"
 						>Очистить форму</button>
 						<button
@@ -172,7 +165,7 @@ export default {
 			currentTag: {
 				id: "",
 				title_ru: "",
-				title_en: "",
+				title_en: ""
 			},
 			paginateOptions: [5, 10, 25, 50, 100],
 			paginateSelect: 10,
@@ -223,9 +216,7 @@ export default {
 
 		pagination() {
 			return {
-				pageCount: Math.ceil(
-					this.orderedTags.length / this.paginateSelect
-				),
+				pageCount: Math.ceil(this.orderedTags.length / this.paginateSelect),
 				currentPage: this.page,
 				from: 1 + this.paginateSelect * (this.page - 1),
 				to: Math.min(
@@ -271,68 +262,68 @@ export default {
 					this.tags = data;
 				});
 		},
-		
+
 		save() {
-				const params = {
-					title_ru: this.currentTag.title_ru,
-					title_en: this.currentTag.title_en,
-				};
-				axios
-						.post("/api/tags", params)
-						.then(resp => {
-							if (resp.data.status === "success") {
-								this.$notify({
-									group: "custom-template",
-									type: "alert-success",
-									text: resp.data.message,
-									duration: -1
-								});
-								this.fetch();
-								this.clearForm();
-							}
-						})
-						.catch(error => {
-								this.errors = error.response.data.errors;
-								this.$notify({
-									group: "custom-template",
-									type: "alert-danger",
-									text: error.response.data.errors.title[0],
-									duration: -1
-								});
-						})
-		},
-		
-		update(id) {
 			const params = {
-					title_ru: this.currentTag.title_ru,
-					title_en: this.currentTag.title_en,
-					id: id
+				title_ru: this.currentTag.title_ru,
+				title_en: this.currentTag.title_en
 			};
 			axios
-					.put("/api/tags/" + id, params)
-					.then(resp => {
-						if (resp.data.status === "success") {
-							this.$notify({
-								group: "custom-template",
-								type: "alert-success",
-								text: resp.data.message,
-								duration: -1
-							});
-							this.fetch();
-							this.clearForm();
-						}
-					})
-					.catch(error => {
-							this.errors = error.response.data.errors;
-							this.$notify({
-								group: "custom-template",
-								type: "alert-danger",
-								text: error.response.data.errors.title[0],
-								duration: -1
-							});
-					})
+				.post("/api/tags", params)
+				.then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+						this.fetch();
+						this.clearForm();
+					}
+				})
+				.catch(error => {
+					this.errors = error.response.data.errors;
+					this.$notify({
+						group: "custom-template",
+						type: "alert-danger",
+						text: error.response.data.errors.title[0],
+						duration: -1
+					});
+				});
 		},
-		
+
+		update(id) {
+			const params = {
+				title_ru: this.currentTag.title_ru,
+				title_en: this.currentTag.title_en,
+				id: id
+			};
+			axios
+				.put("/api/tags/" + id, params)
+				.then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+						this.fetch();
+						this.clearForm();
+					}
+				})
+				.catch(error => {
+					this.errors = error.response.data.errors;
+					this.$notify({
+						group: "custom-template",
+						type: "alert-danger",
+						text: error.response.data.errors.title[0],
+						duration: -1
+					});
+				});
+		},
+
 		checkError(error) {
 			if (this.errors.hasOwnProperty(error)) {
 				return "is-invalid";
@@ -354,9 +345,11 @@ export default {
 					.then(resp => {
 						if (resp.data.status === "success") {
 							var self = this;
-							const i = this.tags.findIndex((tag) => {return tag.id === self.showedTags[index].id});
+							const i = this.tags.findIndex(tag => {
+								return tag.id === self.showedTags[index].id;
+							});
 							this.tags.splice(i, 1);
-							
+
 							this.$notify({
 								group: "custom-template",
 								type: "alert-success",
@@ -372,7 +365,7 @@ export default {
 			this.currentTag = {
 				id: "",
 				title_ru: "",
-				title_en: "",
+				title_en: ""
 			};
 			this.errors = {};
 		},

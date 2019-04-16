@@ -239,19 +239,29 @@
 						<button class="close" data-dismiss="modal">×</button>
 					</div>
 					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<label for="title_ru">Название на русском</label>
-								<input type="text" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="title_en">Название на английском</label>
-								<input type="text" class="form-control">
-							</div>
-						</form>
+						<div class="form-group">
+							<label for="title_ru">Название на русском</label>
+							<input
+								type="text"
+								class="form-control"
+								:class="checkError('title_ru')"
+								v-model="newTag.title_ru"
+							>
+							<div class="invalid-feedback" v-for="(error, key) in errors['title_ru']" :key="key">{{error}}</div>
+						</div>
+						<div class="form-group">
+							<label for="title_en">Название на английском</label>
+							<input
+								type="text"
+								class="form-control"
+								:class="checkError('title_en')"
+								v-model="newTag.title_en"
+							>
+							<div class="invalid-feedback" v-for="(error, key) in errors['title_en']" :key="key">{{error}}</div>
+						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-primary" data-dismiss="modal">Создать</button>
+						<button class="btn btn-primary" data-dismiss="modal" @click.prevent="saveNewTag">Создать</button>
 					</div>
 				</div>
 			</div>
@@ -322,6 +332,10 @@ export default {
 				keywords_en: "",
 				file_ru: "",
 				file_en: ""
+			},
+			newTag: {
+				title_ru: "",
+				title_en: ""
 			},
 			collapsed: {
 				text: true
@@ -407,6 +421,37 @@ export default {
 					}
 				});
 			}
+		},
+
+		saveNewTag() {
+			axios
+				.post("/api/tags", this.newTag)
+				.then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+						this.fetchTags();
+						this.clearTagForm();
+					}
+				})
+				.catch(error => {
+					this.errors = error.response.data.errors;
+					this.$notify({
+						group: "custom-template",
+						type: "alert-danger",
+						text: error.response.data.errors.title[0],
+						duration: -1
+					});
+				});
+		},
+
+		clearTagForm() {
+			this.newTag = "";
+			this.newTag = "";
 		},
 
 		setFullNo() {

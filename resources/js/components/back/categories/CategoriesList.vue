@@ -7,60 +7,49 @@
 						<h5 v-if="currentCat.id" class="h5 mb-0">Рубрика №{{ currentCat.id }}</h5>
 						<h5 v-else class="h5 mb-0">Новая рубрика</h5>
 					</div>
-					<div class="card-body px-0">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="h6">Название - рус</label>
-								<input type="text" 
-											 class="form-control mr-2" 
-											 :class="checkError('title_ru')"
-											 v-model="currentCat.title_ru">
-								<div
-										class="invalid-feedback"
-										v-for="(error, key) in errors['title_ru']"
-										:key="key"
-									>{{error}}</div>
-							</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label class="h6">Название - рус</label>
+							<input
+								type="text"
+								class="form-control mr-2"
+								:class="checkError('title_ru')"
+								v-model="currentCat.title_ru"
+							>
+							<div class="invalid-feedback" v-for="(error, key) in errors['title_ru']" :key="key">{{error}}</div>
 						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="h6">Название - eng</label>
-								<input type="text" class="form-control mr-2"
-											 :class="checkError('title_en')"
-											 v-model="currentCat.title_en">
-								<div
-										class="invalid-feedback"
-										v-for="(error, key) in errors['title_en']"
-										:key="key"
-									>{{error}}</div>
-							</div>
+						<div class="form-group">
+							<label class="h6">Название - eng</label>
+							<input
+								type="text"
+								class="form-control mr-2"
+								:class="checkError('title_en')"
+								v-model="currentCat.title_en"
+							>
+							<div class="invalid-feedback" v-for="(error, key) in errors['title_en']" :key="key">{{error}}</div>
 						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="h6">Родительская рубрика</label>
-								<select class="form-control" 
-												:class="checkError('parent_id')"
-												v-model="currentCat.parent_id">
-									<option value="0">Нет</option>
-									<option
-										v-for="(cat, index) in categories"
-										:key="index"
-										v-bind:value="cat.id"
-										:disabled="currentCat.id === cat.id"
-									>{{ cat.title_ru }}</option>
-								</select>
-								<div
-										class="invalid-feedback"
-										v-for="(error, key) in errors['parent_id']"
-										:key="key"
-									>{{error}}</div>
-							</div>
+						<div class="form-group">
+							<label class="h6">Родительская рубрика</label>
+							<select class="form-control" :class="checkError('parent_id')" v-model="currentCat.parent_id">
+								<option value="0">Нет</option>
+								<option
+									v-for="(cat, index) in categories"
+									:key="index"
+									v-bind:value="cat.id"
+									:disabled="currentCat.id === cat.id"
+								>{{ cat.title_ru }}</option>
+							</select>
+							<div
+								class="invalid-feedback"
+								v-for="(error, key) in errors['parent_id']"
+								:key="key"
+							>{{error}}</div>
 						</div>
 					</div>
 					<div class="card-footer">
 						<button
 							type="button"
-							class="btn btn-outline-primary float-left "
+							class="btn btn-outline-primary float-left"
 							@click.prevent="clearForm"
 						>Очистить форму</button>
 						<button
@@ -114,7 +103,7 @@
 						<table class="table table-striped table-responsive-md" style="width:100%">
 							<thead class="text-black">
 								<tr>
-<!-- 									<th>ID</th> -->
+									<!-- 									<th>ID</th> -->
 									<th
 										class="sorting"
 										:class="showOrder('title_ru')"
@@ -132,7 +121,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="(cat, index) in showedCategories " :key="index">
-<!-- 									<td>{{ cat.id }}</td> -->
+									<!-- 									<td>{{ cat.id }}</td> -->
 									<td>
 										<a href @click.prevent="showCategory(index)">{{ cat.title_ru }}</a>
 									</td>
@@ -295,70 +284,70 @@ export default {
 					this.categories = data;
 				});
 		},
-		
+
 		save() {
-				const params = {
-					title_ru: this.currentCat.title_ru,
-					title_en: this.currentCat.title_en,
-					parent_id: this.currentCat.parent_id
-				};
-				axios
-						.post("/api/categories", params)
-						.then(resp => {
-							if (resp.data.status === "success") {
-								this.$notify({
-									group: "custom-template",
-									type: "alert-success",
-									text: resp.data.message,
-									duration: -1
-								});
-								this.fetch();
-								this.clearForm();
-							}
-						})
-						.catch(error => {
-								this.errors = error.response.data.errors;
-								this.$notify({
-									group: "custom-template",
-									type: "alert-danger",
-									text: error.response.data.errors.title[0],
-									duration: -1
-								});
-						})
-		},
-		
-		update(id) {
 			const params = {
-					title_ru: this.currentCat.title_ru,
-					title_en: this.currentCat.title_en,
-					parent_id: this.currentCat.parent_id,
-					id: id
+				title_ru: this.currentCat.title_ru,
+				title_en: this.currentCat.title_en,
+				parent_id: this.currentCat.parent_id
 			};
 			axios
-					.put("/api/categories/" + id, params)
-					.then(resp => {
-						if (resp.data.status === "success") {
-							this.$notify({
-								group: "custom-template",
-								type: "alert-success",
-								text: resp.data.message,
-								duration: -1
-							});
-							this.fetch();
-							this.clearForm();
-						}
-					})
-					.catch(error => {
-							this.errors = error.response.data.errors;
-							this.$notify({
-								group: "custom-template",
-								type: "alert-danger",
-								text: error.response.data.errors.title[0],
-								duration: -1
-							});
-					})
+				.post("/api/categories", params)
+				.then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+						this.fetch();
+						this.clearForm();
+					}
+				})
+				.catch(error => {
+					this.errors = error.response.data.errors;
+					this.$notify({
+						group: "custom-template",
+						type: "alert-danger",
+						text: error.response.data.errors.title[0],
+						duration: -1
+					});
+				});
 		},
-		
+
+		update(id) {
+			const params = {
+				title_ru: this.currentCat.title_ru,
+				title_en: this.currentCat.title_en,
+				parent_id: this.currentCat.parent_id,
+				id: id
+			};
+			axios
+				.put("/api/categories/" + id, params)
+				.then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+						this.fetch();
+						this.clearForm();
+					}
+				})
+				.catch(error => {
+					this.errors = error.response.data.errors;
+					this.$notify({
+						group: "custom-template",
+						type: "alert-danger",
+						text: error.response.data.errors.title[0],
+						duration: -1
+					});
+				});
+		},
+
 		checkError(error) {
 			if (this.errors.hasOwnProperty(error)) {
 				return "is-invalid";
@@ -373,16 +362,20 @@ export default {
 
 		deleteCategory(index) {
 			if (
-				confirm("Удалить рубрику " + this.showedCategories[index].title_ru + "?")
+				confirm(
+					"Удалить рубрику " + this.showedCategories[index].title_ru + "?"
+				)
 			) {
 				axios
 					.delete("/api/categories/" + this.showedCategories[index].id)
 					.then(resp => {
 						if (resp.data.status === "success") {
 							var self = this;
-							const i = this.categories.findIndex((cat) => {return cat.id === self.showedCategories[index].id});
+							const i = this.categories.findIndex(cat => {
+								return cat.id === self.showedCategories[index].id;
+							});
 							this.categories.splice(i, 1);
-							
+
 							this.$notify({
 								group: "custom-template",
 								type: "alert-success",
