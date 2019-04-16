@@ -21,20 +21,33 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="card">
 					<div class="card-header">
 						<h5 class="h5 mb-0">Авторы</h5>
 					</div>
 					<div class="card-body">
-							<v-select :options="users" 
-												label="name_ru"
-												v-model="article.users"
-												:reduce="name_ru => name_ru.id"
-												multiple ></v-select>
-					</div>
-					<div class="card-footer">
-						{{ article.users }}
+						<div class="d-flex">
+							<v-select
+								id="users"
+								class="form-control"
+								multiple
+								:options="users"
+								label="name"
+								v-model="article.users"
+							>
+								<div slot="no-options">
+									Авторов по запросу не найдено.
+									<a
+										href="/admin/users/create"
+										target="_blank"
+									>Добавить нового автора</a>
+								</div>
+							</v-select>
+							<button type="button" class="btn btn-outline-secondary ml-2">
+								<i class="fa fa-refresh"></i>
+							</button>
+						</div>
 					</div>
 				</div>
 
@@ -117,8 +130,8 @@ export default {
 		id: {
 			type: Number,
 			default: 0
-		},
-  },
+		}
+	},
 
 	data: function() {
 		return {
@@ -141,7 +154,7 @@ export default {
 				udk: "",
 				stol: false,
 
-				authors: [],
+				users: [],
 				tags: [],
 				categories: [],
 
@@ -175,34 +188,38 @@ export default {
 			});
 		}
 		// fetching users
-			this.fetchUsers();
-		
+		this.fetchUsers();
+
 		// fetching article
 		if (!this.isEmptyObject(this.old)) {
 			this.user = this.old;
 		} else if (this.id !== 0) {
 			this.fetchArticle(this.id);
 		}
-		
-		
 	},
-	
-	mounted() {
-		
-	},
+
+	mounted() {},
+
+	watch: {},
 
 	methods: {
 		fetchUsers() {
 			axios.get("/api/userslist").then(({ data }) => {
 				this.users = data.data;
-			})
+			});
 		},
 		fetchArticle(id) {
-			axios.get("/api/articles/" + id).then(({ data }) => {
-				this.article = data.data;
-			}).then(() => {
-				this.collapsed.text =	(this.article.text_ru !== "" || this.article.text_ru !== "")? false : true;
-			});
+			axios
+				.get("/api/articles/" + id)
+				.then(({ data }) => {
+					this.article = data.data;
+				})
+				.then(() => {
+					this.collapsed.text =
+						this.article.text_ru !== "" || this.article.text_ru !== ""
+							? false
+							: true;
+				});
 		},
 
 		deleteArticle() {
@@ -242,5 +259,10 @@ export default {
 	font-size: 20px;
 	height: calc(1.7em + 1px);
 	padding: 3px 8px 3px 8px;
+}
+
+/* v-select */
+#users .vs__selected {
+	background-color: rgba(248, 108, 107, 0.5);
 }
 </style>

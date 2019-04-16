@@ -28,7 +28,7 @@ class UserListResource extends JsonResource
 //           "first_name_en" => $this->en->first_name,
 //           "first_name_ru" => $this->ru->first_name,
 //           "full_name" =>  $this->ru->full_name,
-          "name_ru" =>  $this->ru->short_name,
+          "name" =>  $this->ru->short_name,
 //           "name_en" =>  $this->en->short_name,
 //           "degree_en" => $this->en->degree,
 //           "degree_ru" => $this->ru->degree,

@@ -2,9 +2,8 @@
 
 namespace App\Repositories;
 
-use DB;
 use App\Models\User;
-
+use DB;
 use Transliterate;
 
 class UsersRepository extends Repository
@@ -15,7 +14,7 @@ class UsersRepository extends Repository
         $this->model = $user;
 
     }
-    
+
     /*
      *    Get one user by alias
      *          load  'jobs'
@@ -38,7 +37,7 @@ class UsersRepository extends Repository
 
     /*
      *    Get all users with select
-     *          load  'meta_users', 
+     *          load  'meta_users',
      *                'articles'
      */
     public function get(
@@ -69,7 +68,8 @@ class UsersRepository extends Repository
      *                 email
      *    For resources
      */
-    public function getUsersList(\Illuminate\Http\Request $request) {
+    public function getUsersList(\Illuminate\Http\Request $request)
+    {
         $paginate = ($request->input('paginate')) ? $request->input('paginate') : '';
         $search = ($request->input('search')) ? $request->input('search') : '';
         $sortBy = ($request->input('sortBy')) ? $request->input('sortBy') : 'id';
@@ -78,50 +78,51 @@ class UsersRepository extends Repository
         $users_id = $this->getSortedIdArray($search, $sortBy, $orderBy);
 
         $users = User::whereIn('id', $users_id)
-                    ->with(['meta', 'articles'])
-                    ->orderByRaw("FIELD(id, ".implode(",",$users_id).")")
-                    ->paginate($paginate);
+            ->with(['meta', 'articles'])
+            ->orderByRaw("FIELD(id, " . implode(",", $users_id) . ")")
+            ->paginate($paginate);
 
         return $users;
 
     }
-  
-    private function getSortedIdArray ($search = '', $sortBy = 'full_name', $orderBy = 'asc', $role = 'author') {
+
+    private function getSortedIdArray($search = '', $sortBy = 'full_name', $orderBy = 'asc', $role = 'author')
+    {
         switch ($sortBy) {
             // sort by atricle_user table
             case 'articles_count':
-            $users_id_articles_sorted = DB::table('users')
+                $users_id_articles_sorted = DB::table('users')
                     ->leftjoin("article_user as a", 'users.id', '=', 'a.user_id')
                     ->where('users.role', $role)
-                    ->selectRaw("users.id, count(a.user_id) as $sortBy" )
+                    ->selectRaw("users.id, count(a.user_id) as $sortBy")
                     ->orderBy($sortBy, $orderBy)
                     ->groupBy('users.id')
                     ->pluck('users.id')->unique()->toArray();
 
-            $users_id_searched = DB::table('users')
+                $users_id_searched = DB::table('users')
                     ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
                     ->where('users.role', $role)
-                    ->where(function($query) use ($search) {
-                        $query->where('email', 'like', "%".$search."%")
-                              ->orWhere('full_name', 'like', "%".$search."%");
+                    ->where(function ($query) use ($search) {
+                        $query->where('email', 'like', "%" . $search . "%")
+                            ->orWhere('full_name', 'like', "%" . $search . "%");
                     })
                     ->groupBy('users.id')
                     ->pluck('users.id')->unique()->toArray();
 
-            $users_id = array_intersect($users_id_articles_sorted, $users_id_searched);
+                $users_id = array_intersect($users_id_articles_sorted, $users_id_searched);
 
                 break;
-                
+
             // sort by users, meta_users tables
             default:
                 $users_id = DB::table('users')
                     ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
-                    // ->leftjoin('article_user as a', 'users.id', '=', 'article_user.user_id')
-                    //->selectRaw('users.*, count(a.user_id) as a_count' )
+                // ->leftjoin('article_user as a', 'users.id', '=', 'article_user.user_id')
+                //->selectRaw('users.*, count(a.user_id) as a_count' )
                     ->where('users.role', $role)
-                    ->where(function($query) use ($search) {
-                        $query->where('email', 'like', "%".$search."%")
-                              ->orWhere('full_name', 'like', "%".$search."%");
+                    ->where(function ($query) use ($search) {
+                        $query->where('email', 'like', "%" . $search . "%")
+                            ->orWhere('full_name', 'like', "%" . $search . "%");
                     })
                     ->orderBy($sortBy, $orderBy)
                     ->groupBy('users.id')
@@ -154,10 +155,10 @@ class UsersRepository extends Repository
     }
 
     /*
-    *
-    *   Add new user to database
-    *
-    */
+     *
+     *   Add new user to database
+     *
+     */
     public function create($data)
     {
         $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
@@ -210,16 +211,16 @@ class UsersRepository extends Repository
         ]);
 
         return [
-          'status' => 'success',
-          'message' => 'Новый автор добавлен'
+            'status' => 'success',
+            'message' => 'Новый автор добавлен',
         ];
     }
-  
-   /*
-    *
-    *   Update user in database
-    *
-    */
+
+    /*
+     *
+     *   Update user in database
+     *
+     */
     public function update(User $user, $data)
     {
 //         $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
@@ -238,72 +239,85 @@ class UsersRepository extends Repository
         // }
 
         $user->ru->update([
-                  'lang' => 'ru',
-                  'full_name' => $data['full_name'],
-                  'first_name' => $data['first_name_ru'],
-                  'last_name' => $data['last_name_ru'],
-                  'patronymic' => $data['patronymic_ru'],
-                  'initials' => $data['initials_ru'],
-                  'short_name' => $data['short_name_ru'],
-                  'degree' => $data['degree_ru'],
-                  'jobs' => (isset($data['jobs_ru'])) ? $data['jobs_ru'] : [],
-                  'description' => $data['description_ru'],
-              ]);
+            'lang' => 'ru',
+            'full_name' => $data['full_name'],
+            'first_name' => $data['first_name_ru'],
+            'last_name' => $data['last_name_ru'],
+            'patronymic' => $data['patronymic_ru'],
+            'initials' => $data['initials_ru'],
+            'short_name' => $data['short_name_ru'],
+            'degree' => $data['degree_ru'],
+            'jobs' => (isset($data['jobs_ru'])) ? $data['jobs_ru'] : [],
+            'description' => $data['description_ru'],
+        ]);
 
         $en_name = $data['last_name_en'];
         $en_name .= ($data['first_name_en']) ? " " . $data['first_name_en'] : "";
         $en_name .= ($data['patronymic_en']) ? " " . $data['patronymic_en'] : "";
 
         $user->en->update([
-                  'lang' => 'en',
-                  'full_name' => $en_name,
-                  'first_name' => $data['first_name_en'],
-                  'last_name' => $data['last_name_en'],
-                  'patronymic' => $data['patronymic_en'],
-                  'initials' => $data['initials_en'],
-                  'short_name' => $data['short_name_en'],
-                  'degree' => $data['degree_en'],
-                  'jobs' => (isset($data['jobs_en'])) ? $data['jobs_en'] : [],
-                  'description' => $data['description_en'],
-              ]);
+            'lang' => 'en',
+            'full_name' => $en_name,
+            'first_name' => $data['first_name_en'],
+            'last_name' => $data['last_name_en'],
+            'patronymic' => $data['patronymic_en'],
+            'initials' => $data['initials_en'],
+            'short_name' => $data['short_name_en'],
+            'degree' => $data['degree_en'],
+            'jobs' => (isset($data['jobs_en'])) ? $data['jobs_en'] : [],
+            'description' => $data['description_en'],
+        ]);
 
         return [
-          'status' => 'success',
-          'message' => 'Данные автора обновлены'
+            'status' => 'success',
+            'message' => 'Данные автора обновлены',
         ];
     }
-    
-  
+
     /*
-    *
-    *   Remove user from database
-    *           relations will be dissociate
-    */
-    public function deleteUser($user) {
+     *
+     *   Remove user from database
+     *           relations will be dissociate
+     */
+    public function deleteUser($user)
+    {
 
-      $user->articles()->detach();
-    //   $user->avatar()->dissociate();
+        $user->articles()->detach();
+        //   $user->avatar()->dissociate();
 
-      if($user->delete()) {
-        return ['status' => 'success',
-                'message' => 'Пользователь удален'];	
-      } else {
-        return ['status' => 'error',
-                'message' => 'Что-то пошло не так'];	
-      }
+        if ($user->delete()) {
+            return ['status' => 'success',
+                'message' => 'Пользователь удален'];
+        } else {
+            return ['status' => 'error',
+                'message' => 'Что-то пошло не так'];
+        }
     }
-  
-   /*
-   *
-   *    Get list all Authors
-   *
-   */
-  
-    public function getAuthors () {
-      $users = $this->model->where('role', 'author')
-                  ->with('meta')
-                  ->get();
-//       $users = $users->sortBy
+
+    /*
+     *
+     *    Get list all Authors
+     *
+     */
+
+    public function getAuthors()
+    {
+        // $users = DB::table('users')
+        //     ->leftjoin('meta_users as mu', 'users.id', '=', 'mu.user_id')
+        //     ->where('users.role', '=', 'author')
+        //     ->orderBy('mu.short_name', 'asc')
+        //     ->select('id');
+
+        $users = $this->model->join('meta_users', 'users.id', '=', 'meta_users.user_id')
+            ->where('users.role', 'author')
+            ->where('meta_users.lang', 'ru')
+            ->orderBy('meta_users.short_name', 'asc')
+            ->select('users.*')
+            ->get();
+        $users->loadMissing(['meta']);
+        // dd($users);
+        //       $users = $users->sortBy
+        return $users;
     }
 
 }
