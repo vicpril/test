@@ -649,6 +649,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import translat from "../translat";
 // import draggable from "vuedraggable";
  // import jsrender from "jsrender";
@@ -793,6 +802,16 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    handleSaveTag: function handleSaveTag(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+
+      if (!this.newTag.title_ru || !this.newTag.title_en) {
+        alert('Пожалуйста, заполните поля.');
+      } else {
+        this.saveNewTag();
+      }
+    },
     saveNewTag: function saveNewTag() {
       var _this5 = this;
 
@@ -802,12 +821,14 @@ __webpack_require__.r(__webpack_exports__);
             group: "custom-template",
             type: "alert-success",
             text: resp.data.message,
-            duration: -1
+            duration: 5000
           });
 
           _this5.fetchTags();
 
           _this5.clearTagForm();
+
+          _this5.article.tags.push(resp.data.object);
         }
       }).catch(function (error) {
         _this5.errors = error.response.data.errors;
@@ -819,10 +840,14 @@ __webpack_require__.r(__webpack_exports__);
           duration: -1
         });
       });
+      this.$nextTick(function () {
+        // Wrapped in $nextTick to ensure DOM is rendered before closing
+        _this5.$refs.addNewTag.hide();
+      });
     },
     clearTagForm: function clearTagForm() {
-      this.newTag = "";
-      this.newTag = "";
+      this.newTag.title_ru = "";
+      this.newTag.title_en = "";
     },
     setFullNo: function setFullNo() {
       this.article.full_no = (this.article.year - 2009 - 1) * 4 + 2 + this.article.no;
@@ -25788,7 +25813,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n\r\n/* v-select */\n.vs__dropdown-toggle {\r\n\t/* border: none; */\r\n\t/* height: 100%; */\n}\n#users .vs__selected {\r\n\tbackground-color: var(--primary);\r\n\tcolor: white;\r\n\tfont-weight: 600;\r\n\t/* font-size: 1rem; */\n}\n#tags .vs__selected {\r\n\tbackground-color: var(--warning);\r\n\t/* color: white; */\r\n\t/* font-weight: 600; */\r\n\t/* font-size: 1rem; */\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n\n/* v-select */\n.vs__dropdown-toggle {\n\t/* border: none; */\n\t/* height: 100%; */\n}\n#users .vs__selected {\n\tbackground-color: var(--primary);\n\tcolor: white;\n\tfont-weight: 600;\n\t/* font-size: 1rem; */\n}\n#tags .vs__selected {\n\tbackground-color: var(--warning);\n\t/* color: white; */\n\t/* font-weight: 600; */\n\t/* font-size: 1rem; */\n}\n", ""]);
 
 // exports
 
@@ -25826,7 +25851,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\r\nthead > tr > th.sorting_desc[data-v-7425bcb0],\r\nthead > tr > th.sorting[data-v-7425bcb0],\r\nthead > tr > td.sorting_asc[data-v-7425bcb0],\r\nthead > tr > td.sorting_desc[data-v-7425bcb0],\r\nthead > tr > td.sorting[data-v-7425bcb0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\r\nthead > tr > td[data-v-7425bcb0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\r\nthead .sorting_asc[data-v-7425bcb0],\r\nthead .sorting_desc[data-v-7425bcb0],\r\nthead .sorting_asc_disabled[data-v-7425bcb0],\r\nthead .sorting_desc_disabled[data-v-7425bcb0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\nthead > tr > th.sorting_desc[data-v-7425bcb0],\nthead > tr > th.sorting[data-v-7425bcb0],\nthead > tr > td.sorting_asc[data-v-7425bcb0],\nthead > tr > td.sorting_desc[data-v-7425bcb0],\nthead > tr > td.sorting[data-v-7425bcb0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\nthead > tr > td[data-v-7425bcb0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\nthead .sorting_asc[data-v-7425bcb0],\nthead .sorting_desc[data-v-7425bcb0],\nthead .sorting_asc_disabled[data-v-7425bcb0],\nthead .sorting_desc_disabled[data-v-7425bcb0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -25845,7 +25870,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-47dfc4e0],\r\nthead > tr > th.sorting_desc[data-v-47dfc4e0],\r\nthead > tr > th.sorting[data-v-47dfc4e0],\r\nthead > tr > td.sorting_asc[data-v-47dfc4e0],\r\nthead > tr > td.sorting_desc[data-v-47dfc4e0],\r\nthead > tr > td.sorting[data-v-47dfc4e0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-47dfc4e0]:active,\r\nthead > tr > td[data-v-47dfc4e0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-47dfc4e0],\r\nthead .sorting_asc[data-v-47dfc4e0],\r\nthead .sorting_desc[data-v-47dfc4e0],\r\nthead .sorting_asc_disabled[data-v-47dfc4e0],\r\nthead .sorting_desc_disabled[data-v-47dfc4e0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-47dfc4e0]:before,\r\nthead .sorting[data-v-47dfc4e0]:after,\r\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_asc[data-v-47dfc4e0]:after,\r\nthead .sorting_desc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:after,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-47dfc4e0]:before,\r\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:before,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-47dfc4e0]:after,\r\nthead .sorting_asc[data-v-47dfc4e0]:after,\r\nthead .sorting_desc[data-v-47dfc4e0]:after,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-47dfc4e0],\nthead > tr > th.sorting_desc[data-v-47dfc4e0],\nthead > tr > th.sorting[data-v-47dfc4e0],\nthead > tr > td.sorting_asc[data-v-47dfc4e0],\nthead > tr > td.sorting_desc[data-v-47dfc4e0],\nthead > tr > td.sorting[data-v-47dfc4e0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-47dfc4e0]:active,\nthead > tr > td[data-v-47dfc4e0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-47dfc4e0],\nthead .sorting_asc[data-v-47dfc4e0],\nthead .sorting_desc[data-v-47dfc4e0],\nthead .sorting_asc_disabled[data-v-47dfc4e0],\nthead .sorting_desc_disabled[data-v-47dfc4e0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-47dfc4e0]:before,\nthead .sorting[data-v-47dfc4e0]:after,\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_asc[data-v-47dfc4e0]:after,\nthead .sorting_desc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:after,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-47dfc4e0]:before,\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:before,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-47dfc4e0]:after,\nthead .sorting_asc[data-v-47dfc4e0]:after,\nthead .sorting_desc[data-v-47dfc4e0]:after,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -25864,7 +25889,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 300px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 300px;\n}\n", ""]);
 
 // exports
 
@@ -25883,7 +25908,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-3b5f38fc],\r\nthead > tr > th.sorting_desc[data-v-3b5f38fc],\r\nthead > tr > th.sorting[data-v-3b5f38fc],\r\nthead > tr > td.sorting_asc[data-v-3b5f38fc],\r\nthead > tr > td.sorting_desc[data-v-3b5f38fc],\r\nthead > tr > td.sorting[data-v-3b5f38fc] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-3b5f38fc]:active,\r\nthead > tr > td[data-v-3b5f38fc]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-3b5f38fc],\r\nthead .sorting_asc[data-v-3b5f38fc],\r\nthead .sorting_desc[data-v-3b5f38fc],\r\nthead .sorting_asc_disabled[data-v-3b5f38fc],\r\nthead .sorting_desc_disabled[data-v-3b5f38fc] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-3b5f38fc]:before,\r\nthead .sorting[data-v-3b5f38fc]:after,\r\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_asc[data-v-3b5f38fc]:after,\r\nthead .sorting_desc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:after,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-3b5f38fc]:before,\r\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:before,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-3b5f38fc]:after,\r\nthead .sorting_asc[data-v-3b5f38fc]:after,\r\nthead .sorting_desc[data-v-3b5f38fc]:after,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-3b5f38fc],\nthead > tr > th.sorting_desc[data-v-3b5f38fc],\nthead > tr > th.sorting[data-v-3b5f38fc],\nthead > tr > td.sorting_asc[data-v-3b5f38fc],\nthead > tr > td.sorting_desc[data-v-3b5f38fc],\nthead > tr > td.sorting[data-v-3b5f38fc] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-3b5f38fc]:active,\nthead > tr > td[data-v-3b5f38fc]:active {\n\toutline: none;\n}\nthead .sorting[data-v-3b5f38fc],\nthead .sorting_asc[data-v-3b5f38fc],\nthead .sorting_desc[data-v-3b5f38fc],\nthead .sorting_asc_disabled[data-v-3b5f38fc],\nthead .sorting_desc_disabled[data-v-3b5f38fc] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-3b5f38fc]:before,\nthead .sorting[data-v-3b5f38fc]:after,\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_asc[data-v-3b5f38fc]:after,\nthead .sorting_desc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:after,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-3b5f38fc]:before,\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:before,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-3b5f38fc]:after,\nthead .sorting_asc[data-v-3b5f38fc]:after,\nthead .sorting_desc[data-v-3b5f38fc]:after,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -35292,677 +35317,708 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md" }, [
-        _c("div", { staticClass: "card" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("На русском")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.article.title_ru,
-                    expression: "article.title_ru"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { id: "title_ru" },
-                domProps: { value: _vm.article.title_ru },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.article, "title_ru", $event.target.value)
-                  }
-                }
-              })
-            ]),
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(0),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("На английском")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.article.title_en,
-                    expression: "article.title_en"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.article.title_en },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("На русском")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.article.title_ru,
+                      expression: "article.title_ru"
                     }
-                    _vm.$set(_vm.article, "title_en", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group mb-0" }, [
-              _c("label", [_vm._v("Ссылка на сайте:")]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "ml-1",
-                  attrs: { href: _vm.article.link, target: "_blank" }
-                },
-                [_vm._v(_vm._s(_vm.article.link))]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "div",
-              { staticClass: "d-flex" },
-              [
-                _c(
-                  "v-select",
-                  {
-                    staticClass: "flex-grow-1",
-                    attrs: {
-                      id: "users",
-                      multiple: "",
-                      options: _vm.users,
-                      label: "name"
-                    },
-                    model: {
-                      value: _vm.article.users,
-                      callback: function($$v) {
-                        _vm.$set(_vm.article, "users", $$v)
-                      },
-                      expression: "article.users"
+                  ],
+                  staticClass: "form-control",
+                  attrs: { id: "title_ru" },
+                  domProps: { value: _vm.article.title_ru },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.article, "title_ru", $event.target.value)
                     }
-                  },
-                  [
-                    _c(
-                      "div",
-                      { attrs: { slot: "no-options" }, slot: "no-options" },
-                      [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t\t\tАвторов по запросу не найдено.\n\t\t\t\t\t\t\t\t"
-                        ),
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "/admin/users/create",
-                              target: "_blank"
-                            }
-                          },
-                          [_vm._v("Добавить нового автора")]
-                        )
-                      ]
-                    )
-                  ]
-                ),
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("На английском")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.article.title_en,
+                      expression: "article.title_en"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.article.title_en },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.article, "title_en", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group mb-0" }, [
+                _c("label", [_vm._v("Ссылка на сайте:")]),
                 _vm._v(" "),
                 _c(
-                  "b-button",
+                  "a",
                   {
-                    directives: [
-                      {
-                        name: "b-tooltip",
-                        rawName: "v-b-tooltip.hover",
-                        modifiers: { hover: true }
-                      }
-                    ],
-                    staticClass: "btn-sm ml-2 my-auto",
-                    attrs: {
-                      title: "Обновить список авторов",
-                      type: "button",
-                      variant: "outline-secondary"
-                    },
-                    on: { click: _vm.fetchUsers }
+                    staticClass: "ml-1",
+                    attrs: { href: _vm.article.link, target: "_blank" }
                   },
-                  [_c("i", { staticClass: "fa fa-refresh" })]
+                  [_vm._v(_vm._s(_vm.article.link))]
                 )
-              ],
-              1
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "card" },
-          [
-            _c("div", { staticClass: "card-header" }, [
-              _c("span", { staticClass: "h5 mb-0" }, [_vm._v("Текст статьи")]),
-              _vm._v(" "),
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
               _c(
                 "div",
-                { staticClass: "card-header-actions" },
+                { staticClass: "d-flex" },
                 [
                   _c(
-                    "b-link",
+                    "v-select",
                     {
-                      staticClass: "card-header-action btn-minimize",
-                      on: {
-                        click: function($event) {
-                          _vm.collapsed.text = !_vm.collapsed.text
-                        }
+                      staticClass: "flex-grow-1",
+                      attrs: {
+                        id: "users",
+                        multiple: "",
+                        options: _vm.users,
+                        label: "name"
+                      },
+                      model: {
+                        value: _vm.article.users,
+                        callback: function($$v) {
+                          _vm.$set(_vm.article, "users", $$v)
+                        },
+                        expression: "article.users"
                       }
                     },
                     [
-                      _c("i", {
-                        class: _vm.collapsed.text
-                          ? "icon-arrow-down"
-                          : "icon-arrow-up"
-                      })
+                      _c(
+                        "div",
+                        { attrs: { slot: "no-options" }, slot: "no-options" },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t\t\tАвторов по запросу не найдено.\n\t\t\t\t\t\t\t\t\t"
+                          ),
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: "/admin/users/create",
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v("Добавить нового автора")]
+                          )
+                        ]
+                      )
                     ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      directives: [
+                        {
+                          name: "b-tooltip",
+                          rawName: "v-b-tooltip.hover",
+                          modifiers: { hover: true }
+                        }
+                      ],
+                      staticClass: "btn-sm ml-2 my-auto",
+                      attrs: {
+                        title: "Обновить список авторов",
+                        type: "button",
+                        variant: "outline-secondary"
+                      },
+                      on: { click: _vm.fetchUsers }
+                    },
+                    [_c("i", { staticClass: "fa fa-refresh" })]
                   )
                 ],
                 1
               )
-            ]),
-            _vm._v(" "),
-            _c(
-              "b-collapse",
-              { attrs: { id: "text", visible: !_vm.collapsed.text } },
-              [
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", { staticClass: "h6" }, [
-                        _vm._v("На русском")
-                      ]),
-                      _vm._v(" "),
-                      _c("vue-ckeditor", {
-                        ref: "article.text_ru",
-                        staticClass: "mt-2",
-                        attrs: {
-                          name: "article.text_ru",
-                          id: "article.text_ru"
-                        },
-                        model: {
-                          value: _vm.article.text_ru,
-                          callback: function($$v) {
-                            _vm.$set(_vm.article, "text_ru", $$v)
-                          },
-                          expression: "article.text_ru"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", { staticClass: "h6" }, [
-                        _vm._v("На английском")
-                      ]),
-                      _vm._v(" "),
-                      _c("vue-ckeditor", {
-                        ref: "article.text_en",
-                        staticClass: "mt-2",
-                        attrs: {
-                          name: "article.text_en",
-                          id: "article.text_en"
-                        },
-                        model: {
-                          value: _vm.article.text_en,
-                          callback: function($$v) {
-                            _vm.$set(_vm.article, "text_en", $$v)
-                          },
-                          expression: "article.text_en"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ])
-              ]
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md right-sidebar" }, [
-        _c("div", { staticClass: "card" }, [
-          _vm._m(2),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _vm.article.status
-                ? _c("strong", [_vm._v("Опублиповано")])
-                : _c("strong", [_vm._v("Черновик")]),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass:
-                    "float-right mx-1 switch switch-label switch-3d switch-success form-check-label"
-                },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.article.status,
-                        expression: "article.status"
-                      }
-                    ],
-                    staticClass: "switch-input",
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.article.status)
-                        ? _vm._i(_vm.article.status, null) > -1
-                        : _vm.article.status
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm.article.status = !_vm.article.status
-                      },
-                      change: function($event) {
-                        var $$a = _vm.article.status,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(_vm.article, "status", $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.article,
-                                "status",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.article, "status", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("span", {
-                    staticClass: "switch-slider",
-                    attrs: { "data-checked": "✓", "data-unchecked": "✕" }
-                  })
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _vm.article.updated_at
-              ? _c("div", { staticClass: "form-group mb-0" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.article.updated_at))])
-                ])
-              : _vm._e()
+            ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-footer" }, [
-            _c(
-              "button",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.article.id,
-                    expression: "article.id"
-                  }
-                ],
-                staticClass: "btn btn-link text-danger float-left",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.deleteArticle($event)
-                  }
-                }
-              },
-              [_vm._v("Удалить")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "btn btn-primary btn-round float-right",
-              attrs: { type: "submit" },
-              domProps: { value: _vm.newArticle ? "Опубликовать" : "Обновить" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _vm._m(5),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "input-group mb-2" }, [
-              _vm._m(6),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.article.year,
-                    expression: "article.year"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number", min: "2009" },
-                domProps: { value: _vm.article.year },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.article, "year", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-append" }, [
-                _c("span", { staticClass: "input-group-text" }, [
-                  _vm._v("Том " + _vm._s(_vm.tom))
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group mb-2" }, [
-              _vm._m(7),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.article.no,
-                      expression: "article.no"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.article,
-                        "no",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
-                  }
-                },
-                _vm._l(_vm.noArray, function(no, index) {
-                  return _c("option", { key: index, domProps: { value: no } }, [
-                    _vm._v(_vm._s(no))
-                  ])
-                }),
-                0
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group mb-2" }, [
-              _vm._m(8),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.article.full_no,
-                    expression: "article.full_no"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number", min: "1" },
-                domProps: { value: _vm.article.full_no },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.article, "full_no", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-append" }, [
+          _c(
+            "div",
+            { staticClass: "card" },
+            [
+              _c("div", { staticClass: "card-header" }, [
+                _c("span", { staticClass: "h5 mb-0" }, [
+                  _vm._v("Текст статьи")
+                ]),
+                _vm._v(" "),
                 _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-info",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.setFullNo($event)
-                      }
-                    }
-                  },
-                  [_vm._v("Авто")]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group mb-2" }, [
-              _vm._m(9),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.article.part,
-                      expression: "article.part"
-                    }
+                  "div",
+                  { staticClass: "card-header-actions" },
+                  [
+                    _c(
+                      "b-link",
+                      {
+                        staticClass: "card-header-action btn-minimize",
+                        on: {
+                          click: function($event) {
+                            _vm.collapsed.text = !_vm.collapsed.text
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          class: _vm.collapsed.text
+                            ? "icon-arrow-down"
+                            : "icon-arrow-up"
+                        })
+                      ]
+                    )
                   ],
-                  staticClass: "form-control",
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.article,
-                        "part",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
-                  }
-                },
-                _vm._l(_vm.partArray, function(part, index) {
-                  return _c(
-                    "option",
-                    { key: index, domProps: { value: part } },
-                    [_vm._v(_vm._s(part))]
-                  )
-                }),
-                0
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "d-flex" }, [
-              _c("label", { staticClass: "align-self-start" }, [
-                _vm._v("Запись относится к круглому столу")
+                  1
+                )
               ]),
               _vm._v(" "),
               _c(
-                "label",
-                {
-                  staticClass:
-                    "align-self-end mx-1 my-auto switch switch-label switch-3d switch-warning form-check-label"
-                },
+                "b-collapse",
+                { attrs: { id: "text", visible: !_vm.collapsed.text } },
                 [
-                  _c("input", {
+                  _c("div", { staticClass: "card-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { staticClass: "h6" }, [
+                          _vm._v("На русском")
+                        ]),
+                        _vm._v(" "),
+                        _c("vue-ckeditor", {
+                          ref: "article.text_ru",
+                          staticClass: "mt-2",
+                          attrs: {
+                            name: "article.text_ru",
+                            id: "article.text_ru"
+                          },
+                          model: {
+                            value: _vm.article.text_ru,
+                            callback: function($$v) {
+                              _vm.$set(_vm.article, "text_ru", $$v)
+                            },
+                            expression: "article.text_ru"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { staticClass: "h6" }, [
+                          _vm._v("На английском")
+                        ]),
+                        _vm._v(" "),
+                        _c("vue-ckeditor", {
+                          ref: "article.text_en",
+                          staticClass: "mt-2",
+                          attrs: {
+                            name: "article.text_en",
+                            id: "article.text_en"
+                          },
+                          model: {
+                            value: _vm.article.text_en,
+                            callback: function($$v) {
+                              _vm.$set(_vm.article, "text_en", $$v)
+                            },
+                            expression: "article.text_en"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md right-sidebar" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _vm.article.status
+                  ? _c("strong", [_vm._v("Опублиповано")])
+                  : _c("strong", [_vm._v("Черновик")]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "float-right mx-1 switch switch-label switch-3d switch-success form-check-label"
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.article.status,
+                          expression: "article.status"
+                        }
+                      ],
+                      staticClass: "switch-input",
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(_vm.article.status)
+                          ? _vm._i(_vm.article.status, null) > -1
+                          : _vm.article.status
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.article.status = !_vm.article.status
+                        },
+                        change: function($event) {
+                          var $$a = _vm.article.status,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.article,
+                                  "status",
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.article,
+                                  "status",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(_vm.article, "status", $$c)
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "switch-slider",
+                      attrs: { "data-checked": "✓", "data-unchecked": "✕" }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm.article.updated_at
+                ? _c("div", { staticClass: "form-group mb-0" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(_vm.article.updated_at))])
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" }, [
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.article.id,
+                      expression: "article.id"
+                    }
+                  ],
+                  staticClass: "btn btn-link text-danger float-left",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.deleteArticle($event)
+                    }
+                  }
+                },
+                [_vm._v("Удалить")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "btn btn-primary btn-round float-right",
+                attrs: { type: "submit" },
+                domProps: {
+                  value: _vm.newArticle ? "Опубликовать" : "Обновить"
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _vm._m(5),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "input-group mb-2" }, [
+                _vm._m(6),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.article.year,
+                      expression: "article.year"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", min: "2009" },
+                  domProps: { value: _vm.article.year },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.article, "year", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group-append" }, [
+                  _c("span", { staticClass: "input-group-text" }, [
+                    _vm._v("Том " + _vm._s(_vm.tom))
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group mb-2" }, [
+                _vm._m(7),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.article.stol,
-                        expression: "article.stol"
+                        value: _vm.article.no,
+                        expression: "article.no"
                       }
                     ],
-                    staticClass: "switch-input",
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.article.stol)
-                        ? _vm._i(_vm.article.stol, null) > -1
-                        : _vm.article.stol
-                    },
+                    staticClass: "form-control",
                     on: {
-                      click: function($event) {
-                        _vm.article.stol = !_vm.article.stol
-                      },
                       change: function($event) {
-                        var $$a = _vm.article.stol,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(_vm.article, "stol", $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.article,
-                                "stol",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.article, "stol", $$c)
-                        }
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.article,
+                          "no",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
                       }
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("span", {
-                    staticClass: "switch-slider",
-                    attrs: { "data-checked": "✓", "data-unchecked": "✕" }
-                  })
-                ]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _vm._m(10),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "div",
-              { staticClass: "d-flex" },
-              [
-                _c(
-                  "v-select",
-                  {
-                    staticClass: "flex-grow-1",
-                    attrs: {
-                      id: "tags",
-                      multiple: "",
-                      options: _vm.tags,
-                      label: "title_ru"
-                    },
-                    model: {
-                      value: _vm.article.tags,
-                      callback: function($$v) {
-                        _vm.$set(_vm.article, "tags", $$v)
-                      },
-                      expression: "article.tags"
-                    }
                   },
-                  [
-                    _c(
-                      "div",
-                      { attrs: { slot: "no-options" }, slot: "no-options" },
-                      [_vm._v("Меток по запросу не найдено.")]
+                  _vm._l(_vm.noArray, function(no, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: no } },
+                      [_vm._v(_vm._s(no))]
                     )
-                  ]
-                ),
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group mb-2" }, [
+                _vm._m(8),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.article.full_no,
+                      expression: "article.full_no"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", min: "1" },
+                  domProps: { value: _vm.article.full_no },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.article, "full_no", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group-append" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-info",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.setFullNo($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Авто")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group mb-2" }, [
+                _vm._m(9),
                 _vm._v(" "),
                 _c(
-                  "b-button",
+                  "select",
                   {
                     directives: [
                       {
-                        name: "b-tooltip",
-                        rawName: "v-b-tooltip.hover",
-                        modifiers: { hover: true }
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.article.part,
+                        expression: "article.part"
                       }
                     ],
-                    staticClass: "btn-sm ml-2 my-auto",
-                    attrs: {
-                      title: "Создать новую метку",
-                      type: "button",
-                      variant: "outline-secondary",
-                      "data-toggle": "modal",
-                      "data-target": "#addNewTag"
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.article,
+                          "part",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
                     }
                   },
-                  [_c("i", { staticClass: "fa fa-plus" })]
+                  _vm._l(_vm.partArray, function(part, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: part } },
+                      [_vm._v(_vm._s(part))]
+                    )
+                  }),
+                  0
                 )
-              ],
-              1
-            )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex" }, [
+                _c("label", { staticClass: "align-self-start" }, [
+                  _vm._v("Запись относится к круглому столу")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "align-self-end mx-1 my-auto switch switch-label switch-3d switch-warning form-check-label"
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.article.stol,
+                          expression: "article.stol"
+                        }
+                      ],
+                      staticClass: "switch-input",
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(_vm.article.stol)
+                          ? _vm._i(_vm.article.stol, null) > -1
+                          : _vm.article.stol
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.article.stol = !_vm.article.stol
+                        },
+                        change: function($event) {
+                          var $$a = _vm.article.stol,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(_vm.article, "stol", $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.article,
+                                  "stol",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(_vm.article, "stol", $$c)
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "switch-slider",
+                      attrs: { "data-checked": "✓", "data-unchecked": "✕" }
+                    })
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _vm._m(10),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "div",
+                { staticClass: "d-flex" },
+                [
+                  _c(
+                    "v-select",
+                    {
+                      staticClass: "flex-grow-1",
+                      attrs: {
+                        id: "tags",
+                        multiple: "",
+                        options: _vm.tags,
+                        label: "title_ru"
+                      },
+                      model: {
+                        value: _vm.article.tags,
+                        callback: function($$v) {
+                          _vm.$set(_vm.article, "tags", $$v)
+                        },
+                        expression: "article.tags"
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { attrs: { slot: "no-options" }, slot: "no-options" },
+                        [_vm._v("Меток по запросу не найдено.")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      directives: [
+                        {
+                          name: "b-tooltip",
+                          rawName: "v-b-tooltip.hover",
+                          modifiers: { hover: true }
+                        },
+                        {
+                          name: "b-modal",
+                          rawName: "v-b-modal.addNewTag",
+                          modifiers: { addNewTag: true }
+                        }
+                      ],
+                      staticClass: "btn-sm ml-2 my-auto",
+                      attrs: {
+                        title: "Создать новую метку",
+                        type: "button",
+                        variant: "outline-secondary"
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-plus" })]
+                  )
+                ],
+                1
+              )
+            ])
           ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "addNewTag" } }, [
-      _c("div", { staticClass: "modal-dialog" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _vm._m(11),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-body" }, [
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "addNewTag",
+          attrs: {
+            id: "addNewTag",
+            title: "Создать новую метку",
+            "ok-title": "Создать",
+            "cancel-title": "Отмена"
+          },
+          on: { ok: _vm.handleSaveTag, shown: _vm.clearTagForm }
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.stopPropagation()
+                  $event.preventDefault()
+                  return _vm.saveNewTag($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "title_ru" } }, [
                   _vm._v("Название на русском")
                 ]),
@@ -35977,7 +36033,6 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  class: _vm.checkError("title_ru"),
                   attrs: { type: "text" },
                   domProps: { value: _vm.newTag.title_ru },
                   on: {
@@ -35988,23 +36043,10 @@ var render = function() {
                       _vm.$set(_vm.newTag, "title_ru", $event.target.value)
                     }
                   }
-                }),
-                _vm._v(" "),
-                _vm._l(_vm.errors["title_ru"], function(error, key) {
-                  return _c(
-                    "div",
-                    { key: key, staticClass: "invalid-feedback" },
-                    [_vm._v(_vm._s(error))]
-                  )
                 })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "title_en" } }, [
                   _vm._v("Название на английском")
                 ]),
@@ -36019,7 +36061,6 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  class: _vm.checkError("title_en"),
                   attrs: { type: "text" },
                   domProps: { value: _vm.newTag.title_en },
                   on: {
@@ -36030,40 +36071,15 @@ var render = function() {
                       _vm.$set(_vm.newTag, "title_en", $event.target.value)
                     }
                   }
-                }),
-                _vm._v(" "),
-                _vm._l(_vm.errors["title_en"], function(error, key) {
-                  return _c(
-                    "div",
-                    { key: key, staticClass: "invalid-feedback" },
-                    [_vm._v(_vm._s(error))]
-                  )
                 })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-footer" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                attrs: { "data-dismiss": "modal" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.saveNewTag($event)
-                  }
-                }
-              },
-              [_vm._v("Создать")]
-            )
-          ])
-        ])
-      ])
-    ])
-  ])
+              ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -36096,7 +36112,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "text-muted" }, [
       _c("i", { staticClass: "fa fa-check mr-1" }),
-      _vm._v("Статус:\n\t\t\t\t\t\t")
+      _vm._v("Статус:\n\t\t\t\t\t\t\t")
     ])
   },
   function() {
@@ -36105,7 +36121,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "text-muted" }, [
       _c("i", { staticClass: "fa fa-calendar mr-1" }),
-      _vm._v("Дата:\n\t\t\t\t\t\t")
+      _vm._v("Дата:\n\t\t\t\t\t\t\t")
     ])
   },
   function() {
@@ -36154,20 +36170,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Метки")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Создать новую метку")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "close", attrs: { "data-dismiss": "modal" } },
-        [_vm._v("×")]
-      )
     ])
   }
 ]
@@ -44959,7 +44961,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  {{if full_name}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <strong>\r\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\r\n    </strong>\r\n  </span>\r\n  {{/if}}\r\n  {{if degree}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\">\r\n      <i><br>{{:degree}}</i>\r\n    </span>\r\n  </span>\r\n  {{/if}}\r\n  \r\n  {{if jobs}}\r\n  {{for jobs}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\r\n  </span>\r\n  {{/for}}\r\n  {{/if}}\r\n  \r\n  {{if orcid}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\r\n  </span>\r\n  {{/if}}\r\n</p>\r\n";
+module.exports = "<p>\n  {{if full_name}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <strong>\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\n    </strong>\n  </span>\n  {{/if}}\n  {{if degree}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\">\n      <i><br>{{:degree}}</i>\n    </span>\n  </span>\n  {{/if}}\n  \n  {{if jobs}}\n  {{for jobs}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\n  </span>\n  {{/for}}\n  {{/if}}\n  \n  {{if orcid}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\n  </span>\n  {{/if}}\n</p>\n";
 
 /***/ }),
 
@@ -46548,8 +46550,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\back.js */"./resources/js/back.js");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\coreui\coreui.scss */"./resources/sass/coreui/coreui.scss");
+__webpack_require__(/*! /home/cabox/workspace/resources/js/back.js */"./resources/js/back.js");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/coreui/coreui.scss */"./resources/sass/coreui/coreui.scss");
 
 
 /***/ })

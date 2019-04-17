@@ -57,7 +57,8 @@ class TagsRepository extends Repository{
 
         return [
           'status' => 'success',
-          'message' => 'Новая метка добавлена'
+          'message' => 'Новая метка добавлена',
+					'object' => $tag
         ];
     }
 	

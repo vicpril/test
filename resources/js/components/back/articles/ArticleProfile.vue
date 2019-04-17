@@ -215,12 +215,11 @@
 							</v-select>
 							<b-button
 								v-b-tooltip.hover
+								v-b-modal.addNewTag
 								title="Создать новую метку"
 								type="button"
 								variant="outline-secondary"
 								class="btn-sm ml-2 my-auto"
-								data-toggle="modal"
-								data-target="#addNewTag"
 							>
 								<i class="fa fa-plus"></i>
 							</b-button>
@@ -231,7 +230,36 @@
 		</div>
 
 		<!-- Model add new TAG-->
-		<div class="modal fade" id="addNewTag">
+		<b-modal
+      id="addNewTag"
+      ref="addNewTag"
+      title="Создать новую метку"
+      @ok="handleSaveTag"
+			ok-title="Создать"
+      @shown="clearTagForm"
+			cancel-title="Отмена"
+    >
+      <form @submit.stop.prevent="saveNewTag">
+        <div class="form-group">
+							<label for="title_ru">Название на русском</label>
+							<input
+								type="text"
+								class="form-control"
+								v-model="newTag.title_ru"
+							>
+						</div>
+						<div class="form-group">
+							<label for="title_en">Название на английском</label>
+							<input
+								type="text"
+								class="form-control"
+								v-model="newTag.title_en"
+							>
+						</div>
+      </form>
+    </b-modal>
+		
+<!-- 		<div class="modal fade" id="addNewTag">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -239,33 +267,14 @@
 						<button class="close" data-dismiss="modal">×</button>
 					</div>
 					<div class="modal-body">
-						<div class="form-group">
-							<label for="title_ru">Название на русском</label>
-							<input
-								type="text"
-								class="form-control"
-								:class="checkError('title_ru')"
-								v-model="newTag.title_ru"
-							>
-							<div class="invalid-feedback" v-for="(error, key) in errors['title_ru']" :key="key">{{error}}</div>
-						</div>
-						<div class="form-group">
-							<label for="title_en">Название на английском</label>
-							<input
-								type="text"
-								class="form-control"
-								:class="checkError('title_en')"
-								v-model="newTag.title_en"
-							>
-							<div class="invalid-feedback" v-for="(error, key) in errors['title_en']" :key="key">{{error}}</div>
-						</div>
+						
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-primary" data-dismiss="modal" @click.prevent="saveNewTag">Создать</button>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -422,6 +431,16 @@ export default {
 				});
 			}
 		},
+		
+		handleSaveTag(bvModalEvt) {
+			// Prevent modal from closing
+        bvModalEvt.preventDefault()
+        if (!this.newTag.title_ru || !this.newTag.title_en) {
+          alert('Пожалуйста, заполните поля.')
+        } else {
+          this.saveNewTag();
+        }
+		},
 
 		saveNewTag() {
 			axios
@@ -432,10 +451,11 @@ export default {
 							group: "custom-template",
 							type: "alert-success",
 							text: resp.data.message,
-							duration: -1
+							duration: 5000
 						});
 						this.fetchTags();
 						this.clearTagForm();
+						this.article.tags.push(resp.data.object);
 					}
 				})
 				.catch(error => {
@@ -447,11 +467,16 @@ export default {
 						duration: -1
 					});
 				});
+			
+			this.$nextTick(() => {
+          // Wrapped in $nextTick to ensure DOM is rendered before closing
+          this.$refs.addNewTag.hide()
+        })
 		},
 
 		clearTagForm() {
-			this.newTag = "";
-			this.newTag = "";
+			this.newTag.title_ru = "";
+			this.newTag.title_en = "";
 		},
 
 		setFullNo() {
