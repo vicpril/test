@@ -39,6 +39,7 @@ class ArticleResource extends JsonResource
                 ];
             }),
             "tags" => $this->tags->map(function ($tag) {
+//                 return $tag->id;
                 return [
                   'id' => $tag->id,
                   'title_ru' => $tag->title_ru

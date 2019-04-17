@@ -658,6 +658,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import translat from "../translat";
 // import draggable from "vuedraggable";
  // import jsrender from "jsrender";
@@ -25813,7 +25873,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n\n/* v-select */\n.vs__dropdown-toggle {\n\t/* border: none; */\n\t/* height: 100%; */\n}\n#users .vs__selected {\n\tbackground-color: var(--primary);\n\tcolor: white;\n\tfont-weight: 600;\n\t/* font-size: 1rem; */\n}\n#tags .vs__selected {\n\tbackground-color: var(--warning);\n\t/* color: white; */\n\t/* font-weight: 600; */\n\t/* font-size: 1rem; */\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n\n/* v-select */\n.vs__dropdown-toggle {\n\t/* border: none; */\n\t/* height: 100%; */\n}\n#users .vs__selected {\n\tbackground-color: var(--primary);\n\tcolor: white;\n\tfont-weight: 600;\n\t/* font-size: 1rem; */\n}\n#tags .vs__selected {\n\tbackground-color: var(--warning);\n\t/* color: white; */\n\t/* font-weight: 600; */\n\t/* font-size: 1rem; */\n}\n", ""]);
 
 // exports
 
@@ -35567,16 +35627,192 @@ var render = function() {
               )
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body row" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-md-4 form-group mx-2 mb-0 py-2 bg-light rounded-lg text-center"
+                },
+                [
+                  _c("label", { staticClass: "h6 mb-2" }, [
+                    _vm._v("Русская версия")
+                  ]),
+                  _vm._v(" "),
+                  _c("file-picker", { attrs: { path: _vm.article.file_ru } }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.article.file_ru,
+                        expression: "article.file_ru"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "file_ru",
+                      name: "file_ru",
+                      hidden: ""
+                    },
+                    domProps: { value: _vm.article.file_ru },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.article, "file_ru", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mt-2" }, [
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.article.file_ru,
+                            expression: "!article.file_ru"
+                          }
+                        ],
+                        staticClass: "popup_selector btn btn-sm btn-primary",
+                        attrs: { type: "button", "data-inputid": "file_ru" }
+                      },
+                      [_vm._v("Загрузить")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.article.file_ru,
+                            expression: "article.file_ru"
+                          }
+                        ],
+                        staticClass: "btn btn-sm btn-outline-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            _vm.article.file_ru = null
+                          }
+                        }
+                      },
+                      [_vm._v("Убрать")]
+                    )
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-md-4 form-group mx-2 mb-0 py-2 bg-light rounded-lg text-center"
+                },
+                [
+                  _c("label", { staticClass: "h6 mb-2" }, [
+                    _vm._v("Анлийская версия")
+                  ]),
+                  _vm._v(" "),
+                  _c("file-picker", { attrs: { path: _vm.article.file_en } }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.article.file_en,
+                        expression: "article.file_en"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "file_en",
+                      name: "file_en",
+                      hidden: ""
+                    },
+                    domProps: { value: _vm.article.file_en },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.article, "file_en", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mt-2" }, [
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.article.file_en,
+                            expression: "!article.file_en"
+                          }
+                        ],
+                        staticClass: "popup_selector btn btn-sm btn-primary",
+                        attrs: { type: "button", "data-inputid": "file_en" }
+                      },
+                      [_vm._v("Загрузить")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.article.file_en,
+                            expression: "article.file_en"
+                          }
+                        ],
+                        staticClass: "btn btn-sm btn-outline-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            _vm.article.file_en = null
+                          }
+                        }
+                      },
+                      [_vm._v("Убрать")]
+                    )
+                  ])
+                ],
+                1
+              )
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md right-sidebar" }, [
           _c("div", { staticClass: "card" }, [
-            _vm._m(2),
+            _vm._m(3),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(3),
+                _vm._m(4),
                 _vm._v(" "),
                 _vm.article.status
                   ? _c("strong", [_vm._v("Опублиповано")])
@@ -35648,7 +35884,7 @@ var render = function() {
               _vm._v(" "),
               _vm.article.updated_at
                 ? _c("div", { staticClass: "form-group mb-0" }, [
-                    _vm._m(4),
+                    _vm._m(5),
                     _vm._v(" "),
                     _c("strong", [_vm._v(_vm._s(_vm.article.updated_at))])
                   ])
@@ -35689,11 +35925,11 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
-            _vm._m(5),
+            _vm._m(6),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "input-group mb-2" }, [
-                _vm._m(6),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -35725,7 +35961,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "input-group mb-2" }, [
-                _vm._m(7),
+                _vm._m(8),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -35771,7 +36007,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "input-group mb-2" }, [
-                _vm._m(8),
+                _vm._m(9),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -35814,7 +36050,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "input-group mb-2" }, [
-                _vm._m(9),
+                _vm._m(10),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -35927,7 +36163,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
-            _vm._m(10),
+            _vm._m(11),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c(
@@ -36096,6 +36332,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Авторы")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Файлы для скачивания")])
     ])
   },
   function() {

@@ -2,6 +2,8 @@
 	<div>
 		<div class="row">
 			<div class="col-md">
+				
+			<!-- TITLE -->
 				<div class="card">
 					<div class="card-header">
 						<h5 class="h5 mb-0">Название</h5>
@@ -21,7 +23,9 @@
 						</div>
 					</div>
 				</div>
+			<!-- END TITLE -->
 
+			<!-- AUTHORS -->
 				<div class="card">
 					<div class="card-header">
 						<h5 class="h5 mb-0">Авторы</h5>
@@ -57,7 +61,9 @@
 						</div>
 					</div>
 				</div>
-
+			<!-- END AUTHORS -->
+				
+			<!-- TEXT -->
 				<div class="card">
 					<div class="card-header">
 						<span class="h5 mb-0">Текст статьи</span>
@@ -93,8 +99,74 @@
 						</div>
 					</b-collapse>
 				</div>
+			<!-- END TEXT -->
+			
+						<!-- FILES -->
+				<div class="card">
+					<div class="card-header">
+						<h5 class="h5 mb-0">Файлы для скачивания</h5>
+					</div>
+					<div class="card-body row">
+						<div class="col-md-4 form-group mx-2 mb-0 py-2 bg-light rounded-lg text-center">
+							<label class="h6 mb-2">Русская версия</label>
+							<file-picker :path="article.file_ru"></file-picker>
+							<input
+								class="form-control"
+								type="text"
+								id="file_ru"
+								name="file_ru"
+								v-model="article.file_ru"
+								hidden
+							>
+							<div class="mt-2">
+								<button
+									v-show="!article.file_ru"
+									type="button"
+									class="popup_selector btn btn-sm btn-primary"
+									data-inputid="file_ru"
+								>Загрузить</button>
+								<button
+									v-show="article.file_ru"
+									type="button"
+									@click.prevent="article.file_ru = null"
+									class="btn btn-sm btn-outline-primary"
+								>Убрать</button>
+							</div>
+						</div>
+						
+						<div class="col-md-4 form-group mx-2 mb-0 py-2 bg-light rounded-lg text-center">
+							<label class="h6 mb-2">Анлийская версия</label>
+							<file-picker :path="article.file_en"></file-picker>
+							<input
+								class="form-control"
+								type="text"
+								id="file_en"
+								name="file_en"
+								v-model="article.file_en"
+								hidden
+							>
+							<div class="mt-2">
+								<button
+									v-show="!article.file_en"
+									type="button"
+									class="popup_selector btn btn-sm btn-primary"
+									data-inputid="file_en"
+								>Загрузить</button>
+								<button
+									v-show="article.file_en"
+									type="button"
+									@click.prevent="article.file_en = null"
+									class="btn btn-sm btn-outline-primary"
+								>Убрать</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- END FILES -->
+				
 			</div>
 
+			<!-- STATUS -->
 			<div class="col-md right-sidebar">
 				<div class="card">
 					<div class="card-header">
@@ -139,6 +211,9 @@
 						>
 					</div>
 				</div>
+				<!-- END ISSUE -->
+				
+				<!-- ISSUE -->
 				<div class="card">
 					<div class="card-header">
 						<h5 class="h5 mb-0">Выпуск</h5>
@@ -153,7 +228,6 @@
 								<span class="input-group-text">Том {{ tom }}</span>
 							</div>
 						</div>
-
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Номер</span>
@@ -196,7 +270,9 @@
 						</div>
 					</div>
 				</div>
-
+				<!-- END ISSUE -->
+				
+				<!-- TAGS -->
 				<div class="card">
 					<div class="card-header">
 						<h5 class="h5 mb-0">Метки</h5>
@@ -226,6 +302,7 @@
 						</div>
 					</div>
 				</div>
+				<!-- END TAGS -->
 			</div>
 		</div>
 
@@ -258,23 +335,6 @@
 						</div>
       </form>
     </b-modal>
-		
-<!-- 		<div class="modal fade" id="addNewTag">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Создать новую метку</h5>
-						<button class="close" data-dismiss="modal">×</button>
-					</div>
-					<div class="modal-body">
-						
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-primary" data-dismiss="modal" @click.prevent="saveNewTag">Создать</button>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</div>
 </template>
 
