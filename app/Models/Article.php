@@ -19,10 +19,10 @@ class Article extends Model
     // protected $fillable = ['title', 'alias', 'doi', 'text', 'description', 'status_id', 'issue_id'];
     protected $fillable = ['alias', 'doi', 'status_id', 'issue_id', 'date_arrival', 'date_review'];
 
-    // protected $dates = [
-    //     'date_arrival',
-    //     'date_review',
-    // ];
+    protected $dates = [
+        'date_arrival',
+        'date_review',
+    ];
 
     // protected $relations = [
     //                             'status',
