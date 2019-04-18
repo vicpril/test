@@ -53,7 +53,7 @@ class TagsRepository extends Repository{
 				$alias = $this->getUnique($alias, 'tags', 'alias');
 				$data = array_add($data, 'alias', $alias);
         
-				$tag = $this->model->create($data);
+				$tag = $this->model->create($data)->touchUsed();
 
         return [
           'status' => 'success',

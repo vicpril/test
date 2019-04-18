@@ -21,7 +21,7 @@ class CreateMetaArticleTable extends Migration
             $table->text('text');
             $table->text('annotation')->nullable();
             $table->string('keywords')->nullable();
-            $table->integer('file')->unsigned()->nullable();
+            $table->string('file')->nullable();
 
             // $table->timestamps();
         });
@@ -32,10 +32,10 @@ class CreateMetaArticleTable extends Migration
                             ->onDelete('restrict')
                             ->onUpdate('restrict')
             ;
-            $table->foreign('file')->references('id')->on('files')
-                            ->onDelete('restrict')
-                            ->onUpdate('restrict')
-            ;
+//             $table->foreign('file')->references('id')->on('files')
+//                             ->onDelete('restrict')
+//                             ->onUpdate('restrict')
+//             ;
             });
 
     }

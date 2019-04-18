@@ -53,12 +53,13 @@ class CategoriesRepository extends Repository{
 				$alias = $this->getUnique($alias, 'categories', 'alias');
 				$data = array_add($data, 'alias', $alias);
         
-				$cat = $this->model->create($data);
+				$cat = $this->model->create($data)->touchUsed();
 				
 
         return [
           'status' => 'success',
-          'message' => 'Новая рубрика добавлена'
+          'message' => 'Новая рубрика добавлена',
+					'object' => $cat
         ];
     }
 	

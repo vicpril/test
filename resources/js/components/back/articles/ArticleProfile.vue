@@ -26,210 +26,28 @@
 			<!-- END TITLE -->
 
 			<!-- AUTHORS -->
-				<div class="card">
-					<div class="card-header">
-						<h5 class="h5 mb-0">Авторы</h5>
-					</div>
-					<div class="card-body">
-						<div class="d-flex">
-							<v-select
-								id="users"
-								class="flex-grow-1"
-								multiple
-								:options="users"
-								label="name"
-								v-model="article.users"
-							>
-								<div slot="no-options">
-									Авторов по запросу не найдено.
-									<a
-										href="/admin/users/create"
-										target="_blank"
-									>Добавить нового автора</a>
-								</div>
-							</v-select>
-							<b-button
-								v-b-tooltip.hover
-								title="Обновить список авторов"
-								type="button"
-								variant="outline-secondary"
-								class="btn-sm ml-2 my-auto"
-								@click="fetchUsers"
-							>
-								<i class="fa fa-refresh"></i>
-							</b-button>
-						</div>
-					</div>
-				</div>
+				<article-authors v-model="article.users"></article-authors>
 			<!-- END AUTHORS -->
 				
 			<!-- CATEGORIES	 -->
-				<div class="card">
-						<div class="card-header">
-							<h5 class="h5 mb-0">Рубрика</h5>
-						</div>
-						<div class="card-body">
-							<div class="d-flex">
-								<v-select
-									id="categories"
-									class="flex-grow-1"
-									:options="categories"
-									label="title_ru"
-									v-model="article.categories"
-								>
-									<div slot="no-options">
-										Рубрик по запросу не найдено.
-									</div>
-								</v-select>
-								<b-button
-									v-b-tooltip.hover
-									v-b-modal.addNewCategory
-									title="Создать новую рубрику"
-									type="button"
-									variant="outline-secondary"
-									class="btn-sm ml-2 my-auto"
-								>
-									<i class="fa fa-plus"></i>
-								</b-button>
-							</div>
-						</div>
-					</div>
+				<article-categories v-model="article.categories"></article-categories>
 			<!-- END CATEGORIES	 -->
 
 			<!-- TEXT -->
-				<div class="card">
-					<div class="card-header">
-						<span class="h5 mb-0">Текст статьи</span>
-						<div class="card-header-actions">
-							<b-link class="card-header-action btn-minimize" @click="collapsed.text = !collapsed.text">
-								<i :class="collapsed.text ? 'icon-arrow-down' : 'icon-arrow-up'"></i>
-							</b-link>
-						</div>
-					</div>
-					<b-collapse id="text" v-bind:visible="!collapsed.text">
-						<div class="card-body">
-							<div class="form-group">
-								<label class="h6">На русском</label>
-								<vue-ckeditor
-									class="mt-2"
-									name="article.text_ru"
-									id="article.text_ru"
-									ref="article.text_ru"
-									v-model="article.text_ru"
-								/>
-							</div>
-
-							<div class="form-group">
-								<label class="h6">На английском</label>
-								<vue-ckeditor
-									class="mt-2"
-									name="article.text_en"
-									id="article.text_en"
-									ref="article.text_en"
-									v-model="article.text_en"
-								/>
-							</div>
-						</div>
-					</b-collapse>
-				</div>
+					<article-text
+							:text_ru.sync="article.text_ru"
+							:text_en.sync="article.text_en"
+							:collapsing="true"												
+							:collapsed.sync="collapsed.text"
+							></article-text>
 			<!-- END TEXT -->
 			
-						<!-- FILES -->
-				<div class="card">
-					<div class="card-header">
-						<h5 class="h5 mb-0">Файлы для скачивания</h5>
-					</div>
-					<div class="card-body">
-						<div class="row">
-						<div class="col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center"
-								 :class="!article.file_ru ? 'bg-light' : 'bg-light-green'">
-							<label class="h6 mb-2">Русская версия</label>
-							<file-picker :path="article.file_ru" container-class="align-self-center my-auto"></file-picker>
-							<input
-								class="form-control"
-								type="text"
-								id="file_ru"
-								name="file_ru"
-								v-model="article.file_ru"
-								hidden
-							>
-							<div class="mt-2">
-								<button
-									v-show="!article.file_ru"
-									type="button"
-									class="popup_selector btn btn-sm btn-primary"
-									data-inputid="file_ru"
-								>Загрузить</button>
-								<button
-									v-show="article.file_ru"
-									type="button"
-									@click.prevent="article.file_ru = null"
-									class="btn btn-sm btn-outline-success"
-								>Убрать</button>
-							</div>
-						</div>
-						
-						<div class="col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center"
-								 :class="!article.file_en ? 'bg-light' : 'bg-light-green'">
-							<label class="h6 mb-2">Английская версия</label>
-							<file-picker :path="article.file_en" container-class="align-self-center my-auto"></file-picker>
-							<input
-								class="form-control"
-								type="text"
-								id="file_en"
-								name="file_en"
-								v-model="article.file_en"
-								hidden
-							>
-							<div class="mt-2">
-								<button
-									v-show="!article.file_en"
-									type="button"
-									class="popup_selector btn btn-sm btn-primary"
-									data-inputid="file_en"
-								>Загрузить</button>
-								<button
-									v-show="article.file_en"
-									type="button"
-									@click.prevent="article.file_en = null"
-									class="btn btn-sm btn-outline-success"
-								>Убрать</button>
-							</div>
-						</div>
-							
-						<div class="col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center"
-								 :class="!article.file_audio ? 'bg-light' : 'bg-light-green'">
-							<label class="h6 mb-2">Аудио версия</label>
-							<file-picker :path="article.file_audio" container-class="align-self-center my-auto"></file-picker>
-							<input
-								class="form-control"
-								type="text"
-								id="file_audio"
-								name="file_audio"
-								v-model="article.file_audio"
-								hidden
-							>
-							<div class="mt-2">
-								<button
-									v-show="!article.file_audio"
-									type="button"
-									class="popup_selector btn btn-sm btn-primary"
-									data-inputid="file_audio"
-								>Загрузить</button>
-								<button
-									v-show="article.file_audio"
-									type="button"
-									@click.prevent="article.file_audio = null"
-									class="btn btn-sm btn-outline-success"
-								>Убрать</button>
-							</div>
-						</div>
-						
-
-							
-						</div>
-					</div>
-				</div>
+			<!-- FILES -->
+				<article-files
+							:file_ru.sync="article.file_ru"
+							:file_en.sync="article.file_en"
+							:file_audio.sync="article.file_audio"
+											 ></article-files>
 			<!-- END FILES -->
 				
 			</div>
@@ -341,116 +159,38 @@
 				<!-- END ISSUE -->
 				
 				<!-- TAGS -->
-				<div class="card">
-					<div class="card-header">
-						<h5 class="h5 mb-0">Метки</h5>
-					</div>
-					<div class="card-body">
-						<div class="d-flex">
-							<v-select
-								id="tags"
-								class="flex-grow-1"
-								multiple
-								:options="tags"
-								label="title_ru"
-								v-model="article.tags"
-							>
-								<div slot="no-options">Меток по запросу не найдено.</div>
-							</v-select>
-							<b-button
-								v-b-tooltip.hover
-								v-b-modal.addNewTag
-								title="Создать новую метку"
-								type="button"
-								variant="outline-secondary"
-								class="btn-sm ml-2 my-auto"
-							>
-								<i class="fa fa-plus"></i>
-							</b-button>
-						</div>
-					</div>
-				</div>
+					<article-tags v-model="article.tags"></article-tags>
 				<!-- END TAGS -->
 			</div>
 		</div>
 
-		<!-- Model add new TAG-->
-		<b-modal
-      id="addNewTag"
-      ref="addNewTag"
-      title="Создать новую метку"
-      @ok="handleSaveTag"
-			ok-title="Создать"
-      @shown="clearForm(newTag)"
-			cancel-title="Отмена"
-    >
-      <form @submit.stop.prevent="saveNewTag">
-        <div class="form-group">
-							<label for="title_ru">Название на русском</label>
-							<input
-								type="text"
-								class="form-control"
-								v-model="newTag.title_ru"
-							>
-						</div>
-						<div class="form-group">
-							<label for="title_en">Название на английском</label>
-							<input
-								type="text"
-								class="form-control"
-								v-model="newTag.title_en"
-							>
-						</div>
-      </form>
-    </b-modal>
-<!-- 	end modal -->
-		
-				<!-- Model add new CATEGORY-->
-		<b-modal
-      id="addNewCategory"
-      ref="addNewCategory"
-      title="Создать новую рубрику"
-      @ok="handleSaveCategory"
-			ok-title="Создать"
-      @shown="clearForm(newCategory)"
-			cancel-title="Отмена"
-    >
-      <form @submit.stop.prevent="saveNewCategory">
-        <div class="form-group">
-							<label for="title_ru">Название на русском</label>
-							<input
-								type="text"
-								class="form-control"
-								v-model="newCategory.title_ru"
-							>
-						</div>
-						<div class="form-group">
-							<label for="title_en">Название на английском</label>
-							<input
-								type="text"
-								class="form-control"
-								v-model="newCategory.title_en"
-							>
-						</div>
-      </form>
-    </b-modal>
-<!-- 	end modal -->
+
+	
 		
 	</div>
 </template>
 
 <script>
-// import translat from "../translat";
-// import draggable from "vuedraggable";
-import VueCkeditor from "../VueCkeditor.vue";
-// import jsrender from "jsrender";
-import vSelect from "vue-select";
+// import VueCkeditor from "../VueCkeditor.vue";
+// import vSelect from "vue-select";
+	
+import ArticleText from "./components/ArticleText.vue"
+import ArticleTags from "./components/ArticleTags.vue"
+import ArticleFiles from "./components/ArticleFiles.vue"
+import ArticleAuthors from "./components/ArticleAuthors.vue"
+import ArticleCategories from "./components/ArticleCategories.vue"
 
 export default {
 	components: {
-		// 		draggable,
-		VueCkeditor,
-		vSelect
+// 		draggable,
+// 		VueCkeditor,
+// 		vSelect,
+		ArticleText,
+		ArticleTags,
+		ArticleFiles,
+		ArticleAuthors,
+		ArticleCategories,
+
 	},
 
 	props: {
@@ -466,9 +206,8 @@ export default {
 
 	data: function() {
 		return {
-			users: [],
-			tags: [],
-			categories: [],
+// 			tags: [],
+// 			categories: [],
 			noArray: [1, 2, 3, 4, 5],
 			partArray: [1, 2],
 			article: {
@@ -505,14 +244,7 @@ export default {
 				file_en: "",
 				file_audio: "",
 			},
-			newTag: {
-				title_ru: "",
-				title_en: ""
-			},
-			newCategory: {
-				title_ru: "",
-				title_en: ""
-			},
+			
 			collapsed: {
 				text: true
 			}
@@ -539,14 +271,6 @@ export default {
 				duration: -1
 			});
 		}
-		// fetching users
-		this.fetchUsers();
-
-		// fetching Tags
-		this.fetchTags();
-		
-		// fetching Tags
-		this.fetchCategories();
 
 		// fetching article
 		if (!this.isEmptyObject(this.old)) {
@@ -556,36 +280,8 @@ export default {
 		}
 	},
 
-	mounted() {},
-
-	watch: {},
-
 	methods: {
-		fetchUsers() {
-			axios.get("/api/userslist").then(({ data }) => {
-				this.users = data.data;
-			});
-		},
-		fetchTags() {
-			axios.get("/api/tags", {
-					params: {
-						sortBy: 'used_at',
-						orderBy: 'desc',
-					}
-				}).then(({ data }) => {
-				this.tags = data;
-			});
-		},
-		fetchCategories() {
-			axios.get("/api/categories", {
-					params: {
-						sortBy: 'used_at',
-						orderBy: 'desc',
-					}
-				}).then(({ data }) => {
-				this.categories = data;
-			});
-		},
+		
 		fetchArticle(id) {
 			axios
 				.get("/api/articles/" + id)
@@ -617,95 +313,6 @@ export default {
 			}
 		},
 		
-		handleSaveTag(bvModalEvt) {
-			// Prevent modal from closing
-        bvModalEvt.preventDefault()
-        if (!this.newTag.title_ru || !this.newTag.title_en) {
-          alert('Пожалуйста, заполните поля.')
-        } else {
-						 this.saveNewTag();
-        }
-		},
-		handleSaveCategory(bvModalEvt) {
-			// Prevent modal from closing
-        bvModalEvt.preventDefault()
-        if (!this.newCategory.title_ru || !this.newCategory.title_en) {
-          alert('Пожалуйста, заполните поля.')
-        } else {
-						 this.saveNewCategory();
-        }
-		},
-
-		saveNewTag() {
-			axios
-				.post("/api/tags", this.newTag)
-				.then(resp => {
-					if (resp.data.status === "success") {
-						this.$notify({
-							group: "custom-template",
-							type: "alert-success",
-							text: resp.data.message,
-							duration: 5000
-						});
-						this.article.tags.push(resp.data.object);
-						this.fetchTags();
-						this.clearForm(this.newTag);
-					}
-				})
-				.catch(error => {
-				console.log(error);
-					this.errors = error.response.data.errors;
-					this.$notify({
-						group: "custom-template",
-						type: "alert-danger",
-						text: error.response.data.errors.title[0],
-						duration: -1
-					});
-				});
-			
-			this.$nextTick(() => {
-          // Wrapped in $nextTick to ensure DOM is rendered before closing
-          this.$refs.addNewTag.hide()
-        })
-		},
-		
-		saveNewCategory() {
-			axios
-				.post("/api/category", this.newCategory)
-				.then(resp => {
-					if (resp.data.status === "success") {
-						this.$notify({
-							group: "custom-template",
-							type: "alert-success",
-							text: resp.data.message,
-							duration: 5000
-						});
-						this.fetchCategories();
-						this.clearForm(this.newCategory);
-// 						this.article.categories.push(resp.data.object.id);
-					}
-				})
-				.catch(error => {
-						this.errors = error.data.errors;
-						this.$notify({
-							group: "custom-template",
-							type: "alert-danger",
-							text: error.response.data.errors.title[0],
-							duration: -1
-						});
-				});
-			
-			this.$nextTick(() => {
-          // Wrapped in $nextTick to ensure DOM is rendered before closing
-          this.$refs.addNewCategory.hide()
-        })
-		},
-
-		clearForm(obj) {
-			obj.title_ru = "";
-			obj.title_en = "";
-		},
-
 		setFullNo() {
 			this.article.full_no =
 				(this.article.year - 2009 - 1) * 4 + 2 + this.article.no;
@@ -731,25 +338,6 @@ export default {
 	font-size: 20px;
 	height: calc(1.7em + 1px);
 	padding: 3px 8px 3px 8px;
-}
-
-/* v-select */
-.vs__dropdown-toggle {
-	/* border: none; */
-	/* height: 100%; */
-}
-
-#users .vs__selected {
-	background-color: var(--primary);
-	color: white;
-	font-weight: 600;
-	/* font-size: 1rem; */
-}
-#tags .vs__selected {
-	background-color: var(--warning);
-	/* color: white; */
-	/* font-weight: 600; */
-	/* font-size: 1rem; */
 }
 
 </style>
