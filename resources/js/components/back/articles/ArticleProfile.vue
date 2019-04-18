@@ -106,10 +106,12 @@
 					<div class="card-header">
 						<h5 class="h5 mb-0">Файлы для скачивания</h5>
 					</div>
-					<div class="card-body row">
-						<div class="col-md-4 form-group mx-2 mb-0 py-2 bg-light rounded-lg text-center">
+					<div class="card-body">
+						<div class="row">
+						<div class="col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center"
+								 :class="!article.file_ru ? 'bg-light' : 'bg-light-green'">
 							<label class="h6 mb-2">Русская версия</label>
-							<file-picker :path="article.file_ru"></file-picker>
+							<file-picker :path="article.file_ru" container-class="align-self-center my-auto"></file-picker>
 							<input
 								class="form-control"
 								type="text"
@@ -129,14 +131,15 @@
 									v-show="article.file_ru"
 									type="button"
 									@click.prevent="article.file_ru = null"
-									class="btn btn-sm btn-outline-primary"
+									class="btn btn-sm btn-outline-success"
 								>Убрать</button>
 							</div>
 						</div>
 						
-						<div class="col-md-4 form-group mx-2 mb-0 py-2 bg-light rounded-lg text-center">
-							<label class="h6 mb-2">Анлийская версия</label>
-							<file-picker :path="article.file_en"></file-picker>
+						<div class="col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center"
+								 :class="!article.file_en ? 'bg-light' : 'bg-light-green'">
+							<label class="h6 mb-2">Английская версия</label>
+							<file-picker :path="article.file_en" container-class="align-self-center my-auto"></file-picker>
 							<input
 								class="form-control"
 								type="text"
@@ -156,9 +159,41 @@
 									v-show="article.file_en"
 									type="button"
 									@click.prevent="article.file_en = null"
-									class="btn btn-sm btn-outline-primary"
+									class="btn btn-sm btn-outline-success"
 								>Убрать</button>
 							</div>
+						</div>
+							
+						<div class="col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center"
+								 :class="!article.file_audio ? 'bg-light' : 'bg-light-green'">
+							<label class="h6 mb-2">Аудио версия</label>
+							<file-picker :path="article.file_audio" container-class="align-self-center my-auto"></file-picker>
+							<input
+								class="form-control"
+								type="text"
+								id="file_audio"
+								name="file_audio"
+								v-model="article.file_audio"
+								hidden
+							>
+							<div class="mt-2">
+								<button
+									v-show="!article.file_audio"
+									type="button"
+									class="popup_selector btn btn-sm btn-primary"
+									data-inputid="file_audio"
+								>Загрузить</button>
+								<button
+									v-show="article.file_audio"
+									type="button"
+									@click.prevent="article.file_audio = null"
+									class="btn btn-sm btn-outline-success"
+								>Убрать</button>
+							</div>
+						</div>
+						
+
+							
 						</div>
 					</div>
 				</div>
@@ -400,7 +435,8 @@ export default {
 				keywords_ru: "",
 				keywords_en: "",
 				file_ru: "",
-				file_en: ""
+				file_en: "",
+				file_audio: "",
 			},
 			newTag: {
 				title_ru: "",
@@ -584,4 +620,5 @@ export default {
 	/* font-weight: 600; */
 	/* font-size: 1rem; */
 }
+
 </style>

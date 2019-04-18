@@ -4095,6 +4095,10 @@
   clip: auto;
 }
 
+.bg-light-green {
+  background-color: rgba(77, 189, 116, 0.3);
+}
+
 h6,
 .h6 {
   font-size: 1em;

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div :class="containerClass">
 		<div v-if="type === 'none'" class="text-center">
 			<p class="my-0">Фаил не выбран</p>
 		</div>
@@ -14,7 +14,14 @@
 <script>
 export default {
 	props: {
-		path: ""
+		path: {
+      type: String,
+			default: ""
+    },
+		containerClass: {
+      type: String,
+			default: ""
+    },
 	},
 
 	computed: {

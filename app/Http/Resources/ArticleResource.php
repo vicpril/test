@@ -59,6 +59,8 @@ class ArticleResource extends JsonResource
             "keywords_en" => $this->en->keywords,
             "file_ru" => $this->ru->file,
             "file_en" => $this->en->file,
+            "file_audio" => null,
+//             "file_audio" => $this->file_audio,
         ];
     }
 }
