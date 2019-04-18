@@ -11,25 +11,29 @@
 | you a convenient way to create models for testing and seeding your
 | database. Just tell the factory how a default model should look.
 |
-*/
+ */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $ruFaker = Faker\Factory::create("ru_RU");
 // dd($ruFaker);
 $enFaker = Faker\Factory::create("en_En");
 
-
 $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
 
-	$i = $faker->unique()->numerify('####');
+    $i = $faker->unique()->numerify('####');
+    $date_arrival = $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null);
+    $date_review = $faker->dateTimeBetween($startDate = $date_arrival, $endDate = 'now', $timezone = null);
 
-	return [
-        'alias' => 'article-'.$i,
-        'doi' => 'doi-'.$i,
+    return [
+        'alias' => 'article-' . $i,
+        'doi' => 'doi-' . $i,
         'udk' => $faker->unique()->numerify('####'),
         'issue_id' => random_int(1, 8),
         'status_id' => random_int(1, 2),
-				'stol' => $faker->boolean(),
+        'stol' => $faker->boolean(),
+        'date_arrival' => $date_arrival,
+        'date_review' => $date_review,
+
     ];
 
 });

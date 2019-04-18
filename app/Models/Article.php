@@ -17,8 +17,12 @@ class Article extends Model
      * @var array
      */
     // protected $fillable = ['title', 'alias', 'doi', 'text', 'description', 'status_id', 'issue_id'];
-    protected $fillable = ['alias', 'doi', 'status_id', 'issue_id'];
+    protected $fillable = ['alias', 'doi', 'status_id', 'issue_id', 'date_arrival', 'date_review'];
 
+    // protected $dates = [
+    //     'date_arrival',
+    //     'date_review',
+    // ];
 
     // protected $relations = [
     //                             'status',
@@ -26,62 +30,70 @@ class Article extends Model
     //                             'tags',
     //                             'categories',
     //                             ];
-    
 
-    public function status() {
-    	return $this->belongsTo('App\Models\Status');
+    public function status()
+    {
+        return $this->belongsTo('App\Models\Status');
     }
 
-    public function issue() {
+    public function issue()
+    {
         return $this->belongsTo('App\Models\Issue');
     }
 
-    public function tags() {
-    	return $this->belongsToMany('App\Models\Tag', 'article_tag');
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag', 'article_tag');
     }
 
-    public function categories() {
-    	return $this->belongsToMany('App\Models\Category', 'article_category');
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Category', 'article_category');
     }
 
-    public function users() {
-    	return $this->belongsToMany('App\Models\User', 'article_user');
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'article_user');
     }
 
-    public function meta()  {
+    public function meta()
+    {
         return $this->hasMany('App\Models\MetaArticle', 'article_id');
     }
 
-
-
 //     public function title() {
-//         return $this->meta->where('lang', app()->getLocale())->first()->title;
-//     }
-    
+    //         return $this->meta->where('lang', app()->getLocale())->first()->title;
+    //     }
+
     /*
-    *   Locale getters
-    */
-  
-    public function getLocAttribute(){
+     *   Locale getters
+     */
+
+    public function getLocAttribute()
+    {
         return $this->meta->where('lang', app()->getLocale())->first();
     }
 
-    public function getRuAttribute(){
+    public function getRuAttribute()
+    {
         return $this->meta->where('lang', 'ru')->first();
     }
 
-    public function getEnAttribute(){
+    public function getEnAttribute()
+    {
         return $this->meta->where('lang', 'en')->first();
     }
-  
+
     /*
-    *   Get links
-    */
-    public function getEditLinkAttribute(){
+     *   Get links
+     */
+    public function getEditLinkAttribute()
+    {
         return route('articles.edit', $this->id);
     }
-  
-    public function getLinkAttribute(){
+
+    public function getLinkAttribute()
+    {
         return route('article', $this->alias);
     }
 

@@ -4114,6 +4114,7 @@ h6,
   box-shadow: 0px 2px 22px 0 rgba(0, 0, 0, 0.2), 0px 2px 30px 0 rgba(0, 0, 0, 0.35);
 }
 
+label.form-title,
 .form-group label {
   color: #5c6873;
   margin-bottom: 5px;

@@ -16,11 +16,9 @@ $input-focus-color: $input-color;
 $text-muted: $gray-700;
 $sidebar-nav-link-active-color: $primary;
 
-	
-	.bg-light-green {
-		background-color: rgba(77, 189, 116, 0.3);
-    
-	}
+.bg-light-green {
+   background-color: rgba(77, 189, 116, 0.3);
+}
 
 // Topography
 
@@ -63,6 +61,7 @@ $footer-borders: (
 
 // Form
 
+label.form-title,
 .form-group label {
    color: $text-muted;
    margin-bottom: 5px;

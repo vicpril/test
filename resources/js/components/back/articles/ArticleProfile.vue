@@ -2,8 +2,7 @@
 	<div>
 		<div class="row">
 			<div class="col-md">
-				
-			<!-- TITLE -->
+				<!-- TITLE -->
 				<div class="card">
 					<div class="card-header">
 						<h5 class="h5 mb-0">Название</h5>
@@ -23,35 +22,105 @@
 						</div>
 					</div>
 				</div>
-			<!-- END TITLE -->
+				<!-- END TITLE -->
 
-			<!-- AUTHORS -->
+				<!-- AUTHORS -->
 				<article-authors v-model="article.users"></article-authors>
-			<!-- END AUTHORS -->
-				
-			<!-- CATEGORIES	 -->
-				<article-categories v-model="article.categories"></article-categories>
-			<!-- END CATEGORIES	 -->
+				<!-- END AUTHORS -->
 
-			<!-- TEXT -->
-					<article-text
-							:text_ru.sync="article.text_ru"
-							:text_en.sync="article.text_en"
-							:collapsing="true"												
-							:collapsed.sync="collapsed.text"
-							></article-text>
-			<!-- END TEXT -->
-			
-			<!-- FILES -->
+				<!-- CATEGORIES	 -->
+				<article-categories v-model="article.categories"></article-categories>
+				<!-- END CATEGORIES	 -->
+
+				<!-- TEXT -->
+				<article-text
+					:text_ru.sync="article.text_ru"
+					:text_en.sync="article.text_en"
+					:collapsing="true"
+					:collapsed.sync="collapsed.text"
+				></article-text>
+				<!-- END TEXT -->
+
+				<!-- FILES -->
 				<article-files
-							:file_ru.sync="article.file_ru"
-							:file_en.sync="article.file_en"
-							:file_audio.sync="article.file_audio"
-											 ></article-files>
-			<!-- END FILES -->
-				
+					:file_ru.sync="article.file_ru"
+					:file_en.sync="article.file_en"
+					:file_audio.sync="article.file_audio"
+				></article-files>
+				<!-- END FILES -->
+
+				<!-- ADDITIONALS FIELDS -->
+				<div class="card">
+					<div class="card-header">
+						<h5 class="h5 mb-0">Дополнительные поля</h5>
+					</div>
+					<!-- UDK -->
+					<div class="card-body">
+						<div class="d-flex">
+							<label for="udc" class="form-title h6 mr-2 my-auto">UDK:</label>
+							<input type="text" class="form-control align-self-center" name="udk" v-model="article.udk">
+						</div>
+					</div>
+					<hr class="my-0">
+
+					<!-- Annotation - RU -->
+					<div class="card-body">
+						<div class="form-group mb-0">
+							<label class="h6">Аннотация</label>
+							<vue-ckeditor
+								class="mt-2"
+								name="annotation_ru"
+								id="annotation_ru"
+								v-model="article.annotation_ru"
+							/>
+						</div>
+					</div>
+					<hr class="my-0">
+
+					<!-- DOI -->
+					<div class="card-body">
+						<div class="d-flex">
+							<label for="doi" class="form-title h6 mr-2 my-auto">DOI:</label>
+							<input type="text" class="form-control align-self-center" name="doi" v-model="article.doi">
+						</div>
+					</div>
+					<hr class="my-0">
+
+					<!-- Keywords - RU -->
+					<div class="card-body">
+						<div class="form-group mb-0">
+							<label class="h6">Ключевые слова</label>
+							<textarea
+								class="form-control mt-2"
+								name="keywords_ru"
+								id="keywords_ru"
+								v-model="article.keywords_ru"
+							></textarea>
+						</div>
+					</div>
+					<hr class="my-0">
+
+					<!-- Date arrival -->
+					<div class="card-body">
+						<div class="d-flex">
+							<label for="date_arrival" class="form-title h6 mr-2 my-auto">Дата поступления:</label>
+							<input
+								type="text"
+								class="form-control align-self-center"
+								name="date_arrival"
+								v-model="article.date_arrival"
+							>
+						</div>
+					</div>
+					<hr class="my-0">
+				</div>
+
+				<!-- END ADDITIONALS FIELDS -->
+
+				<!-- END MAIN -->
 			</div>
 
+			<!-- RIGHT SIDEBAR -->
 			<!-- STATUS -->
 			<div class="col-md right-sidebar">
 				<div class="card">
@@ -98,7 +167,7 @@
 					</div>
 				</div>
 				<!-- END ISSUE -->
-				
+
 				<!-- ISSUE -->
 				<div class="card">
 					<div class="card-header">
@@ -157,40 +226,35 @@
 					</div>
 				</div>
 				<!-- END ISSUE -->
-				
+
 				<!-- TAGS -->
-					<article-tags v-model="article.tags"></article-tags>
+				<article-tags v-model="article.tags"></article-tags>
 				<!-- END TAGS -->
 			</div>
 		</div>
-
-
-	
-		
 	</div>
 </template>
 
 <script>
-// import VueCkeditor from "../VueCkeditor.vue";
+import VueCkeditor from "../VueCkeditor.vue";
 // import vSelect from "vue-select";
-	
-import ArticleText from "./components/ArticleText.vue"
-import ArticleTags from "./components/ArticleTags.vue"
-import ArticleFiles from "./components/ArticleFiles.vue"
-import ArticleAuthors from "./components/ArticleAuthors.vue"
-import ArticleCategories from "./components/ArticleCategories.vue"
+
+import ArticleText from "./components/ArticleText.vue";
+import ArticleTags from "./components/ArticleTags.vue";
+import ArticleFiles from "./components/ArticleFiles.vue";
+import ArticleAuthors from "./components/ArticleAuthors.vue";
+import ArticleCategories from "./components/ArticleCategories.vue";
 
 export default {
 	components: {
-// 		draggable,
-// 		VueCkeditor,
-// 		vSelect,
+		// 		draggable,
+		VueCkeditor,
+		// 		vSelect,
 		ArticleText,
 		ArticleTags,
 		ArticleFiles,
 		ArticleAuthors,
-		ArticleCategories,
-
+		ArticleCategories
 	},
 
 	props: {
@@ -206,8 +270,8 @@ export default {
 
 	data: function() {
 		return {
-// 			tags: [],
-// 			categories: [],
+			// 			tags: [],
+			// 			categories: [],
 			noArray: [1, 2, 3, 4, 5],
 			partArray: [1, 2],
 			article: {
@@ -242,9 +306,9 @@ export default {
 				keywords_en: "",
 				file_ru: "",
 				file_en: "",
-				file_audio: "",
+				file_audio: ""
 			},
-			
+
 			collapsed: {
 				text: true
 			}
@@ -281,7 +345,6 @@ export default {
 	},
 
 	methods: {
-		
 		fetchArticle(id) {
 			axios
 				.get("/api/articles/" + id)
@@ -312,7 +375,7 @@ export default {
 				});
 			}
 		},
-		
+
 		setFullNo() {
 			this.article.full_no =
 				(this.article.year - 2009 - 1) * 4 + 2 + this.article.no;
@@ -339,5 +402,4 @@ export default {
 	height: calc(1.7em + 1px);
 	padding: 3px 8px 3px 8px;
 }
-
 </style>

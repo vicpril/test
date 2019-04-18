@@ -21,6 +21,8 @@ class ArticleResource extends JsonResource
 
             "created_at" => $this->created_at->format('Y-m-d H:i'),
             "updated_at" => $this->updated_at->format('Y-m-d H:i'),
+            "date_arrival" => $this->date_arrival->format('Y-m-d H:i'),
+            "date_review" => $this->date_review->format('Y-m-d H:i'),
 
             "year" => $this->issue->year,
             "tom" => $this->issue->tom,
@@ -41,21 +43,21 @@ class ArticleResource extends JsonResource
             "tags" => $this->tags->map(function ($tag) {
 //                 return $tag->id;
                 return [
-                  'id' => $tag->id,
-                  'title_ru' => $tag->title_ru
+                    'id' => $tag->id,
+                    'title_ru' => $tag->title_ru,
                 ];
             }),
             "categories" => [
-                  'id' => $this->categories[0]->id,
-                  'title_ru' => $this->categories[0]->title_ru
-                ],
+                'id' => $this->categories[0]->id,
+                'title_ru' => $this->categories[0]->title_ru,
+            ],
 //             "categories" => $this->categories->map(function ($category) {
-// //                 return $category->id;
-//                 return [
-//                   'id' => $category->id,
-//                   'title_ru' => $category->title_ru
-//                 ];
-//             }),
+            // //                 return $category->id;
+            //                 return [
+            //                   'id' => $category->id,
+            //                   'title_ru' => $category->title_ru
+            //                 ];
+            //             }),
             "title_en" => $this->en->title,
             "title_ru" => $this->ru->title,
             "text_ru" => $this->ru->text,
