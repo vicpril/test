@@ -54,6 +54,7 @@ class CategoriesRepository extends Repository{
 				$data = array_add($data, 'alias', $alias);
         
 				$cat = $this->model->create($data);
+				
 
         return [
           'status' => 'success',

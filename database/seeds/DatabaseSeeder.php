@@ -7,6 +7,9 @@ use App\Models\MetaArticle;
 use App\Models\User;
 use App\Models\Job;
 use App\Models\MetaUser;
+use App\Models\Tag;
+use App\Models\Category;
+
 
 use Faker\Factory as Faker;
 
@@ -267,6 +270,7 @@ class DatabaseSeeder extends Seeder
 						'article_id' => $a,
 						'tag_id' => $tag_id,
 					]);
+				Tag::find($tag_id)->touchUsed();
 				unset($tags[$tag_key]);
 			}
 		}
@@ -287,6 +291,7 @@ class DatabaseSeeder extends Seeder
 						'article_id' => $a,
 						'category_id' => $category_id,
 					]);
+				Category::find($category_id)->touchUsed();
 				unset($categorys[$category_key]);
 			}
 		}

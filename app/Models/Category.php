@@ -17,6 +17,13 @@ class Category extends Model
      * @var array
      */
     protected $hidden = [];
+	
+		// thouch culumn `used_at`
+		public function touchUsed()
+    {
+        $this->used_at = $this->freshTimestamp();
+        return ($this->save()) ? $this : false;
+    }
 
 
     public function articles() {

@@ -760,6 +760,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import translat from "../translat";
 // import draggable from "vuedraggable";
  // import jsrender from "jsrender";
@@ -787,6 +853,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       users: [],
       tags: [],
+      categories: [],
       noArray: [1, 2, 3, 4, 5],
       partArray: [1, 2],
       article: {
@@ -822,6 +889,10 @@ __webpack_require__.r(__webpack_exports__);
         title_ru: "",
         title_en: ""
       },
+      newCategory: {
+        title_ru: "",
+        title_en: ""
+      },
       collapsed: {
         text: true
       }
@@ -850,7 +921,9 @@ __webpack_require__.r(__webpack_exports__);
 
     this.fetchUsers(); // fetching Tags
 
-    this.fetchTags(); // fetching article
+    this.fetchTags(); // fetching Tags
+
+    this.fetchCategories(); // fetching article
 
     if (!this.isEmptyObject(this.old)) {
       this.user = this.old;
@@ -872,30 +945,48 @@ __webpack_require__.r(__webpack_exports__);
     fetchTags: function fetchTags() {
       var _this2 = this;
 
-      axios.get("/api/tags").then(function (_ref2) {
+      axios.get("/api/tags", {
+        params: {
+          sortBy: 'used_at',
+          orderBy: 'desc'
+        }
+      }).then(function (_ref2) {
         var data = _ref2.data;
         _this2.tags = data;
       });
     },
-    fetchArticle: function fetchArticle(id) {
+    fetchCategories: function fetchCategories() {
       var _this3 = this;
 
-      axios.get("/api/articles/" + id).then(function (_ref3) {
+      axios.get("/api/categories", {
+        params: {
+          sortBy: 'used_at',
+          orderBy: 'desc'
+        }
+      }).then(function (_ref3) {
         var data = _ref3.data;
-        _this3.article = data.data;
+        _this3.categories = data;
+      });
+    },
+    fetchArticle: function fetchArticle(id) {
+      var _this4 = this;
+
+      axios.get("/api/articles/" + id).then(function (_ref4) {
+        var data = _ref4.data;
+        _this4.article = data.data;
       }).then(function () {
-        _this3.collapsed.text = _this3.article.text_ru !== "" || _this3.article.text_ru !== "" ? false : true;
+        _this4.collapsed.text = _this4.article.text_ru !== "" || _this4.article.text_ru !== "" ? false : true;
       });
     },
     deleteArticle: function deleteArticle() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (confirm("Удалить статью ?")) {
         axios.delete("/admin/articles/" + this.article.id).then(function (resp) {
           if (resp.data.status == "success") {
             window.location = resp.data.redirect + "?articledeleted=1";
           } else {
-            _this4.$notify({
+            _this5.$notify({
               group: "custom-template",
               text: resp.data.message.title[0],
               type: "alert-danger",
@@ -915,28 +1006,39 @@ __webpack_require__.r(__webpack_exports__);
         this.saveNewTag();
       }
     },
+    handleSaveCategory: function handleSaveCategory(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+
+      if (!this.newCategory.title_ru || !this.newCategory.title_en) {
+        alert('Пожалуйста, заполните поля.');
+      } else {
+        this.saveNewCategory();
+      }
+    },
     saveNewTag: function saveNewTag() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.post("/api/tags", this.newTag).then(function (resp) {
         if (resp.data.status === "success") {
-          _this5.$notify({
+          _this6.$notify({
             group: "custom-template",
             type: "alert-success",
             text: resp.data.message,
             duration: 5000
           });
 
-          _this5.fetchTags();
+          _this6.article.tags.push(resp.data.object);
 
-          _this5.clearTagForm();
+          _this6.fetchTags();
 
-          _this5.article.tags.push(resp.data.object);
+          _this6.clearForm(_this6.newTag);
         }
       }).catch(function (error) {
-        _this5.errors = error.response.data.errors;
+        console.log(error);
+        _this6.errors = error.response.data.errors;
 
-        _this5.$notify({
+        _this6.$notify({
           group: "custom-template",
           type: "alert-danger",
           text: error.response.data.errors.title[0],
@@ -945,12 +1047,44 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.$nextTick(function () {
         // Wrapped in $nextTick to ensure DOM is rendered before closing
-        _this5.$refs.addNewTag.hide();
+        _this6.$refs.addNewTag.hide();
       });
     },
-    clearTagForm: function clearTagForm() {
-      this.newTag.title_ru = "";
-      this.newTag.title_en = "";
+    saveNewCategory: function saveNewCategory() {
+      var _this7 = this;
+
+      axios.post("/api/category", this.newCategory).then(function (resp) {
+        if (resp.data.status === "success") {
+          _this7.$notify({
+            group: "custom-template",
+            type: "alert-success",
+            text: resp.data.message,
+            duration: 5000
+          });
+
+          _this7.fetchCategories();
+
+          _this7.clearForm(_this7.newCategory); // 						this.article.categories.push(resp.data.object.id);
+
+        }
+      }).catch(function (error) {
+        _this7.errors = error.data.errors;
+
+        _this7.$notify({
+          group: "custom-template",
+          type: "alert-danger",
+          text: error.response.data.errors.title[0],
+          duration: -1
+        });
+      });
+      this.$nextTick(function () {
+        // Wrapped in $nextTick to ensure DOM is rendered before closing
+        _this7.$refs.addNewCategory.hide();
+      });
+    },
+    clearForm: function clearForm(obj) {
+      obj.title_ru = "";
+      obj.title_en = "";
     },
     setFullNo: function setFullNo() {
       this.article.full_no = (this.article.year - 2009 - 1) * 4 + 2 + this.article.no;
@@ -25916,7 +26050,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n\n/* v-select */\n.vs__dropdown-toggle {\n\t/* border: none; */\n\t/* height: 100%; */\n}\n#users .vs__selected {\n\tbackground-color: var(--primary);\n\tcolor: white;\n\tfont-weight: 600;\n\t/* font-size: 1rem; */\n}\n#tags .vs__selected {\n\tbackground-color: var(--warning);\n\t/* color: white; */\n\t/* font-weight: 600; */\n\t/* font-size: 1rem; */\n}\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n\n/* v-select */\n.vs__dropdown-toggle {\n\t/* border: none; */\n\t/* height: 100%; */\n}\n#users .vs__selected {\n\tbackground-color: var(--primary);\n\tcolor: white;\n\tfont-weight: 600;\n\t/* font-size: 1rem; */\n}\n#tags .vs__selected {\n\tbackground-color: var(--warning);\n\t/* color: white; */\n\t/* font-weight: 600; */\n\t/* font-size: 1rem; */\n}\n\n", ""]);
 
 // exports
 
@@ -35572,6 +35706,74 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "div",
+                { staticClass: "d-flex" },
+                [
+                  _c(
+                    "v-select",
+                    {
+                      staticClass: "flex-grow-1",
+                      attrs: {
+                        id: "categories",
+                        options: _vm.categories,
+                        label: "title_ru"
+                      },
+                      model: {
+                        value: _vm.article.categories,
+                        callback: function($$v) {
+                          _vm.$set(_vm.article, "categories", $$v)
+                        },
+                        expression: "article.categories"
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { attrs: { slot: "no-options" }, slot: "no-options" },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t\t\t\tРубрик по запросу не найдено.\n\t\t\t\t\t\t\t\t\t"
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      directives: [
+                        {
+                          name: "b-tooltip",
+                          rawName: "v-b-tooltip.hover",
+                          modifiers: { hover: true }
+                        },
+                        {
+                          name: "b-modal",
+                          rawName: "v-b-modal.addNewCategory",
+                          modifiers: { addNewCategory: true }
+                        }
+                      ],
+                      staticClass: "btn-sm ml-2 my-auto",
+                      attrs: {
+                        title: "Создать новую рубрику",
+                        type: "button",
+                        variant: "outline-secondary"
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-plus" })]
+                  )
+                ],
+                1
+              )
+            ])
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "card" },
@@ -35674,7 +35876,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
-            _vm._m(2),
+            _vm._m(3),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "row" }, [
@@ -35966,11 +36168,11 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-md right-sidebar" }, [
           _c("div", { staticClass: "card" }, [
-            _vm._m(3),
+            _vm._m(4),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(4),
+                _vm._m(5),
                 _vm._v(" "),
                 _vm.article.status
                   ? _c("strong", [_vm._v("Опублиповано")])
@@ -36042,7 +36244,7 @@ var render = function() {
               _vm._v(" "),
               _vm.article.updated_at
                 ? _c("div", { staticClass: "form-group mb-0" }, [
-                    _vm._m(5),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("strong", [_vm._v(_vm._s(_vm.article.updated_at))])
                   ])
@@ -36083,11 +36285,11 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
-            _vm._m(6),
+            _vm._m(7),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "input-group mb-2" }, [
-                _vm._m(7),
+                _vm._m(8),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -36119,7 +36321,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "input-group mb-2" }, [
-                _vm._m(8),
+                _vm._m(9),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -36165,7 +36367,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "input-group mb-2" }, [
-                _vm._m(9),
+                _vm._m(10),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -36208,7 +36410,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "input-group mb-2" }, [
-                _vm._m(10),
+                _vm._m(11),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -36321,7 +36523,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
-            _vm._m(11),
+            _vm._m(12),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c(
@@ -36397,7 +36599,12 @@ var render = function() {
             "ok-title": "Создать",
             "cancel-title": "Отмена"
           },
-          on: { ok: _vm.handleSaveTag, shown: _vm.clearTagForm }
+          on: {
+            ok: _vm.handleSaveTag,
+            shown: function($event) {
+              return _vm.clearForm(_vm.newTag)
+            }
+          }
         },
         [
           _c(
@@ -36470,6 +36677,96 @@ var render = function() {
             ]
           )
         ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "addNewCategory",
+          attrs: {
+            id: "addNewCategory",
+            title: "Создать новую рубрику",
+            "ok-title": "Создать",
+            "cancel-title": "Отмена"
+          },
+          on: {
+            ok: _vm.handleSaveCategory,
+            shown: function($event) {
+              return _vm.clearForm(_vm.newCategory)
+            }
+          }
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.stopPropagation()
+                  $event.preventDefault()
+                  return _vm.saveNewCategory($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "title_ru" } }, [
+                  _vm._v("Название на русском")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newCategory.title_ru,
+                      expression: "newCategory.title_ru"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.newCategory.title_ru },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.newCategory, "title_ru", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "title_en" } }, [
+                  _vm._v("Название на английском")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newCategory.title_en,
+                      expression: "newCategory.title_en"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.newCategory.title_en },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.newCategory, "title_en", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]
+          )
+        ]
       )
     ],
     1
@@ -36490,6 +36787,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Авторы")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Рубрика")])
     ])
   },
   function() {

@@ -63,6 +63,39 @@
 				</div>
 			<!-- END AUTHORS -->
 				
+			<!-- CATEGORIES	 -->
+				<div class="card">
+						<div class="card-header">
+							<h5 class="h5 mb-0">Рубрика</h5>
+						</div>
+						<div class="card-body">
+							<div class="d-flex">
+								<v-select
+									id="categories"
+									class="flex-grow-1"
+									:options="categories"
+									label="title_ru"
+									v-model="article.categories"
+								>
+									<div slot="no-options">
+										Рубрик по запросу не найдено.
+									</div>
+								</v-select>
+								<b-button
+									v-b-tooltip.hover
+									v-b-modal.addNewCategory
+									title="Создать новую рубрику"
+									type="button"
+									variant="outline-secondary"
+									class="btn-sm ml-2 my-auto"
+								>
+									<i class="fa fa-plus"></i>
+								</b-button>
+							</div>
+						</div>
+					</div>
+			<!-- END CATEGORIES	 -->
+
 			<!-- TEXT -->
 				<div class="card">
 					<div class="card-header">
@@ -348,7 +381,7 @@
       title="Создать новую метку"
       @ok="handleSaveTag"
 			ok-title="Создать"
-      @shown="clearTagForm"
+      @shown="clearForm(newTag)"
 			cancel-title="Отмена"
     >
       <form @submit.stop.prevent="saveNewTag">
@@ -370,6 +403,39 @@
 						</div>
       </form>
     </b-modal>
+<!-- 	end modal -->
+		
+				<!-- Model add new CATEGORY-->
+		<b-modal
+      id="addNewCategory"
+      ref="addNewCategory"
+      title="Создать новую рубрику"
+      @ok="handleSaveCategory"
+			ok-title="Создать"
+      @shown="clearForm(newCategory)"
+			cancel-title="Отмена"
+    >
+      <form @submit.stop.prevent="saveNewCategory">
+        <div class="form-group">
+							<label for="title_ru">Название на русском</label>
+							<input
+								type="text"
+								class="form-control"
+								v-model="newCategory.title_ru"
+							>
+						</div>
+						<div class="form-group">
+							<label for="title_en">Название на английском</label>
+							<input
+								type="text"
+								class="form-control"
+								v-model="newCategory.title_en"
+							>
+						</div>
+      </form>
+    </b-modal>
+<!-- 	end modal -->
+		
 	</div>
 </template>
 
@@ -402,6 +468,7 @@ export default {
 		return {
 			users: [],
 			tags: [],
+			categories: [],
 			noArray: [1, 2, 3, 4, 5],
 			partArray: [1, 2],
 			article: {
@@ -442,6 +509,10 @@ export default {
 				title_ru: "",
 				title_en: ""
 			},
+			newCategory: {
+				title_ru: "",
+				title_en: ""
+			},
 			collapsed: {
 				text: true
 			}
@@ -473,6 +544,9 @@ export default {
 
 		// fetching Tags
 		this.fetchTags();
+		
+		// fetching Tags
+		this.fetchCategories();
 
 		// fetching article
 		if (!this.isEmptyObject(this.old)) {
@@ -493,8 +567,23 @@ export default {
 			});
 		},
 		fetchTags() {
-			axios.get("/api/tags").then(({ data }) => {
+			axios.get("/api/tags", {
+					params: {
+						sortBy: 'used_at',
+						orderBy: 'desc',
+					}
+				}).then(({ data }) => {
 				this.tags = data;
+			});
+		},
+		fetchCategories() {
+			axios.get("/api/categories", {
+					params: {
+						sortBy: 'used_at',
+						orderBy: 'desc',
+					}
+				}).then(({ data }) => {
+				this.categories = data;
 			});
 		},
 		fetchArticle(id) {
@@ -534,7 +623,16 @@ export default {
         if (!this.newTag.title_ru || !this.newTag.title_en) {
           alert('Пожалуйста, заполните поля.')
         } else {
-          this.saveNewTag();
+						 this.saveNewTag();
+        }
+		},
+		handleSaveCategory(bvModalEvt) {
+			// Prevent modal from closing
+        bvModalEvt.preventDefault()
+        if (!this.newCategory.title_ru || !this.newCategory.title_en) {
+          alert('Пожалуйста, заполните поля.')
+        } else {
+						 this.saveNewCategory();
         }
 		},
 
@@ -549,12 +647,13 @@ export default {
 							text: resp.data.message,
 							duration: 5000
 						});
-						this.fetchTags();
-						this.clearTagForm();
 						this.article.tags.push(resp.data.object);
+						this.fetchTags();
+						this.clearForm(this.newTag);
 					}
 				})
 				.catch(error => {
+				console.log(error);
 					this.errors = error.response.data.errors;
 					this.$notify({
 						group: "custom-template",
@@ -569,10 +668,42 @@ export default {
           this.$refs.addNewTag.hide()
         })
 		},
+		
+		saveNewCategory() {
+			axios
+				.post("/api/category", this.newCategory)
+				.then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: 5000
+						});
+						this.fetchCategories();
+						this.clearForm(this.newCategory);
+// 						this.article.categories.push(resp.data.object.id);
+					}
+				})
+				.catch(error => {
+						this.errors = error.data.errors;
+						this.$notify({
+							group: "custom-template",
+							type: "alert-danger",
+							text: error.response.data.errors.title[0],
+							duration: -1
+						});
+				});
+			
+			this.$nextTick(() => {
+          // Wrapped in $nextTick to ensure DOM is rendered before closing
+          this.$refs.addNewCategory.hide()
+        })
+		},
 
-		clearTagForm() {
-			this.newTag.title_ru = "";
-			this.newTag.title_en = "";
+		clearForm(obj) {
+			obj.title_ru = "";
+			obj.title_en = "";
 		},
 
 		setFullNo() {

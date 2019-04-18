@@ -45,10 +45,17 @@ class ArticleResource extends JsonResource
                   'title_ru' => $tag->title_ru
                 ];
             }),
-            "categories" => $this->categories->map(function ($category) {
-                return $category->id;
-            }),
-
+            "categories" => [
+                  'id' => $this->categories[0]->id,
+                  'title_ru' => $this->categories[0]->title_ru
+                ],
+//             "categories" => $this->categories->map(function ($category) {
+// //                 return $category->id;
+//                 return [
+//                   'id' => $category->id,
+//                   'title_ru' => $category->title_ru
+//                 ];
+//             }),
             "title_en" => $this->en->title,
             "title_ru" => $this->ru->title,
             "text_ru" => $this->ru->text,
