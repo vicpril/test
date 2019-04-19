@@ -26,6 +26,7 @@ $factory->define(App\Models\MetaArticle::class, function (Faker\Generator $faker
         'text' => $ruFaker->realtext($maxNbChars = 300, $indexSize = 2),
         'annotation' => $ruFaker->realtext($maxNbChars = 100, $indexSize = 2),
         'keywords' => implode(', ',$ruFaker->words($nb = 6, $asText = false)), 
+				'bibliography' => $ruFaker->realtext($maxNbChars = 300, $indexSize = 2),
     ];
 });
 
@@ -39,6 +40,7 @@ $factory->state(App\Models\MetaArticle::class, 'ru', function (Faker\Generator $
         'text' => $ruFaker->realtext($maxNbChars = 300, $indexSize = 2),
         'annotation' => $ruFaker->realtext($maxNbChars = 100, $indexSize = 2),
         'keywords' => implode(', ',$ruFaker->words($nb = 6, $asText = false)), 
+				'bibliography' => $ruFaker->realtext($maxNbChars = 300, $indexSize = 2),
     ];
 });
 
@@ -51,5 +53,7 @@ $factory->state(App\Models\MetaArticle::class, 'en', function (Faker\Generator $
         'text' => $enFaker->realtext($maxNbChars = 300, $indexSize = 2),
         'annotation' => $enFaker->realtext($maxNbChars = 100, $indexSize = 2),
         'keywords' => implode(', ',$enFaker->words($nb = 6, $asText = false)), 
+		    'bibliography' => $enFaker->realtext($maxNbChars = 300, $indexSize = 2),
+
     ];
 });

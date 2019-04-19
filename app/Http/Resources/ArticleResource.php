@@ -33,6 +33,8 @@ class ArticleResource extends JsonResource
             "doi" => $this->doi,
             "udk" => $this->udk,
             "stol" => $this->stol,
+            "applications" => $this->applications,
+            "finance" => $this->finance,
 
             "users" => $this->users->map(function ($user) {
                 return [
@@ -69,6 +71,9 @@ class ArticleResource extends JsonResource
             "file_ru" => $this->ru->file,
             "file_en" => $this->en->file,
             "file_audio" => null,
+            "bibliography_ru" => $this->ru->bibliography,
+            "bibliography_en" => $this->en->bibliography,
+
 //             "file_audio" => $this->file_audio,
         ];
     }

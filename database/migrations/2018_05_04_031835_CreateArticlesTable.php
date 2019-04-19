@@ -30,6 +30,8 @@ class CreateArticlesTable extends Migration
             $table->boolean('stol')->default(0);
             $table->timestamp('date_arrival')->nullable();
             $table->timestamp('date_review')->nullable();
+            $table->text('applications')->nullable();
+            $table->text('finance')->nullable();
 
             $table->timestamps();
         });

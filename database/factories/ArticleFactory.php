@@ -33,6 +33,9 @@ $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
         'stol' => $faker->boolean(),
         'date_arrival' => $date_arrival,
         'date_review' => $date_review,
+        'applications' => $faker->realtext($maxNbChars = 300, $indexSize = 2),
+        'finance' => $faker->realtext($maxNbChars = 300, $indexSize = 2),
+
 
     ];
 

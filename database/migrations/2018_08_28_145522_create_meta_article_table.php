@@ -22,6 +22,7 @@ class CreateMetaArticleTable extends Migration
             $table->text('annotation')->nullable();
             $table->string('keywords')->nullable();
             $table->string('file')->nullable();
+            $table->text('bibliography')->nullable();
 
             // $table->timestamps();
         });

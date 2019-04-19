@@ -66,9 +66,9 @@
 					<!-- Annotation - RU -->
 					<div class="card-body">
 						<div class="form-group mb-0">
-							<label class="h6">Аннотация</label>
+							<label class="h6">Аннотация на русском</label>
 							<vue-ckeditor
-								class="mt-2"
+								class=""
 								name="annotation_ru"
 								id="annotation_ru"
 								v-model="article.annotation_ru"
@@ -89,9 +89,9 @@
 					<!-- Keywords - RU -->
 					<div class="card-body">
 						<div class="form-group mb-0">
-							<label class="h6">Ключевые слова</label>
+							<label class="h6">Ключевые слова на русском</label>
 							<textarea
-								class="form-control mt-2"
+								class="form-control"
 								name="keywords_ru"
 								id="keywords_ru"
 								v-model="article.keywords_ru"
@@ -100,16 +100,101 @@
 					</div>
 					<hr class="my-0">
 
-					<!-- Date arrival -->
+					<!-- Date arrival & review -->
 					<div class="card-body">
-						<div class="d-flex">
-							<label for="date_arrival" class="form-title h6 mr-2 my-auto">Дата поступления:</label>
-							<input
-								type="text"
-								class="form-control align-self-center"
-								name="date_arrival"
-								v-model="article.date_arrival"
-							>
+						<div class="row">
+							<div class="col-sm form-group mb-0">
+								<label for="date_arrival" class="form-title h6 mr-2">Дата поступления:</label>
+								<date-picker v-model="article.date_arrival" :config="datePickerOptions"></date-picker>
+							</div>
+							<div class="col-sm form-group mb-0">
+								<label for="date_review" class="form-title h6 mr-2">Дата рецензирования:</label>
+								<date-picker v-model="article.date_review" :config="datePickerOptions"></date-picker>
+							</div>
+						</div>
+					</div>
+					<hr class="my-0">
+					
+					<!-- Applications -->
+					<div class="card-body">
+						<div class="form-group mb-0">
+							<label class="h6">Дополнения</label>
+							<vue-ckeditor
+								class=""
+								name="applications"
+								id="applications"
+								v-model="article.applications"
+							/>
+						</div>
+					</div>
+					<hr class="my-0">
+					
+					<!-- Annotation - EN -->
+					<div class="card-body">
+						<div class="form-group mb-0">
+							<label class="h6">Аннотация на английском</label>
+							<vue-ckeditor
+								class=""
+								name="annotation_en"
+								id="annotation_en"
+								v-model="article.annotation_en"
+							/>
+						</div>
+					</div>
+					<hr class="my-0">
+					
+					<!-- Keywords - EN -->
+					<div class="card-body">
+						<div class="form-group mb-0">
+							<label class="h6">Ключевые слова на английском</label>
+							<textarea
+								class="form-control"
+								name="keywords_en"
+								id="keywords_en"
+								v-model="article.keywords_en"
+							></textarea>
+						</div>
+					</div>
+					<hr class="my-0">
+					
+					<!-- Finance -->
+					<div class="card-body">
+						<div class="form-group mb-0">
+							<label class="h6">Информация о финансировании</label>
+							<textarea
+								class="form-control"
+								name="finance"
+								id="finance"
+								v-model="article.finance"
+							></textarea>
+						</div>
+					</div>
+					<hr class="my-0">
+					
+					<!-- Bibliography - EN -->
+					<div class="card-body">
+						<div class="form-group mb-0">
+							<label class="h6">Список литературы на русском</label>
+							<vue-ckeditor
+								class=""
+								name="bibliography_ru"
+								id="bibliography_ru"
+								v-model="article.bibliography_ru"
+							/>
+						</div>
+					</div>
+					<hr class="my-0">
+					
+					<!-- Bibliography - EN -->
+					<div class="card-body">
+						<div class="form-group mb-0">
+							<label class="h6">Список литературы на английском</label>
+							<vue-ckeditor
+								class=""
+								name="bibliography_en"
+								id="bibliography_en"
+								v-model="article.bibliography_en"
+							/>
 						</div>
 					</div>
 					<hr class="my-0">
@@ -244,6 +329,9 @@ import ArticleTags from "./components/ArticleTags.vue";
 import ArticleFiles from "./components/ArticleFiles.vue";
 import ArticleAuthors from "./components/ArticleAuthors.vue";
 import ArticleCategories from "./components/ArticleCategories.vue";
+	
+import datePicker from 'vue-bootstrap-datetimepicker';
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 export default {
 	components: {
@@ -254,7 +342,8 @@ export default {
 		ArticleTags,
 		ArticleFiles,
 		ArticleAuthors,
-		ArticleCategories
+		ArticleCategories,
+		datePicker
 	},
 
 	props: {
@@ -270,8 +359,9 @@ export default {
 
 	data: function() {
 		return {
-			// 			tags: [],
-			// 			categories: [],
+			datePickerOptions: {
+          format: 'YYYY-MM-DD',
+        },
 			noArray: [1, 2, 3, 4, 5],
 			partArray: [1, 2],
 			article: {
