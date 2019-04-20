@@ -31,6 +31,24 @@ Vue.use(BootstrapVue);
 import Notifications from "vue-notification";
 Vue.use(Notifications);
 
+// // Scrolling
+// var VueScrollTo = require("vue-scrollto");
+
+// // You can also pass in the default options
+// Vue.use(VueScrollTo, {
+//    container: "body",
+//    duration: 500,
+//    easing: "ease",
+//    offset: 0,
+//    force: true,
+//    cancelable: true,
+//    onStart: false,
+//    onDone: false,
+//    onCancel: false,
+//    x: false,
+//    y: true
+// });
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -67,6 +85,10 @@ Vue.component(
 );
 
 Vue.component("alert", require("./components/back/Alert.vue").default);
+Vue.component(
+   "scroll-up-button",
+   require("./components/back/ScrollUpButton.vue").default
+);
 Vue.component(
    "file-picker",
    require("./components/back/FilePicker.vue").default
@@ -114,11 +136,11 @@ Vue.mixin({
    }
 });
 
-Vue.filter('cutString', function (value) {
-  const lenght = 25
-  if (value.length < lenght) return value;
-  return value.substring(0, lenght) + '...';
-})
+Vue.filter("cutString", function(value) {
+   const lenght = 25;
+   if (value.length < lenght) return value;
+   return value.substring(0, lenght) + "...";
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

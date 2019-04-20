@@ -67,12 +67,7 @@
 					<div class="card-body">
 						<div class="form-group mb-0">
 							<label class="h6">Аннотация на русском</label>
-							<vue-ckeditor
-								class=""
-								name="annotation_ru"
-								id="annotation_ru"
-								v-model="article.annotation_ru"
-							/>
+							<vue-ckeditor class name="annotation_ru" id="annotation_ru" v-model="article.annotation_ru"/>
 						</div>
 					</div>
 					<hr class="my-0">
@@ -114,35 +109,25 @@
 						</div>
 					</div>
 					<hr class="my-0">
-					
+
 					<!-- Applications -->
 					<div class="card-body">
 						<div class="form-group mb-0">
 							<label class="h6">Дополнения</label>
-							<vue-ckeditor
-								class=""
-								name="applications"
-								id="applications"
-								v-model="article.applications"
-							/>
+							<vue-ckeditor class name="applications" id="applications" v-model="article.applications"/>
 						</div>
 					</div>
 					<hr class="my-0">
-					
+
 					<!-- Annotation - EN -->
 					<div class="card-body">
 						<div class="form-group mb-0">
 							<label class="h6">Аннотация на английском</label>
-							<vue-ckeditor
-								class=""
-								name="annotation_en"
-								id="annotation_en"
-								v-model="article.annotation_en"
-							/>
+							<vue-ckeditor class name="annotation_en" id="annotation_en" v-model="article.annotation_en"/>
 						</div>
 					</div>
 					<hr class="my-0">
-					
+
 					<!-- Keywords - EN -->
 					<div class="card-body">
 						<div class="form-group mb-0">
@@ -156,27 +141,22 @@
 						</div>
 					</div>
 					<hr class="my-0">
-					
+
 					<!-- Finance -->
 					<div class="card-body">
 						<div class="form-group mb-0">
 							<label class="h6">Информация о финансировании</label>
-							<textarea
-								class="form-control"
-								name="finance"
-								id="finance"
-								v-model="article.finance"
-							></textarea>
+							<textarea class="form-control" name="finance" id="finance" v-model="article.finance"></textarea>
 						</div>
 					</div>
 					<hr class="my-0">
-					
+
 					<!-- Bibliography - EN -->
 					<div class="card-body">
 						<div class="form-group mb-0">
 							<label class="h6">Список литературы на русском</label>
 							<vue-ckeditor
-								class=""
+								class
 								name="bibliography_ru"
 								id="bibliography_ru"
 								v-model="article.bibliography_ru"
@@ -184,13 +164,13 @@
 						</div>
 					</div>
 					<hr class="my-0">
-					
+
 					<!-- Bibliography - EN -->
 					<div class="card-body">
 						<div class="form-group mb-0">
 							<label class="h6">Список литературы на английском</label>
 							<vue-ckeditor
-								class=""
+								class
 								name="bibliography_en"
 								id="bibliography_en"
 								v-model="article.bibliography_en"
@@ -240,7 +220,7 @@
 					</div>
 					<div class="card-footer">
 						<button
-							class="btn btn-link text-danger float-left"
+							class="btn btn-link text-danger float-left sticky-top"
 							v-show="article.id"
 							@click.prevent="deleteArticle"
 						>Удалить</button>
@@ -315,6 +295,8 @@
 				<!-- TAGS -->
 				<article-tags v-model="article.tags"></article-tags>
 				<!-- END TAGS -->
+
+				<!-- </div> -->
 			</div>
 		</div>
 	</div>
@@ -329,9 +311,9 @@ import ArticleTags from "./components/ArticleTags.vue";
 import ArticleFiles from "./components/ArticleFiles.vue";
 import ArticleAuthors from "./components/ArticleAuthors.vue";
 import ArticleCategories from "./components/ArticleCategories.vue";
-	
-import datePicker from 'vue-bootstrap-datetimepicker';
-import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+
+import datePicker from "vue-bootstrap-datetimepicker";
+import "pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css";
 
 export default {
 	components: {
@@ -359,33 +341,32 @@ export default {
 
 	data: function() {
 		return {
+			offset: { top: 100, bottom: 0 },
 			datePickerOptions: {
-          format: 'YYYY-MM-DD',
-        },
+				format: "YYYY-MM-DD"
+			},
 			noArray: [1, 2, 3, 4, 5],
 			partArray: [1, 2],
 			article: {
 				id: "",
 				link: "",
 				status: false,
-
 				created_at: "",
 				updated_at: "",
-
+				date_arrived: "",
+				date_review: "",
 				year: new Date().getFullYear(),
 				tom: "",
 				no: 1,
 				full_no: "",
 				part: "",
-
 				doi: "",
 				udk: "",
 				stol: false,
-
+				finance: "",
 				users: [],
 				tags: [],
 				categories: [],
-
 				title_en: "",
 				title_ru: "",
 				text_ru: "",
@@ -394,6 +375,8 @@ export default {
 				annotation_en: "",
 				keywords_ru: "",
 				keywords_en: "",
+				bibliography_ru: "",
+				bibliography_en: "",
 				file_ru: "",
 				file_en: "",
 				file_audio: ""

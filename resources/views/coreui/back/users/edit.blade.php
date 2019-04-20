@@ -1,8 +1,6 @@
 @extends(env('THEME_BACK').'.back.layout')
 
 @push('css')
-<!--  Select2     -->
-<link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.css') }}">
 
 @endpush
 
@@ -18,14 +16,14 @@
 
 @section('content')
 <div class="content">
-	
+
 		<h2 class="mb-3">@isset($id)
 			Редактировать автора
 			@elseНовый автор
 			@endisset
 		</h2>
 
-    <form method="POST" 
+    <form method="POST"
 					@if(isset($id))
 						action="{{ route('users.update', $id) }}"
 					@else
@@ -34,8 +32,8 @@
 					>
 			@if(isset($id)) @method('PUT') @endif
       @csrf
-			<user-profile 
-				@isset($id):id="{{ $id }}"@endisset 
+			<user-profile
+				@isset($id):id="{{ $id }}"@endisset
 				:old="{{ json_encode(Session::getOldInput(), JSON_FORCE_OBJECT) }}"
 				@if(count($errors) > 0)
 					:errors="{{$errors}}"
@@ -56,9 +54,6 @@
 @endsection
 
 @push('lib')
-    <!-- Select 2 -->
-    <!-- <script defer type="text/javascript" src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script> -->
-
 		<!-- CKEditor -->
 		<script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 		<!-- elFinder -->

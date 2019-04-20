@@ -11,9 +11,9 @@
       <meta name="author" content="" />
       <meta name="keyword" content="" />
       <meta name="csrf-token" content="{{ csrf_token() }}" />
-		 	
+
 		 	@if(Auth::user()->api_token)<meta name="api-token" content="{{ Auth::user()->api_token }}" />@endif
-		 	
+
       <title>
          {{ $title }}
          @if(isset($subtitle)) | {{ $subtitle }}
@@ -27,7 +27,7 @@
 
    <body
       class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show"
-      
+
    >
       <!-- Navbar -->
       @yield('navbar')
@@ -44,10 +44,10 @@
 					@if(Session::get('message'))
 								 :message="{{ json_encode(Session::get('message'), JSON_FORCE_OBJECT) }}"
 					@endif
-               ></alert>	
+               ></alert>
 
          <main class="main">
-							 
+
           <!-- Breadcrumb-->
           {{-- @include(env('THEME_BACK').'.back.breadcrumb') --}}
 
@@ -56,14 +56,14 @@
                <div class="container-fluid mt-4">
                   <div class="animated fadeIn">
                     <!-- Alert -->
-										{{-- 
+										{{--
 										@if (count($errors) > 0)
 												@alert(['type'=>'danger'])
 													@foreach ($errors->all() as $error)
 															<p><i class="icon fa fa-check"></i> {{ $error }}</p>
 													@endforeach
 												@endalert
-										@endif 
+										@endif
 
 										@if (session('status'))
 												<div class="alert alert-success" role="alert">
@@ -76,19 +76,20 @@
 														{{ session('error') }}
 												</div>
 										@endif
-										
+
 										--}}
-				
-                    
+
+
                      <!-- CONTENT -->
                      @yield('content')
                      <!-- end content -->
-										
+
 
                   </div>
                </div>
             <!-- </div> -->
          </main>
+         <scroll-up-button></scroll-up-button>
       </div>
       <!-- FOOTER -->
       @yield('footer')
@@ -97,7 +98,7 @@
       <!-- MODALS -->
       @yield('modals')
       <!-- end modals -->
-     
+
       <!-- CoreUI and necessary plugins-->
       <!-- <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>

@@ -1,4 +1,4 @@
-<header class="app-header navbar">
+<header class="app-header navbar" id="app-header">
    <button
       class="navbar-toggler sidebar-toggler d-lg-none mr-auto"
       type="button"
@@ -39,7 +39,7 @@
             <a class="dropdown-item text-danger" href="#">
                <i class="fa fa-book"></i> Выпуск</a
             >
-            <a class="dropdown-item text-danger" href="#">
+            <a class="dropdown-item" href="{{ route('articles.create') }}">
                <i class="fa fa-file"></i> Статью</a
             >
             <a class="dropdown-item" href="{{ route('categories.index') }}">
