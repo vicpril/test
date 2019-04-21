@@ -500,18 +500,8 @@ export default {
 
 		deleteUser() {
 			if (confirm("Удалить пользователя " + this.user.full_name + "?")) {
-				axios.delete("/admin/users/" + this.user.id).then(resp => {
-					if (resp.data.status == "success") {
-						window.location = resp.data.redirect + "?userdeleted=1";
-					} else {
-						this.$notify({
-							group: "custom-template",
-							text: resp.data.message.title[0],
-							type: "alert-danger",
-							duration: -1
-						});
-					}
-				});
+				document.getElementsByName("_method")[0].value = "DELETE";
+				document.getElementById("form").submit();
 			}
 		},
 

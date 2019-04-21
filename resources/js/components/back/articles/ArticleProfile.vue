@@ -10,11 +10,11 @@
 					<div class="card-body">
 						<div class="form-group">
 							<label>На русском</label>
-							<input id="title_ru" class="form-control" v-model="article.title_ru">
+							<input id="title_ru" name="title_ru" class="form-control" v-model="article.title_ru">
 						</div>
 						<div class="form-group">
 							<label>На английском</label>
-							<input type="text" class="form-control" v-model="article.title_en">
+							<input type="text" name="title_en" class="form-control" v-model="article.title_en">
 						</div>
 						<div class="form-group mb-0">
 							<label>Ссылка на сайте:</label>
@@ -100,11 +100,11 @@
 						<div class="row">
 							<div class="col-sm form-group mb-0">
 								<label for="date_arrival" class="form-title h6 mr-2">Дата поступления:</label>
-								<date-picker v-model="article.date_arrival" :config="datePickerOptions"></date-picker>
+								<date-picker name="date_arrival" v-model="article.date_arrival" :config="datePickerOptions"></date-picker>
 							</div>
 							<div class="col-sm form-group mb-0">
 								<label for="date_review" class="form-title h6 mr-2">Дата рецензирования:</label>
-								<date-picker v-model="article.date_review" :config="datePickerOptions"></date-picker>
+								<date-picker name="date_review" v-model="article.date_review" :config="datePickerOptions"></date-picker>
 							</div>
 						</div>
 					</div>
@@ -210,6 +210,7 @@
 								>
 								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 							</label>
+							<input type="text" name="status" :value="article.status" hidden>
 						</div>
 						<div class="form-group mb-0" v-if="article.updated_at">
 							<span class="text-muted">
@@ -243,16 +244,17 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Год</span>
 							</div>
-							<input type="number" min="2009" class="form-control" v-model="article.year">
+							<input type="number" name="year" min="2009" class="form-control" v-model="article.year">
 							<div class="input-group-append">
 								<span class="input-group-text">Том {{ tom }}</span>
+								<input type="number" name="tom" :value="tom" hidden>
 							</div>
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Номер</span>
 							</div>
-							<select class="form-control" v-model="article.no">
+							<select name="no" class="form-control" v-model="article.no">
 								<option v-for="(no, index) in noArray" :key="index" :value="no">{{ no }}</option>
 							</select>
 						</div>
@@ -260,7 +262,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Полный номер</span>
 							</div>
-							<input type="number" min="1" class="form-control" v-model="article.full_no">
+							<input type="number" name="full_no" min="1" class="form-control" v-model="article.full_no">
 							<div class="input-group-append">
 								<button type="button" class="btn btn-outline-info" @click.prevent="setFullNo">Авто</button>
 							</div>
@@ -269,7 +271,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Часть</span>
 							</div>
-							<select class="form-control" v-model="article.part">
+							<select name="part" class="form-control" v-model="article.part">
 								<option v-for="(part, index) in partArray" :key="index" :value="part">{{ part }}</option>
 							</select>
 						</div>
@@ -287,6 +289,7 @@
 								>
 								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 							</label>
+							<input type="text" name="stol" :value="article.stol" hidden>
 						</div>
 					</div>
 				</div>
@@ -434,18 +437,8 @@ export default {
 
 		deleteArticle() {
 			if (confirm("Удалить статью ?")) {
-				axios.delete("/admin/articles/" + this.article.id).then(resp => {
-					if (resp.data.status == "success") {
-						window.location = resp.data.redirect + "?articledeleted=1";
-					} else {
-						this.$notify({
-							group: "custom-template",
-							text: resp.data.message.title[0],
-							type: "alert-danger",
-							duration: -1
-						});
-					}
-				});
+				document.getElementsByName("_method")[0].value = "DELETE";
+				document.getElementById("form").submit();
 			}
 		},
 

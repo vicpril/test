@@ -18,14 +18,14 @@
 
 @section('content')
 <div class="content">
-	
+
 		<h2 class="mb-3">@isset($id)
 			Редактировать статью
 			@elseНовая статья
 			@endisset
 		</h2>
 
-    <form method="POST" 
+    <form method="POST" id='form'
 					@if(isset($id))
 						action="{{ route('articles.update', $id) }}"
 					@else
@@ -34,8 +34,8 @@
 					>
 			@if(isset($id)) @method('PUT') @endif
       @csrf
-			<article-profile 
-				@isset($id):id="{{ $id }}"@endisset 
+			<article-profile
+				@isset($id):id="{{ $id }}"@endisset
 				:old="{{ json_encode(Session::getOldInput(), JSON_FORCE_OBJECT) }}"
 				@if(count($errors) > 0)
 					:errors="{{$errors}}"

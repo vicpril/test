@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
-use App\Repositories\UsersRepository;
 use App\Http\Controllers\Back\AdminController;
+use App\Http\Requests\UserRequest;
+use App\Models\User;
+use App\Repositories\UsersRepository;
+use Illuminate\Http\Request;
 
 class UsersController extends AdminController
 {
@@ -64,7 +64,7 @@ class UsersController extends AdminController
         if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-      
+
         return redirect(route('users.index'))->with(['message' => $result]);
     }
 
@@ -75,9 +75,9 @@ class UsersController extends AdminController
      * @return \Illuminate\Http\Response
      */
 //     public function show($id)
-//     {
-//         dd('user - show');
-//     }
+    //     {
+    //         dd('user - show');
+    //     }
 
     /**
      * Show the form for editing the specified resource.
@@ -108,7 +108,7 @@ class UsersController extends AdminController
         if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-      
+
         return redirect(route('users.index'))->with(['message' => $result]);
     }
 
@@ -121,23 +121,23 @@ class UsersController extends AdminController
     public function destroy(User $user)
     {
         $result = $this->repository->deleteUser($user);
-      
-        if(request()->ajax()) {
-          
-          if (is_array($result) && ($result['status'] === 'success')) {
+
+        if (request()->ajax()) {
+
+            if (is_array($result) && ($result['status'] === 'success')) {
                 $result = array_add($result, 'redirect', route('users.index'));
-          }
-          
-          return response()->json($result);
-          
+            }
+
+            return response()->json($result);
+
         } else {
-          
-           if (is_array($result) && ($result['status'] !== 'success')) {
+
+            if (is_array($result) && ($result['status'] !== 'success')) {
                 return back()->with($result);
-           } 
-          
-          return redirect(route('users.index'))->with($result);
+            }
+
+            return redirect(route('users.index'))->with(['message' => $result]);
         }
-    
+
     }
 }

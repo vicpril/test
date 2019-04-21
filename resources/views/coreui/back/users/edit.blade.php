@@ -23,7 +23,7 @@
 			@endisset
 		</h2>
 
-    <form method="POST"
+    <form method="POST" id='form'
 					@if(isset($id))
 						action="{{ route('users.update', $id) }}"
 					@else

@@ -17,6 +17,9 @@
 					>
 						<div slot="no-options">Меток по запросу не найдено.</div>
 					</v-select>
+					<select hidden name="tags[]" v-model="valueId" multiple>
+						<option v-for="(tag, index) in tags" :key="index" :value="tag.id">{{ tag.name }}</option>
+					</select>
 					<b-button
 						v-b-tooltip.hover
 						v-b-modal.addNewTag
@@ -72,6 +75,14 @@ export default {
 				title_en: ""
 			}
 		};
+	},
+
+	computed: {
+		valueId() {
+			return this.value.map(val => {
+				return val.id;
+			});
+		}
 	},
 
 	created() {

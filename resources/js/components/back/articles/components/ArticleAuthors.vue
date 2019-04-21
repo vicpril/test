@@ -22,6 +22,9 @@
 						>Добавить нового автора</a>
 					</div>
 				</v-select>
+				<select hidden name="users[]" v-model="valueId" multiple>
+					<option v-for="(user, index) in users" :key="index" :value="user.id">{{ user.name }}</option>
+				</select>
 				<b-button
 					v-b-tooltip.hover
 					title="Обновить список авторов"
@@ -49,6 +52,14 @@ export default {
 		return {
 			users: []
 		};
+	},
+
+	computed: {
+		valueId() {
+			return this.value.map(val => {
+				return val.id;
+			});
+		}
 	},
 
 	created() {

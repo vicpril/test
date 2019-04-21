@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Article;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ArticleResource;
 use App\Http\Resources\ArticleListResource;
+use App\Http\Resources\ArticleResource;
+use App\Models\Article;
 use App\Repositories\ArticlesRepository;
+use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
     protected $repository;
-  
-    public function __construct (ArticlesRepository $a_rep) {
-      $this->repository = $a_rep;
+
+    public function __construct(ArticlesRepository $a_rep)
+    {
+        $this->repository = $a_rep;
     }
-  
+
     /**
      * Display a listing of the resource.
      *
@@ -29,17 +30,6 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // use web controller
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Article  $article
@@ -49,18 +39,6 @@ class ArticlesController extends Controller
     {
         $article->loadMissing(['meta', 'status', 'users', 'tags', 'categories', 'issue']);
         return new ArticleResource($article);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Article $article)
-    {
-        //
     }
 
     /**
@@ -77,36 +55,34 @@ class ArticlesController extends Controller
             return response()->json($result);
         }
     }
-    
-    
-    public function statusChange(Request $request, Article $article) {
-//       dd($article);
+
+    public function statusChange(Request $request, Article $article)
+    {
         $status = \App\Models\Status::where('title_en', $request->get('status'))->first();
         if ($status) {
             $message = ($status->title_en === 'public') ? 'Статья опубликована' : 'Статья снята с публикации';
-            
-          try {
-            $article->status()->associate($status->id);
-            $article->save();
-          }
-          catch (Extension $e) {
-             $result = [
-                'status' => 'error',
-                'message' => 'Что-то пошло не так'
-              ];
-          }
-          $result = [
-            'status' => 'success',
-            'message' => $message
-          ];
-          
+
+            try {
+                $article->status()->associate($status->id);
+                $article->save();
+            } catch (Extension $e) {
+                $result = [
+                    'status' => 'error',
+                    'message' => 'Что-то пошло не так',
+                ];
+            }
+            $result = [
+                'status' => 'success',
+                'message' => $message,
+            ];
+
         } else {
-          $result = [
+            $result = [
                 'status' => 'error',
-                'message' => 'Новый статус не задан'
-              ];
+                'message' => 'Новый статус не задан',
+            ];
         }
-      
+
         if (is_array($result)) {
             return response()->json($result);
         }

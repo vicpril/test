@@ -743,6 +743,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
  // import vSelect from "vue-select";
 
 
@@ -865,21 +868,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteArticle: function deleteArticle() {
-      var _this2 = this;
-
       if (confirm("Удалить статью ?")) {
-        axios.delete("/admin/articles/" + this.article.id).then(function (resp) {
-          if (resp.data.status == "success") {
-            window.location = resp.data.redirect + "?articledeleted=1";
-          } else {
-            _this2.$notify({
-              group: "custom-template",
-              text: resp.data.message.title[0],
-              type: "alert-danger",
-              duration: -1
-            });
-          }
-        });
+        document.getElementsByName("_method")[0].value = "DELETE";
+        document.getElementById("form").submit();
       }
     },
     setFullNo: function setFullNo() {
@@ -1230,6 +1221,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1240,6 +1234,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       users: []
     };
+  },
+  computed: {
+    valueId: function valueId() {
+      return this.value.map(function (val) {
+        return val.id;
+      });
+    }
   },
   created: function created() {
     this.fetchUsers();
@@ -1269,6 +1270,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
+//
 //
 //
 //
@@ -1612,6 +1614,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1626,6 +1631,13 @@ __webpack_require__.r(__webpack_exports__);
         title_en: ""
       }
     };
+  },
+  computed: {
+    valueId: function valueId() {
+      return this.value.map(function (val) {
+        return val.id;
+      });
+    }
   },
   created: function created() {
     this.fetchTags();
@@ -3054,21 +3066,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     deleteUser: function deleteUser() {
-      var _this2 = this;
-
       if (confirm("Удалить пользователя " + this.user.full_name + "?")) {
-        axios.delete("/admin/users/" + this.user.id).then(function (resp) {
-          if (resp.data.status == "success") {
-            window.location = resp.data.redirect + "?userdeleted=1";
-          } else {
-            _this2.$notify({
-              group: "custom-template",
-              text: resp.data.message.title[0],
-              type: "alert-danger",
-              duration: -1
-            });
-          }
-        });
+        document.getElementsByName("_method")[0].value = "DELETE";
+        document.getElementById("form").submit();
       }
     },
     checkError: function checkError(error) {
@@ -26476,7 +26476,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
 
 // exports
 
@@ -26590,7 +26590,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 300px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 300px;\n}\r\n", ""]);
 
 // exports
 
@@ -56861,7 +56861,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { id: "title_ru" },
+                  attrs: { id: "title_ru", name: "title_ru" },
                   domProps: { value: _vm.article.title_ru },
                   on: {
                     input: function($event) {
@@ -56887,7 +56887,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text" },
+                  attrs: { type: "text", name: "title_en" },
                   domProps: { value: _vm.article.title_en },
                   on: {
                     input: function($event) {
@@ -57125,7 +57125,10 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("date-picker", {
-                      attrs: { config: _vm.datePickerOptions },
+                      attrs: {
+                        name: "date_arrival",
+                        config: _vm.datePickerOptions
+                      },
                       model: {
                         value: _vm.article.date_arrival,
                         callback: function($$v) {
@@ -57152,7 +57155,10 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("date-picker", {
-                      attrs: { config: _vm.datePickerOptions },
+                      attrs: {
+                        name: "date_review",
+                        config: _vm.datePickerOptions
+                      },
                       model: {
                         value: _vm.article.date_review,
                         callback: function($$v) {
@@ -57415,7 +57421,12 @@ var render = function() {
                       attrs: { "data-checked": "✓", "data-unchecked": "✕" }
                     })
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  attrs: { type: "text", name: "status", hidden: "" },
+                  domProps: { value: _vm.article.status }
+                })
               ]),
               _vm._v(" "),
               _vm.article.updated_at
@@ -57477,7 +57488,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "number", min: "2009" },
+                  attrs: { type: "number", name: "year", min: "2009" },
                   domProps: { value: _vm.article.year },
                   on: {
                     input: function($event) {
@@ -57492,7 +57503,12 @@ var render = function() {
                 _c("div", { staticClass: "input-group-append" }, [
                   _c("span", { staticClass: "input-group-text" }, [
                     _vm._v("Том " + _vm._s(_vm.tom))
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: { type: "number", name: "tom", hidden: "" },
+                    domProps: { value: _vm.tom }
+                  })
                 ])
               ]),
               _vm._v(" "),
@@ -57511,6 +57527,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
+                    attrs: { name: "no" },
                     on: {
                       change: function($event) {
                         var $$selectedVal = Array.prototype.filter
@@ -57555,7 +57572,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "number", min: "1" },
+                  attrs: { type: "number", name: "full_no", min: "1" },
                   domProps: { value: _vm.article.full_no },
                   on: {
                     input: function($event) {
@@ -57600,6 +57617,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
+                    attrs: { name: "part" },
                     on: {
                       change: function($event) {
                         var $$selectedVal = Array.prototype.filter
@@ -57693,7 +57711,12 @@ var render = function() {
                       attrs: { "data-checked": "✓", "data-unchecked": "✕" }
                     })
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  attrs: { type: "text", name: "stol", hidden: "" },
+                  domProps: { value: _vm.article.stol }
+                })
               ])
             ])
           ]),
@@ -58236,6 +58259,44 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.valueId,
+                  expression: "valueId"
+                }
+              ],
+              attrs: { hidden: "", name: "users[]", multiple: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.valueId = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            _vm._l(_vm.users, function(user, index) {
+              return _c(
+                "option",
+                { key: index, domProps: { value: user.id } },
+                [_vm._v(_vm._s(user.name))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
             "b-button",
             {
               directives: [
@@ -58327,6 +58388,11 @@ var render = function() {
                   )
                 ]
               ),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "text", name: "category", hidden: "" },
+                domProps: { value: _vm.value.id }
+              }),
               _vm._v(" "),
               _c(
                 "b-button",
@@ -58792,6 +58858,44 @@ var render = function() {
                     [_vm._v("Меток по запросу не найдено.")]
                   )
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.valueId,
+                      expression: "valueId"
+                    }
+                  ],
+                  attrs: { hidden: "", name: "tags[]", multiple: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.valueId = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.tags, function(tag, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: tag.id } },
+                    [_vm._v(_vm._s(tag.name))]
+                  )
+                }),
+                0
               ),
               _vm._v(" "),
               _c(

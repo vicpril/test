@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Models\Article;
-use Illuminate\Http\Request;
-use App\Http\Requests\ArticleRequest;
-use App\Repositories\ArticlesRepository;
 use App\Http\Controllers\Back\AdminController;
+use App\Http\Requests\ArticleRequest;
+use App\Models\Article;
+use App\Repositories\ArticlesRepository;
+use Illuminate\Http\Request;
 
 class ArticlesController extends AdminController
 {
@@ -30,6 +30,7 @@ class ArticlesController extends AdminController
      */
     public function index()
     {
+
         $this->subtitle = "Статьи";
 
         $this->template = env('THEME_BACK') . '.back.articles.index';
@@ -59,25 +60,16 @@ class ArticlesController extends AdminController
      */
     public function store(ArticleRequest $request)
     {
+        // dd(request()->all());
         $result = $this->repository->create($request->except('_token', '_method'));
 
         if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-      
-        return redirect(route('articles.index'))->with(['message' => $result]);
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-//     public function show($id)
-//     {
-//         dd('article - show');
-//     }
+        return redirect(route('articles.index'))->with(['message' => $result]);
+
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -103,12 +95,13 @@ class ArticlesController extends AdminController
      */
     public function update(ArticleRequest $request, $article)
     {
-        $result = $this->repository->update($article, $request->except('_token', '_method'));
+        // dd(request()->all());
+        $result = $this->repository->create($article, $request->except('_token', '_method'));
 
         if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-      
+
         return redirect(route('articles.index'))->with(['message' => $result]);
     }
 
@@ -121,23 +114,23 @@ class ArticlesController extends AdminController
     public function destroy(Article $article)
     {
         $result = $this->repository->deleteArticle($article);
-      
-        if(request()->ajax()) {
-          
-          if (is_array($result) && ($result['status'] === 'success')) {
+
+        if (request()->ajax()) {
+
+            if (is_array($result) && ($result['status'] === 'success')) {
                 $result = array_add($result, 'redirect', route('articles.index'));
-          }
-          
-          return response()->json($result);
-          
+            }
+
+            return response()->json($result);
+
         } else {
-          
-           if (is_array($result) && ($result['status'] !== 'success')) {
+
+            if (is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
-           } 
-          
-          return redirect(route('articles.index'))->with($result);
+            }
+
+            return redirect(route('articles.index'))->with(['message' => $result]);
         }
-    
+
     }
 }

@@ -17,11 +17,11 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::apiResource('users', 'Api\UsersController')->except('index')->middleware('auth:api');
+Route::apiResource('users', 'Api\UsersController')->except('index', 'update')->middleware('auth:api');
 Route::apiResource('users', 'Api\UsersController')->only('index');
 Route::get('userslist/', 'Api\UsersController@getList');
 
-Route::apiResource('articles', 'Api\ArticlesController')->except('index')->middleware('auth:api');
+Route::apiResource('articles', 'Api\ArticlesController')->except('index', 'update')->middleware('auth:api');
 Route::apiResource('articles', 'Api\ArticlesController')->only('index');
 Route::post('articles/status/{article}', 'Api\ArticlesController@statusChange')->middleware('auth:api');
 
