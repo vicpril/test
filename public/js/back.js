@@ -746,6 +746,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
  // import vSelect from "vue-select";
 
 
@@ -838,7 +844,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.article.tom;
     }
   },
-  created: function created() {
+  mounted: function mounted() {
     // show errors
     if (!this.isEmptyObject(this.errors)) {
       this.$notify({
@@ -26457,7 +26463,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\na#btn-scroll-up {\r\n\tdisplay: inline-block;\r\n\tbackground-color: transparent;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\ttext-align: center;\r\n\tborder: 1px solid var(--secondary);\r\n\tborder-radius: 4px;\r\n\tmargin: 30px;\r\n\tposition: fixed;\r\n\tbottom: 30px;\r\n\tright: 30px;\r\n\t/* transition: background-color 0.3s; */\r\n\tz-index: 1000;\n}\na#btn-scroll-up:hover {\r\n\tcursor: pointer;\r\n\tbackground-color: var(--secondary);\r\n\ttransition: background-color 0.3s;\n}\na#btn-scroll-up:hover::after {\r\n\tcursor: pointer;\r\n\tcolor: #fff;\n}\na#btn-scroll-up:active {\r\n\tbackground-color: #555;\n}\na#btn-scroll-up::after {\r\n\tcontent: \"\\F077\";\r\n\tfont-family: FontAwesome;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 2em;\r\n\tline-height: 50px;\r\n\tcolor: var(--secondary);\n}\n.fade-enter {\r\n\topacity: 0;\n}\n.fade-enter-active {\r\n\ttransition: opacity 1s;\n}\n.fade-leave {\r\n\t/*opacity: 1;*/\n}\n.fade-leave-active {\r\n\ttransition: opacity 1s;\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\na#btn-scroll-up {\n\tdisplay: inline-block;\n\tbackground-color: transparent;\n\twidth: 50px;\n\theight: 50px;\n\ttext-align: center;\n\tborder: 1px solid var(--secondary);\n\tborder-radius: 4px;\n\tmargin: 30px;\n\tposition: fixed;\n\tbottom: 30px;\n\tright: 30px;\n\t/* transition: background-color 0.3s; */\n\tz-index: 1000;\n}\na#btn-scroll-up:hover {\n\tcursor: pointer;\n\tbackground-color: var(--secondary);\n\ttransition: background-color 0.3s;\n}\na#btn-scroll-up:hover::after {\n\tcursor: pointer;\n\tcolor: #fff;\n}\na#btn-scroll-up:active {\n\tbackground-color: #555;\n}\na#btn-scroll-up::after {\n\tcontent: \"\\F077\";\n\tfont-family: FontAwesome;\n\tfont-weight: normal;\n\tfont-style: normal;\n\tfont-size: 2em;\n\tline-height: 50px;\n\tcolor: var(--secondary);\n}\n.fade-enter {\n\topacity: 0;\n}\n.fade-enter-active {\n\ttransition: opacity 1s;\n}\n.fade-leave {\n\t/*opacity: 1;*/\n}\n.fade-leave-active {\n\ttransition: opacity 1s;\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -26476,7 +26482,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n", ""]);
 
 // exports
 
@@ -26514,7 +26520,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n#users .vs__selected {\r\n\tbackground-color: var(--primary);\r\n\tcolor: white;\r\n\tfont-weight: 600;\r\n\t/* font-size: 1rem; */\n}\r\n", ""]);
+exports.push([module.i, "\n#users .vs__selected {\n\tbackground-color: var(--primary);\n\tcolor: white;\n\tfont-weight: 600;\n\t/* font-size: 1rem; */\n}\n", ""]);
 
 // exports
 
@@ -26533,7 +26539,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n#tags .vs__selected {\r\n\tbackground-color: var(--warning);\r\n\t/* color: white; */\r\n\t/* font-weight: 600; */\r\n\t/* font-size: 1rem; */\n}\r\n", ""]);
+exports.push([module.i, "\n#tags .vs__selected {\n\tbackground-color: var(--warning);\n\t/* color: white; */\n\t/* font-weight: 600; */\n\t/* font-size: 1rem; */\n}\n", ""]);
 
 // exports
 
@@ -26552,7 +26558,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\r\nthead > tr > th.sorting_desc[data-v-7425bcb0],\r\nthead > tr > th.sorting[data-v-7425bcb0],\r\nthead > tr > td.sorting_asc[data-v-7425bcb0],\r\nthead > tr > td.sorting_desc[data-v-7425bcb0],\r\nthead > tr > td.sorting[data-v-7425bcb0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\r\nthead > tr > td[data-v-7425bcb0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\r\nthead .sorting_asc[data-v-7425bcb0],\r\nthead .sorting_desc[data-v-7425bcb0],\r\nthead .sorting_asc_disabled[data-v-7425bcb0],\r\nthead .sorting_desc_disabled[data-v-7425bcb0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\nthead > tr > th.sorting_desc[data-v-7425bcb0],\nthead > tr > th.sorting[data-v-7425bcb0],\nthead > tr > td.sorting_asc[data-v-7425bcb0],\nthead > tr > td.sorting_desc[data-v-7425bcb0],\nthead > tr > td.sorting[data-v-7425bcb0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\nthead > tr > td[data-v-7425bcb0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\nthead .sorting_asc[data-v-7425bcb0],\nthead .sorting_desc[data-v-7425bcb0],\nthead .sorting_asc_disabled[data-v-7425bcb0],\nthead .sorting_desc_disabled[data-v-7425bcb0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -26571,7 +26577,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-47dfc4e0],\r\nthead > tr > th.sorting_desc[data-v-47dfc4e0],\r\nthead > tr > th.sorting[data-v-47dfc4e0],\r\nthead > tr > td.sorting_asc[data-v-47dfc4e0],\r\nthead > tr > td.sorting_desc[data-v-47dfc4e0],\r\nthead > tr > td.sorting[data-v-47dfc4e0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-47dfc4e0]:active,\r\nthead > tr > td[data-v-47dfc4e0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-47dfc4e0],\r\nthead .sorting_asc[data-v-47dfc4e0],\r\nthead .sorting_desc[data-v-47dfc4e0],\r\nthead .sorting_asc_disabled[data-v-47dfc4e0],\r\nthead .sorting_desc_disabled[data-v-47dfc4e0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-47dfc4e0]:before,\r\nthead .sorting[data-v-47dfc4e0]:after,\r\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_asc[data-v-47dfc4e0]:after,\r\nthead .sorting_desc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:after,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-47dfc4e0]:before,\r\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:before,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-47dfc4e0]:after,\r\nthead .sorting_asc[data-v-47dfc4e0]:after,\r\nthead .sorting_desc[data-v-47dfc4e0]:after,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-47dfc4e0],\nthead > tr > th.sorting_desc[data-v-47dfc4e0],\nthead > tr > th.sorting[data-v-47dfc4e0],\nthead > tr > td.sorting_asc[data-v-47dfc4e0],\nthead > tr > td.sorting_desc[data-v-47dfc4e0],\nthead > tr > td.sorting[data-v-47dfc4e0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-47dfc4e0]:active,\nthead > tr > td[data-v-47dfc4e0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-47dfc4e0],\nthead .sorting_asc[data-v-47dfc4e0],\nthead .sorting_desc[data-v-47dfc4e0],\nthead .sorting_asc_disabled[data-v-47dfc4e0],\nthead .sorting_desc_disabled[data-v-47dfc4e0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-47dfc4e0]:before,\nthead .sorting[data-v-47dfc4e0]:after,\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_asc[data-v-47dfc4e0]:after,\nthead .sorting_desc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:after,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-47dfc4e0]:before,\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:before,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-47dfc4e0]:after,\nthead .sorting_asc[data-v-47dfc4e0]:after,\nthead .sorting_desc[data-v-47dfc4e0]:after,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -26590,7 +26596,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 300px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 300px;\n}\n", ""]);
 
 // exports
 
@@ -26609,7 +26615,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-3b5f38fc],\r\nthead > tr > th.sorting_desc[data-v-3b5f38fc],\r\nthead > tr > th.sorting[data-v-3b5f38fc],\r\nthead > tr > td.sorting_asc[data-v-3b5f38fc],\r\nthead > tr > td.sorting_desc[data-v-3b5f38fc],\r\nthead > tr > td.sorting[data-v-3b5f38fc] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-3b5f38fc]:active,\r\nthead > tr > td[data-v-3b5f38fc]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-3b5f38fc],\r\nthead .sorting_asc[data-v-3b5f38fc],\r\nthead .sorting_desc[data-v-3b5f38fc],\r\nthead .sorting_asc_disabled[data-v-3b5f38fc],\r\nthead .sorting_desc_disabled[data-v-3b5f38fc] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-3b5f38fc]:before,\r\nthead .sorting[data-v-3b5f38fc]:after,\r\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_asc[data-v-3b5f38fc]:after,\r\nthead .sorting_desc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:after,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-3b5f38fc]:before,\r\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:before,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-3b5f38fc]:after,\r\nthead .sorting_asc[data-v-3b5f38fc]:after,\r\nthead .sorting_desc[data-v-3b5f38fc]:after,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-3b5f38fc],\nthead > tr > th.sorting_desc[data-v-3b5f38fc],\nthead > tr > th.sorting[data-v-3b5f38fc],\nthead > tr > td.sorting_asc[data-v-3b5f38fc],\nthead > tr > td.sorting_desc[data-v-3b5f38fc],\nthead > tr > td.sorting[data-v-3b5f38fc] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-3b5f38fc]:active,\nthead > tr > td[data-v-3b5f38fc]:active {\n\toutline: none;\n}\nthead .sorting[data-v-3b5f38fc],\nthead .sorting_asc[data-v-3b5f38fc],\nthead .sorting_desc[data-v-3b5f38fc],\nthead .sorting_asc_disabled[data-v-3b5f38fc],\nthead .sorting_desc_disabled[data-v-3b5f38fc] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-3b5f38fc]:before,\nthead .sorting[data-v-3b5f38fc]:after,\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_asc[data-v-3b5f38fc]:after,\nthead .sorting_desc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:after,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-3b5f38fc]:before,\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:before,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-3b5f38fc]:after,\nthead .sorting_asc[data-v-3b5f38fc]:after,\nthead .sorting_desc[data-v-3b5f38fc]:after,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -56848,31 +56854,47 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("На русском")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.article.title_ru,
-                      expression: "article.title_ru"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { id: "title_ru", name: "title_ru" },
-                  domProps: { value: _vm.article.title_ru },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", [_vm._v("На русском")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.article.title_ru,
+                        expression: "article.title_ru"
                       }
-                      _vm.$set(_vm.article, "title_ru", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    class: {
+                      "is-invalid": _vm.errors.hasOwnProperty("title_ru")
+                    },
+                    attrs: { id: "title_ru", name: "title_ru" },
+                    domProps: { value: _vm.article.title_ru },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.article, "title_ru", $event.target.value)
+                      }
                     }
-                  }
-                })
-              ]),
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.errors["title_ru"], function(error, key) {
+                    return _c(
+                      "div",
+                      { key: key, staticClass: "invalid-feedback" },
+                      [_vm._v(_vm._s(error))]
+                    )
+                  })
+                ],
+                2
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("label", [_vm._v("На английском")]),
@@ -68547,7 +68569,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  {{if full_name}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <strong>\r\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\r\n    </strong>\r\n  </span>\r\n  {{/if}}\r\n  {{if degree}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\">\r\n      <i><br>{{:degree}}</i>\r\n    </span>\r\n  </span>\r\n  {{/if}}\r\n  \r\n  {{if jobs}}\r\n  {{for jobs}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\r\n  </span>\r\n  {{/for}}\r\n  {{/if}}\r\n  \r\n  {{if orcid}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\r\n  </span>\r\n  {{/if}}\r\n</p>\r\n";
+module.exports = "<p>\n  {{if full_name}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <strong>\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\n    </strong>\n  </span>\n  {{/if}}\n  {{if degree}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\">\n      <i><br>{{:degree}}</i>\n    </span>\n  </span>\n  {{/if}}\n  \n  {{if jobs}}\n  {{for jobs}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\n  </span>\n  {{/for}}\n  {{/if}}\n  \n  {{if orcid}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\n  </span>\n  {{/if}}\n</p>\n";
 
 /***/ }),
 
@@ -70136,8 +70158,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\back.js */"./resources/js/back.js");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\coreui\coreui.scss */"./resources/sass/coreui/coreui.scss");
+__webpack_require__(/*! /home/cabox/workspace/resources/js/back.js */"./resources/js/back.js");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/coreui/coreui.scss */"./resources/sass/coreui/coreui.scss");
 
 
 /***/ })

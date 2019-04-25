@@ -10,7 +10,13 @@
 					<div class="card-body">
 						<div class="form-group">
 							<label>На русском</label>
-							<input id="title_ru" name="title_ru" class="form-control" v-model="article.title_ru">
+							<input id="title_ru" name="title_ru" class="form-control" v-model="article.title_ru"
+										 :class="{'is-invalid' : errors.hasOwnProperty('title_ru')}">
+							<div
+										class="invalid-feedback"
+										v-for="(error, key) in errors['title_ru']"
+										:key="key"
+									>{{error}}</div>
 						</div>
 						<div class="form-group">
 							<label>На английском</label>
@@ -401,7 +407,7 @@ export default {
 		}
 	},
 
-	created() {
+	mounted() {
 		// show errors
 		if (!this.isEmptyObject(this.errors)) {
 			this.$notify({

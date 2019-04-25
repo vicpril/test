@@ -23,28 +23,12 @@ class ArticleRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+//         return [];
 
         $rules = [
-//             'full_name' => 'required|max:50',
-            //             'alias' => 'max:100|unique:users,alias',
-            //             'email' => 'required|email|max:100|unique:users,email',
-            //             'last_name_ru' => 'required|max:20',
-            //             'first_name_ru' => 'required|max:20',
-            //             'patronymic_ru' => 'max:20',
-            //             'initials_ru' => 'max:20',
-            //             'short_name_ru' => 'required|max:20',
-            //             'last_name_en' => 'required|max:20',
-            //             'first_name_en' => 'required|max:20',
-            //             'patronymic_en' => 'max:20',
-            //             'short_name_en' => 'required|max:20',
-            //             'initials_en' => 'max:20',
-            //             'avatar' => 'string|nullable',
-            //             'orcid' => 'max:20|nullable',
-            //             'post_ru' => 'string|max:250|nullable',
-            //             'post_en' => 'string|max:250|nullable',
-            //             'jobs_ru' => 'array|nullable',
-            //             'jobs_en' => 'array|nullable',
+          'title_ru' => 'required|max:250|unique:meta_articles,title',
+          'users' => 'required|array',
+          'category' => 'required'
         ];
 
         switch ($this->getMethod()) {
@@ -52,8 +36,7 @@ class ArticleRequest extends FormRequest
                 return $rules;
             case 'PUT':
                 return [
-                    'alias' => 'max:100|unique:users,alias,' . $this->user->id,
-                    'email' => 'required|email|max:100|unique:users,email,' . $this->user->id,
+                    'title_ru' => 'required|max:250|unique:meta_articles,title' . $this->article->id,
                 ] + $rules;
             default:
                 return $rules;
