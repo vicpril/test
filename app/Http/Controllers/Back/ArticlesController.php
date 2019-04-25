@@ -34,7 +34,7 @@ class ArticlesController extends AdminController
         $this->subtitle = "Статьи";
 
         $this->template = env('THEME_BACK') . '.back.articles.index';
-
+      
         return $this->renderOutput();
     }
 
@@ -48,6 +48,8 @@ class ArticlesController extends AdminController
         $this->subtitle = "Новая статья";
 
         $this->template = env('THEME_BACK') . '.back.articles.edit';
+
+//         dump(json_encode(request()->session()->getOldInput(), JSON_FORCE_OBJECT));
 
         return $this->renderOutput();
     }

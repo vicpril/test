@@ -11,8 +11,8 @@
 					multiple
 					:options="users"
 					label="name"
-					:value="value"
-					@input="$emit('input', $event)"
+					:value="valueObject"
+					@input="input"
 				>
 					<div slot="no-options">
 						Авторов по запросу не найдено.
@@ -22,7 +22,7 @@
 						>Добавить нового автора</a>
 					</div>
 				</v-select>
-				<select hidden name="users[]" v-model="valueId" multiple>
+				<select name="users[]" v-model="value" multiple>
 					<option v-for="(user, index) in users" :key="index" :value="user.id">{{ user.name }}</option>
 				</select>
 				<b-button
@@ -36,6 +36,7 @@
 					<i class="fa fa-refresh"></i>
 				</b-button>
 			</div>
+					<div>{{ value }}</div>
 		</div>
 	</div>
 </template>
@@ -59,7 +60,21 @@ export default {
 			return this.value.map(val => {
 				return val.id;
 			});
+		},
+		valueObject() {
+			return this.value.map(id => {
+				return {
+					id: id,
+					name: this.users.filter(x => x.id === id).map(x => x.name)[0],
+// 					name: this.users.findr(x => x.id === id).name,
+
+				}
+			}) 
 		}
+		
+	},
+	filters: {
+		
 	},
 
 	created() {
@@ -71,6 +86,13 @@ export default {
 			axios.get("/api/userslist").then(({ data }) => {
 				this.users = data.data;
 			});
+		},
+		
+		input(val) {
+			val = val.map(val => {
+				return val.id;
+			});
+			this.$emit('input', val);
 		}
 	}
 };

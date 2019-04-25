@@ -844,6 +844,25 @@ __webpack_require__.r(__webpack_exports__);
       return this.article.tom;
     }
   },
+  created: function created() {
+    // fetching article
+    if (!this.isEmptyObject(this.old)) {
+      console.log('old exist');
+      this.article = this.old;
+      this.article.users = typeof this.old.users !== 'undefined' ? Object.values(this.old.users).map(function (x) {
+        return parseInt(x);
+      }) : [];
+      this.article.categories = typeof this.old.categories !== 'undefined' ? Object.values(this.old.categories).map(function (x) {
+        return parseInt(x);
+      }) : [];
+      this.article.tags = typeof this.old.tags !== 'undefined' ? Object.values(this.old.tags).map(function (x) {
+        return parseInt(x);
+      }) : [];
+    } else if (this.id !== 0) {
+      console.log('old doesnt exist');
+      this.fetchArticle(this.id);
+    }
+  },
   mounted: function mounted() {
     // show errors
     if (!this.isEmptyObject(this.errors)) {
@@ -853,13 +872,6 @@ __webpack_require__.r(__webpack_exports__);
         type: "alert-danger",
         duration: -1
       });
-    } // fetching article
-
-
-    if (!this.isEmptyObject(this.old)) {
-      this.user = this.old;
-    } else if (this.id !== 0) {
-      this.fetchArticle(this.id);
     }
   },
   methods: {
@@ -1230,6 +1242,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1246,19 +1259,41 @@ __webpack_require__.r(__webpack_exports__);
       return this.value.map(function (val) {
         return val.id;
       });
+    },
+    valueObject: function valueObject() {
+      var _this = this;
+
+      return this.value.map(function (id) {
+        return {
+          id: id,
+          name: _this.users.filter(function (x) {
+            return x.id === id;
+          }).map(function (x) {
+            return x.name;
+          })[0] // 					name: this.users.findr(x => x.id === id).name,
+
+        };
+      });
     }
   },
+  filters: {},
   created: function created() {
     this.fetchUsers();
   },
   methods: {
     fetchUsers: function fetchUsers() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("/api/userslist").then(function (_ref) {
         var data = _ref.data;
-        _this.users = data.data;
+        _this2.users = data.data;
       });
+    },
+    input: function input(val) {
+      val = val.map(function (val) {
+        return val.id;
+      });
+      this.$emit('input', val);
     }
   }
 });
@@ -26482,7 +26517,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n", ""]);
 
 // exports
 
@@ -58258,13 +58293,9 @@ var render = function() {
                 multiple: "",
                 options: _vm.users,
                 label: "name",
-                value: _vm.value
+                value: _vm.valueObject
               },
-              on: {
-                input: function($event) {
-                  return _vm.$emit("input", $event)
-                }
-              }
+              on: { input: _vm.input }
             },
             [
               _c("div", { attrs: { slot: "no-options" }, slot: "no-options" }, [
@@ -58287,11 +58318,11 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.valueId,
-                  expression: "valueId"
+                  value: _vm.value,
+                  expression: "value"
                 }
               ],
-              attrs: { hidden: "", name: "users[]", multiple: "" },
+              attrs: { name: "users[]", multiple: "" },
               on: {
                 change: function($event) {
                   var $$selectedVal = Array.prototype.filter
@@ -58302,7 +58333,7 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.valueId = $event.target.multiple
+                  _vm.value = $event.target.multiple
                     ? $$selectedVal
                     : $$selectedVal[0]
                 }
@@ -58340,7 +58371,9 @@ var render = function() {
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("div", [_vm._v(_vm._s(_vm.value))])
     ])
   ])
 }

@@ -406,6 +406,22 @@ export default {
 			return this.article.tom;
 		}
 	},
+	
+	created(){
+		// fetching article
+		if (!this.isEmptyObject(this.old)) {
+			console.log('old exist');
+			this.article = this.old;
+			this.article.users = (typeof this.old.users !== 'undefined')? Object.values(this.old.users).map( x => parseInt(x) ) : [];
+			this.article.categories = (typeof this.old.categories !== 'undefined')? Object.values(this.old.categories).map( x => parseInt(x) ) : [];
+			this.article.tags = (typeof this.old.tags !== 'undefined')? Object.values(this.old.tags).map( x => parseInt(x) ) : [];
+
+			
+		} else if (this.id !== 0) {
+			console.log('old doesnt exist');
+			this.fetchArticle(this.id);
+		}
+	},
 
 	mounted() {
 		// show errors
@@ -417,13 +433,10 @@ export default {
 				duration: -1
 			});
 		}
+		
+		
 
-		// fetching article
-		if (!this.isEmptyObject(this.old)) {
-			this.user = this.old;
-		} else if (this.id !== 0) {
-			this.fetchArticle(this.id);
-		}
+		
 	},
 
 	methods: {

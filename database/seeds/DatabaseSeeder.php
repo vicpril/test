@@ -253,7 +253,7 @@ class DatabaseSeeder extends Seeder
 			for ($i=1; $i <= random_int(1, 3); $i++) {
 					DB::table('article_user')->insert([
 						'article_id' => $a,
-						'user_id' => random_int(1, USERS_COUNT)
+						'user_id' => random_int(3, USERS_COUNT-2)
 					]);
 			}
 		}

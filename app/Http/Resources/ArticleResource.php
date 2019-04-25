@@ -37,10 +37,11 @@ class ArticleResource extends JsonResource
             "finance" => $this->finance,
 
             "users" => $this->users->map(function ($user) {
-                return [
-                    'id' => $user->id,
-                    'name' => $user->ru->short_name,
-                ];
+                return $user->id;
+//               return [
+//                     'id' => $user->id,
+//                     'name' => $user->ru->short_name,
+//                 ];
             }),
             "tags" => $this->tags->map(function ($tag) {
 //                 return $tag->id;
