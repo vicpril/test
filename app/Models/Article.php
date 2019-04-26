@@ -16,8 +16,18 @@ class Article extends Model
      *
      * @var array
      */
-    // protected $fillable = ['title', 'alias', 'doi', 'text', 'description', 'status_id', 'issue_id'];
-    protected $fillable = ['alias', 'doi', 'status_id', 'issue_id', 'date_arrival', 'date_review', 'applications', 'finance'];
+    protected $fillable = [
+      'alias',
+      'udk',
+      'doi',
+      'status_id',
+      'issue_id',
+      'date_arrival',
+      'date_review',
+      'applications',
+      'finance',
+      'file_audio'
+    ];
 
     protected $dates = [
         'date_arrival',

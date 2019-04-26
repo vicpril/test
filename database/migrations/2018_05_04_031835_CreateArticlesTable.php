@@ -15,16 +15,10 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            // $table->string('title');
             $table->string('alias')->unique();
-            // $table->integer('year')->unsigned();
-            // $table->integer('tom')->unsigned()->default(1);
-
             // issue_id as forein key
             // status_id as forein key
 
-            // $table->text('text');
-            // $table->text('annotation');
             $table->string('doi', 100)->nullable();
             $table->string('udk', 100)->nullable();
             $table->boolean('stol')->default(0);
@@ -32,6 +26,7 @@ class CreateArticlesTable extends Migration
             $table->timestamp('date_review')->nullable();
             $table->text('applications')->nullable();
             $table->text('finance')->nullable();
+            $table->string('file_audio')->nullable();
 
             $table->timestamps();
         });

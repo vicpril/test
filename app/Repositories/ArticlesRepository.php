@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Article;
+use App\Models\Issue;
+use Transliterate;
 use DB;
 
 class ArticlesRepository extends Repository
@@ -146,12 +148,142 @@ class ArticlesRepository extends Repository
      */
     public function create($data)
     {
-
+        $alias = Transliterate::make($data['title_ru'], ['type' => 'url', 'lowercase' => true]);
+        $alias = $this->getUnique($alias, 'articles', 'alias');
+        $article = $this->model->make([
+            'alias' => $alias,
+            'doi' => $data['doi'],
+            'udk' => $data['udk'],
+            'stol' => $data['stol'],
+            'date_arrival' => $data['date_arrival'],
+            'date_review' => $data['date_review'],
+            'applications' => $data['applications'],
+            'finance' => $data['finance'],
+            'file_audio' => $data['file_audio'],
+        ]);
+      
+        $article->save();
+      
+        $article->meta()->create([
+            'lang' => 'ru',
+            'title' => $data['title_ru'],
+            'text' => $data['text_ru'],
+            'annotation' => $data['annotation_ru'],
+            'keywords' => $data['keywords_ru'],
+            'file' => $data['file_ru'],
+            'bibliography' => $data['bibliography_ru'],
+        ]);
+      
+        $article->meta()->create([
+            'lang' => 'en',
+            'title' => $data['title_en'],
+            'text' => $data['text_en'],
+            'annotation' => $data['annotation_en'],
+            'keywords' => $data['keywords_en'],
+            'file' => $data['file_en'],
+            'bibliography' => $data['bibliography_en'],
+        ]);
+        
+        if($data['status']) {
+          $article->status()->associate(1);
+        }else{
+          $article->status()->associate(2);
+        }
+        
+        $article->users()->detach();
+        foreach ($data['users'] as $user_id) {
+          $article->users()->attach($user_id);
+        }
+        
+        $article->tags()->sync($data['tags']);
+        $article->categories()->sync($data['categories']);
+      
+        $issue = Issue::firstOrCreate([
+          'year' => $data['year'],
+          'no' => $data['no'],
+          'part' => $data['part'],
+        ], [
+          'year' => $data['year'],
+          'tom' => $data['tom'],
+          'no' => $data['no'],
+          'full_no' => $data['full_no'],
+          'part' => $data['part'],
+        ])->articles()->save($article);
+      
         return [
             'status' => 'success',
             'message' => 'Новая статья добавлена',
         ];
     }
+  
+    /*
+     *
+     *   Update the article in database
+     *
+     */
+    public function update(Article $article, $data)
+    {
+        $article->update([
+            'doi' => $data['doi'],
+            'udk' => $data['udk'],
+            'stol' => $data['stol'],
+            'date_arrival' => $data['date_arrival'],
+            'date_review' => $data['date_review'],
+            'applications' => $data['applications'],
+            'finance' => $data['finance'],
+            'file_audio' => $data['file_audio'],
+        ]);
+      
+        $article->ru->update([
+            'title' => $data['title_ru'],
+            'text' => $data['text_ru'],
+            'annotation' => $data['annotation_ru'],
+            'keywords' => $data['keywords_ru'],
+            'file' => $data['file_ru'],
+            'bibliography' => $data['bibliography_ru'],
+        ]);
+      
+        $article->en->update([
+            'title' => $data['title_en'],
+            'text' => $data['text_en'],
+            'annotation' => $data['annotation_en'],
+            'keywords' => $data['keywords_en'],
+            'file' => $data['file_en'],
+            'bibliography' => $data['bibliography_en'],
+        ]);
+        
+        if($data['status']) {
+          $article->status()->associate(1);
+        }else{
+          $article->status()->associate(2);
+        }
+        
+        $article->users()->detach();
+        foreach ($data['users'] as $user_id) {
+          $article->users()->attach($user_id);
+        }
+        
+        $article->tags()->sync($data['tags']);
+        $article->categories()->sync($data['categories']);
+      
+        $issue = Issue::firstOrCreate([
+          'year' => $data['year'],
+          'no' => $data['no'],
+          'part' => $data['part'],
+        ], [
+          'year' => $data['year'],
+          'tom' => $data['tom'],
+          'no' => $data['no'],
+          'full_no' => $data['full_no'],
+          'part' => $data['part'],
+        ])->articles()->save($article);
+      
+        return [
+            'status' => 'success',
+            'message' => 'Статья обновлена',
+        ];
+    }
+
 
     public function deleteArticle(Article $article)
     {

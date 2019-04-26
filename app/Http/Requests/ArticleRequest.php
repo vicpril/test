@@ -23,12 +23,15 @@ class ArticleRequest extends FormRequest
      */
     public function rules()
     {
-//         return [];
 
         $rules = [
           'title_ru' => 'required|max:250|unique:meta_articles,title',
           'users' => 'required|array',
-          'categories' => 'required'
+          'categories' => 'required',
+          'year' => 'required',
+          'no' => 'required',
+          'part' => 'required',
+
         ];
 
         switch ($this->getMethod()) {

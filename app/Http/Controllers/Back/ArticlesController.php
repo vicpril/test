@@ -62,7 +62,6 @@ class ArticlesController extends AdminController
      */
     public function store(ArticleRequest $request)
     {
-        // dd(request()->all());
         $result = $this->repository->create($request->except('_token', '_method'));
 
         if (is_array($result) && !empty($result['error'])) {
@@ -97,8 +96,10 @@ class ArticlesController extends AdminController
      */
     public function update(ArticleRequest $request, $article)
     {
-        // dd(request()->all());
-        $result = $this->repository->create($article, $request->except('_token', '_method'));
+      dd($request->except('_token', '_method'));
+//       return back();
+      
+        $result = $this->repository->update($article, $request->except('_token', '_method'));
 
         if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);

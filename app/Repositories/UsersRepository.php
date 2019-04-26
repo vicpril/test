@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use DB;
 use Transliterate;
+use DB;
 
 class UsersRepository extends Repository
 {
@@ -171,12 +171,6 @@ class UsersRepository extends Repository
             'orcid' => (isset($data['orcid'])) ? $data['orcid'] : null,
             'avatar' => (isset($data['avatar'])) ? $data['avatar'] : null,
         ]);
-
-        // if ($data['avatar'] > 0) {
-        //     $user->avatar()->associate($data['avatar']);
-        // } else {
-        //     $user->avatar()->dissociate();
-        // }
 
         $user->save();
 

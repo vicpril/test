@@ -14,7 +14,16 @@ class MetaArticle extends Model
      *
      * @var array
      */
-    protected $fillable = ['article_id', 'lang', 'title', 'text', 'annotation', 'keywords', 'file'];
+    protected $fillable = [
+            'lang',
+            'title',
+            'text',
+            'annotation',
+            'keywords',
+            'file',
+            'bibliography',
+    ];
+
 
     public $timestamps = false;
 

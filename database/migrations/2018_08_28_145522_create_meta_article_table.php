@@ -18,7 +18,7 @@ class CreateMetaArticleTable extends Migration
             $table->integer('article_id')->unsigned()->default(0);
             $table->string('lang');
             $table->string('title');
-            $table->text('text');
+            $table->text('text')->nullable();
             $table->text('annotation')->nullable();
             $table->string('keywords')->nullable();
             $table->string('file')->nullable();

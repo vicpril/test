@@ -21,8 +21,8 @@ class ArticleResource extends JsonResource
 
             "created_at" => $this->created_at->format('Y-m-d H:i'),
             "updated_at" => $this->updated_at->format('Y-m-d H:i'),
-            "date_arrival" => $this->date_arrival->format('Y-m-d H:i'),
-            "date_review" => $this->date_review->format('Y-m-d H:i'),
+            "date_arrival" => $this->date_arrival ? $this->date_arrival->format('Y-m-d H:i') : null,
+            "date_review" => $this->date_review ? $this->date_review->format('Y-m-d H:i') : null,
 
             "year" => $this->issue->year,
             "tom" => $this->issue->tom,
