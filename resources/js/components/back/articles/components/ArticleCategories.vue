@@ -11,12 +11,12 @@
 						class="flex-grow-1"
 						:options="categories"
 						label="title_ru"
-						:value="value"
-						@input="$emit('input', $event)"
+						:value="valueObject"
+						@input="input"
 					>
 						<div slot="no-options">Рубрик по запросу не найдено.</div>
 					</v-select>
-					<input type="text" name="category" :value="value.id" hidden>
+					<input type="text" name="category" :value="value" hidden>
 					<b-button
 						v-b-tooltip.hover
 						v-b-modal.addNewCategory
@@ -73,6 +73,15 @@ export default {
 			}
 		};
 	},
+	
+	computed: {
+		valueObject() {
+				return {
+					id: this.value,
+					title_ru: this.categories.filter(x => x.id === this.value).map(x => x.title_ru)[0],
+				}
+		}
+	},
 
 	created() {
 		this.fetchCategories();
@@ -90,6 +99,10 @@ export default {
 				.then(({ data }) => {
 					this.categories = data;
 				});
+		},
+		
+		input(val) {
+			this.$emit('input', val.id);
 		},
 
 		handleSaveCategory(bvModalEvt) {

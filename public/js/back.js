@@ -1242,7 +1242,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1255,11 +1254,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    valueId: function valueId() {
-      return this.value.map(function (val) {
-        return val.id;
-      });
-    },
     valueObject: function valueObject() {
       var _this = this;
 
@@ -1270,13 +1264,11 @@ __webpack_require__.r(__webpack_exports__);
             return x.id === id;
           }).map(function (x) {
             return x.name;
-          })[0] // 					name: this.users.findr(x => x.id === id).name,
-
+          })[0]
         };
       });
     }
   },
-  filters: {},
   created: function created() {
     this.fetchUsers();
   },
@@ -1384,12 +1376,26 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  computed: {
+    valueObject: function valueObject() {
+      var _this = this;
+
+      return {
+        id: this.value,
+        title_ru: this.categories.filter(function (x) {
+          return x.id === _this.value;
+        }).map(function (x) {
+          return x.title_ru;
+        })[0]
+      };
+    }
+  },
   created: function created() {
     this.fetchCategories();
   },
   methods: {
     fetchCategories: function fetchCategories() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("/api/categories", {
         params: {
@@ -1398,8 +1404,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        _this.categories = data;
+        _this2.categories = data;
       });
+    },
+    input: function input(val) {
+      this.$emit('input', val.id);
     },
     handleSaveCategory: function handleSaveCategory(bvModalEvt) {
       // Prevent modal from closing
@@ -1412,27 +1421,27 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     saveNewCategory: function saveNewCategory() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post("/api/categories", this.newCategory).then(function (resp) {
         if (resp.data.status === "success") {
-          _this2.$notify({
+          _this3.$notify({
             group: "custom-template",
             type: "alert-success",
             text: resp.data.message,
             duration: 5000
           });
 
-          _this2.fetchCategories();
+          _this3.fetchCategories();
 
-          _this2.clearForm();
+          _this3.clearForm();
 
-          _this2.$emit("input", resp.data.object);
+          _this3.$emit("input", resp.data.object);
         }
       }).catch(function (error) {
-        _this2.errors = error.data.errors;
+        _this3.errors = error.data.errors;
 
-        _this2.$notify({
+        _this3.$notify({
           group: "custom-template",
           type: "alert-danger",
           text: error.response.data.errors.title[0],
@@ -1441,7 +1450,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.$nextTick(function () {
         // Wrapped in $nextTick to ensure DOM is rendered before closing
-        _this2.$refs.addNewCategory.hide();
+        _this3.$refs.addNewCategory.hide();
       });
     },
     clearForm: function clearForm() {
@@ -1674,9 +1683,18 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    valueId: function valueId() {
-      return this.value.map(function (val) {
-        return val.id;
+    valueObject: function valueObject() {
+      var _this = this;
+
+      return this.value.map(function (id) {
+        return {
+          id: id,
+          title_ru: _this.tags.filter(function (x) {
+            return x.id === id;
+          }).map(function (x) {
+            return x.title_ru;
+          })[0]
+        };
       });
     }
   },
@@ -1685,7 +1703,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchTags: function fetchTags() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("/api/tags", {
         params: {
@@ -1694,8 +1712,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        _this.tags = data;
+        _this2.tags = data;
       });
+    },
+    input: function input(val) {
+      val = val.map(function (val) {
+        return val.id;
+      });
+      this.$emit('input', val);
     },
     handleSaveTag: function handleSaveTag(bvModalEvt) {
       // Prevent modal from closing
@@ -1708,28 +1732,28 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     saveNewTag: function saveNewTag() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post("/api/tags", this.newTag).then(function (resp) {
         if (resp.data.status === "success") {
-          _this2.$notify({
+          _this3.$notify({
             group: "custom-template",
             type: "alert-success",
             text: resp.data.message,
             duration: 5000
           });
 
-          _this2.$emit("input", _this2.value.concat(resp.data.object));
+          _this3.$emit("input", _this3.value.concat(resp.data.object));
 
-          _this2.fetchTags();
+          _this3.fetchTags();
 
-          _this2.clearForm(_this2.newTag);
+          _this3.clearForm(_this3.newTag);
         }
       }).catch(function (error) {
         console.log(error);
-        _this2.errors = error.response.data.errors;
+        _this3.errors = error.response.data.errors;
 
-        _this2.$notify({
+        _this3.$notify({
           group: "custom-template",
           type: "alert-danger",
           text: error.response.data.errors.title[0],
@@ -1738,7 +1762,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.$nextTick(function () {
         // Wrapped in $nextTick to ensure DOM is rendered before closing
-        _this2.$refs.addNewTag.hide();
+        _this3.$refs.addNewTag.hide();
       });
     },
     clearForm: function clearForm() {
@@ -58322,7 +58346,7 @@ var render = function() {
                   expression: "value"
                 }
               ],
-              attrs: { name: "users[]", multiple: "" },
+              attrs: { hidden: "", name: "users[]", multiple: "" },
               on: {
                 change: function($event) {
                   var $$selectedVal = Array.prototype.filter
@@ -58371,9 +58395,7 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("div", [_vm._v(_vm._s(_vm.value))])
+      )
     ])
   ])
 }
@@ -58427,13 +58449,9 @@ var render = function() {
                     id: "categories",
                     options: _vm.categories,
                     label: "title_ru",
-                    value: _vm.value
+                    value: _vm.valueObject
                   },
-                  on: {
-                    input: function($event) {
-                      return _vm.$emit("input", $event)
-                    }
-                  }
+                  on: { input: _vm.input }
                 },
                 [
                   _c(
@@ -58446,7 +58464,7 @@ var render = function() {
               _vm._v(" "),
               _c("input", {
                 attrs: { type: "text", name: "category", hidden: "" },
-                domProps: { value: _vm.value.id }
+                domProps: { value: _vm.value }
               }),
               _vm._v(" "),
               _c(
@@ -58898,13 +58916,9 @@ var render = function() {
                     multiple: "",
                     options: _vm.tags,
                     label: "title_ru",
-                    value: _vm.value
+                    value: _vm.valueObject
                   },
-                  on: {
-                    input: function($event) {
-                      return _vm.$emit("input", $event)
-                    }
-                  }
+                  on: { input: _vm.input }
                 },
                 [
                   _c(
@@ -58922,8 +58936,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.valueId,
-                      expression: "valueId"
+                      value: _vm.value,
+                      expression: "value"
                     }
                   ],
                   attrs: { hidden: "", name: "tags[]", multiple: "" },
@@ -58937,7 +58951,7 @@ var render = function() {
                           var val = "_value" in o ? o._value : o.value
                           return val
                         })
-                      _vm.valueId = $event.target.multiple
+                      _vm.value = $event.target.multiple
                         ? $$selectedVal
                         : $$selectedVal[0]
                     }
@@ -58947,7 +58961,7 @@ var render = function() {
                   return _c(
                     "option",
                     { key: index, domProps: { value: tag.id } },
-                    [_vm._v(_vm._s(tag.name))]
+                    [_vm._v(_vm._s(tag.title_ru))]
                   )
                 }),
                 0

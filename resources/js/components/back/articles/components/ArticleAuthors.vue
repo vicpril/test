@@ -22,7 +22,7 @@
 						>Добавить нового автора</a>
 					</div>
 				</v-select>
-				<select name="users[]" v-model="value" multiple>
+				<select hidden name="users[]" v-model="value" multiple>
 					<option v-for="(user, index) in users" :key="index" :value="user.id">{{ user.name }}</option>
 				</select>
 				<b-button
@@ -36,7 +36,6 @@
 					<i class="fa fa-refresh"></i>
 				</b-button>
 			</div>
-					<div>{{ value }}</div>
 		</div>
 	</div>
 </template>
@@ -56,24 +55,14 @@ export default {
 	},
 
 	computed: {
-		valueId() {
-			return this.value.map(val => {
-				return val.id;
-			});
-		},
 		valueObject() {
 			return this.value.map(id => {
 				return {
 					id: id,
 					name: this.users.filter(x => x.id === id).map(x => x.name)[0],
-// 					name: this.users.findr(x => x.id === id).name,
-
 				}
 			}) 
 		}
-		
-	},
-	filters: {
 		
 	},
 

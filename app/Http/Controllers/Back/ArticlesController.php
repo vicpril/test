@@ -49,7 +49,7 @@ class ArticlesController extends AdminController
 
         $this->template = env('THEME_BACK') . '.back.articles.edit';
 
-//         dump(json_encode(request()->session()->getOldInput(), JSON_FORCE_OBJECT));
+        dump(json_encode(request()->session()->getOldInput(), JSON_FORCE_OBJECT));
 
         return $this->renderOutput();
     }

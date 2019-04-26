@@ -12,13 +12,13 @@
 						multiple
 						:options="tags"
 						label="title_ru"
-						:value="value"
-						@input="$emit('input', $event)"
+						:value="valueObject"
+						@input="input"
 					>
 						<div slot="no-options">Меток по запросу не найдено.</div>
 					</v-select>
-					<select hidden name="tags[]" v-model="valueId" multiple>
-						<option v-for="(tag, index) in tags" :key="index" :value="tag.id">{{ tag.name }}</option>
+					<select hidden name="tags[]" v-model="value" multiple>
+						<option v-for="(tag, index) in tags" :key="index" :value="tag.id">{{ tag.title_ru }}</option>
 					</select>
 					<b-button
 						v-b-tooltip.hover
@@ -78,10 +78,13 @@ export default {
 	},
 
 	computed: {
-		valueId() {
-			return this.value.map(val => {
-				return val.id;
-			});
+		valueObject() {
+			return this.value.map(id => {
+				return {
+					id: id,
+					title_ru: this.tags.filter(x => x.id === id).map(x => x.title_ru)[0],
+				}
+			}) 
 		}
 	},
 
@@ -101,6 +104,13 @@ export default {
 				.then(({ data }) => {
 					this.tags = data;
 				});
+		},
+		
+		input(val) {
+			val = val.map(val => {
+				return val.id;
+			});
+			this.$emit('input', val);
 		},
 
 		handleSaveTag(bvModalEvt) {
