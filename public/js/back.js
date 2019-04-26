@@ -1241,6 +1241,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -58334,43 +58339,18 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.value,
-                  expression: "value"
-                }
-              ],
-              attrs: { hidden: "", name: "users[]", multiple: "" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.value = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
-            },
-            _vm._l(_vm.users, function(user, index) {
-              return _c(
-                "option",
-                { key: index, domProps: { value: user.id } },
-                [_vm._v(_vm._s(user.name))]
-              )
-            }),
-            0
-          ),
+          _vm._l(_vm.value, function(user, index) {
+            return _c("input", {
+              key: index,
+              attrs: {
+                hidden: "",
+                type: "number",
+                readonly: "",
+                name: "users[]"
+              },
+              domProps: { value: user }
+            })
+          }),
           _vm._v(" "),
           _c(
             "b-button",
@@ -58393,7 +58373,7 @@ var render = function() {
             [_c("i", { staticClass: "fa fa-refresh" })]
           )
         ],
-        1
+        2
       )
     ])
   ])

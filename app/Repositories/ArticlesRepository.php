@@ -258,9 +258,11 @@ class ArticlesRepository extends Repository
           $article->status()->associate(2);
         }
         
-        $article->users()->detach();
-        foreach ($data['users'] as $user_id) {
-          $article->users()->attach($user_id);
+        if(!arraysStrickEquil($article->users_id(), $data['users'])) {
+          $article->users()->detach();
+          foreach ($data['users'] as $user_id) {
+            $article->users()->attach($user_id);
+          }
         }
         
         $article->tags()->sync($data['tags']);

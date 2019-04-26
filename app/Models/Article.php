@@ -71,9 +71,11 @@ class Article extends Model
         return $this->hasMany('App\Models\MetaArticle', 'article_id');
     }
 
-//     public function title() {
-    //         return $this->meta->where('lang', app()->getLocale())->first()->title;
-    //     }
+    public function users_id() {
+      return $this->users->map(function($user){
+        return $user->id;
+      })->toArray();
+    }
 
     /*
      *   Locale getters

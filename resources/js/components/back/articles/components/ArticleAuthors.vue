@@ -22,9 +22,14 @@
 						>Добавить нового автора</a>
 					</div>
 				</v-select>
-				<select hidden name="users[]" v-model="value" multiple>
-					<option v-for="(user, index) in users" :key="index" :value="user.id">{{ user.name }}</option>
-				</select>
+				<input 
+							 v-for="(user, index) in value"
+							 :key="index"
+							 hidden 
+							 type="number"
+							 readonly
+							 name="users[]"
+							 :value="user">
 				<b-button
 					v-b-tooltip.hover
 					title="Обновить список авторов"
