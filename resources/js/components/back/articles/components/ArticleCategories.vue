@@ -16,7 +16,7 @@
 					>
 						<div slot="no-options">Рубрик по запросу не найдено.</div>
 					</v-select>
-					<input type="text" name="category" :value="value" hidden>
+					<input type="text" name="categories" :value="value" hidden>
 					<b-button
 						v-b-tooltip.hover
 						v-b-modal.addNewCategory

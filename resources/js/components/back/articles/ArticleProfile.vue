@@ -352,7 +352,8 @@ export default {
 		return {
 			offset: { top: 100, bottom: 0 },
 			datePickerOptions: {
-				format: "YYYY-MM-DD"
+				format: "YYYY-MM-DD",
+				locale: 'ru',
 			},
 			noArray: [1, 2, 3, 4, 5],
 			partArray: [1, 2],
@@ -413,8 +414,8 @@ export default {
 			console.log('old exist');
 			this.article = this.old;
 			this.article.users = (typeof this.old.users !== 'undefined')? Object.values(this.old.users).map( x => parseInt(x) ) : [];
-			this.article.categories = (typeof this.old.categories !== 'undefined')? Object.values(this.old.categories).map( x => parseInt(x) ) : [];
 			this.article.tags = (typeof this.old.tags !== 'undefined')? Object.values(this.old.tags).map( x => parseInt(x) ) : [];
+			this.article.categories = (typeof this.old.categories !== 'undefined')?  parseInt(this.old.categories) : null;
 
 			
 		} else if (this.id !== 0) {
