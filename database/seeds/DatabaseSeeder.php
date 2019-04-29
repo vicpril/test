@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\Models\Article;
+use App\Models\Issue;
 use App\Models\MetaArticle;
 use App\Models\User;
 use App\Models\Job;
@@ -233,6 +234,17 @@ class DatabaseSeeder extends Seeder
 
     sleep(1);
 
+		//set order
+		$issues = Issue::with('articles')->get();
+		$issues->each(function($issue) {
+			$i = 1;
+				$issue->articles()->each(function($a) use (&$i) {
+					$a->update(['position' => $i]);
+					$i++;
+				});
+		});
+		
+		
 	/***************************************
 	 *			Add Articles_User
 	 ***************************************/

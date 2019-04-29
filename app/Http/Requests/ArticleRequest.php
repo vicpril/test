@@ -26,6 +26,7 @@ class ArticleRequest extends FormRequest
 
         $rules = [
           'title_ru' => 'required|max:250|unique:meta_articles,title',
+          'title_en' => 'required|max:250',
           'users' => 'required|array',
           'categories' => 'required',
           'year' => 'required',

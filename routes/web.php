@@ -47,12 +47,6 @@ function()
 
 /** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
 
-Route::get('uploadfile','HomeController@uploadfile');
-Route::post('uploadfile','HomeController@uploadFilePost');
-// Laravel File Manager DEMO
-Route::get('lfm',function() {return view('demo')->render();});
-
-
 
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
@@ -67,13 +61,13 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 	Route::middleware('redac')->group(function() {
 		Route::name('admin')->get('/', 'AdminController@dashboard');
 		
-		Route::resource('files', 'FilesController')->except(['create']);
+// 		Route::resource('files', 'FilesController')->except(['create']);
 		Route::resource('jobs', 'JobsController')->except(['create', 'show']);
 		Route::resource('users', 'UsersController')->except(['show']);
 		Route::resource('articles', 'ArticlesController')->except(['show']);
+		Route::resource('issues', 'IssuesController')->except(['show']);
 		Route::resource('categories', 'CategoriesController')->only(['index']);
 		Route::resource('tags', 'TagsController')->only(['index']);
-
 
 		// template's examples
 		Route::get('icons', function() {return view(env('THEME_BACK').'.examples.icons')->render();});

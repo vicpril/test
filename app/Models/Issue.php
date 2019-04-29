@@ -12,12 +12,14 @@ class Issue extends Model
 			'no',
 			'part',
 			'full_no',
+			'file_title_ru',
+			'file_title_en',
     ];
 	
 		public $timestamps = false;
     
     public function articles () {
-    	return $this->hasMany('App\Models\Article');
+    	return $this->hasMany('App\Models\Article')->orderBy('position');
     }
 
     

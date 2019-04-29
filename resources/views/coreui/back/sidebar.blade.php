@@ -2,7 +2,7 @@
    <ul class="nav">
       <li class="nav-title">Выпуски и статьи</li>
       <li class="nav-item">
-         <a class="nav-link text-danger" href="colors.html">
+         <a class="nav-link" href="{{ route('issues.index') }}">
             <i class="nav-icon icon-book-open"></i> Выпуски</a
          >
          <a class="nav-link" href="{{ route('articles.index') }}">

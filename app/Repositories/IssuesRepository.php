@@ -116,7 +116,7 @@ class IssuesRepository extends Repository{
         return $issues;
     }
 
-    public function getIssues($orderBy = array('year', 'no', 'tom')) {
+    public function getIssues($articles = false, $orderBy = array('year', 'no', 'part')) {
         $result = $this->model;
 
         if (!empty($orderBy)) {
@@ -124,10 +124,14 @@ class IssuesRepository extends Repository{
                 $result = $result->orderBy($value, 'desc');
             }
         }
+				
+        $result = $result->get();
 
-        $result = $result->get()->load(['articles' => function($query){
+				if ($articles) {
+					$result = $result->loadMiss(['articles' => function($query){
                                     $query->with('status', 'users', 'categories', 'tags');
                                 }]);
+					}
         // dd($result);
         return $result;
     }

@@ -49,8 +49,6 @@ class ArticlesController extends AdminController
 
         $this->template = env('THEME_BACK') . '.back.articles.edit';
 
-//         dump(json_encode(request()->session()->getOldInput(), JSON_FORCE_OBJECT));
-
         return $this->renderOutput();
     }
 
@@ -96,9 +94,6 @@ class ArticlesController extends AdminController
      */
     public function update(ArticleRequest $request, $article)
     {
-      dd($request->except('_token', '_method'));
-//       return back();
-      
         $result = $this->repository->update($article, $request->except('_token', '_method'));
 
         if (is_array($result) && !empty($result['error'])) {

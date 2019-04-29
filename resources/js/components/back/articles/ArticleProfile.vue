@@ -20,7 +20,13 @@
 						</div>
 						<div class="form-group">
 							<label>На английском</label>
-							<input type="text" name="title_en" class="form-control" v-model="article.title_en">
+							<input type="text" name="title_en" class="form-control" v-model="article.title_en"
+										 :class="{'is-invalid' : errors.hasOwnProperty('title_en')}">
+							<div
+										class="invalid-feedback"
+										v-for="(error, key) in errors['title_en']"
+										:key="key"
+									>{{error}}</div>
 						</div>
 						<div class="form-group mb-0">
 							<label>Ссылка на сайте:</label>
@@ -411,7 +417,7 @@ export default {
 	created(){
 		// fetching article
 		if (!this.isEmptyObject(this.old)) {
-			console.log('old exist');
+// 			console.log('old exist');
 			this.article = this.old;
 			this.article.users = (typeof this.old.users !== 'undefined')? Object.values(this.old.users).map( x => parseInt(x) ) : [];
 			this.article.tags = (typeof this.old.tags !== 'undefined')? Object.values(this.old.tags).map( x => parseInt(x) ) : [];
@@ -419,7 +425,7 @@ export default {
 
 			
 		} else if (this.id !== 0) {
-			console.log('old doesnt exist');
+// 			console.log('old doesnt exist');
 			this.fetchArticle(this.id);
 		}
 	},
@@ -434,10 +440,6 @@ export default {
 				duration: -1
 			});
 		}
-		
-		
-
-		
 	},
 
 	methods: {

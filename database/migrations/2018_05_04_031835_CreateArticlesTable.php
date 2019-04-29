@@ -16,6 +16,7 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('alias')->unique();
+            $table->integer('position')->default(1);
             // issue_id as forein key
             // status_id as forein key
 

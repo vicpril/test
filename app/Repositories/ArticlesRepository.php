@@ -208,7 +208,9 @@ class ArticlesRepository extends Repository
           'no' => $data['no'],
           'full_no' => $data['full_no'],
           'part' => $data['part'],
-        ])->articles()->save($article);
+        ]);
+        $article->position = $issue->articles()->count() + 1;
+        $issue->articles()->save($article);
       
         return [
             'status' => 'success',
@@ -279,6 +281,8 @@ class ArticlesRepository extends Repository
           'full_no' => $data['full_no'],
           'part' => $data['part'],
         ])->articles()->save($article);
+      
+        $article->touch();
       
         return [
             'status' => 'success',

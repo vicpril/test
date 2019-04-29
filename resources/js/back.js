@@ -60,6 +60,10 @@ Vue.use(Notifications);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component(
+   "issues-index",
+   require("./components/back/issues/IssuesIndex.vue").default
+);
+Vue.component(
    "articles-list",
    require("./components/back/articles/ArticlesList.vue").default
 );

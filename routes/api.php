@@ -21,6 +21,9 @@ Route::apiResource('users', 'Api\UsersController')->except('index', 'update')->m
 Route::apiResource('users', 'Api\UsersController')->only('index');
 Route::get('userslist/', 'Api\UsersController@getList');
 
+Route::apiResource('issues', 'Api\IssuesController')->except('index', 'update')->middleware('auth:api');
+Route::apiResource('issues', 'Api\IssuesController')->only('index');
+
 Route::apiResource('articles', 'Api\ArticlesController')->except('index', 'update')->middleware('auth:api');
 Route::apiResource('articles', 'Api\ArticlesController')->only('index');
 Route::post('articles/status/{article}', 'Api\ArticlesController@statusChange')->middleware('auth:api');

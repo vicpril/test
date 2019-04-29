@@ -20,6 +20,9 @@ class CreateIssuesTable extends Migration
             $table->integer('no')->unsigned()->default(1);
             $table->integer('part')->unsigned()->default(1);
             $table->integer('full_no')->unsigned()->default(1);
+            
+            $table->string('file_title_ru')->nullable();
+            $table->string('file_title_en')->nullable();
 
 
 
