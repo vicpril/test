@@ -26,7 +26,8 @@ class Article extends Model
       'date_review',
       'applications',
       'finance',
-      'file_audio'
+      'file_audio',
+      'stol'
     ];
 
     protected $dates = [

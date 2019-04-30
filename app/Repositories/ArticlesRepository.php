@@ -154,7 +154,7 @@ class ArticlesRepository extends Repository
             'alias' => $alias,
             'doi' => $data['doi'],
             'udk' => $data['udk'],
-            'stol' => $data['stol'],
+            'stol' => filter_var($data['stol'], FILTER_VALIDATE_BOOLEAN),
             'date_arrival' => $data['date_arrival'],
             'date_review' => $data['date_review'],
             'applications' => $data['applications'],
@@ -184,7 +184,7 @@ class ArticlesRepository extends Repository
             'bibliography' => $data['bibliography_en'],
         ]);
         
-        if($data['status']) {
+        if(filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
           $article->status()->associate(1);
         }else{
           $article->status()->associate(2);
@@ -225,10 +225,11 @@ class ArticlesRepository extends Repository
      */
     public function update(Article $article, $data)
     {
+//       dd($data);
         $article->update([
             'doi' => $data['doi'],
             'udk' => $data['udk'],
-            'stol' => $data['stol'],
+            'stol' => filter_var($data['stol'], FILTER_VALIDATE_BOOLEAN),
             'date_arrival' => $data['date_arrival'],
             'date_review' => $data['date_review'],
             'applications' => $data['applications'],
@@ -254,7 +255,7 @@ class ArticlesRepository extends Repository
             'bibliography' => $data['bibliography_en'],
         ]);
         
-        if($data['status']) {
+        if(filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
           $article->status()->associate(1);
         }else{
           $article->status()->associate(2);
