@@ -36,6 +36,10 @@ class RouteServiceProvider extends ServiceProvider
         
       
         // Bind parameters for ADMIN
+        Route::bind('issue', function($value) {
+            return \App\Models\Issue::where('id', $value)->first();
+        });
+      
         Route::bind('article', function($value) {
             return \App\Models\Article::where('id', $value)->first();
         });
