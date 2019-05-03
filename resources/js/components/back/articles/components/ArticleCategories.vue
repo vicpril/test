@@ -73,13 +73,15 @@ export default {
 			}
 		};
 	},
-	
+
 	computed: {
 		valueObject() {
-				return {
-					id: this.value,
-					title_ru: this.categories.filter(x => x.id === this.value).map(x => x.title_ru)[0],
-				}
+			return {
+				id: this.value,
+				title_ru: this.categories
+					.filter(x => x.id === this.value)
+					.map(x => x.title_ru)[0]
+			};
 		}
 	},
 
@@ -100,9 +102,9 @@ export default {
 					this.categories = data;
 				});
 		},
-		
-		input(val) {
-			this.$emit('input', val.id);
+
+		input(obj) {
+			this.$emit("input", obj.id);
 		},
 
 		handleSaveCategory(bvModalEvt) {
@@ -128,7 +130,8 @@ export default {
 						});
 						this.fetchCategories();
 						this.clearForm();
-						this.$emit("input", resp.data.object);
+						// this.$emit("input", resp.data.object);
+						this.input(resp.data.object);
 					}
 				})
 				.catch(error => {

@@ -17,9 +17,16 @@
 					>
 						<div slot="no-options">Меток по запросу не найдено.</div>
 					</v-select>
-					<select hidden name="tags[]" v-model="value" multiple>
-						<option v-for="(tag, index) in tags" :key="index" :value="tag.id">{{ tag.title_ru }}</option>
-					</select>
+
+					<input
+						v-for="(tag, index) in value"
+						:key="index"
+						hidden
+						type="number"
+						readonly
+						name="tags[]"
+						:value="tag"
+					>
 					<b-button
 						v-b-tooltip.hover
 						v-b-modal.addNewTag
@@ -82,9 +89,11 @@ export default {
 			return this.value.map(id => {
 				return {
 					id: id,
-					title_ru: this.tags.filter(x => x.id === id).map(x => x.title_ru)[0],
-				}
-			}) 
+					title_ru: this.tags
+						.filter(x => x.id === id)
+						.map(x => x.title_ru)[0]
+				};
+			});
 		}
 	},
 
@@ -105,12 +114,12 @@ export default {
 					this.tags = data;
 				});
 		},
-		
+
 		input(val) {
 			val = val.map(val => {
 				return val.id;
 			});
-			this.$emit('input', val);
+			this.$emit("input", val);
 		},
 
 		handleSaveTag(bvModalEvt) {
@@ -134,7 +143,8 @@ export default {
 							text: resp.data.message,
 							duration: 5000
 						});
-						this.$emit("input", this.value.concat(resp.data.object));
+						this.$emit("input", this.value.concat(resp.data.object.id));
+						// this.input(this.value.concat(resp.data.object.id));
 						this.fetchTags();
 						this.clearForm(this.newTag);
 					}

@@ -22,14 +22,15 @@
 						>Добавить нового автора</a>
 					</div>
 				</v-select>
-				<input 
-							 v-for="(user, index) in value"
-							 :key="index"
-							 hidden 
-							 type="number"
-							 readonly
-							 name="users[]"
-							 :value="user">
+				<input
+					v-for="(user, index) in value"
+					:key="index"
+					hidden
+					type="number"
+					readonly
+					name="users[]"
+					:value="user"
+				>
 				<b-button
 					v-b-tooltip.hover
 					title="Обновить список авторов"
@@ -64,11 +65,10 @@ export default {
 			return this.value.map(id => {
 				return {
 					id: id,
-					name: this.users.filter(x => x.id === id).map(x => x.name)[0],
-				}
-			}) 
+					name: this.users.filter(x => x.id === id).map(x => x.name)[0]
+				};
+			});
 		}
-		
 	},
 
 	created() {
@@ -81,12 +81,12 @@ export default {
 				this.users = data.data;
 			});
 		},
-		
+
 		input(val) {
 			val = val.map(val => {
 				return val.id;
 			});
-			this.$emit('input', val);
+			this.$emit("input", val);
 		}
 	}
 };
