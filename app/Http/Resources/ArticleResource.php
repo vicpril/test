@@ -39,26 +39,26 @@ class ArticleResource extends JsonResource
             "users" => $this->users->map(function ($user) {
                 return $user->id;
 //               return [
-//                     'id' => $user->id,
-//                     'name' => $user->ru->short_name,
-//                 ];
+                //                     'id' => $user->id,
+                //                     'name' => $user->ru->short_name,
+                //                 ];
             }),
             "tags" => $this->tags->map(function ($tag) {
                 return $tag->id;
 //                 return [
-//                     'id' => $tag->id,
-//                     'title_ru' => $tag->title_ru,
-//                 ];
+                //                     'id' => $tag->id,
+                //                     'title_ru' => $tag->title_ru,
+                //                 ];
             }),
             "categories" => $this->categories[0]->id,
-             
+
 //             "categories" => $this->categories->map(function ($category) {
-//                             return $category->id;
-//             //                 return [
-//             //                   'id' => $category->id,
-//             //                   'title_ru' => $category->title_ru
-//             //                 ];
-//                         }),
+            //                             return $category->id;
+            //             //                 return [
+            //             //                   'id' => $category->id,
+            //             //                   'title_ru' => $category->title_ru
+            //             //                 ];
+            //                         }),
             "title_en" => $this->en->title,
             "title_ru" => $this->ru->title,
             "text_ru" => $this->ru->text,

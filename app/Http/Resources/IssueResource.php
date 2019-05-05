@@ -23,27 +23,37 @@ class IssueResource extends JsonResource
             'full_no' => $this->full_no,
             'file_title_ru' => $this->file_title_ru,
             'file_title_en' => $this->file_title_en,
-          
+
             "articles" => $this->articles->map(function ($article) {
                 return [
-                      "id" => $article->id,
-                      "status" => $article->status->type,
+                    "id" => $article->id,
+                    "position" => $article->position,
+                    "status" => $article->status->type,
 
-                      "users" => $article->users->map(function ($user) {
-                          return $user->ru->short_name;
-                      }),
-                      "tags" => $article->tags->map(function ($tag) {
-                          return $tag->title_ru;
-                      }),
-                      "categories" => [
-                                      "id" => $article->categories[0]->id,
-                                      "title_ru" => $article->categories[0]->title_ru,
-                       ],
-
-                      "title_en" => $article->en->title,
-                      "title_ru" => $article->ru->title,
-                  ];
+                    "users" => $article->users->map(function ($user) {
+                        return [
+                            'editLink' => $user->editLink,
+                            "short_name_ru" => $user->ru->short_name,
+                            "short_name_en" => $user->en->short_name,
+                        ];
+                    }),
+                    "tags" => $article->tags->map(function ($tag) {
+                        return $tag->title_ru;
+                    }),
+                    // "categories" => [
+                    //     "id" => $article->categories[0]->id,
+                    //     "title_ru" => $article->categories[0]->title_ru,
+                    // ],
+                    'categories' => $article->categories->map(function ($cat) {
+                        return [
+                            "id" => $cat->id,
+                            "title_ru" => $cat->title_ru,
+                        ];
+                    }),
+                    "title_en" => $article->en->title,
+                    "title_ru" => $article->ru->title,
+                ];
             }),
-        ]
+        ];
     }
 }
