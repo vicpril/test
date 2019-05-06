@@ -20,13 +20,19 @@
 						<th></th>
 					</tr>
 				</thead>
-				<draggable tag="tbody" handle=".handle" v-model="articles">
-					<template v-for="(article, index) in articles">
-						<td
-							colspan="7"
-							class="text-center h6"
-							:key="article.id + 9999"
-						>{{ article.categories[0].title_ru }}</td>
+				<draggable tag="tbody" 
+									 handle=".handle" 
+									 v-model="articles"
+									 @choose="showCat=false"
+									 @end="showCat=true">
+					<template v-for="(article, index) in articles" >
+<!-- 						<tr v-if="showCat" :key="article.id+1000">
+							<td
+								colspan="7"
+								class="text-center h6"
+
+							>{{ article.categories[0].title_ru }}</td> -->
+						</tr>
 						<tr :key="article.id">
 							<td
 								class="handle text-secondary my-auto"
@@ -98,28 +104,40 @@ export default {
 	},
 	data() {
 		return {
-			articles: this.value
+// 			articles: this.value
+			showCat: true,
 		};
 	},
 
-	// computed: {
-	// 	articles() {
-	// 		return this.value;
-	// 	}
-	// },
-	watch: {
-		articles(value, oldValue) {
-			// value.forEach(function(article, index) {
-			// 	article.position = index + 1;
-			// });
-			this.$emit("update", value);
-		},
-		value(value, oldValue) {
-			// value.forEach(function(article, index) {
-			// 	article.position = index + 1;
-			// });
-			this.articles = value;
+	computed: {
+// 		articles() {
+// 			return this.value;
+// 		}
+		articles: {
+			get() {
+				return this.value;
+			},
+			set(value) {
+// 				value.forEach(function(article, index) {
+// 					article.position = index + 1;
+// 				});
+				this.$emit("input", value);
+			}
 		}
+	},
+	watch: {
+// 		articles(value, oldValue) {
+// 			// value.forEach(function(article, index) {
+// 			// 	article.position = index + 1;
+// 			// });
+// 			this.$emit("update", value);
+// 		},
+// 		value(value, oldValue) {
+// 			// value.forEach(function(article, index) {
+// 			// 	article.position = index + 1;
+// 			// });
+// 			this.articles = value;
+// 		}
 	},
 
 	methods: {
