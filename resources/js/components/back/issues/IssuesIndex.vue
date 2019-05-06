@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div class="d-flex mb-4">
+		<div class="d-flex mb-4 form-inline">
 			<h3 class="mb-0 my-auto">Выпуск</h3>
-			<select class="form-control flex-grow-1 mx-3" value="fetchIssue.id" @change="selectIssue">
+			<select class="form-control mx-3" value="fetchIssue.id" @change="selectIssue">
 				<option value="0">-- Выберите выпуск --</option>
 				<option
 					v-for="(issue, index) in issues"
@@ -11,22 +11,114 @@
 				>Год: {{issue.year}}, Номер {{issue.no}} ({{issue.full_no}}), Часть {{issue.part}}</option>
 			</select>
 
-			<button type="button" class="btn btn-primary text-nowrap">Создать новый выпуск</button>
+			<button type="button" class="btn btn-outline-primary text-nowrap">Создать новый выпуск</button>
+			<button
+				type="button"
+				class="btn btn-primary text-nowrap ml-auto"
+				v-if="currentIssue.id"
+			>Сохранить изменения</button>
 		</div>
 
-		<div class="row" v-if="currentIssue.id">
-			<div class="col-md">
-				<issue-articles v-model="currentIssue.articles"></issue-articles>
+		<div v-if="currentIssue.id">
+			<div class="row">
+				<div class="col-md-7">
+					<issue-files
+						:file_ru.sync="currentIssue.file_title_ru"
+						:file_en.sync="currentIssue.file_title_en"
+					></issue-files>
+				</div>
+				<div class="col-md-5">
+					<div class="card">
+						<div class="card-header d-flex">
+							<h5 class="mr-1 my-auto">Выгрузка статей в шаблоны</h5>
+						</div>
+						<div class="card-body">
+							<table class="form-table">
+								<tbody>
+									<tr>
+										<th>
+											<label for="export_type">Шаблон выгрузки</label>
+										</th>
+										<td>
+											<select id="export-type" name="export_type" style="width: 250px">
+												<option value="rinc">РИНЦ</option>
+												<option value="contents">Содержание</option>
+												<option value="article">Статья</option>
+												<option value="authors">Наши авторы</option>
+												<option value="emails">Список E-mail'ов</option>
+											</select>
+										</td>
+									</tr>
+
+									<tr>
+										<th>
+											<label for="mag_title">Название журнала</label>
+										</th>
+										<td>
+											<input
+												class="for-export for-rinc for-emails"
+												required
+												type="text"
+												name="mag_title"
+												style="width: 250px"
+												value="Журнал «Идеи и идеалы»"
+											>
+										</td>
+										<td>
+											<label style="font-size: 12px;">
+												Название журнала
+												<label></label>
+											</label>
+										</td>
+									</tr>
+
+									<tr>
+										<th>
+											<label for="mag_title">ISSN</label>
+										</th>
+										<td>
+											<input
+												class="for-export for-rinc for-emails"
+												type="text"
+												name="mag_issn"
+												style="width: 250px"
+												placeholder="xxxx-xxxx"
+											>
+										</td>
+										<td>
+											<label style="font-size: 12px;">
+												Если ISSN не введен, то он будет взят из DOI статей. Если ни одна статья не содержит DOI, то ISSN выводиться не будет.
+												<label></label>
+											</label>
+										</td>
+									</tr>
+
+									<tr class="add-field">
+										<th>
+											<label for="mag_title">Выгружать e-mail</label>
+										</th>
+										<td>
+											<input class="for-export for-rinc" type="checkbox" name="email_on" checked>
+										</td>
+										<td>
+											<label style="font-size: 12px;">
+												Отображать email у автора, если он редактировался"
+												<label></label>
+											</label>
+										</td>
+									</tr>
+
+									<tr class="add-field"></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 
-			<div class="col-md right-sidebar">
-				<div class="card">
-					<div class="card-header">Выпуск</div>
-					<div class="card-body"></div>
-				</div>
-				<div class="card">
-					<div class="card-header">Титульный лист</div>
-					<div class="card-body"></div>
+			<div class="row">
+				<div class="col-md">
+					<issue-articles v-model="currentIssue.articles"></issue-articles>
 				</div>
 			</div>
 		</div>
@@ -35,9 +127,12 @@
 
 <script>
 import IssueArticles from "./components/IssueArticles.vue";
+import IssueFiles from "./components/IssueFiles.vue";
+
 export default {
 	components: {
-		IssueArticles
+		IssueArticles,
+		IssueFiles
 	},
 
 	props: {
@@ -47,7 +142,7 @@ export default {
 		},
 		id: {
 			type: Number,
-			default: 0
+			default: 1
 		}
 	},
 

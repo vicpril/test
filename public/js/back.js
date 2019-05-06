@@ -1049,8 +1049,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1096,8 +1094,6 @@ __webpack_require__.r(__webpack_exports__);
         duration: -1
       });
     }
-
-    ;
   },
   methods: {
     fetch: function fetch() {
@@ -1129,7 +1125,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (confirm(message + this.articles[index].title_ru + '"?')) {
         axios.post("/api/articles/status/" + this.articles[index].id, {
-          status: newStatus ? 'public' : 'private'
+          status: newStatus ? "public" : "private"
         }).then(function (resp) {
           if (resp.data.status === "success") {
             // 						this.fetch();
@@ -1151,7 +1147,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       } else {
-        this.articles[index].status = !newStatus;
+        event.preventDefault(); // this.articles[index].status = !newStatus;
       }
     },
     deleteArticle: function deleteArticle(index) {
@@ -2281,6 +2277,99 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_IssueArticles_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/IssueArticles.vue */ "./resources/js/components/back/issues/components/IssueArticles.vue");
+/* harmony import */ var _components_IssueFiles_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/IssueFiles.vue */ "./resources/js/components/back/issues/components/IssueFiles.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2317,9 +2406,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    IssueArticles: _components_IssueArticles_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    IssueArticles: _components_IssueArticles_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    IssueFiles: _components_IssueFiles_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
     old: {
@@ -2330,7 +2421,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     id: {
       type: Number,
-      default: 0
+      default: 1
     }
   },
   data: function data() {
@@ -2501,6 +2592,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2579,7 +2672,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       } else {
-        this.articles[index].status = !newStatus;
+        event.preventDefault();
       }
 
       this.$emit("update", this.articles);
@@ -2602,6 +2695,104 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {},
+  props: {
+    file_ru: {
+      type: String,
+      default: ""
+    },
+    file_en: {
+      type: String,
+      default: ""
     }
   }
 });
@@ -26879,7 +27070,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\na#btn-scroll-up {\n\tdisplay: inline-block;\n\tbackground-color: transparent;\n\twidth: 50px;\n\theight: 50px;\n\ttext-align: center;\n\tborder: 1px solid var(--secondary);\n\tborder-radius: 4px;\n\tmargin: 30px;\n\tposition: fixed;\n\tbottom: 30px;\n\tright: 30px;\n\t/* transition: background-color 0.3s; */\n\tz-index: 1000;\n}\na#btn-scroll-up:hover {\n\tcursor: pointer;\n\tbackground-color: var(--secondary);\n\ttransition: background-color 0.3s;\n}\na#btn-scroll-up:hover::after {\n\tcursor: pointer;\n\tcolor: #fff;\n}\na#btn-scroll-up:active {\n\tbackground-color: #555;\n}\na#btn-scroll-up::after {\n\tcontent: \"\\F077\";\n\tfont-family: FontAwesome;\n\tfont-weight: normal;\n\tfont-style: normal;\n\tfont-size: 2em;\n\tline-height: 50px;\n\tcolor: var(--secondary);\n}\n.fade-enter {\n\topacity: 0;\n}\n.fade-enter-active {\n\ttransition: opacity 1s;\n}\n.fade-leave {\n\t/*opacity: 1;*/\n}\n.fade-leave-active {\n\ttransition: opacity 1s;\n\topacity: 0;\n}\n", ""]);
+exports.push([module.i, "\na#btn-scroll-up {\r\n\tdisplay: inline-block;\r\n\tbackground-color: transparent;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\ttext-align: center;\r\n\tborder: 1px solid var(--secondary);\r\n\tborder-radius: 4px;\r\n\tmargin: 30px;\r\n\tposition: fixed;\r\n\tbottom: 30px;\r\n\tright: 30px;\r\n\t/* transition: background-color 0.3s; */\r\n\tz-index: 1000;\n}\na#btn-scroll-up:hover {\r\n\tcursor: pointer;\r\n\tbackground-color: var(--secondary);\r\n\ttransition: background-color 0.3s;\n}\na#btn-scroll-up:hover::after {\r\n\tcursor: pointer;\r\n\tcolor: #fff;\n}\na#btn-scroll-up:active {\r\n\tbackground-color: #555;\n}\na#btn-scroll-up::after {\r\n\tcontent: \"\\F077\";\r\n\tfont-family: FontAwesome;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 2em;\r\n\tline-height: 50px;\r\n\tcolor: var(--secondary);\n}\n.fade-enter {\r\n\topacity: 0;\n}\n.fade-enter-active {\r\n\ttransition: opacity 1s;\n}\n.fade-leave {\r\n\t/*opacity: 1;*/\n}\n.fade-leave-active {\r\n\ttransition: opacity 1s;\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -26898,7 +27089,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
 
 // exports
 
@@ -26917,7 +27108,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.title-column[data-v-95859fe0] {\n\t\twidth: 40% !important;\n}\nthead > tr > th.sorting_asc[data-v-95859fe0],\nthead > tr > th.sorting_desc[data-v-95859fe0],\nthead > tr > th.sorting[data-v-95859fe0],\nthead > tr > td.sorting_asc[data-v-95859fe0],\nthead > tr > td.sorting_desc[data-v-95859fe0],\nthead > tr > td.sorting[data-v-95859fe0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-95859fe0]:active,\nthead > tr > td[data-v-95859fe0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-95859fe0],\nthead .sorting_asc[data-v-95859fe0],\nthead .sorting_desc[data-v-95859fe0],\nthead .sorting_asc_disabled[data-v-95859fe0],\nthead .sorting_desc_disabled[data-v-95859fe0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-95859fe0]:before,\nthead .sorting[data-v-95859fe0]:after,\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_asc[data-v-95859fe0]:after,\nthead .sorting_desc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:after,\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\nthead .sorting_desc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-95859fe0]:before,\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:before,\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-95859fe0]:after,\nthead .sorting_asc[data-v-95859fe0]:after,\nthead .sorting_desc[data-v-95859fe0]:after,\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\topacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.title-column[data-v-95859fe0] {\r\n\twidth: 40% !important;\n}\nthead > tr > th.sorting_asc[data-v-95859fe0],\r\nthead > tr > th.sorting_desc[data-v-95859fe0],\r\nthead > tr > th.sorting[data-v-95859fe0],\r\nthead > tr > td.sorting_asc[data-v-95859fe0],\r\nthead > tr > td.sorting_desc[data-v-95859fe0],\r\nthead > tr > td.sorting[data-v-95859fe0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-95859fe0]:active,\r\nthead > tr > td[data-v-95859fe0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-95859fe0],\r\nthead .sorting_asc[data-v-95859fe0],\r\nthead .sorting_desc[data-v-95859fe0],\r\nthead .sorting_asc_disabled[data-v-95859fe0],\r\nthead .sorting_desc_disabled[data-v-95859fe0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-95859fe0]:before,\r\nthead .sorting[data-v-95859fe0]:after,\r\nthead .sorting_asc[data-v-95859fe0]:before,\r\nthead .sorting_asc[data-v-95859fe0]:after,\r\nthead .sorting_desc[data-v-95859fe0]:before,\r\nthead .sorting_desc[data-v-95859fe0]:after,\r\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\r\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:before,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-95859fe0]:before,\r\nthead .sorting_asc[data-v-95859fe0]:before,\r\nthead .sorting_desc[data-v-95859fe0]:before,\r\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-95859fe0]:after,\r\nthead .sorting_asc[data-v-95859fe0]:after,\r\nthead .sorting_desc[data-v-95859fe0]:after,\r\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-95859fe0]:before,\r\nthead .sorting_desc[data-v-95859fe0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -26936,7 +27127,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n#users .vs__selected {\n\tbackground-color: var(--primary);\n\tcolor: white;\n\tfont-weight: 600;\n\t/* font-size: 1rem; */\n}\n", ""]);
+exports.push([module.i, "\n#users .vs__selected {\r\n\tbackground-color: var(--primary);\r\n\tcolor: white;\r\n\tfont-weight: 600;\r\n\t/* font-size: 1rem; */\n}\r\n", ""]);
 
 // exports
 
@@ -26955,7 +27146,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n#tags .vs__selected {\n\tbackground-color: var(--warning);\n\t/* color: white; */\n\t/* font-weight: 600; */\n\t/* font-size: 1rem; */\n}\n", ""]);
+exports.push([module.i, "\n#tags .vs__selected {\r\n\tbackground-color: var(--warning);\r\n\t/* color: white; */\r\n\t/* font-weight: 600; */\r\n\t/* font-size: 1rem; */\n}\r\n", ""]);
 
 // exports
 
@@ -26974,7 +27165,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\nthead > tr > th.sorting_desc[data-v-7425bcb0],\nthead > tr > th.sorting[data-v-7425bcb0],\nthead > tr > td.sorting_asc[data-v-7425bcb0],\nthead > tr > td.sorting_desc[data-v-7425bcb0],\nthead > tr > td.sorting[data-v-7425bcb0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\nthead > tr > td[data-v-7425bcb0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\nthead .sorting_asc[data-v-7425bcb0],\nthead .sorting_desc[data-v-7425bcb0],\nthead .sorting_asc_disabled[data-v-7425bcb0],\nthead .sorting_desc_disabled[data-v-7425bcb0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\topacity: 0;\n}\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\r\nthead > tr > th.sorting_desc[data-v-7425bcb0],\r\nthead > tr > th.sorting[data-v-7425bcb0],\r\nthead > tr > td.sorting_asc[data-v-7425bcb0],\r\nthead > tr > td.sorting_desc[data-v-7425bcb0],\r\nthead > tr > td.sorting[data-v-7425bcb0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\r\nthead > tr > td[data-v-7425bcb0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\r\nthead .sorting_asc[data-v-7425bcb0],\r\nthead .sorting_desc[data-v-7425bcb0],\r\nthead .sorting_asc_disabled[data-v-7425bcb0],\r\nthead .sorting_desc_disabled[data-v-7425bcb0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -26993,7 +27184,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\ntable {\n\twidth: 100%;\n}\ntd.trunc {\n\tmax-width: 0;\n\toverflow: hidden;\n\ttext-overflow: ellipsis;\n\twhite-space: nowrap;\n}\ntd.title {\n\twidth: 40%;\n}\n", ""]);
+exports.push([module.i, "\ntable {\r\n\twidth: 100%;\n}\ntd.trunc {\r\n\tmax-width: 0;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\n}\ntd.title {\r\n\twidth: 40%;\n}\r\n", ""]);
 
 // exports
 
@@ -27012,7 +27203,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-47dfc4e0],\nthead > tr > th.sorting_desc[data-v-47dfc4e0],\nthead > tr > th.sorting[data-v-47dfc4e0],\nthead > tr > td.sorting_asc[data-v-47dfc4e0],\nthead > tr > td.sorting_desc[data-v-47dfc4e0],\nthead > tr > td.sorting[data-v-47dfc4e0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-47dfc4e0]:active,\nthead > tr > td[data-v-47dfc4e0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-47dfc4e0],\nthead .sorting_asc[data-v-47dfc4e0],\nthead .sorting_desc[data-v-47dfc4e0],\nthead .sorting_asc_disabled[data-v-47dfc4e0],\nthead .sorting_desc_disabled[data-v-47dfc4e0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-47dfc4e0]:before,\nthead .sorting[data-v-47dfc4e0]:after,\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_asc[data-v-47dfc4e0]:after,\nthead .sorting_desc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:after,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-47dfc4e0]:before,\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:before,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-47dfc4e0]:after,\nthead .sorting_asc[data-v-47dfc4e0]:after,\nthead .sorting_desc[data-v-47dfc4e0]:after,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\topacity: 0;\n}\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-47dfc4e0],\r\nthead > tr > th.sorting_desc[data-v-47dfc4e0],\r\nthead > tr > th.sorting[data-v-47dfc4e0],\r\nthead > tr > td.sorting_asc[data-v-47dfc4e0],\r\nthead > tr > td.sorting_desc[data-v-47dfc4e0],\r\nthead > tr > td.sorting[data-v-47dfc4e0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-47dfc4e0]:active,\r\nthead > tr > td[data-v-47dfc4e0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-47dfc4e0],\r\nthead .sorting_asc[data-v-47dfc4e0],\r\nthead .sorting_desc[data-v-47dfc4e0],\r\nthead .sorting_asc_disabled[data-v-47dfc4e0],\r\nthead .sorting_desc_disabled[data-v-47dfc4e0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-47dfc4e0]:before,\r\nthead .sorting[data-v-47dfc4e0]:after,\r\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_asc[data-v-47dfc4e0]:after,\r\nthead .sorting_desc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:after,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-47dfc4e0]:before,\r\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:before,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-47dfc4e0]:after,\r\nthead .sorting_asc[data-v-47dfc4e0]:after,\r\nthead .sorting_desc[data-v-47dfc4e0]:after,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -27031,7 +27222,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 300px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 300px;\n}\r\n", ""]);
 
 // exports
 
@@ -27050,7 +27241,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-3b5f38fc],\nthead > tr > th.sorting_desc[data-v-3b5f38fc],\nthead > tr > th.sorting[data-v-3b5f38fc],\nthead > tr > td.sorting_asc[data-v-3b5f38fc],\nthead > tr > td.sorting_desc[data-v-3b5f38fc],\nthead > tr > td.sorting[data-v-3b5f38fc] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-3b5f38fc]:active,\nthead > tr > td[data-v-3b5f38fc]:active {\n\toutline: none;\n}\nthead .sorting[data-v-3b5f38fc],\nthead .sorting_asc[data-v-3b5f38fc],\nthead .sorting_desc[data-v-3b5f38fc],\nthead .sorting_asc_disabled[data-v-3b5f38fc],\nthead .sorting_desc_disabled[data-v-3b5f38fc] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-3b5f38fc]:before,\nthead .sorting[data-v-3b5f38fc]:after,\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_asc[data-v-3b5f38fc]:after,\nthead .sorting_desc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:after,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-3b5f38fc]:before,\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:before,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-3b5f38fc]:after,\nthead .sorting_asc[data-v-3b5f38fc]:after,\nthead .sorting_desc[data-v-3b5f38fc]:after,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\topacity: 0;\n}\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-3b5f38fc],\r\nthead > tr > th.sorting_desc[data-v-3b5f38fc],\r\nthead > tr > th.sorting[data-v-3b5f38fc],\r\nthead > tr > td.sorting_asc[data-v-3b5f38fc],\r\nthead > tr > td.sorting_desc[data-v-3b5f38fc],\r\nthead > tr > td.sorting[data-v-3b5f38fc] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-3b5f38fc]:active,\r\nthead > tr > td[data-v-3b5f38fc]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-3b5f38fc],\r\nthead .sorting_asc[data-v-3b5f38fc],\r\nthead .sorting_desc[data-v-3b5f38fc],\r\nthead .sorting_asc_disabled[data-v-3b5f38fc],\r\nthead .sorting_desc_disabled[data-v-3b5f38fc] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-3b5f38fc]:before,\r\nthead .sorting[data-v-3b5f38fc]:after,\r\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_asc[data-v-3b5f38fc]:after,\r\nthead .sorting_desc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:after,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-3b5f38fc]:before,\r\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:before,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-3b5f38fc]:after,\r\nthead .sorting_asc[data-v-3b5f38fc]:after,\r\nthead .sorting_desc[data-v-3b5f38fc]:after,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\topacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -58588,33 +58779,31 @@ var render = function() {
                           : article.status
                       },
                       on: {
-                        change: [
-                          function($event) {
-                            var $$a = article.status,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(article, "status", $$a.concat([$$v]))
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    article,
-                                    "status",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
+                        click: function($event) {
+                          return _vm.statusChange(index, !article.status)
+                        },
+                        change: function($event) {
+                          var $$a = article.status,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(article, "status", $$a.concat([$$v]))
                             } else {
-                              _vm.$set(article, "status", $$c)
+                              $$i > -1 &&
+                                _vm.$set(
+                                  article,
+                                  "status",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
-                          },
-                          function($event) {
-                            return _vm.statusChange(index, article.status)
+                          } else {
+                            _vm.$set(article, "status", $$c)
                           }
-                        ]
+                        }
                       }
                     }),
                     _vm._v(" "),
@@ -58639,6 +58828,7 @@ var render = function() {
                       return $event.target.classList.remove("text-danger")
                     },
                     click: function($event) {
+                      $event.stopPropagation()
                       return _vm.deleteArticle(index)
                     }
                   }
@@ -60087,13 +60277,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "d-flex mb-4" }, [
+    _c("div", { staticClass: "d-flex mb-4 form-inline" }, [
       _c("h3", { staticClass: "mb-0 my-auto" }, [_vm._v("Выпуск")]),
       _vm._v(" "),
       _c(
         "select",
         {
-          staticClass: "form-control flex-grow-1 mx-3",
+          staticClass: "form-control mx-3",
           attrs: { value: "fetchIssue.id" },
           on: { change: _vm.selectIssue }
         },
@@ -60123,33 +60313,70 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-primary text-nowrap",
+          staticClass: "btn btn-outline-primary text-nowrap",
           attrs: { type: "button" }
         },
         [_vm._v("Создать новый выпуск")]
-      )
+      ),
+      _vm._v(" "),
+      _vm.currentIssue.id
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-primary text-nowrap ml-auto",
+              attrs: { type: "button" }
+            },
+            [_vm._v("Сохранить изменения")]
+          )
+        : _vm._e()
     ]),
     _vm._v(" "),
     _vm.currentIssue.id
-      ? _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-md" },
-            [
-              _c("issue-articles", {
-                model: {
-                  value: _vm.currentIssue.articles,
-                  callback: function($$v) {
-                    _vm.$set(_vm.currentIssue, "articles", $$v)
+      ? _c("div", [
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-md-7" },
+              [
+                _c("issue-files", {
+                  attrs: {
+                    file_ru: _vm.currentIssue.file_title_ru,
+                    file_en: _vm.currentIssue.file_title_en
                   },
-                  expression: "currentIssue.articles"
-                }
-              })
-            ],
-            1
-          ),
+                  on: {
+                    "update:file_ru": function($event) {
+                      return _vm.$set(_vm.currentIssue, "file_title_ru", $event)
+                    },
+                    "update:file_en": function($event) {
+                      return _vm.$set(_vm.currentIssue, "file_title_en", $event)
+                    }
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-md" },
+              [
+                _c("issue-articles", {
+                  model: {
+                    value: _vm.currentIssue.articles,
+                    callback: function($$v) {
+                      _vm.$set(_vm.currentIssue, "articles", $$v)
+                    },
+                    expression: "currentIssue.articles"
+                  }
+                })
+              ],
+              1
+            )
+          ])
         ])
       : _vm._e()
   ])
@@ -60159,17 +60386,141 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md right-sidebar" }, [
+    return _c("div", { staticClass: "col-md-5" }, [
       _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [_vm._v("Выпуск")]),
+        _c("div", { staticClass: "card-header d-flex" }, [
+          _c("h5", { staticClass: "mr-1 my-auto" }, [
+            _vm._v("Выгрузка статей в шаблоны")
+          ])
+        ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [_vm._v("Титульный лист")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" })
+        _c("div", { staticClass: "card-body" }, [
+          _c("table", { staticClass: "form-table" }, [
+            _c("tbody", [
+              _c("tr", [
+                _c("th", [
+                  _c("label", { attrs: { for: "export_type" } }, [
+                    _vm._v("Шаблон выгрузки")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "select",
+                    {
+                      staticStyle: { width: "250px" },
+                      attrs: { id: "export-type", name: "export_type" }
+                    },
+                    [
+                      _c("option", { attrs: { value: "rinc" } }, [
+                        _vm._v("РИНЦ")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "contents" } }, [
+                        _vm._v("Содержание")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "article" } }, [
+                        _vm._v("Статья")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "authors" } }, [
+                        _vm._v("Наши авторы")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "emails" } }, [
+                        _vm._v("Список E-mail'ов")
+                      ])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("th", [
+                  _c("label", { attrs: { for: "mag_title" } }, [
+                    _vm._v("Название журнала")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    staticClass: "for-export for-rinc for-emails",
+                    staticStyle: { width: "250px" },
+                    attrs: {
+                      required: "",
+                      type: "text",
+                      name: "mag_title",
+                      value: "Журнал «Идеи и идеалы»"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("label", { staticStyle: { "font-size": "12px" } }, [
+                    _vm._v(
+                      "\n\t\t\t\t\t\t\t\t\t\t\tНазвание журнала\n\t\t\t\t\t\t\t\t\t\t\t"
+                    ),
+                    _c("label")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("th", [
+                  _c("label", { attrs: { for: "mag_title" } }, [_vm._v("ISSN")])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    staticClass: "for-export for-rinc for-emails",
+                    staticStyle: { width: "250px" },
+                    attrs: {
+                      type: "text",
+                      name: "mag_issn",
+                      placeholder: "xxxx-xxxx"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("label", { staticStyle: { "font-size": "12px" } }, [
+                    _vm._v(
+                      "\n\t\t\t\t\t\t\t\t\t\t\tЕсли ISSN не введен, то он будет взят из DOI статей. Если ни одна статья не содержит DOI, то ISSN выводиться не будет.\n\t\t\t\t\t\t\t\t\t\t\t"
+                    ),
+                    _c("label")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tr", { staticClass: "add-field" }, [
+                _c("th", [
+                  _c("label", { attrs: { for: "mag_title" } }, [
+                    _vm._v("Выгружать e-mail")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    staticClass: "for-export for-rinc",
+                    attrs: { type: "checkbox", name: "email_on", checked: "" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("label", { staticStyle: { "font-size": "12px" } }, [
+                    _vm._v(
+                      '\n\t\t\t\t\t\t\t\t\t\t\tОтображать email у автора, если он редактировался"\n\t\t\t\t\t\t\t\t\t\t\t'
+                    ),
+                    _c("label")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tr", { staticClass: "add-field" })
+            ])
+          ])
+        ])
       ])
     ])
   }
@@ -60251,9 +60602,9 @@ var render = function() {
                       [
                         _c("i", { staticClass: "fa fa-arrows-v" }),
                         _vm._v(
-                          "\n\t\t\t\t\t\t\t\t" +
+                          "\n\t\t\t\t\t\t\t" +
                             _vm._s(article.position) +
-                            "\n\t\t\t\t\t\t\t"
+                            "\n\t\t\t\t\t\t"
                         )
                       ]
                     ),
@@ -60280,7 +60631,7 @@ var render = function() {
                       "td",
                       _vm._l(article.categories, function(category, index) {
                         return _c("p", { key: index, staticClass: "my-0" }, [
-                          _vm._v(_vm._s(_vm._f("cutString")(category.title_ru)))
+                          _vm._v(_vm._s(category.title_ru))
                         ])
                       }),
                       0
@@ -60321,39 +60672,37 @@ var render = function() {
                                 : article.status
                             },
                             on: {
-                              change: [
-                                function($event) {
-                                  var $$a = article.status,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        _vm.$set(
-                                          article,
-                                          "status",
-                                          $$a.concat([$$v])
-                                        )
-                                    } else {
-                                      $$i > -1 &&
-                                        _vm.$set(
-                                          article,
-                                          "status",
-                                          $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1))
-                                        )
-                                    }
+                              click: function($event) {
+                                return _vm.statusChange(index, !article.status)
+                              },
+                              change: function($event) {
+                                var $$a = article.status,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        article,
+                                        "status",
+                                        $$a.concat([$$v])
+                                      )
                                   } else {
-                                    _vm.$set(article, "status", $$c)
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        article,
+                                        "status",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
                                   }
-                                },
-                                function($event) {
-                                  return _vm.statusChange(index, article.status)
+                                } else {
+                                  _vm.$set(article, "status", $$c)
                                 }
-                              ]
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -60401,16 +60750,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "d-inline-block mr-3 mb-0" }, [
+    return _c("div", { staticClass: "card-header d-flex" }, [
+      _c("h5", { staticClass: "mr-1 my-auto" }, [
         _vm._v("Список статей выпуска")
       ]),
       _vm._v(" "),
       _c(
         "a",
         {
-          staticClass:
-            "btn btn-primary btn-round d-inline-block float-right my-0",
+          staticClass: "btn btn-outline-primary btn-round my-0 ml-auto",
           attrs: { href: "/admin/articles/create" }
         },
         [_vm._v("Добавить новую статью")]
@@ -60437,6 +60785,203 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th")
       ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=template&id=09b25aaf&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=template&id=09b25aaf& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center",
+            class: !_vm.file_ru ? "bg-light" : "bg-light-green"
+          },
+          [
+            _c("label", { staticClass: "h6 mb-2" }, [_vm._v("Русская версия")]),
+            _vm._v(" "),
+            _c("file-picker", {
+              attrs: {
+                path: _vm.file_ru,
+                "container-class": "align-self-center my-auto"
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "file_ru",
+                name: "file_ru",
+                hidden: ""
+              },
+              domProps: { value: _vm.file_ru },
+              on: {
+                input: function($event) {
+                  return _vm.$emit("update:file_ru", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.file_ru,
+                      expression: "!file_ru"
+                    }
+                  ],
+                  staticClass: "popup_selector btn btn-sm btn-primary",
+                  attrs: { type: "button", "data-inputid": "file_ru" }
+                },
+                [_vm._v("Загрузить")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.file_ru,
+                      expression: "file_ru"
+                    }
+                  ],
+                  staticClass: "btn btn-sm btn-outline-success",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.$emit("update:file_ru", null)
+                    }
+                  }
+                },
+                [_vm._v("Убрать")]
+              )
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center",
+            class: !_vm.file_en ? "bg-light" : "bg-light-green"
+          },
+          [
+            _c("label", { staticClass: "h6 mb-2" }, [
+              _vm._v("Английская версия")
+            ]),
+            _vm._v(" "),
+            _c("file-picker", {
+              attrs: {
+                path: _vm.file_en,
+                "container-class": "align-self-center my-auto"
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "file_en",
+                name: "file_en",
+                hidden: ""
+              },
+              domProps: { value: _vm.file_en },
+              on: {
+                input: function($event) {
+                  return _vm.$emit("update:file_en", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-2" }, [
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.file_en,
+                      expression: "!file_en"
+                    }
+                  ],
+                  staticClass: "popup_selector btn btn-sm btn-primary",
+                  attrs: { type: "button", "data-inputid": "file_en" }
+                },
+                [_vm._v("Загрузить")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.file_en,
+                      expression: "file_en"
+                    }
+                  ],
+                  staticClass: "btn btn-sm btn-outline-success",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.$emit("update:file_audio", null)
+                    }
+                  }
+                },
+                [_vm._v("Убрать")]
+              )
+            ])
+          ],
+          1
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "h5 mb-0" }, [_vm._v("Титульный лист")])
     ])
   }
 ]
@@ -69121,6 +69666,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/back/issues/components/IssueFiles.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/back/issues/components/IssueFiles.vue ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _IssueFiles_vue_vue_type_template_id_09b25aaf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IssueFiles.vue?vue&type=template&id=09b25aaf& */ "./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=template&id=09b25aaf&");
+/* harmony import */ var _IssueFiles_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IssueFiles.vue?vue&type=script&lang=js& */ "./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _IssueFiles_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _IssueFiles_vue_vue_type_template_id_09b25aaf___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _IssueFiles_vue_vue_type_template_id_09b25aaf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/back/issues/components/IssueFiles.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IssueFiles_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./IssueFiles.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IssueFiles_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=template&id=09b25aaf&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=template&id=09b25aaf& ***!
+  \******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IssueFiles_vue_vue_type_template_id_09b25aaf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./IssueFiles.vue?vue&type=template&id=09b25aaf& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/issues/components/IssueFiles.vue?vue&type=template&id=09b25aaf&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IssueFiles_vue_vue_type_template_id_09b25aaf___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IssueFiles_vue_vue_type_template_id_09b25aaf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/back/store/index.js":
 /*!*****************************************************!*\
   !*** ./resources/js/components/back/store/index.js ***!
@@ -69520,7 +70134,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  {{if full_name}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <strong>\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\n    </strong>\n  </span>\n  {{/if}}\n  {{if degree}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\">\n      <i><br>{{:degree}}</i>\n    </span>\n  </span>\n  {{/if}}\n  \n  {{if jobs}}\n  {{for jobs}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\n  </span>\n  {{/for}}\n  {{/if}}\n  \n  {{if orcid}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\n  </span>\n  {{/if}}\n</p>\n";
+module.exports = "<p>\r\n  {{if full_name}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <strong>\r\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\r\n    </strong>\r\n  </span>\r\n  {{/if}}\r\n  {{if degree}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\">\r\n      <i><br>{{:degree}}</i>\r\n    </span>\r\n  </span>\r\n  {{/if}}\r\n  \r\n  {{if jobs}}\r\n  {{for jobs}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\r\n  </span>\r\n  {{/for}}\r\n  {{/if}}\r\n  \r\n  {{if orcid}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\r\n  </span>\r\n  {{/if}}\r\n</p>\r\n";
 
 /***/ }),
 
@@ -71109,8 +71723,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/cabox/workspace/resources/js/back.js */"./resources/js/back.js");
-module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/coreui/coreui.scss */"./resources/sass/coreui/coreui.scss");
+__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\back.js */"./resources/js/back.js");
+module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\coreui\coreui.scss */"./resources/sass/coreui/coreui.scss");
 
 
 /***/ })

@@ -32,6 +32,8 @@
 @endsection
 
 @push('lib')
+<!-- elFinder -->
+<script defer type="text/javascript" src="{{ asset('packages/barryvdh/elfinder/js/standalonepopup.js') }}"></script>
 @endpush    
 
 @push('js')

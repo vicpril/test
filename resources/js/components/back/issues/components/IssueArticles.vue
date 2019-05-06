@@ -1,9 +1,9 @@
 <template>
 	<div class="card">
-		<div class="card-header">
-			<h4 class="d-inline-block mr-3 mb-0">Список статей выпуска</h4>
+		<div class="card-header d-flex">
+			<h5 class="mr-1 my-auto">Список статей выпуска</h5>
 			<a
-				class="btn btn-primary btn-round d-inline-block float-right my-0"
+				class="btn btn-outline-primary btn-round my-0 ml-auto"
 				href="/admin/articles/create"
 			>Добавить новую статью</a>
 		</div>
@@ -20,19 +20,21 @@
 						<th></th>
 					</tr>
 				</thead>
-				<draggable tag="tbody" 
-									 handle=".handle" 
-									 v-model="articles"
-									 @choose="showCat=false"
-									 @end="showCat=true">
-					<template v-for="(article, index) in articles" >
-<!-- 						<tr v-if="showCat" :key="article.id+1000">
+				<draggable
+					tag="tbody"
+					handle=".handle"
+					v-model="articles"
+					@choose="showCat=false"
+					@end="showCat=true"
+				>
+					<template v-for="(article, index) in articles">
+						<!-- <tr v-if="showCat" :key="article.id+1000">
 							<td
 								colspan="7"
 								class="text-center h6"
 
-							>{{ article.categories[0].title_ru }}</td> -->
-						</tr>
+							>{{ article.categories[0].title_ru }}</td>
+						</tr>-->
 						<tr :key="article.id">
 							<td
 								class="handle text-secondary my-auto"
@@ -55,7 +57,7 @@
 									class="my-0"
 									v-for="(category, index) in article.categories"
 									:key="index"
-								>{{ category.title_ru | cutString}}</p>
+								>{{ category.title_ru }}</p>
 							</td>
 							<td>
 								<p class="my-0" v-for="(tag, index) in article.tags" :key="index">{{ tag }}</p>
@@ -66,7 +68,7 @@
 										type="checkbox"
 										class="switch-input"
 										v-model="article.status"
-										@change="statusChange(index, article.status)"
+										@click="statusChange(index, !article.status)"
 									>
 									<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 								</label>
@@ -104,40 +106,40 @@ export default {
 	},
 	data() {
 		return {
-// 			articles: this.value
-			showCat: true,
+			// 			articles: this.value
+			showCat: true
 		};
 	},
 
 	computed: {
-// 		articles() {
-// 			return this.value;
-// 		}
+		// 		articles() {
+		// 			return this.value;
+		// 		}
 		articles: {
 			get() {
 				return this.value;
 			},
 			set(value) {
-// 				value.forEach(function(article, index) {
-// 					article.position = index + 1;
-// 				});
+				// 				value.forEach(function(article, index) {
+				// 					article.position = index + 1;
+				// 				});
 				this.$emit("input", value);
 			}
 		}
 	},
 	watch: {
-// 		articles(value, oldValue) {
-// 			// value.forEach(function(article, index) {
-// 			// 	article.position = index + 1;
-// 			// });
-// 			this.$emit("update", value);
-// 		},
-// 		value(value, oldValue) {
-// 			// value.forEach(function(article, index) {
-// 			// 	article.position = index + 1;
-// 			// });
-// 			this.articles = value;
-// 		}
+		// 		articles(value, oldValue) {
+		// 			// value.forEach(function(article, index) {
+		// 			// 	article.position = index + 1;
+		// 			// });
+		// 			this.$emit("update", value);
+		// 		},
+		// 		value(value, oldValue) {
+		// 			// value.forEach(function(article, index) {
+		// 			// 	article.position = index + 1;
+		// 			// });
+		// 			this.articles = value;
+		// 		}
 	},
 
 	methods: {
@@ -170,7 +172,7 @@ export default {
 						}
 					});
 			} else {
-				this.articles[index].status = !newStatus;
+				event.preventDefault();
 			}
 			this.$emit("update", this.articles);
 		},

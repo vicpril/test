@@ -30,14 +30,14 @@
 				</div>
 			</div>
 		</div>
-		<table
-			class="table table-striped table-responsive-md"
-			style="width:100%"
-			id
-		>
+		<table class="table table-striped table-responsive-md" style="width:100%" id>
 			<thead class="text-black">
 				<tr>
-					<th class="title-column sorting" :class="showOrder('title')" @click="setOrder('title')">Заголовок</th>
+					<th
+						class="title-column sorting"
+						:class="showOrder('title')"
+						@click="setOrder('title')"
+					>Заголовок</th>
 					<th class="sorting" :class="showOrder('issue')" @click="setOrder('issue')">Выпуск</th>
 					<th>Авторы</th>
 					<th>Рубрики</th>
@@ -60,41 +60,39 @@
 						<p class="my-0">Часть: {{ article.part }}</p>
 					</td>
 					<td>
-						<p class="my-0"
-							 v-for="(user, index) in article.users"
-							 :key="index">
+						<p class="my-0" v-for="(user, index) in article.users" :key="index">
 							<a :href="user.editLink">{{ user.short_name_ru }}</a>
-						</p> 
+						</p>
 					</td>
 					<td>
-						<p class="my-0"
-							 v-for="(category, index) in article.categories"
-							 :key="index"
-							 >{{ category | cutString}}</p>
+						<p
+							class="my-0"
+							v-for="(category, index) in article.categories"
+							:key="index"
+						>{{ category | cutString}}</p>
 					</td>
 					<td>
-						<p class="my-0"
-							 v-for="(tag, index) in article.tags"
-							 :key="index"
-							 >{{ tag }}</p>
+						<p class="my-0" v-for="(tag, index) in article.tags" :key="index">{{ tag }}</p>
 					</td>
 					<td>
-						<label class="mx-1 switch switch-label switch-3d switch-success form-check-label"
-									 >
-							<input type="checkbox" class="switch-input" 
-										 v-model="article.status"
-										 @change="statusChange(index, article.status)">
+						<label class="mx-1 switch switch-label switch-3d switch-success form-check-label">
+							<input
+								type="checkbox"
+								class="switch-input"
+								v-model="article.status"
+								@click="statusChange(index, !article.status)"
+							>
 							<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 						</label>
 					</td>
 					<td>{{ article.updated_at }}</td>
-					
+
 					<td class="text-secondary">
 						<i
 							class="fa fa-close"
 							@mouseover="$event.target.classList.add('text-danger')"
 							@mouseout="$event.target.classList.remove('text-danger')"
-							@click="deleteArticle(index)"
+							@click.stop="deleteArticle(index)"
 						></i>
 					</td>
 				</tr>
@@ -171,16 +169,16 @@ export default {
 	created() {
 		this.fetch();
 	},
-	
+
 	mounted() {
 		if (this.$route.query.articledeleted) {
 			this.$notify({
-							group: "custom-template",
-							type: "alert-success",
-							text: "Статья удалена",
-							duration: -1
-						});
-		};
+				group: "custom-template",
+				type: "alert-success",
+				text: "Статья удалена",
+				duration: -1
+			});
+		}
 	},
 
 	methods: {
@@ -204,17 +202,17 @@ export default {
 					this.pagination.total = data.meta.total;
 				});
 		},
-		
+
 		statusChange(index, newStatus) {
-			const message = (newStatus) ? 'Опубликовать статью "' : 'Снять с публикации статью "';
-			if (
-				confirm(message + this.articles[index].title_ru + '"?')
-			) {
+			const message = newStatus
+				? 'Опубликовать статью "'
+				: 'Снять с публикации статью "';
+			if (confirm(message + this.articles[index].title_ru + '"?')) {
 				axios
 					.post("/api/articles/status/" + this.articles[index].id, {
-						status: (newStatus) ? 'public' : 'private',
+						status: newStatus ? "public" : "private"
 					})
-					.then((resp) => {
+					.then(resp => {
 						if (resp.data.status === "success") {
 							// 						this.fetch();
 							this.$notify({
@@ -232,9 +230,10 @@ export default {
 							});
 							this.articles[index].status = !newStatus;
 						}
-					})
+					});
 			} else {
-				this.articles[index].status = !newStatus;
+				event.preventDefault();
+				// this.articles[index].status = !newStatus;
 			}
 		},
 
@@ -242,17 +241,19 @@ export default {
 			if (
 				confirm('Удалить статью "' + this.articles[index].title_ru + '"?')
 			) {
-				axios.delete("/api/articles/" + this.articles[index].id).then(resp => {
-					if (resp.data.status === "success") {
-						this.fetch();
-						this.$notify({
-							group: "custom-template",
-							type: "alert-success",
-							text: resp.data.message,
-							duration: 8000
-						});
-					}
-				});
+				axios
+					.delete("/api/articles/" + this.articles[index].id)
+					.then(resp => {
+						if (resp.data.status === "success") {
+							this.fetch();
+							this.$notify({
+								group: "custom-template",
+								type: "alert-success",
+								text: resp.data.message,
+								duration: 8000
+							});
+						}
+					});
 			}
 		},
 
@@ -280,10 +281,10 @@ export default {
 </script>
 
 <style scoped>
-	.title-column {
-		width: 40% !important;
-	}	
-	
+.title-column {
+	width: 40% !important;
+}
+
 thead > tr > th.sorting_asc,
 thead > tr > th.sorting_desc,
 thead > tr > th.sorting,
