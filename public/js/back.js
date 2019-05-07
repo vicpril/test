@@ -60816,12 +60816,11 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "row d-flex flex-fill" }, [
         _c(
           "div",
           {
-            staticClass:
-              "col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center",
+            staticClass: "col-sm  m-2 my-sm-0 py-2 rounded-lg text-center",
             class: !_vm.file_ru ? "bg-light" : "bg-light-green"
           },
           [
