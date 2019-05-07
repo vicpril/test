@@ -33,84 +33,51 @@
 							<h5 class="mr-1 my-auto">Выгрузка статей в шаблоны</h5>
 						</div>
 						<div class="card-body">
-							<table class="form-table">
-								<tbody>
-									<tr>
-										<th>
-											<label for="export_type">Шаблон выгрузки</label>
-										</th>
-										<td>
-											<select id="export-type" name="export_type" style="width: 250px">
-												<option value="rinc">РИНЦ</option>
-												<option value="contents">Содержание</option>
-												<option value="article">Статья</option>
-												<option value="authors">Наши авторы</option>
-												<option value="emails">Список E-mail'ов</option>
-											</select>
-										</td>
-									</tr>
-
-									<tr>
-										<th>
-											<label for="mag_title">Название журнала</label>
-										</th>
-										<td>
-											<input
-												class="for-export for-rinc for-emails"
-												required
-												type="text"
-												name="mag_title"
-												style="width: 250px"
-												value="Журнал «Идеи и идеалы»"
-											>
-										</td>
-										<td>
-											<label style="font-size: 12px;">
-												Название журнала
-												<label></label>
-											</label>
-										</td>
-									</tr>
-
-									<tr>
-										<th>
-											<label for="mag_title">ISSN</label>
-										</th>
-										<td>
-											<input
-												class="for-export for-rinc for-emails"
-												type="text"
-												name="mag_issn"
-												style="width: 250px"
-												placeholder="xxxx-xxxx"
-											>
-										</td>
-										<td>
-											<label style="font-size: 12px;">
-												Если ISSN не введен, то он будет взят из DOI статей. Если ни одна статья не содержит DOI, то ISSN выводиться не будет.
-												<label></label>
-											</label>
-										</td>
-									</tr>
-
-									<tr class="add-field">
-										<th>
-											<label for="mag_title">Выгружать e-mail</label>
-										</th>
-										<td>
-											<input class="for-export for-rinc" type="checkbox" name="email_on" checked>
-										</td>
-										<td>
-											<label style="font-size: 12px;">
-												Отображать email у автора, если он редактировался"
-												<label></label>
-											</label>
-										</td>
-									</tr>
-
-									<tr class="add-field"></tr>
-								</tbody>
-							</table>
+							<div class="form-group">
+									<label class="h6">Название журнала</label>
+									<input
+										type="text"
+										class="form-control"
+										v-model="exportIssue.title"
+									>
+							</div>
+							<div class="form-group">
+									<label class="h6">ISSN 
+										<i v-b-tooltip.hover title="Если ISSN не введен, то он будет взят из DOI статей. Если ни одна статья не содержит DOI, то ISSN выводиться не будет."
+											 class="fa fa-info-circle ml-2 text-secondary" 
+											></i>
+										</label>
+									<input
+										type="text"
+										class="form-control"
+										v-model="exportIssue.issn"
+										placeholder="хххх-хххх"
+									>
+							</div>
+							
+							<div class="form-group">
+									<label class="h6">Выгружать e-mail</label>
+									<b-form-checkbox
+										id="export-emails"
+										v-model="exportIssue.emails"
+									>
+										Отображать email у автора, если он редактировался
+									</b-form-checkbox>
+							</div>
+							<hr>
+							<div class="btn-group float-right">
+								<button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+												:disabled="exportDisabled">
+									Выгрузить
+								</button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="#">РИНЦ</a>
+									<a class="dropdown-item" href="#">Содержание</a>
+									<a class="dropdown-item" href="#">Статья</a>
+									<a class="dropdown-item" href="#">Наши авторы</a>
+									<a class="dropdown-item" href="#">Список E-mail'ов</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -143,7 +110,8 @@ export default {
 		id: {
 			type: Number,
 			default: 1
-		}
+		},
+		
 	},
 
 	data() {
@@ -162,8 +130,20 @@ export default {
 				file_title_ru: "",
 				file_title_en: ""
 			},
-			issues: []
+			issues: [],
+			exportIssue: {
+				title: "Журнал «Идеи и идеалы»",
+				issn: "",
+				emails: true,
+				articles: [],
+			}
 		};
+	},
+	
+	computed: {
+		exportDisabled() {
+			return !this.exportIssue.articles.length > 0
+		}
 	},
 
 	created() {
