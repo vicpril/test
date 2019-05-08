@@ -13,11 +13,7 @@
 					<tr>
 						<th></th>
 						<th>
-							<b-form-checkbox
-										:id="'export-articles-all"
-										v-model="selectedAll"
-									>
-							</b-form-checkbox>
+							<b-form-checkbox v-model="isCheckAll" :indeterminate="indeterminate" @change="checkAll"></b-form-checkbox>
 						</th>
 						<th>Заголовок</th>
 						<th>Авторы</th>
@@ -44,20 +40,19 @@
 						</tr>-->
 						<tr :key="article.id">
 							<td
-								class="handle text-secondary my-auto"
-								@mouseover="$event.target.classList.add('text-success')"
-								@mouseout="$event.target.classList.remove('text-success')"
+								class="handle text-secondary my-auto px-2"
+								@mouseover="$event.target.classList.add('text-warning')"
+								@mouseout="$event.target.classList.remove('text-warning')"
 							>
-								<i class="fa fa-arrows-v"></i>
-								{{ article.position }}
+								<i class="fa fa-arrows-v fa-lg"></i>
+								<!-- {{ article.position }} -->
 							</td>
 							<td>
-									<b-form-checkbox
-										:id="'export-article-' + article.id"
-										:value="article.id"							 
-										v-model="exportArticles"
-									>
-									</b-form-checkbox>
+								<b-form-checkbox
+									:id="'export-article-' + article.id"
+									:value="article.id"
+									v-model="exportArticles"
+								></b-form-checkbox>
 							</td>
 							<td class="title trunc">
 								<a :href="article.editLink">{{ article.title_ru }}</a>
@@ -128,6 +123,8 @@ export default {
 	data() {
 		return {
 			exportArticles: [],
+			isCheckAll: false,
+			indeterminate: false
 		};
 	},
 
@@ -137,47 +134,56 @@ export default {
 				return this.value;
 			},
 			set(value) {
-				// 				value.forEach(function(article, index) {
-				// 					article.position = index + 1;
-				// 				});
+				value.forEach(function(article, index) {
+					article.position = index + 1;
+				});
 				this.$emit("input", value);
 				this.updateExportArticles();
 			}
-		},
-// 		selectAll: {
-//             get: function () {
-//                 return this.selected.length == this.users.length ? true : false;
-//             },
-//             set: function (value) {
-//                 var selected = [];
-
-//                 if (value) {
-//                     this.users.forEach(function (user) {
-//                         selected.push(user.id);
-//                     });
-//                 }
-
-//                 this.selected = selected;
-//             }
-//         }
+		}
 	},
 	watch: {
 		exportArticles(value) {
-			var exp = this.articles.filter( (article) => {
-				return (value.includes(article.id)) ? true : false;
-			}).map((article)=>{
-				return article.id;
-			});
-			this.$emit('update:export', exp)
+			this.changeCheckAll(value);
+			var exp = this.articles
+				.filter(article => {
+					return value.includes(article.id) ? true : false;
+				})
+				.map(article => {
+					return article.id;
+				});
+			this.$emit("update:export", exp);
 		}
 	},
 
 	methods: {
-		updateExportArticles() {
-			this.exportArticles.push('0');
-			this.exportArticles.splice(-1,1);
+		checkAll(checked) {
+			var selected = [];
+			if (checked) {
+				this.articles.forEach(function(a) {
+					selected.push(a.id);
+				});
+			}
+			this.exportArticles = selected;
 		},
-		
+		changeCheckAll(value) {
+			if (value.length === 0) {
+				this.indeterminate = false;
+				this.allSelected = false;
+			} else if (value.length === this.articles.length) {
+				this.indeterminate = false;
+				this.allSelected = true;
+			} else {
+				this.indeterminate = true;
+				this.allSelected = false;
+			}
+		},
+
+		updateExportArticles() {
+			this.exportArticles.push("0");
+			this.exportArticles.splice(-1, 1);
+		},
+
 		statusChange(index, newStatus) {
 			const message = newStatus
 				? 'Опубликовать статью "'
@@ -237,8 +243,12 @@ export default {
 </script>
 
 <style scope>
+/* tablestyle */
 table {
 	width: 100%;
+}
+table tr td {
+	vertical-align: middle !important;
 }
 td.trunc {
 	max-width: 0;
@@ -247,7 +257,22 @@ td.trunc {
 	white-space: nowrap;
 }
 td.title {
-	width: 40%;
+	width: 30%;
+}
+
+/* checkbox color */
+table .custom-control-input:checked ~ .custom-control-label::before {
+	color: #fff;
+	border-color: var(--success);
+	background-color: var(--success);
+}
+
+table
+	.custom-checkbox
+	.custom-control-input:indeterminate
+	~ .custom-control-label::before {
+	border-color: var(--secondary);
+	background-color: var(--secondary);
 }
 </style>
 

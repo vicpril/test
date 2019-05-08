@@ -34,42 +34,39 @@
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-									<label class="h6">Название журнала</label>
-									<input
-										type="text"
-										class="form-control"
-										v-model="exportIssue.title"
-									>
+								<label class="h6">Название журнала</label>
+								<input type="text" class="form-control" v-model="exportIssue.title">
 							</div>
 							<div class="form-group">
-									<label class="h6">ISSN 
-										<i v-b-tooltip.hover title="Если ISSN не введен, то он будет взят из DOI статей. Если ни одна статья не содержит DOI, то ISSN выводиться не будет."
-											 class="fa fa-info-circle ml-2 text-secondary" 
-											></i>
-										</label>
-									<input
-										type="text"
-										class="form-control"
-										v-model="exportIssue.issn"
-										placeholder="хххх-хххх"
-									>
+								<label class="h6">
+									ISSN
+									<i
+										v-b-tooltip.hover
+										title="Если ISSN не введен, то он будет взят из DOI статей. Если ни одна статья не содержит DOI, то ISSN выводиться не будет."
+										class="fa fa-info-circle ml-2 text-secondary"
+									></i>
+								</label>
+								<input type="text" class="form-control" v-model="exportIssue.issn" placeholder="хххх-хххх">
 							</div>
-							
+
 							<div class="form-group">
-									<label class="h6">Выгружать e-mail</label>
-									<b-form-checkbox
-										id="export-emails"
-										v-model="exportIssue.emails"
-									>
-										Отображать email у автора, если он редактировался
-									</b-form-checkbox>
+								<label class="h6">Выгружать e-mail</label>
+								<b-form-checkbox
+									id="export-emails"
+									v-model="exportIssue.emails"
+								>Отображать email у автора, если он редактировался</b-form-checkbox>
 							</div>
 							<hr>
 							<div class="btn-group float-right">
-								<button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-												:disabled="exportDisabled">
-									Выгрузить
-								</button>
+								<button
+									id="tooltip-button"
+									type="button"
+									class="btn btn-outline-info dropdown-toggle"
+									data-toggle="dropdown"
+									aria-haspopup="true"
+									aria-expanded="false"
+									:disabled="exportDisabled"
+								>Выгрузить</button>
 								<div class="dropdown-menu">
 									<a class="dropdown-item" href="#">РИНЦ</a>
 									<a class="dropdown-item" href="#">Содержание</a>
@@ -77,6 +74,7 @@
 									<a class="dropdown-item" href="#">Наши авторы</a>
 									<a class="dropdown-item" href="#">Список E-mail'ов</a>
 								</div>
+								<!-- <b-tooltip target="tooltip-button">Выберите статьи для выгрузки</b-tooltip> -->
 							</div>
 						</div>
 					</div>
@@ -85,8 +83,7 @@
 
 			<div class="row">
 				<div class="col-md">
-					<issue-articles v-model="currentIssue.articles"
-													:export.sync="exportIssue.articles"></issue-articles>
+					<issue-articles v-model="currentIssue.articles" :export.sync="exportIssue.articles"></issue-articles>
 				</div>
 			</div>
 		</div>
@@ -111,8 +108,7 @@ export default {
 		id: {
 			type: Number,
 			default: 1
-		},
-		
+		}
 	},
 
 	data() {
@@ -137,13 +133,17 @@ export default {
 				issn: "",
 				emails: true,
 				articles: [],
+				disabledInfo: false
 			}
 		};
 	},
-	
+
 	computed: {
 		exportDisabled() {
-			return !this.exportIssue.articles.length > 0
+			return !this.exportIssue.articles.length > 0;
+		},
+		disabledExportInfo() {
+			return this.exportIssue.articles.length > 0;
 		}
 	},
 
@@ -193,5 +193,4 @@ export default {
 </script>
 
 <style scope>
-
 </style>
