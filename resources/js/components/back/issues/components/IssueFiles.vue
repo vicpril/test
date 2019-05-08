@@ -1,12 +1,12 @@
 <template>
-	<div class="card">
+	<div class="card flex-fill">
 		<div class="card-header">
 			<h5 class="h5 mb-0">Титульный лист</h5>
 		</div>
 		<div class="card-body">
-			<div class="row d-flex flex-fill">
+			<div class="row h-100">
 				<div
-					class="col-sm  m-2 my-sm-0 py-2 rounded-lg text-center"
+					class="col-sm d-flex flex-column m-2 my-sm-0 py-md-4 py-2 rounded-lg text-center"
 					:class="!file_ru ? 'bg-light' : 'bg-light-green'"
 				>
 					<label class="h6 mb-2">Русская версия</label>
@@ -37,7 +37,7 @@
 				</div>
 
 				<div
-					class="col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center"
+					class="col-sm d-flex flex-column m-2 my-sm-0 py-md-4 py-2 rounded-lg text-center"
 					:class="!file_en ? 'bg-light' : 'bg-light-green'"
 				>
 					<label class="h6 mb-2">Английская версия</label>
@@ -61,7 +61,7 @@
 						<button
 							v-show="file_en"
 							type="button"
-							@click.prevent="$emit('update:file_audio', null)"
+							@click.prevent="$emit('update:file_en', null)"
 							class="btn btn-sm btn-outline-success"
 						>Убрать</button>
 					</div>

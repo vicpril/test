@@ -21,7 +21,7 @@
 
 		<div v-if="currentIssue.id">
 			<div class="row">
-				<div class="col-md-7">
+				<div class="col-md-7 d-flex">
 					<issue-files
 						:file_ru.sync="currentIssue.file_title_ru"
 						:file_en.sync="currentIssue.file_title_en"
@@ -85,7 +85,8 @@
 
 			<div class="row">
 				<div class="col-md">
-					<issue-articles v-model="currentIssue.articles"></issue-articles>
+					<issue-articles v-model="currentIssue.articles"
+													:export.sync="exportIssue.articles"></issue-articles>
 				</div>
 			</div>
 		</div>

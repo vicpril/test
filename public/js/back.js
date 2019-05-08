@@ -2372,6 +2372,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2572,6 +2573,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2583,18 +2599,20 @@ __webpack_require__.r(__webpack_exports__);
       default: function _default() {
         [];
       }
+    },
+    export: {
+      type: Array,
+      default: function _default() {
+        [];
+      }
     }
   },
   data: function data() {
     return {
-      // 			articles: this.value
-      showCat: true
+      exportArticles: []
     };
   },
   computed: {
-    // 		articles() {
-    // 			return this.value;
-    // 		}
     articles: {
       get: function get() {
         return this.value;
@@ -2604,23 +2622,39 @@ __webpack_require__.r(__webpack_exports__);
         // 					article.position = index + 1;
         // 				});
         this.$emit("input", value);
+        this.updateExportArticles();
       }
+    } // 		selectAll: {
+    //             get: function () {
+    //                 return this.selected.length == this.users.length ? true : false;
+    //             },
+    //             set: function (value) {
+    //                 var selected = [];
+    //                 if (value) {
+    //                     this.users.forEach(function (user) {
+    //                         selected.push(user.id);
+    //                     });
+    //                 }
+    //                 this.selected = selected;
+    //             }
+    //         }
+
+  },
+  watch: {
+    exportArticles: function exportArticles(value) {
+      var exp = this.articles.filter(function (article) {
+        return value.includes(article.id) ? true : false;
+      }).map(function (article) {
+        return article.id;
+      });
+      this.$emit('update:export', exp);
     }
   },
-  watch: {// 		articles(value, oldValue) {
-    // 			// value.forEach(function(article, index) {
-    // 			// 	article.position = index + 1;
-    // 			// });
-    // 			this.$emit("update", value);
-    // 		},
-    // 		value(value, oldValue) {
-    // 			// value.forEach(function(article, index) {
-    // 			// 	article.position = index + 1;
-    // 			// });
-    // 			this.articles = value;
-    // 		}
-  },
   methods: {
+    updateExportArticles: function updateExportArticles() {
+      this.exportArticles.push('0');
+      this.exportArticles.splice(-1, 1);
+    },
     statusChange: function statusChange(index, newStatus) {
       var _this = this;
 
@@ -59338,7 +59372,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.$emit("update:file_audio", null)
+                      return _vm.$emit("update:file_en", null)
                     }
                   }
                 },
@@ -60314,7 +60348,7 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c(
               "div",
-              { staticClass: "col-md-7" },
+              { staticClass: "col-md-7 d-flex" },
               [
                 _c("issue-files", {
                   attrs: {
@@ -60474,6 +60508,12 @@ var render = function() {
               { staticClass: "col-md" },
               [
                 _c("issue-articles", {
+                  attrs: { export: _vm.exportIssue.articles },
+                  on: {
+                    "update:export": function($event) {
+                      return _vm.$set(_vm.exportIssue, "articles", $event)
+                    }
+                  },
                   model: {
                     value: _vm.currentIssue.articles,
                     callback: function($$v) {
@@ -60545,253 +60585,8 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c(
-        "table",
-        {
-          staticClass: "table table-sm table-striped table-responsive-md",
-          staticStyle: { width: "100%" },
-          attrs: { id: "" }
-        },
-        [
-          _vm._m(1),
-          _vm._v(" "),
-          _c(
-            "draggable",
-            {
-              attrs: { tag: "tbody", handle: ".handle" },
-              on: {
-                choose: function($event) {
-                  _vm.showCat = false
-                },
-                end: function($event) {
-                  _vm.showCat = true
-                }
-              },
-              model: {
-                value: _vm.articles,
-                callback: function($$v) {
-                  _vm.articles = $$v
-                },
-                expression: "articles"
-              }
-            },
-            [
-              _vm._l(_vm.articles, function(article, index) {
-                return [
-                  _c("tr", { key: article.id }, [
-                    _c(
-                      "td",
-                      {
-                        staticClass: "handle text-secondary my-auto",
-                        on: {
-                          mouseover: function($event) {
-                            return $event.target.classList.add("text-success")
-                          },
-                          mouseout: function($event) {
-                            return $event.target.classList.remove(
-                              "text-success"
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-arrows-v" }),
-                        _vm._v(
-                          "\n\t\t\t\t\t\t\t" +
-                            _vm._s(article.position) +
-                            "\n\t\t\t\t\t\t"
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "title trunc" }, [
-                      _c("a", { attrs: { href: article.editLink } }, [
-                        _vm._v(_vm._s(article.title_ru))
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      _vm._l(article.users, function(user, index) {
-                        return _c("p", { key: index, staticClass: "my-0" }, [
-                          _c("a", { attrs: { href: user.editLink } }, [
-                            _vm._v(_vm._s(user.short_name_ru))
-                          ])
-                        ])
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      _vm._l(article.categories, function(category, index) {
-                        return _c("p", { key: index, staticClass: "my-0" }, [
-                          _vm._v(_vm._s(category.title_ru))
-                        ])
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      _vm._l(article.tags, function(tag, index) {
-                        return _c("p", { key: index, staticClass: "my-0" }, [
-                          _vm._v(_vm._s(tag))
-                        ])
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "mx-1 switch switch-label switch-3d switch-success form-check-label"
-                        },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: article.status,
-                                expression: "article.status"
-                              }
-                            ],
-                            staticClass: "switch-input",
-                            attrs: { type: "checkbox" },
-                            domProps: {
-                              checked: Array.isArray(article.status)
-                                ? _vm._i(article.status, null) > -1
-                                : article.status
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.statusChange(index, !article.status)
-                              },
-                              change: function($event) {
-                                var $$a = article.status,
-                                  $$el = $event.target,
-                                  $$c = $$el.checked ? true : false
-                                if (Array.isArray($$a)) {
-                                  var $$v = null,
-                                    $$i = _vm._i($$a, $$v)
-                                  if ($$el.checked) {
-                                    $$i < 0 &&
-                                      _vm.$set(
-                                        article,
-                                        "status",
-                                        $$a.concat([$$v])
-                                      )
-                                  } else {
-                                    $$i > -1 &&
-                                      _vm.$set(
-                                        article,
-                                        "status",
-                                        $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1))
-                                      )
-                                  }
-                                } else {
-                                  _vm.$set(article, "status", $$c)
-                                }
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("span", {
-                            staticClass: "switch-slider",
-                            attrs: {
-                              "data-checked": "✓",
-                              "data-unchecked": "✕"
-                            }
-                          })
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-secondary" }, [
-                      _c("i", {
-                        staticClass: "fa fa-close",
-                        on: {
-                          mouseover: function($event) {
-                            return $event.target.classList.add("text-danger")
-                          },
-                          mouseout: function($event) {
-                            return $event.target.classList.remove("text-danger")
-                          },
-                          click: function($event) {
-                            return _vm.deleteArticle(index)
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ]
-              })
-            ],
-            2
-          )
-        ],
-        1
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header d-flex" }, [
-      _c("h5", { staticClass: "mr-1 my-auto" }, [
-        _vm._v("Список статей выпуска")
-      ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-outline-primary btn-round my-0 ml-auto",
-          attrs: { href: "/admin/articles/create" }
-        },
-        [_vm._v("Добавить новую статью")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "text-black" }, [
-      _c("tr", [
-        _c("th"),
-        _vm._v(" "),
-        _c("th", [_vm._v("Заголовок")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Авторы")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Рубрики")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Метки")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Опуб.")]),
-        _vm._v(" "),
-        _c("th")
-      ])
-    ])
-  }
-]
-render._withStripped = true
+var render = function () {}
+var staticRenderFns = []
 
 
 
@@ -60812,15 +60607,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "card flex-fill" }, [
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row d-flex flex-fill" }, [
+      _c("div", { staticClass: "row h-100" }, [
         _c(
           "div",
           {
-            staticClass: "col-sm  m-2 my-sm-0 py-2 rounded-lg text-center",
+            staticClass:
+              "col-sm d-flex flex-column m-2 my-sm-0 py-md-4 py-2 rounded-lg text-center",
             class: !_vm.file_ru ? "bg-light" : "bg-light-green"
           },
           [
@@ -60898,7 +60694,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "col-sm d-flex flex-column m-2 my-sm-0 py-2 rounded-lg text-center",
+              "col-sm d-flex flex-column m-2 my-sm-0 py-md-4 py-2 rounded-lg text-center",
             class: !_vm.file_en ? "bg-light" : "bg-light-green"
           },
           [
@@ -60963,7 +60759,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.$emit("update:file_audio", null)
+                      return _vm.$emit("update:file_en", null)
                     }
                   }
                 },

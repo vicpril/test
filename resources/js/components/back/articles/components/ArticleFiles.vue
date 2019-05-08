@@ -61,7 +61,7 @@
 						<button
 							v-show="file_en"
 							type="button"
-							@click.prevent="$emit('update:file_audio', null)"
+							@click.prevent="$emit('update:file_en', null)"
 							class="btn btn-sm btn-outline-success"
 						>Убрать</button>
 					</div>

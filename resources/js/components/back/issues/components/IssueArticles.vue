@@ -12,6 +12,13 @@
 				<thead class="text-black">
 					<tr>
 						<th></th>
+						<th>
+							<b-form-checkbox
+										:id="'export-articles-all"
+										v-model="selectedAll"
+									>
+							</b-form-checkbox>
+						</th>
 						<th>Заголовок</th>
 						<th>Авторы</th>
 						<th>Рубрики</th>
@@ -43,6 +50,14 @@
 							>
 								<i class="fa fa-arrows-v"></i>
 								{{ article.position }}
+							</td>
+							<td>
+									<b-form-checkbox
+										:id="'export-article-' + article.id"
+										:value="article.id"							 
+										v-model="exportArticles"
+									>
+									</b-form-checkbox>
 							</td>
 							<td class="title trunc">
 								<a :href="article.editLink">{{ article.title_ru }}</a>
@@ -102,19 +117,21 @@ export default {
 			default: () => {
 				[];
 			}
+		},
+		export: {
+			type: Array,
+			default: () => {
+				[];
+			}
 		}
 	},
 	data() {
 		return {
-			// 			articles: this.value
-			showCat: true
+			exportArticles: [],
 		};
 	},
 
 	computed: {
-		// 		articles() {
-		// 			return this.value;
-		// 		}
 		articles: {
 			get() {
 				return this.value;
@@ -124,25 +141,43 @@ export default {
 				// 					article.position = index + 1;
 				// 				});
 				this.$emit("input", value);
+				this.updateExportArticles();
 			}
-		}
+		},
+// 		selectAll: {
+//             get: function () {
+//                 return this.selected.length == this.users.length ? true : false;
+//             },
+//             set: function (value) {
+//                 var selected = [];
+
+//                 if (value) {
+//                     this.users.forEach(function (user) {
+//                         selected.push(user.id);
+//                     });
+//                 }
+
+//                 this.selected = selected;
+//             }
+//         }
 	},
 	watch: {
-		// 		articles(value, oldValue) {
-		// 			// value.forEach(function(article, index) {
-		// 			// 	article.position = index + 1;
-		// 			// });
-		// 			this.$emit("update", value);
-		// 		},
-		// 		value(value, oldValue) {
-		// 			// value.forEach(function(article, index) {
-		// 			// 	article.position = index + 1;
-		// 			// });
-		// 			this.articles = value;
-		// 		}
+		exportArticles(value) {
+			var exp = this.articles.filter( (article) => {
+				return (value.includes(article.id)) ? true : false;
+			}).map((article)=>{
+				return article.id;
+			});
+			this.$emit('update:export', exp)
+		}
 	},
 
 	methods: {
+		updateExportArticles() {
+			this.exportArticles.push('0');
+			this.exportArticles.splice(-1,1);
+		},
+		
 		statusChange(index, newStatus) {
 			const message = newStatus
 				? 'Опубликовать статью "'
