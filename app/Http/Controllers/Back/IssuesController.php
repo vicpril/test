@@ -21,7 +21,7 @@ class IssuesController extends AdminController
         $this->template = env('THEME_BACK') . '.back.issues.index';
 
         $this->repository = $i_rep;
-      
+
         $this->table = 'issues';
     }
 
@@ -35,9 +35,9 @@ class IssuesController extends AdminController
 
         $this->subtitle = "Выпуски";
 
-        $this->template = env('THEME_BACK') . '.back.issues.index';
-      
-        return $this->renderOutput();
+        $lastIssueId = Issue::orderBy('id', 'desc')->first()->id;
+
+        return redirect()->route('issues.edit', $lastIssueId);
     }
 
     /**
@@ -46,13 +46,13 @@ class IssuesController extends AdminController
      * @return \Illuminate\Http\Response
      */
 //     public function create()
-//     {
-//         $this->subtitle = "Новая статья";
+    //     {
+    //         $this->subtitle = "Новая статья";
 
 //         $this->template = env('THEME_BACK') . '.back.articles.edit';
 
 //         return $this->renderOutput();
-//     }
+    //     }
 
     /**
      * Store a newly created resource in storage.
@@ -61,12 +61,12 @@ class IssuesController extends AdminController
      * @return \Illuminate\Http\Response
      */
 //     public function store(ArticleRequest $request)
-//     {
-//         $result = $this->repository->create($request->except('_token', '_method'));
+    //     {
+    //         $result = $this->repository->create($request->except('_token', '_method'));
 
 //         if (is_array($result) && !empty($result['error'])) {
-//             return back()->with($result);
-//         }
+    //             return back()->with($result);
+    //         }
 
 //         return redirect(route('articles.index'))->with(['message' => $result]);
 
@@ -78,14 +78,14 @@ class IssuesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-//     public function edit(Issue $issue)
-//     {
-//         $this->subtitle = "Редактировать выпуск";
+    public function edit(Issue $issue)
+    {
+        $this->subtitle = "Редактировать выпуск";
 
-//         $this->template = env('THEME_BACK') . '.back.issues.edit';
+        $this->template = env('THEME_BACK') . '.back.issues.index';
 
-//         return $this->renderOutput(['id' => $issue->id]);
-//     }
+        return $this->renderOutput(['id' => $issue->id]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -94,16 +94,16 @@ class IssuesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-//     public function update(ArticleRequest $request, $article)
-//     {
-//         $result = $this->repository->update($article, $request->except('_token', '_method'));
+    // public function update(IssueRequest $request, $issue)
+    //     {
+    //         $result = $this->repository->update($issue, $request->except('_token', '_method'));
 
-//         if (is_array($result) && !empty($result['error'])) {
-//             return back()->with($result);
-//         }
+    //     if (is_array($result) && !empty($result['error'])) {
+    //             return back()->with($result);
+    //         }
 
-//         return redirect(route('articles.index'))->with(['message' => $result]);
-//     }
+    //     return redirect(route('issue.index'))->with(['message' => $result]);
+    //     }
 
     /**
      * Remove the specified resource from storage.
@@ -112,25 +112,25 @@ class IssuesController extends AdminController
      * @return \Illuminate\Http\Response
      */
 //     public function destroy(Article $article)
-//     {
-//         $result = $this->repository->deleteArticle($article);
+    //     {
+    //         $result = $this->repository->deleteArticle($article);
 
 //         if (request()->ajax()) {
 
 //             if (is_array($result) && ($result['status'] === 'success')) {
-//                 $result = array_add($result, 'redirect', route('articles.index'));
-//             }
+    //                 $result = array_add($result, 'redirect', route('articles.index'));
+    //             }
 
 //             return response()->json($result);
 
 //         } else {
 
 //             if (is_array($result) && !empty($result['error'])) {
-//                 return back()->with($result);
-//             }
+    //                 return back()->with($result);
+    //             }
 
 //             return redirect(route('articles.index'))->with(['message' => $result]);
-//         }
+    //         }
 
 //     }
 }

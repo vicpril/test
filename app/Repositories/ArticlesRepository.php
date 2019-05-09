@@ -4,8 +4,8 @@ namespace App\Repositories;
 
 use App\Models\Article;
 use App\Models\Issue;
-use Transliterate;
 use DB;
+use Transliterate;
 
 class ArticlesRepository extends Repository
 {
@@ -161,9 +161,9 @@ class ArticlesRepository extends Repository
             'finance' => $data['finance'],
             'file_audio' => $data['file_audio'],
         ]);
-      
+
         $article->save();
-      
+
         $article->meta()->create([
             'lang' => 'ru',
             'title' => $data['title_ru'],
@@ -173,7 +173,7 @@ class ArticlesRepository extends Repository
             'file' => $data['file_ru'],
             'bibliography' => $data['bibliography_ru'],
         ]);
-      
+
         $article->meta()->create([
             'lang' => 'en',
             'title' => $data['title_en'],
@@ -183,41 +183,42 @@ class ArticlesRepository extends Repository
             'file' => $data['file_en'],
             'bibliography' => $data['bibliography_en'],
         ]);
-        
-        if(filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
-          $article->status()->associate(1);
-        }else{
-          $article->status()->associate(2);
+
+        if (filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
+            $article->status()->associate(1);
+        } else {
+            $article->status()->associate(2);
         }
-        
+
         $article->users()->detach();
         foreach ($data['users'] as $user_id) {
-          $article->users()->attach($user_id);
+            $article->users()->attach($user_id);
         }
-        
+
         $article->tags()->sync($data['tags']);
         $article->categories()->sync($data['categories']);
-      
+
         $issue = Issue::firstOrCreate([
-          'year' => $data['year'],
-          'no' => $data['no'],
-          'part' => $data['part'],
+            'year' => $data['year'],
+            'no' => $data['no'],
+            'part' => $data['part'],
         ], [
-          'year' => $data['year'],
-          'tom' => $data['tom'],
-          'no' => $data['no'],
-          'full_no' => $data['full_no'],
-          'part' => $data['part'],
+            'year' => $data['year'],
+            'tom' => $data['tom'],
+            'no' => $data['no'],
+            'full_no' => $data['full_no'],
+            'part' => $data['part'],
         ]);
         $article->position = $issue->articles()->count() + 1;
         $issue->articles()->save($article);
-      
+
         return [
             'status' => 'success',
             'message' => 'Новая статья добавлена',
+            'issueId' => $issue->id,
         ];
     }
-  
+
     /*
      *
      *   Update the article in database
@@ -236,7 +237,7 @@ class ArticlesRepository extends Repository
             'finance' => $data['finance'],
             'file_audio' => $data['file_audio'],
         ]);
-      
+
         $article->ru->update([
             'title' => $data['title_ru'],
             'text' => $data['text_ru'],
@@ -245,7 +246,7 @@ class ArticlesRepository extends Repository
             'file' => $data['file_ru'],
             'bibliography' => $data['bibliography_ru'],
         ]);
-      
+
         $article->en->update([
             'title' => $data['title_en'],
             'text' => $data['text_en'],
@@ -254,43 +255,42 @@ class ArticlesRepository extends Repository
             'file' => $data['file_en'],
             'bibliography' => $data['bibliography_en'],
         ]);
-        
-        if(filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
-          $article->status()->associate(1);
-        }else{
-          $article->status()->associate(2);
+
+        if (filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
+            $article->status()->associate(1);
+        } else {
+            $article->status()->associate(2);
         }
-        
-        if(!arraysStrickEquil($article->users_id(), $data['users'])) {
-          $article->users()->detach();
-          foreach ($data['users'] as $user_id) {
-            $article->users()->attach($user_id);
-          }
+
+        if (!arraysStrickEquil($article->users_id(), $data['users'])) {
+            $article->users()->detach();
+            foreach ($data['users'] as $user_id) {
+                $article->users()->attach($user_id);
+            }
         }
-        
+
         $article->tags()->sync($data['tags']);
         $article->categories()->sync($data['categories']);
-      
+
         $issue = Issue::firstOrCreate([
-          'year' => $data['year'],
-          'no' => $data['no'],
-          'part' => $data['part'],
+            'year' => $data['year'],
+            'no' => $data['no'],
+            'part' => $data['part'],
         ], [
-          'year' => $data['year'],
-          'tom' => $data['tom'],
-          'no' => $data['no'],
-          'full_no' => $data['full_no'],
-          'part' => $data['part'],
+            'year' => $data['year'],
+            'tom' => $data['tom'],
+            'no' => $data['no'],
+            'full_no' => $data['full_no'],
+            'part' => $data['part'],
         ])->articles()->save($article);
-      
+
         $article->touch();
-      
+
         return [
             'status' => 'success',
             'message' => 'Статья обновлена',
         ];
     }
-
 
     public function deleteArticle(Article $article)
     {

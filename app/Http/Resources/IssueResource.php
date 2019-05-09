@@ -29,7 +29,7 @@ class IssueResource extends JsonResource
                     "id" => $article->id,
                     "position" => $article->position,
                     "status" => $article->status->type,
-                    'editLink' =>     $article->editLink,
+                    'editLink' => $article->editLink,
 
                     "users" => $article->users->map(function ($user) {
                         return [

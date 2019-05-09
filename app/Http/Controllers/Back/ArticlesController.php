@@ -34,7 +34,7 @@ class ArticlesController extends AdminController
         $this->subtitle = "Статьи";
 
         $this->template = env('THEME_BACK') . '.back.articles.index';
-      
+
         return $this->renderOutput();
     }
 
@@ -66,7 +66,8 @@ class ArticlesController extends AdminController
             return back()->with($result);
         }
 
-        return redirect(route('articles.index'))->with(['message' => $result]);
+        // return redirect(route('articles.index'))->with(['message' => $result]);
+        return redirect(route('issues.edit', $result["issueId"]))->with(['message' => $result]);
 
     }
 
@@ -100,7 +101,9 @@ class ArticlesController extends AdminController
             return back()->with($result);
         }
 
-        return redirect(route('articles.index'))->with(['message' => $result]);
+        // return redirect(route('articles.index'))->with(['message' => $result]);
+        return redirect(route('issues.edit', $article->issue->id))->with(['message' => $result]);
+
     }
 
     /**
@@ -127,7 +130,9 @@ class ArticlesController extends AdminController
                 return back()->with($result);
             }
 
-            return redirect(route('articles.index'))->with(['message' => $result]);
+            // return redirect(route('articles.index'))->with(['message' => $result]);
+            return redirect(route('issues.edit', $article->issue->id))->with(['message' => $result]);
+
         }
 
     }

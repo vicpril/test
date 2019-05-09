@@ -8,7 +8,12 @@
 			>Добавить новую статью</a>
 		</div>
 		<div class="card-body">
-			<table class="table table-sm table-striped table-responsive-md" style="width:100%" id>
+			<table
+				v-if="value.length > 0"
+				class="table table-sm table-striped table-responsive-md"
+				style="width:100%"
+				id
+			>
 				<thead class="text-black">
 					<tr>
 						<th></th>
@@ -96,6 +101,7 @@
 					</template>
 				</draggable>
 			</table>
+			<span v-else class="d-flex justify-content-center">В этом выпуске пока нет статей</span>
 		</div>
 	</div>
 </template>

@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Issue;
-use Illuminate\Http\Request;
-use App\Http\Requests\IssueRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\IssueRequest;
 use App\Http\Resources\IssueResource;
+use App\Models\Issue;
 use App\Repositories\IssuesRepository;
+use Illuminate\Http\Request;
 
 class IssuesController extends Controller
 {
     protected $repository;
-  
-    public function __construct (IssuesRepository $i_rep) {
-      
-      $this->repository = $i_rep;
+
+    public function __construct(IssuesRepository $i_rep)
+    {
+
+        $this->repository = $i_rep;
     }
-  
+
     /**
      * Display a listing of the resource.
      *
@@ -47,8 +48,8 @@ class IssuesController extends Controller
      */
     public function show(Issue $issue)
     {
-        $issue->loadMissing(['articles' => function($q) {
-          $q->with(['meta', 'users', 'status']);
+        $issue->loadMissing(['articles' => function ($q) {
+            $q->with(['meta', 'users', 'status']);
         }]);
         return new IssueResource($issue);
     }
@@ -60,9 +61,10 @@ class IssuesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(IssueRequest $request, Issue $issue)
     {
-        //
+        $result = $this->repository->update($issue, $request->except('_token', '_method'));
+        return response()->json($result);
     }
 
     /**

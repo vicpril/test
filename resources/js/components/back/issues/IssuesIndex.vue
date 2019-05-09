@@ -1,13 +1,15 @@
 <template>
 	<div>
+		<!-- ISSUE SELECT -->
 		<div class="d-flex mb-4 form-inline">
 			<h3 class="mb-0 my-auto">Выпуск</h3>
-			<select class="form-control mx-3" value="fetchIssue.id" @change="selectIssue">
+			<select class="form-control mx-3" :value="id" @change="selectIssue">
 				<option value="0">-- Выберите выпуск --</option>
 				<option
 					v-for="(issue, index) in issues"
 					:key="index"
 					:value="issue.id"
+					:data-link="issue.editLink"
 				>Год: {{issue.year}}, Номер {{issue.no}} ({{issue.full_no}}), Часть {{issue.part}}</option>
 			</select>
 
@@ -18,16 +20,86 @@
 				v-if="currentIssue.id"
 			>Сохранить изменения</button>
 		</div>
+		<!-- END ISSUE SELECT -->
 
 		<div v-if="currentIssue.id">
 			<div class="row">
-				<div class="col-md-7 d-flex">
+				<!-- INFO -->
+				<div class="col-md-4 d-flex">
+					<div class="card flex-fill">
+						<div class="card-header">
+							<h5 class="h5 mb-0">Информация</h5>
+						</div>
+						<div class="card-body">
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Год</span>
+								</div>
+								<input
+									type="number"
+									name="year"
+									min="2009"
+									class="form-control"
+									v-model="currentIssue.year"
+								>
+								<div class="input-group-append">
+									<span class="input-group-text">Том {{ currentIssue.tom }}</span>
+									<input type="number" name="tom" v-model="currentIssue.tom" hidden>
+								</div>
+							</div>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Номер</span>
+								</div>
+								<select name="no" class="form-control" v-model="currentIssue.no">
+									<option v-for="(no, index) in noArray" :key="index" :value="no">{{ no }}</option>
+								</select>
+							</div>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Полный номер</span>
+								</div>
+								<input
+									type="number"
+									name="full_no"
+									min="1"
+									class="form-control"
+									v-model="currentIssue.full_no"
+								>
+								<div class="input-group-append">
+									<button type="button" class="btn btn-outline-info" @click.prevent="setFullNo">Авто</button>
+								</div>
+							</div>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Часть</span>
+								</div>
+								<select name="part" class="form-control" v-model="currentIssue.part">
+									<option v-for="(part, index) in partArray" :key="index" :value="part">{{ part }}</option>
+								</select>
+							</div>
+						</div>
+						<div class="card-footer">
+							<button
+								class="btn btn-link text-danger float-left sticky-top"
+								@click.prevent="deleteIssue"
+							>Удалить выпуск</button>
+						</div>
+					</div>
+				</div>
+				<!-- end INFO -->
+
+				<!-- ISSUE FILES -->
+				<div class="col-md-4 d-flex">
 					<issue-files
 						:file_ru.sync="currentIssue.file_title_ru"
 						:file_en.sync="currentIssue.file_title_en"
 					></issue-files>
 				</div>
-				<div class="col-md-5">
+				<!-- END ISSUE FILES -->
+
+				<!-- EXPORT ARTICLES -->
+				<div class="col-md-4">
 					<div class="card">
 						<div class="card-header d-flex">
 							<h5 class="mr-1 my-auto">Выгрузка статей в шаблоны</h5>
@@ -79,13 +151,16 @@
 						</div>
 					</div>
 				</div>
+				<!-- end EXPORT ARTICLES -->
 			</div>
 
+			<!-- ISSUE ARTICLES -->
 			<div class="row">
 				<div class="col-md">
 					<issue-articles v-model="currentIssue.articles" :export.sync="exportIssue.articles"></issue-articles>
 				</div>
 			</div>
+			<!-- end ISSUE ARTICLES -->
 		</div>
 	</div>
 </template>
@@ -107,14 +182,14 @@ export default {
 		},
 		id: {
 			type: Number,
-			default: 1
+			default: ""
 		}
 	},
 
 	data() {
 		return {
 			currentIssue: {
-				id: 0,
+				id: "",
 				link: "",
 				created_at: "",
 				updated_at: "",
@@ -128,6 +203,8 @@ export default {
 				file_title_en: ""
 			},
 			issues: [],
+			noArray: [1, 2, 3, 4, 5],
+			partArray: [1, 2],
 			exportIssue: {
 				title: "Журнал «Идеи и идеалы»",
 				issn: "",
@@ -177,8 +254,9 @@ export default {
 			});
 		},
 
-		selectIssue(event) {
-			this.fetchIssue(event.target.value);
+		selectIssue(e) {
+			window.location =
+				e.target.options[e.target.options.selectedIndex].dataset.link;
 		},
 
 		fetchIssue(id) {
@@ -186,6 +264,20 @@ export default {
 				axios.get("/api/issues/" + id).then(({ data }) => {
 					this.currentIssue = data.data;
 				});
+			}
+		},
+		setFullNo() {
+			this.currentIssue.full_no =
+				(this.currentIssue.year - 2009 - 1) * 4 + 2 + this.currentIssue.no;
+		},
+		deleteIssue() {
+			if (this.currentIssue.articles.length > 0) {
+				alert(
+					"Во избежании случайной потери статей удалите статьи вручную или перенесите их в другой выпуск."
+				);
+			} else {
+				if (confirm("Вы хотите удалить выпуск?")) {
+				}
 			}
 		}
 	}
