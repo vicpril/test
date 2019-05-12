@@ -197,10 +197,23 @@ class IssuesRepository extends Repository
      */
     public function update(Issue $issue, $data)
     {
-        if ($issue->update($data)->except('articlesOrder')) {
+        $targetIssue = Issue::where([
+            'year' => $data['year'],
+            'no' => $data['no'],
+            'part' => $data['part'],
+        ])->first();
+
+        if (isset($targetIssue) && $targetIssue->id !== $issue->id) {
+            return [
+                'status' => 'error',
+                'message' => 'Выбраный выпуск уже существует. Выберите другие Год/Номер/Часть.',
+            ];
+        }
+
+        if ($issue->update($data->except('articlesOrder'))) {
             return [
                 'status' => 'success',
-                'message' => 'Рубрика обновлена',
+                'message' => 'Выпуск обновлен',
             ];
         } else {
             return [
