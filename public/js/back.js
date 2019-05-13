@@ -2551,17 +2551,19 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       var data = Object.assign({}, this.currentIssue);
-      delete data.articles; // 			data.articlesOrder = this.currentIssue.articles.map(function(a) {
-      // 				return a.id;
-      // 			});
-
+      delete data.articles;
+      data.articlesOrder = this.currentIssue.articles.map(function (a) {
+        return a.id;
+      });
       axios.put("/api/issues/" + this.id, data).then(function (resp) {
         if (resp.data.status === "success") {
+          _this3.fetchIssuesList();
+
           _this3.$notify({
             group: "custom-template",
             type: "alert-success",
             text: resp.data.message,
-            duration: -1
+            duration: 5000
           });
         } else {
           _this3.$notify({
@@ -60432,39 +60434,59 @@ var render = function() {
       _c(
         "select",
         {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.currentIssue.id,
+              expression: "currentIssue.id"
+            }
+          ],
           staticClass: "form-control mx-3",
-          domProps: { value: _vm.id },
-          on: { change: _vm.selectIssue }
-        },
-        [
-          _c("option", { attrs: { value: "0" } }, [
-            _vm._v("-- Выберите выпуск --")
-          ]),
-          _vm._v(" "),
-          _vm._l(_vm.issues, function(issue, index) {
-            return _c(
-              "option",
-              {
-                key: index,
-                attrs: { "data-link": issue.editLink },
-                domProps: { value: issue.id }
-              },
-              [
-                _vm._v(
-                  "Год: " +
-                    _vm._s(issue.year) +
-                    ", Номер " +
-                    _vm._s(issue.no) +
-                    " (" +
-                    _vm._s(issue.full_no) +
-                    "), Часть " +
-                    _vm._s(issue.part)
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.$set(
+                  _vm.currentIssue,
+                  "id",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                 )
-              ]
-            )
-          })
-        ],
-        2
+              },
+              _vm.selectIssue
+            ]
+          }
+        },
+        _vm._l(_vm.issues, function(issue, index) {
+          return _c(
+            "option",
+            {
+              key: index,
+              attrs: { "data-link": issue.editLink },
+              domProps: { value: issue.id }
+            },
+            [
+              _vm._v(
+                "Год: " +
+                  _vm._s(issue.year) +
+                  ", Номер " +
+                  _vm._s(issue.no) +
+                  " (" +
+                  _vm._s(issue.full_no) +
+                  "), Часть " +
+                  _vm._s(issue.part)
+              )
+            ]
+          )
+        }),
+        0
       ),
       _vm._v(" "),
       _c(
@@ -60780,7 +60802,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { staticClass: "h6" }, [
-                      _vm._v("\n\t\t\t\t\t\t\t\tISSN\n\t\t\t\t\t\t\t\t"),
+                      _vm._v("\n\t\t\t\t\t\t\t\t\tISSN\n\t\t\t\t\t\t\t\t\t"),
                       _c("i", {
                         directives: [
                           {

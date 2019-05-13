@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Issue;
+use App\Models\Article;
+
 
 class IssuesRepository extends Repository
 {
@@ -208,6 +210,15 @@ class IssuesRepository extends Repository
                 'status' => 'error',
                 'message' => 'Выбраный выпуск уже существует. Выберите другие Год/Номер/Часть.',
             ];
+        };
+        
+        if(isset($data["articlesOrder"])) {
+          $order = array_flip($data["articlesOrder"]);
+          Article::find($data["articlesOrder"])
+                 ->each(function($article) use($order) {
+                 $article->position = $order[$article->id] + 1;
+                 $article->save();
+                 });
         }
       
         if ($issue->update($data)) {

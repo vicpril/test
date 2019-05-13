@@ -3,8 +3,8 @@
 		<!-- ISSUE SELECT -->
 		<div class="d-flex mb-4 form-inline">
 			<h3 class="mb-0 my-auto">Выпуск</h3>
-			<select class="form-control mx-3" :value="id" @change="selectIssue">
-				<option value="0">-- Выберите выпуск --</option>
+			<select class="form-control mx-3" v-model="currentIssue.id" @change="selectIssue">
+<!-- 				<option value="0">-- Выберите выпуск --</option> -->
 				<option
 					v-for="(issue, index) in issues"
 					:key="index"
@@ -274,18 +274,19 @@ export default {
 		saveIssue() {
 			var data = Object.assign({}, this.currentIssue);
 			delete data.articles;
-// 			data.articlesOrder = this.currentIssue.articles.map(function(a) {
-// 				return a.id;
-// 			});
+			data.articlesOrder = this.currentIssue.articles.map(function(a) {
+				return a.id;
+			});
 			axios
 				.put("/api/issues/" + this.id, data)
 				.then(resp => {
 					if (resp.data.status === "success") {
+						this.fetchIssuesList();
 						this.$notify({
 							group: "custom-template",
 							type: "alert-success",
 							text: resp.data.message,
-							duration: -1
+							duration: 5000
 						});
 					} else {
 						this.$notify({
