@@ -209,11 +209,11 @@ class IssuesRepository extends Repository
                 'message' => 'Выбраный выпуск уже существует. Выберите другие Год/Номер/Часть.',
             ];
         }
-
-        if ($issue->update($data->except('articlesOrder'))) {
+      
+        if ($issue->update($data)) {
             return [
                 'status' => 'success',
-                'message' => 'Выпуск обновлен',
+                'message' => 'Изменения сохранены',
             ];
         } else {
             return [

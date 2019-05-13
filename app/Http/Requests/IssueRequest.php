@@ -29,8 +29,8 @@ class IssueRequest extends FormRequest
             'no' => 'required|integer',
             'full_no' => 'required|integer',
             'part' => 'required|integer',
-            'file_title_ru' => 'string',
-            'file_title_en' => 'string',
+            'file_title_ru' => 'string|nullable',
+            'file_title_en' => 'string|nullable',
             'articlesOrder' => 'array',
         ];
 

@@ -18,6 +18,7 @@
 				type="button"
 				class="btn btn-primary text-nowrap ml-auto"
 				v-if="currentIssue.id"
+				@click="saveIssue"
 			>Сохранить изменения</button>
 		</div>
 		<!-- END ISSUE SELECT -->
@@ -270,6 +271,42 @@ export default {
 			this.currentIssue.full_no =
 				(this.currentIssue.year - 2009 - 1) * 4 + 2 + this.currentIssue.no;
 		},
+		saveIssue() {
+			var data = Object.assign({}, this.currentIssue);
+			delete data.articles;
+// 			data.articlesOrder = this.currentIssue.articles.map(function(a) {
+// 				return a.id;
+// 			});
+			axios
+				.put("/api/issues/" + this.id, data)
+				.then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+					} else {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-danger",
+							text: resp.data.message,
+							duration: -1
+						});
+					}
+				})
+				.catch(error => {
+					this.errors = error.response.data.errors;
+					this.$notify({
+						group: "custom-template",
+						type: "alert-danger",
+						text: error.response.data.errors.title[0],
+						duration: -1
+					});
+				});
+		},
+		
 		deleteIssue() {
 			if (this.currentIssue.articles.length > 0) {
 				alert(
