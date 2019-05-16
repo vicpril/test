@@ -13,7 +13,11 @@
 				>Год: {{issue.year}}, Номер {{issue.no}} ({{issue.full_no}}), Часть {{issue.part}}</option>
 			</select>
 
-			<button type="button" class="btn btn-outline-primary text-nowrap">Создать новый выпуск</button>
+			<b-button 
+						v-b-modal.addNewIssue 
+						type="button" 
+						variant="outline-primary"
+								>Создать новый выпуск</b-button>
 			<button
 				type="button"
 				class="btn btn-primary text-nowrap ml-auto"
@@ -163,17 +167,25 @@
 			</div>
 			<!-- end ISSUE ARTICLES -->
 		</div>
+<!-- 		NEW ISSUE MODAL -->
+		<new-issue></new-issue>
+<!-- 	END	NEW ISSUE MODAL -->
+
+		
 	</div>
 </template>
 
 <script>
 import IssueArticles from "./components/IssueArticles.vue";
 import IssueFiles from "./components/IssueFiles.vue";
+import NewIssue from "./components/NewIssue.vue";
+
 
 export default {
 	components: {
 		IssueArticles,
-		IssueFiles
+		IssueFiles,
+		NewIssue
 	},
 
 	props: {
@@ -315,6 +327,7 @@ export default {
 				);
 			} else {
 				if (confirm("Вы хотите удалить выпуск?")) {
+					document.getElementById("formDelete").submit();
 				}
 			}
 		}

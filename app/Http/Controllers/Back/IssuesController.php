@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Back\AdminController;
-// use App\Http\Requests\IssueRequest;
+use App\Http\Requests\IssueRequest;
 use App\Models\Issue;
-// use App\Models\Article;
-// use App\Repositories\ArticlesRepository;
 use App\Repositories\IssuesRepository;
 use Illuminate\Http\Request;
 
@@ -36,23 +34,9 @@ class IssuesController extends AdminController
         $this->subtitle = "Выпуски";
 
         $lastIssueId = Issue::orderBy('id', 'desc')->first()->id;
-
-        return redirect()->route('issues.edit', $lastIssueId);
+      
+        return redirect()->route('issues.edit', $lastIssueId)->with(['message' => request()->session()->get('message')]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-//     public function create()
-    //     {
-    //         $this->subtitle = "Новая статья";
-
-//         $this->template = env('THEME_BACK') . '.back.articles.edit';
-
-//         return $this->renderOutput();
-    //     }
 
     /**
      * Store a newly created resource in storage.
@@ -60,17 +44,17 @@ class IssuesController extends AdminController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-//     public function store(ArticleRequest $request)
-    //     {
-    //         $result = $this->repository->create($request->except('_token', '_method'));
+    public function store(IssueRequest $request)
+    {
+        $result = $this->repository->create($request->except('_token', '_method'));
 
-//         if (is_array($result) && !empty($result['error'])) {
-    //             return back()->with($result);
-    //         }
+        if (is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
 
-//         return redirect(route('articles.index'))->with(['message' => $result]);
+        return redirect(route('issues.edit', $result["issueId"]))->with(['message' => $result]);
 
-//     }
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -90,20 +74,10 @@ class IssuesController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *          By API
+     *
      */
-    // public function update(IssueRequest $request, $issue)
-    //     {
-    //         $result = $this->repository->update($issue, $request->except('_token', '_method'));
 
-    //     if (is_array($result) && !empty($result['error'])) {
-    //             return back()->with($result);
-    //         }
-
-    //     return redirect(route('issue.index'))->with(['message' => $result]);
-    //     }
 
     /**
      * Remove the specified resource from storage.
@@ -111,26 +85,14 @@ class IssuesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-//     public function destroy(Article $article)
-    //     {
-    //         $result = $this->repository->deleteArticle($article);
+    public function destroy(Issue $issue)
+        {
+            $result = $this->repository->deleteIssue($issue);
 
-//         if (request()->ajax()) {
+            if (is_array($result) && !empty($result['error'])) {
+                    return back()->with($result);
+                }
 
-//             if (is_array($result) && ($result['status'] === 'success')) {
-    //                 $result = array_add($result, 'redirect', route('articles.index'));
-    //             }
-
-//             return response()->json($result);
-
-//         } else {
-
-//             if (is_array($result) && !empty($result['error'])) {
-    //                 return back()->with($result);
-    //             }
-
-//             return redirect(route('articles.index'))->with(['message' => $result]);
-    //         }
-
-//     }
+            return redirect(route('issues.index'))->with(['message' => $result]);
+    }
 }

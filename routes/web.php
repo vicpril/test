@@ -57,11 +57,10 @@ Route::prefix('admin')->namespace('Back')->group(function () {
     Route::middleware('redac')->group(function () {
         Route::name('admin')->get('/', 'AdminController@dashboard');
 
-//         Route::resource('files', 'FilesController')->except(['create']);
         Route::resource('jobs', 'JobsController')->except(['create', 'show']);
         Route::resource('users', 'UsersController')->except(['show']);
         Route::resource('articles', 'ArticlesController')->except(['show']);
-        Route::resource('issues', 'IssuesController')->except(['show']);
+        Route::resource('issues', 'IssuesController')->except(['show', 'update']);
         Route::resource('categories', 'CategoriesController')->only(['index']);
         Route::resource('tags', 'TagsController')->only(['index']);
 

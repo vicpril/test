@@ -31,7 +31,7 @@ class IssuesRepository extends Repository
         }]);
 
         $result = $this->getIssuesByArticleStatus($status, $result->get());
-// dd($result);
+      
         return $result->first();
     }
 
@@ -63,13 +63,11 @@ class IssuesRepository extends Repository
                 $result->articles->load(['meta', 'status', 'categories', 'tags', 'issue', 'users' => function ($query) {
                     $query->with('meta');
                 }]);
-                // $result->articles->users->load('meta');
                 $result->articles->each(function ($a) use ($lang) {
                     // Meta Article prepare
                     $prop = $a->meta->where('lang', $lang)->first()->getAttributes();
                     $a->setRawAttributes(array_merge($a->getAttributes(), $prop));
 
-                    // dump($a->categories->first()->name);
                     // Meta Users prepare
                     $a->users->each(function ($u) use ($lang) {
                         $prop = $u->meta->where('lang', $lang)->first()->getAttributes();
@@ -77,9 +75,6 @@ class IssuesRepository extends Repository
                     });
 
                 });
-
-                // dd($result);
-
             }
         }
 
@@ -94,7 +89,6 @@ class IssuesRepository extends Repository
         }
 
         if ($status && $status !== '*') {
-            // dd($issues);
             if (is_a($issues, '\Illuminate\Database\Eloquent\Model')) {
                 $issues->articles = $issues->articles->filter(function ($article) use ($status) {
                     if ($article->status->name == $status) {
@@ -139,7 +133,6 @@ class IssuesRepository extends Repository
                 $query->with('status', 'users', 'categories', 'tags');
             }]);
         }
-        // dd($result);
         return $result;
     }
 
@@ -191,7 +184,58 @@ class IssuesRepository extends Repository
         }
         return null;
     }
+  
+    /*
+     *
+     *   Check issue in database by year/no/part
+     *
+     */
+    public function checkExists($data)
+    {
+        $targetIssue = Issue::where([
+            'year' => $data['year'],
+            'no' => $data['no'],
+            'part' => $data['part'],
+        ])->first();
 
+        if (isset($targetIssue)) {
+            return [
+                'result' => true,
+                'status' => 'error',
+                'message' => 'Выпуск уже существует. Выберите другие Год/Номер/Часть.',
+            ];
+        } else {
+            return [
+                'result' => false,
+                'status' => 'success',
+            ];
+        };
+    }
+        
+
+    /*
+     *
+     *   Create the new issue in database
+     *
+     */
+    public function create($data)
+    {
+        $newIssue = Issue::create($data);
+      
+        if (isset($newIssue)) {
+            return [
+                'status' => 'success',
+                'message' => 'Новый выпуск создан',
+                'issueId' => $newIssue->id,
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'message' => 'Что-то пошло не так',
+            ];
+        }
+    }
+  
     /*
      *
      *   Update the issue in database
@@ -231,6 +275,18 @@ class IssuesRepository extends Repository
                 'status' => 'error',
                 'message' => 'Что-то пошло не так',
             ];
+        }
+    }
+  
+    public function deleteIssue(Issue $issue)
+    {
+
+        if ($issue->delete()) {
+            return ['status' => 'success',
+                'message' => 'Выпуск удален'];
+        } else {
+            return ['status' => 'error',
+                'message' => 'Что-то пошло не так'];
         }
     }
 

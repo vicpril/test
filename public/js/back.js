@@ -2278,6 +2278,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_IssueArticles_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/IssueArticles.vue */ "./resources/js/components/back/issues/components/IssueArticles.vue");
 /* harmony import */ var _components_IssueFiles_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/IssueFiles.vue */ "./resources/js/components/back/issues/components/IssueFiles.vue");
+/* harmony import */ var _components_NewIssue_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/NewIssue.vue */ "./resources/js/components/back/issues/components/NewIssue.vue");
 //
 //
 //
@@ -2446,12 +2447,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     IssueArticles: _components_IssueArticles_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    IssueFiles: _components_IssueFiles_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    IssueFiles: _components_IssueFiles_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    NewIssue: _components_NewIssue_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     old: {
@@ -2588,7 +2600,9 @@ __webpack_require__.r(__webpack_exports__);
       if (this.currentIssue.articles.length > 0) {
         alert("Во избежании случайной потери статей удалите статьи вручную или перенесите их в другой выпуск.");
       } else {
-        if (confirm("Вы хотите удалить выпуск?")) {}
+        if (confirm("Вы хотите удалить выпуск?")) {
+          document.getElementById("formDelete").submit();
+        }
       }
     }
   }
@@ -2944,6 +2958,144 @@ __webpack_require__.r(__webpack_exports__);
     file_en: {
       type: String,
       default: ""
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/issues/components/NewIssue.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/back/issues/components/NewIssue.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      newIssue: {
+        year: new Date().getFullYear(),
+        tom: "",
+        no: "",
+        full_no: "",
+        part: ""
+      },
+      noArray: [1, 2, 3, 4, 5],
+      partArray: [1, 2],
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    };
+  },
+  computed: {
+    tom: function tom() {
+      this.newIssue.tom = this.newIssue.year - 2009 + 1;
+      return this.newIssue.tom;
+    }
+  },
+  methods: {
+    setFullNo: function setFullNo() {
+      this.newIssue.full_no = (this.newIssue.year - 2009 - 1) * 4 + 2 + this.newIssue.no;
+    },
+    clearForm: function clearForm() {
+      this.newIssue = {
+        year: new Date().getFullYear(),
+        no: "",
+        full_no: "",
+        part: ""
+      };
+    },
+    handleSaveIssue: function handleSaveIssue(bvModalEvt) {
+      var _this = this;
+
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+
+      if (!this.newIssue.year || !this.newIssue.full_no || !this.newIssue.no || !this.newIssue.part) {
+        alert("Пожалуйста, заполните поля.");
+      } else {
+        axios.post("/api/issues/exists", this.newIssue).then(function (resp) {
+          if (resp.data.status === "success") {
+            _this.$refs.addNewIssueForm.submit();
+          } else {
+            _this.$notify({
+              group: "custom-template",
+              type: "alert-danger",
+              text: resp.data.message,
+              duration: -1
+            });
+          }
+        });
+      }
     }
   }
 });
@@ -60427,143 +60579,126 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "d-flex mb-4 form-inline" }, [
-      _c("h3", { staticClass: "mb-0 my-auto" }, [_vm._v("Выпуск")]),
-      _vm._v(" "),
+  return _c(
+    "div",
+    [
       _c(
-        "select",
-        {
-          directives: [
+        "div",
+        { staticClass: "d-flex mb-4 form-inline" },
+        [
+          _c("h3", { staticClass: "mb-0 my-auto" }, [_vm._v("Выпуск")]),
+          _vm._v(" "),
+          _c(
+            "select",
             {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.currentIssue.id,
-              expression: "currentIssue.id"
-            }
-          ],
-          staticClass: "form-control mx-3",
-          on: {
-            change: [
-              function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.$set(
-                  _vm.currentIssue,
-                  "id",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                )
-              },
-              _vm.selectIssue
-            ]
-          }
-        },
-        _vm._l(_vm.issues, function(issue, index) {
-          return _c(
-            "option",
-            {
-              key: index,
-              attrs: { "data-link": issue.editLink },
-              domProps: { value: issue.id }
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.currentIssue.id,
+                  expression: "currentIssue.id"
+                }
+              ],
+              staticClass: "form-control mx-3",
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.currentIssue,
+                      "id",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  },
+                  _vm.selectIssue
+                ]
+              }
             },
-            [
-              _vm._v(
-                "Год: " +
-                  _vm._s(issue.year) +
-                  ", Номер " +
-                  _vm._s(issue.no) +
-                  " (" +
-                  _vm._s(issue.full_no) +
-                  "), Часть " +
-                  _vm._s(issue.part)
+            _vm._l(_vm.issues, function(issue, index) {
+              return _c(
+                "option",
+                {
+                  key: index,
+                  attrs: { "data-link": issue.editLink },
+                  domProps: { value: issue.id }
+                },
+                [
+                  _vm._v(
+                    "Год: " +
+                      _vm._s(issue.year) +
+                      ", Номер " +
+                      _vm._s(issue.no) +
+                      " (" +
+                      _vm._s(issue.full_no) +
+                      "), Часть " +
+                      _vm._s(issue.part)
+                  )
+                ]
               )
-            ]
-          )
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-primary text-nowrap",
-          attrs: { type: "button" }
-        },
-        [_vm._v("Создать новый выпуск")]
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "b-button",
+            {
+              directives: [
+                {
+                  name: "b-modal",
+                  rawName: "v-b-modal.addNewIssue",
+                  modifiers: { addNewIssue: true }
+                }
+              ],
+              attrs: { type: "button", variant: "outline-primary" }
+            },
+            [_vm._v("Создать новый выпуск")]
+          ),
+          _vm._v(" "),
+          _vm.currentIssue.id
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary text-nowrap ml-auto",
+                  attrs: { type: "button" },
+                  on: { click: _vm.saveIssue }
+                },
+                [_vm._v("Сохранить изменения")]
+              )
+            : _vm._e()
+        ],
+        1
       ),
       _vm._v(" "),
       _vm.currentIssue.id
-        ? _c(
-            "button",
-            {
-              staticClass: "btn btn-primary text-nowrap ml-auto",
-              attrs: { type: "button" },
-              on: { click: _vm.saveIssue }
-            },
-            [_vm._v("Сохранить изменения")]
-          )
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _vm.currentIssue.id
-      ? _c("div", [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4 d-flex" }, [
-              _c("div", { staticClass: "card flex-fill" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "input-group mb-2" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.currentIssue.year,
-                          expression: "currentIssue.year"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "number", name: "year", min: "2009" },
-                      domProps: { value: _vm.currentIssue.year },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.currentIssue,
-                            "year",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "input-group-append" }, [
-                      _c("span", { staticClass: "input-group-text" }, [
-                        _vm._v("Том " + _vm._s(_vm.currentIssue.tom))
-                      ]),
+        ? _c("div", [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-4 d-flex" }, [
+                _c("div", { staticClass: "card flex-fill" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "input-group mb-2" }, [
+                      _vm._m(1),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.currentIssue.tom,
-                            expression: "currentIssue.tom"
+                            value: _vm.currentIssue.year,
+                            expression: "currentIssue.year"
                           }
                         ],
-                        attrs: { type: "number", name: "tom", hidden: "" },
-                        domProps: { value: _vm.currentIssue.tom },
+                        staticClass: "form-control",
+                        attrs: { type: "number", name: "year", min: "2009" },
+                        domProps: { value: _vm.currentIssue.year },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
@@ -60571,360 +60706,406 @@ var render = function() {
                             }
                             _vm.$set(
                               _vm.currentIssue,
-                              "tom",
+                              "year",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group-append" }, [
+                        _c("span", { staticClass: "input-group-text" }, [
+                          _vm._v("Том " + _vm._s(_vm.currentIssue.tom))
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.currentIssue.tom,
+                              expression: "currentIssue.tom"
+                            }
+                          ],
+                          attrs: { type: "number", name: "tom", hidden: "" },
+                          domProps: { value: _vm.currentIssue.tom },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.currentIssue,
+                                "tom",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group mb-2" }, [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.currentIssue.no,
+                              expression: "currentIssue.no"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "no" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.currentIssue,
+                                "no",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.noArray, function(no, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: no } },
+                            [_vm._v(_vm._s(no))]
+                          )
+                        }),
+                        0
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group mb-2" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.currentIssue.full_no,
+                            expression: "currentIssue.full_no"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", name: "full_no", min: "1" },
+                        domProps: { value: _vm.currentIssue.full_no },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.currentIssue,
+                              "full_no",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group-append" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-info",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.setFullNo($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Авто")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group mb-2" }, [
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.currentIssue.part,
+                              expression: "currentIssue.part"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "part" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.currentIssue,
+                                "part",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.partArray, function(part, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: part } },
+                            [_vm._v(_vm._s(part))]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn btn-link text-danger float-left sticky-top",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.deleteIssue($event)
+                          }
+                        }
+                      },
+                      [_vm._v("Удалить выпуск")]
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-4 d-flex" },
+                [
+                  _c("issue-files", {
+                    attrs: {
+                      file_ru: _vm.currentIssue.file_title_ru,
+                      file_en: _vm.currentIssue.file_title_en
+                    },
+                    on: {
+                      "update:file_ru": function($event) {
+                        return _vm.$set(
+                          _vm.currentIssue,
+                          "file_title_ru",
+                          $event
+                        )
+                      },
+                      "update:file_en": function($event) {
+                        return _vm.$set(
+                          _vm.currentIssue,
+                          "file_title_en",
+                          $event
+                        )
+                      }
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4" }, [
+                _c("div", { staticClass: "card" }, [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { staticClass: "h6" }, [
+                        _vm._v("Название журнала")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.exportIssue.title,
+                            expression: "exportIssue.title"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.exportIssue.title },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.exportIssue,
+                              "title",
                               $event.target.value
                             )
                           }
                         }
                       })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group mb-2" }, [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.currentIssue.no,
-                            expression: "currentIssue.no"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { name: "no" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.currentIssue,
-                              "no",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.noArray, function(no, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: no } },
-                          [_vm._v(_vm._s(no))]
-                        )
-                      }),
-                      0
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group mb-2" }, [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.currentIssue.full_no,
-                          expression: "currentIssue.full_no"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "number", name: "full_no", min: "1" },
-                      domProps: { value: _vm.currentIssue.full_no },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.currentIssue,
-                            "full_no",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "input-group-append" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-info",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.setFullNo($event)
-                            }
-                          }
-                        },
-                        [_vm._v("Авто")]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group mb-2" }, [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.currentIssue.part,
-                            expression: "currentIssue.part"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { name: "part" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.currentIssue,
-                              "part",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.partArray, function(part, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: part } },
-                          [_vm._v(_vm._s(part))]
-                        )
-                      }),
-                      0
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "btn btn-link text-danger float-left sticky-top",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.deleteIssue($event)
-                        }
-                      }
-                    },
-                    [_vm._v("Удалить выпуск")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-4 d-flex" },
-              [
-                _c("issue-files", {
-                  attrs: {
-                    file_ru: _vm.currentIssue.file_title_ru,
-                    file_en: _vm.currentIssue.file_title_en
-                  },
-                  on: {
-                    "update:file_ru": function($event) {
-                      return _vm.$set(_vm.currentIssue, "file_title_ru", $event)
-                    },
-                    "update:file_en": function($event) {
-                      return _vm.$set(_vm.currentIssue, "file_title_en", $event)
-                    }
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "card" }, [
-                _vm._m(5),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "h6" }, [
-                      _vm._v("Название журнала")
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.exportIssue.title,
-                          expression: "exportIssue.title"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.exportIssue.title },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { staticClass: "h6" }, [
+                        _vm._v("\n\t\t\t\t\t\t\t\t\tISSN\n\t\t\t\t\t\t\t\t\t"),
+                        _c("i", {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip.hover",
+                              modifiers: { hover: true }
+                            }
+                          ],
+                          staticClass: "fa fa-info-circle ml-2 text-secondary",
+                          attrs: {
+                            title:
+                              "Если ISSN не введен, то он будет взят из DOI статей. Если ни одна статья не содержит DOI, то ISSN выводиться не будет."
                           }
-                          _vm.$set(
-                            _vm.exportIssue,
-                            "title",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "h6" }, [
-                      _vm._v("\n\t\t\t\t\t\t\t\t\tISSN\n\t\t\t\t\t\t\t\t\t"),
-                      _c("i", {
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
                         directives: [
                           {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true }
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.exportIssue.issn,
+                            expression: "exportIssue.issn"
                           }
                         ],
-                        staticClass: "fa fa-info-circle ml-2 text-secondary",
-                        attrs: {
-                          title:
-                            "Если ISSN не введен, то он будет взят из DOI статей. Если ни одна статья не содержит DOI, то ISSN выводиться не будет."
+                        staticClass: "form-control",
+                        attrs: { type: "text", placeholder: "хххх-хххх" },
+                        domProps: { value: _vm.exportIssue.issn },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.exportIssue,
+                              "issn",
+                              $event.target.value
+                            )
+                          }
                         }
                       })
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.exportIssue.issn,
-                          expression: "exportIssue.issn"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "хххх-хххх" },
-                      domProps: { value: _vm.exportIssue.issn },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.exportIssue, "issn", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", { staticClass: "h6" }, [
-                        _vm._v("Выгружать e-mail")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-form-checkbox",
-                        {
-                          attrs: { id: "export-emails" },
-                          model: {
-                            value: _vm.exportIssue.emails,
-                            callback: function($$v) {
-                              _vm.$set(_vm.exportIssue, "emails", $$v)
-                            },
-                            expression: "exportIssue.emails"
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "Отображать email у автора, если он редактировался"
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "btn-group float-right" }, [
                     _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-info dropdown-toggle",
-                        attrs: {
-                          id: "tooltip-button",
-                          type: "button",
-                          "data-toggle": "dropdown",
-                          "aria-haspopup": "true",
-                          "aria-expanded": "false",
-                          disabled: _vm.exportDisabled
-                        }
-                      },
-                      [_vm._v("Выгрузить")]
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { staticClass: "h6" }, [
+                          _vm._v("Выгружать e-mail")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "b-form-checkbox",
+                          {
+                            attrs: { id: "export-emails" },
+                            model: {
+                              value: _vm.exportIssue.emails,
+                              callback: function($$v) {
+                                _vm.$set(_vm.exportIssue, "emails", $$v)
+                              },
+                              expression: "exportIssue.emails"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "Отображать email у автора, если он редактировался"
+                            )
+                          ]
+                        )
+                      ],
+                      1
                     ),
                     _vm._v(" "),
-                    _vm._m(6)
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "btn-group float-right" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-info dropdown-toggle",
+                          attrs: {
+                            id: "tooltip-button",
+                            type: "button",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false",
+                            disabled: _vm.exportDisabled
+                          }
+                        },
+                        [_vm._v("Выгрузить")]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(6)
+                    ])
                   ])
                 ])
               ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              { staticClass: "col-md" },
-              [
-                _c("issue-articles", {
-                  attrs: { export: _vm.exportIssue.articles },
-                  on: {
-                    "update:export": function($event) {
-                      return _vm.$set(_vm.exportIssue, "articles", $event)
-                    }
-                  },
-                  model: {
-                    value: _vm.currentIssue.articles,
-                    callback: function($$v) {
-                      _vm.$set(_vm.currentIssue, "articles", $$v)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col-md" },
+                [
+                  _c("issue-articles", {
+                    attrs: { export: _vm.exportIssue.articles },
+                    on: {
+                      "update:export": function($event) {
+                        return _vm.$set(_vm.exportIssue, "articles", $event)
+                      }
                     },
-                    expression: "currentIssue.articles"
-                  }
-                })
-              ],
-              1
-            )
+                    model: {
+                      value: _vm.currentIssue.articles,
+                      callback: function($$v) {
+                        _vm.$set(_vm.currentIssue, "articles", $$v)
+                      },
+                      expression: "currentIssue.articles"
+                    }
+                  })
+                ],
+                1
+              )
+            ])
           ])
-        ])
-      : _vm._e()
-  ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("new-issue")
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -61510,6 +61691,261 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/issues/components/NewIssue.vue?vue&type=template&id=4de5616a&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/back/issues/components/NewIssue.vue?vue&type=template&id=4de5616a& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "b-modal",
+    {
+      ref: "addNewIssue",
+      attrs: {
+        id: "addNewIssue",
+        title: "Создать новый выпуск",
+        "ok-title": "Создать",
+        "cancel-title": "Отмена"
+      },
+      on: {
+        ok: _vm.handleSaveIssue,
+        shown: function($event) {
+          return _vm.clearForm(_vm.newIssue)
+        }
+      }
+    },
+    [
+      _c(
+        "form",
+        {
+          ref: "addNewIssueForm",
+          attrs: { method: "POST", action: "/admin/issues" },
+          on: {
+            submit: function($event) {
+              $event.stopPropagation()
+              $event.preventDefault()
+              return _vm.saveNewIssue($event)
+            }
+          }
+        },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group mb-2" }, [
+            _c("div", { staticClass: "input-group-prepend" }, [
+              _c("span", { staticClass: "input-group-text" }, [_vm._v("Год")])
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.newIssue.year,
+                  expression: "newIssue.year"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", name: "year", min: "2009" },
+              domProps: { value: _vm.newIssue.year },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.newIssue, "year", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group-append" }, [
+              _c("span", { staticClass: "input-group-text" }, [
+                _vm._v("Том " + _vm._s(_vm.tom))
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.tom,
+                    expression: "tom"
+                  }
+                ],
+                attrs: { type: "number", name: "tom", hidden: "" },
+                domProps: { value: _vm.tom },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.tom = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group mb-2" }, [
+            _c("div", { staticClass: "input-group-prepend" }, [
+              _c("span", { staticClass: "input-group-text" }, [_vm._v("Номер")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newIssue.no,
+                    expression: "newIssue.no"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { name: "no" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.newIssue,
+                      "no",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              _vm._l(_vm.noArray, function(no, index) {
+                return _c("option", { key: index, domProps: { value: no } }, [
+                  _vm._v(_vm._s(no))
+                ])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group mb-2" }, [
+            _c("div", { staticClass: "input-group-prepend" }, [
+              _c("span", { staticClass: "input-group-text" }, [
+                _vm._v("Полный номер")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.newIssue.full_no,
+                  expression: "newIssue.full_no"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", name: "full_no", min: "1" },
+              domProps: { value: _vm.newIssue.full_no },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.newIssue, "full_no", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group-append" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-outline-info",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.setFullNo($event)
+                    }
+                  }
+                },
+                [_vm._v("Авто")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group mb-2" }, [
+            _c("div", { staticClass: "input-group-prepend" }, [
+              _c("span", { staticClass: "input-group-text" }, [_vm._v("Часть")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newIssue.part,
+                    expression: "newIssue.part"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { name: "part" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.newIssue,
+                      "part",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              _vm._l(_vm.partArray, function(part, index) {
+                return _c("option", { key: index, domProps: { value: part } }, [
+                  _vm._v(_vm._s(part))
+                ])
+              }),
+              0
+            )
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -68862,23 +69298,7 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]); //Vuex
 Vue.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2___default.a); //Notification
 
 
-Vue.use(vue_notification__WEBPACK_IMPORTED_MODULE_3___default.a); // // Scrolling
-// var VueScrollTo = require("vue-scrollto");
-// // You can also pass in the default options
-// Vue.use(VueScrollTo, {
-//    container: "body",
-//    duration: 500,
-//    easing: "ease",
-//    offset: 0,
-//    force: true,
-//    cancelable: true,
-//    onStart: false,
-//    onDone: false,
-//    onCancel: false,
-//    x: false,
-//    y: true
-// });
-
+Vue.use(vue_notification__WEBPACK_IMPORTED_MODULE_3___default.a);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -70255,6 +70675,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IssueFiles_vue_vue_type_template_id_09b25aaf___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IssueFiles_vue_vue_type_template_id_09b25aaf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/back/issues/components/NewIssue.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/back/issues/components/NewIssue.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NewIssue_vue_vue_type_template_id_4de5616a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NewIssue.vue?vue&type=template&id=4de5616a& */ "./resources/js/components/back/issues/components/NewIssue.vue?vue&type=template&id=4de5616a&");
+/* harmony import */ var _NewIssue_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewIssue.vue?vue&type=script&lang=js& */ "./resources/js/components/back/issues/components/NewIssue.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NewIssue_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NewIssue_vue_vue_type_template_id_4de5616a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NewIssue_vue_vue_type_template_id_4de5616a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/back/issues/components/NewIssue.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/back/issues/components/NewIssue.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/back/issues/components/NewIssue.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewIssue_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./NewIssue.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/issues/components/NewIssue.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewIssue_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/back/issues/components/NewIssue.vue?vue&type=template&id=4de5616a&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/back/issues/components/NewIssue.vue?vue&type=template&id=4de5616a& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewIssue_vue_vue_type_template_id_4de5616a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./NewIssue.vue?vue&type=template&id=4de5616a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/back/issues/components/NewIssue.vue?vue&type=template&id=4de5616a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewIssue_vue_vue_type_template_id_4de5616a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewIssue_vue_vue_type_template_id_4de5616a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

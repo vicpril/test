@@ -30,17 +30,6 @@ class IssuesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -68,13 +57,11 @@ class IssuesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Check the issue exists in database
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function checkIssueExists(IssueRequest $request){
+        $result = $this->repository->checkExists($request->except('_token', '_method'));
+        return response()->json($result);
     }
 }

@@ -16,6 +16,12 @@
 
 @section('content')
 <div class="content">
+	<form id="formDelete"
+				action="{{ route('issues.destroy', $id) }}"
+				method="POST">
+			@method('DELETE')
+      @csrf
+	</form>
   <issues-index
         @isset($id):id="{{ $id }}"@endisset
 				:old="{{ json_encode(Session::getOldInput(), JSON_FORCE_OBJECT) }}"

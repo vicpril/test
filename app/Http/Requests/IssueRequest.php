@@ -23,7 +23,6 @@ class IssueRequest extends FormRequest
      */
     public function rules()
     {
-
         $rules = [
             'year' => 'required|integer',
             'no' => 'required|integer',
@@ -31,34 +30,11 @@ class IssueRequest extends FormRequest
             'part' => 'required|integer',
             'file_title_ru' => 'string|nullable',
             'file_title_en' => 'string|nullable',
-            'articlesOrder' => 'array',
+            'articlesOrder' => 'array|nullable',
         ];
 
         return $rules;
-
-        // switch ($this->getMethod()) {
-        //     case 'POST':
-        //         return $rules;
-        //     case 'PUT':
-        //         return [
-        //             'title_ru' => 'required|max:250|unique:meta_articles,title,' . $this->article->ru->id,
-        //         ] + $rules;
-        //     default:
-        //         return $rules;
-        // }
     }
-
-//     public function sanitize()
-    //     {
-    //         $input = $this->all();
-    //
-    //         $input = filter_var_array($input, FILTER_SANITIZE_STRING);
-    //         $input = array_map(function($value){
-    //             return Purifier::clean($value);
-    //         }, $input);
-    //
-    //         $this->replace($input);
-    //     }
 
     public function withValidator($validator)
     {
