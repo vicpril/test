@@ -37,28 +37,28 @@
 				<!-- END TITLE -->
 
 				<!-- AUTHORS -->
-				<article-authors v-model="article.users"></article-authors>
+				<article-profile-authors v-model="article.users"></article-profile-authors>
 				<!-- END AUTHORS -->
 
 				<!-- CATEGORIES	 -->
-				<article-categories v-model="article.categories"></article-categories>
+				<article-profile-categories v-model="article.categories"></article-profile-categories>
 				<!-- END CATEGORIES	 -->
 
 				<!-- TEXT -->
-				<article-text
+				<article-profile-text
 					:text_ru.sync="article.text_ru"
 					:text_en.sync="article.text_en"
 					:collapsing="true"
 					:collapsed.sync="collapsed.text"
-				></article-text>
+				></article-profile-text>
 				<!-- END TEXT -->
 
 				<!-- FILES -->
-				<article-files
+				<article-profile-files
 					:file_ru.sync="article.file_ru"
 					:file_en.sync="article.file_en"
 					:file_audio.sync="article.file_audio"
-				></article-files>
+				></article-profile-files>
 				<!-- END FILES -->
 
 				<!-- ADDITIONALS FIELDS -->
@@ -308,7 +308,7 @@
 				<!-- END ISSUE -->
 
 				<!-- TAGS -->
-				<article-tags v-model="article.tags"></article-tags>
+				<article-profile-tags v-model="article.tags"></article-profile-tags>
 				<!-- END TAGS -->
 
 				<!-- </div> -->
@@ -321,11 +321,11 @@
 import VueCkeditor from "../VueCkeditor.vue";
 // import vSelect from "vue-select";
 
-import ArticleText from "./components/ArticleText.vue";
-import ArticleTags from "./components/ArticleTags.vue";
-import ArticleFiles from "./components/ArticleFiles.vue";
-import ArticleAuthors from "./components/ArticleAuthors.vue";
-import ArticleCategories from "./components/ArticleCategories.vue";
+import ArticleProfileText from "./ArticleProfileText.vue";
+import ArticleProfileTags from "./ArticleProfileTags.vue";
+import ArticleProfileFiles from "./ArticleProfileFiles.vue";
+import ArticleProfileAuthors from "./ArticleProfileAuthors.vue";
+import ArticleProfileCategories from "./ArticleProfileCategories.vue";
 
 import datePicker from "vue-bootstrap-datetimepicker";
 import "pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css";
@@ -335,11 +335,11 @@ export default {
 		// 		draggable,
 		VueCkeditor,
 		// 		vSelect,
-		ArticleText,
-		ArticleTags,
-		ArticleFiles,
-		ArticleAuthors,
-		ArticleCategories,
+		ArticleProfileText,
+		ArticleProfileTags,
+		ArticleProfileFiles,
+		ArticleProfileAuthors,
+		ArticleProfileCategories,
 		datePicker
 	},
 

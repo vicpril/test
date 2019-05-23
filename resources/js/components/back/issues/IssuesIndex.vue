@@ -96,10 +96,10 @@
 
 				<!-- ISSUE FILES -->
 				<div class="col-md-4 d-flex">
-					<issue-files
+					<issues-index-files
 						:file_ru.sync="currentIssue.file_title_ru"
 						:file_en.sync="currentIssue.file_title_en"
-					></issue-files>
+					></issues-index-files>
 				</div>
 				<!-- END ISSUE FILES -->
 
@@ -162,13 +162,13 @@
 			<!-- ISSUE ARTICLES -->
 			<div class="row">
 				<div class="col-md">
-					<issue-articles v-model="currentIssue.articles" :export.sync="exportIssue.articles"></issue-articles>
+					<issues-index-articles v-model="currentIssue.articles" :export.sync="exportIssue.articles"></issues-index-articles>
 				</div>
 			</div>
 			<!-- end ISSUE ARTICLES -->
 		</div>
 <!-- 		NEW ISSUE MODAL -->
-		<new-issue></new-issue>
+		<issues-index-new-issue></issues-index-new-issue>
 <!-- 	END	NEW ISSUE MODAL -->
 
 		
@@ -176,16 +176,16 @@
 </template>
 
 <script>
-import IssueArticles from "./components/IssueArticles.vue";
-import IssueFiles from "./components/IssueFiles.vue";
-import NewIssue from "./components/NewIssue.vue";
+import IssuesIndexFiles from "./IssuesIndexFiles.vue";
+import IssuesIndexArticles from "./IssuesIndexArticles.vue";
+import IssuesIndexNewIssue from "./IssuesIndexNewIssue.vue";
 
 
 export default {
 	components: {
-		IssueArticles,
-		IssueFiles,
-		NewIssue
+		IssuesIndexFiles,
+		IssuesIndexArticles,
+		IssuesIndexNewIssue
 	},
 
 	props: {
