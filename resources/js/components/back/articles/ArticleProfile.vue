@@ -318,23 +318,21 @@
 </template>
 
 <script>
-import VueCkeditor from "../VueCkeditor.vue";
-// import vSelect from "vue-select";
-
 import ArticleProfileText from "./ArticleProfileText.vue";
 import ArticleProfileTags from "./ArticleProfileTags.vue";
 import ArticleProfileFiles from "./ArticleProfileFiles.vue";
 import ArticleProfileAuthors from "./ArticleProfileAuthors.vue";
 import ArticleProfileCategories from "./ArticleProfileCategories.vue";
 
+// import vSelect from "vue-select";
+import VueCkeditor from "../VueCkeditor.vue";
 import datePicker from "vue-bootstrap-datetimepicker";
 import "pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css";
 
 export default {
 	components: {
-		// 		draggable,
-		VueCkeditor,
 		// 		vSelect,
+		VueCkeditor,
 		ArticleProfileText,
 		ArticleProfileTags,
 		ArticleProfileFiles,
