@@ -180,7 +180,6 @@ import IssuesIndexFiles from "./IssuesIndexFiles.vue";
 import IssuesIndexArticles from "./IssuesIndexArticles.vue";
 import IssuesIndexNewIssue from "./IssuesIndexNewIssue.vue";
 
-
 export default {
 	components: {
 		IssuesIndexFiles,
@@ -193,6 +192,7 @@ export default {
 			type: Object,
 			default: () => ({})
 		},
+		
 		id: {
 			type: Number,
 			default: ""
@@ -215,9 +215,13 @@ export default {
 				file_title_ru: "",
 				file_title_en: ""
 			},
+			
 			issues: [],
+			
 			noArray: [1, 2, 3, 4, 5],
+			
 			partArray: [1, 2],
+			
 			exportIssue: {
 				title: "Журнал «Идеи и идеалы»",
 				issn: "",
@@ -232,6 +236,7 @@ export default {
 		exportDisabled() {
 			return !this.exportIssue.articles.length > 0;
 		},
+		
 		disabledExportInfo() {
 			return this.exportIssue.articles.length > 0;
 		}

@@ -346,6 +346,7 @@ export default {
 			type: Object,
 			default: () => ({})
 		},
+		
 		id: {
 			type: Number,
 			default: 0
@@ -355,12 +356,16 @@ export default {
 	data: function() {
 		return {
 			offset: { top: 100, bottom: 0 },
+			
 			datePickerOptions: {
 				format: "YYYY-MM-DD",
 				locale: 'ru',
 			},
+			
 			noArray: [1, 2, 3, 4, 5],
+			
 			partArray: [1, 2],
+			
 			article: {
 				id: "",
 				link: "",
@@ -406,6 +411,7 @@ export default {
 		newArticle() {
 			return this.article.id ? false : true;
 		},
+		
 		tom() {
 			this.article.tom = this.article.year - 2009 + 1;
 			return this.article.tom;
@@ -415,15 +421,11 @@ export default {
 	created(){
 		// fetching article
 		if (!this.isEmptyObject(this.old)) {
-// 			console.log('old exist');
 			this.article = this.old;
 			this.article.users = (typeof this.old.users !== 'undefined')? Object.values(this.old.users).map( x => parseInt(x) ) : [];
 			this.article.tags = (typeof this.old.tags !== 'undefined')? Object.values(this.old.tags).map( x => parseInt(x) ) : [];
 			this.article.categories = (typeof this.old.categories !== 'undefined')?  parseInt(this.old.categories) : null;
-
-			
 		} else if (this.id !== 0) {
-// 			console.log('old doesnt exist');
 			this.fetchArticle(this.id);
 		}
 	},

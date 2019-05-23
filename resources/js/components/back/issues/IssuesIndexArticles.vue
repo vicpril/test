@@ -108,10 +108,12 @@
 
 <script>
 import draggable from "vuedraggable";
+	
 export default {
 	components: {
 		draggable
 	},
+	
 	props: {
 		value: {
 			type: Array,
@@ -119,6 +121,7 @@ export default {
 				[];
 			}
 		},
+		
 		export: {
 			type: Array,
 			default: () => {
@@ -126,6 +129,7 @@ export default {
 			}
 		}
 	},
+	
 	data() {
 		return {
 			exportArticles: [],
@@ -139,6 +143,7 @@ export default {
 			get() {
 				return this.value;
 			},
+			
 			set(value) {
 				value.forEach(function(article, index) {
 					article.position = index + 1;
@@ -148,6 +153,7 @@ export default {
 			}
 		}
 	},
+	
 	watch: {
 		exportArticles(value) {
 			this.changeCheckAll(value);
@@ -172,6 +178,7 @@ export default {
 			}
 			this.exportArticles = selected;
 		},
+		
 		changeCheckAll(value) {
 			if (value.length === 0) {
 				this.indeterminate = false;

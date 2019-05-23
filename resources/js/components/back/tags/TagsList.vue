@@ -154,6 +154,7 @@
 
 <script>
 import Paginate from "vuejs-paginate";
+	
 export default {
 	components: {
 		Paginate
@@ -162,16 +163,21 @@ export default {
 	data() {
 		return {
 			tags: [],
+			
 			currentTag: {
 				id: "",
 				title_ru: "",
 				title_en: ""
 			},
+			
 			paginateOptions: [5, 10, 25, 50, 100],
+			
 			paginateSelect: 10,
 
 			search: "",
+			
 			sortBy: "title_ru",
+			
 			orderByAsc: true,
 
 			page: 1

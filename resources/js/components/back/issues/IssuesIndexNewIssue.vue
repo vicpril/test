@@ -77,11 +77,15 @@ export default {
 				full_no: "",
 				part: "",
       },
+			
       noArray: [1, 2, 3, 4, 5],
+			
 			partArray: [1, 2],
+			
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     }
   },
+	
   computed: {
     tom() {
 			this.newIssue.tom = this.newIssue.year - 2009 + 1;

@@ -62,6 +62,7 @@ export default {
 	components: {
 		vSelect
 	},
+	
 	props: ["value"],
 
 	data: function() {

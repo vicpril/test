@@ -173,6 +173,7 @@
 
 <script>
 import Paginate from "vuejs-paginate";
+	
 export default {
 	components: {
 		Paginate
@@ -181,17 +182,22 @@ export default {
 	data() {
 		return {
 			categories: [],
+			
 			currentCat: {
 				id: "",
 				title_ru: "",
 				title_en: "",
 				parent_id: 0
 			},
+			
 			paginateOptions: [5, 10, 25, 50, 100],
+			
 			paginateSelect: 10,
 
 			search: "",
+			
 			sortBy: "title_ru",
+			
 			orderByAsc: true,
 
 			page: 1

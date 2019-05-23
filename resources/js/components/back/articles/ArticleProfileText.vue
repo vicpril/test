@@ -38,23 +38,28 @@
 
 <script>
 import VueCkeditor from "../VueCkeditor.vue";
+	
 export default {
 	components: {
 		VueCkeditor
 	},
+	
 	props: {
 		text_ru: {
 			type: String,
 			default: ""
 		},
+		
 		text_en: {
 			type: String,
 			default: ""
 		},
+		
 		collapsing: {
 			type: Boolean,
 			default: false
 		},
+		
 		collapsed: {
 			type: Boolean,
 			default: false

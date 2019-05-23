@@ -9,7 +9,10 @@ export const store = new Vuex.Store({
       path: window.location.origin + '/storage/'
     }
   },
+  
   getters: {},
+  
   mutations: {},
+  
   actions: {},
 });

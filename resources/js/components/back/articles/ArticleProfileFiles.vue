@@ -104,17 +104,17 @@
 
 <script>
 export default {
-	components: {},
-
 	props: {
 		file_ru: {
 			type: String,
 			default: ""
 		},
+		
 		file_en: {
 			type: String,
 			default: ""
 		},
+		
 		file_audio: {
 			type: String,
 			default: ""
