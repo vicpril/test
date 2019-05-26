@@ -4,7 +4,7 @@
 		<div class="d-flex mb-4 form-inline">
 			<h3 class="mb-0 my-auto">Выпуск</h3>
 			<select class="form-control mx-3" v-model="currentIssue.id" @change="selectIssue">
-<!-- 				<option value="0">-- Выберите выпуск --</option> -->
+				<!-- 				<option value="0">-- Выберите выпуск --</option> -->
 				<option
 					v-for="(issue, index) in issues"
 					:key="index"
@@ -13,11 +13,7 @@
 				>Год: {{issue.year}}, Номер {{issue.no}} ({{issue.full_no}}), Часть {{issue.part}}</option>
 			</select>
 
-			<b-button 
-						v-b-modal.addNewIssue 
-						type="button" 
-						variant="outline-primary"
-								>Создать новый выпуск</b-button>
+			<b-button v-b-modal.addNewIssue type="button" variant="outline-primary">Создать новый выпуск</b-button>
 			<button
 				type="button"
 				class="btn btn-primary text-nowrap ml-auto"
@@ -105,56 +101,7 @@
 
 				<!-- EXPORT ARTICLES -->
 				<div class="col-md-4">
-					<div class="card">
-						<div class="card-header d-flex">
-							<h5 class="mr-1 my-auto">Выгрузка статей в шаблоны</h5>
-						</div>
-						<div class="card-body">
-							<div class="form-group">
-								<label class="h6">Название журнала</label>
-								<input type="text" class="form-control" v-model="exportIssue.title">
-							</div>
-							<div class="form-group">
-								<label class="h6">
-									ISSN
-									<i
-										v-b-tooltip.hover
-										title="Если ISSN не введен, то он будет взят из DOI статей. Если ни одна статья не содержит DOI, то ISSN выводиться не будет."
-										class="fa fa-info-circle ml-2 text-secondary"
-									></i>
-								</label>
-								<input type="text" class="form-control" v-model="exportIssue.issn" placeholder="хххх-хххх">
-							</div>
-
-							<div class="form-group">
-								<label class="h6">Выгружать e-mail</label>
-								<b-form-checkbox
-									id="export-emails"
-									v-model="exportIssue.emails"
-								>Отображать email у автора, если он редактировался</b-form-checkbox>
-							</div>
-							<hr>
-							<div class="btn-group float-right">
-								<button
-									id="tooltip-button"
-									type="button"
-									class="btn btn-outline-info dropdown-toggle"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-									:disabled="exportDisabled"
-								>Выгрузить</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="#">РИНЦ</a>
-									<a class="dropdown-item" href="#">Содержание</a>
-									<a class="dropdown-item" href="#">Статья</a>
-									<a class="dropdown-item" href="#">Наши авторы</a>
-									<a class="dropdown-item" href="#">Список E-mail'ов</a>
-								</div>
-								<!-- <b-tooltip target="tooltip-button">Выберите статьи для выгрузки</b-tooltip> -->
-							</div>
-						</div>
-					</div>
+					<issues-index-export :articles="exportArticles"></issues-index-export>
 				</div>
 				<!-- end EXPORT ARTICLES -->
 			</div>
@@ -162,27 +109,27 @@
 			<!-- ISSUE ARTICLES -->
 			<div class="row">
 				<div class="col-md">
-					<issues-index-articles v-model="currentIssue.articles" :export.sync="exportIssue.articles"></issues-index-articles>
+					<issues-index-articles v-model="currentIssue.articles" :export.sync="exportArticles"></issues-index-articles>
 				</div>
 			</div>
 			<!-- end ISSUE ARTICLES -->
 		</div>
-<!-- 		NEW ISSUE MODAL -->
+		<!-- 		NEW ISSUE MODAL -->
 		<issues-index-new-issue></issues-index-new-issue>
-<!-- 	END	NEW ISSUE MODAL -->
-
-		
+		<!-- 	END	NEW ISSUE MODAL -->
 	</div>
 </template>
 
 <script>
 import IssuesIndexFiles from "./IssuesIndexFiles.vue";
+import IssuesIndexExport from "./IssuesIndexExport.vue";
 import IssuesIndexArticles from "./IssuesIndexArticles.vue";
 import IssuesIndexNewIssue from "./IssuesIndexNewIssue.vue";
 
 export default {
 	components: {
 		IssuesIndexFiles,
+		IssuesIndexExport,
 		IssuesIndexArticles,
 		IssuesIndexNewIssue
 	},
@@ -192,7 +139,7 @@ export default {
 			type: Object,
 			default: () => ({})
 		},
-		
+
 		id: {
 			type: Number,
 			default: ""
@@ -215,31 +162,13 @@ export default {
 				file_title_ru: "",
 				file_title_en: ""
 			},
-			
-			issues: [],
-			
-			noArray: [1, 2, 3, 4, 5],
-			
-			partArray: [1, 2],
-			
-			exportIssue: {
-				title: "Журнал «Идеи и идеалы»",
-				issn: "",
-				emails: true,
-				articles: [],
-				disabledInfo: false
-			}
-		};
-	},
 
-	computed: {
-		exportDisabled() {
-			return !this.exportIssue.articles.length > 0;
-		},
-		
-		disabledExportInfo() {
-			return this.exportIssue.articles.length > 0;
-		}
+			issues: [],
+			noArray: [1, 2, 3, 4, 5],
+			partArray: [1, 2],
+
+			exportArticles: []
+		};
 	},
 
 	created() {
@@ -324,7 +253,7 @@ export default {
 					});
 				});
 		},
-		
+
 		deleteIssue() {
 			if (this.currentIssue.articles.length > 0) {
 				alert(
