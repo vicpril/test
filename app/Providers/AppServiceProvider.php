@@ -2,13 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-
-use Illuminate\Support\Facades\Blade;
 use DB;
-use App\Http\ViewComposers\HeaderComposer;
-
 use App\Models\Article;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
+use App\Http\ViewComposers\HeaderComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -48,6 +46,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        
     }
 }

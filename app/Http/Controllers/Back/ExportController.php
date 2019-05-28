@@ -4,32 +4,35 @@ namespace App\Http\Controllers\Back;
 
 use File;
 use Route;
-use Blade;
 use Illuminate\Http\Request;
 use App\Http\Requests\ExportRequest;
 use App\Http\Controllers\Controller;
-use App\Repositories\ExportRepository;
+// use App\Repositories\ExportRepository;
+use App\Repositories\Export\ExportRepositoryInterface;
 
 class ExportController extends Controller
 {
     protected $repository;
-    protected $action;
-//     protected $path;
-    
 
-    public function __construct(ExportRepository $e_rep)
+    public function __construct(ExportRepositoryInterface $rep)
     {
-        $this->repository = $e_rep;
-
-        $this->action = Route::current()->parameter('action');
-
+        $this->repository = $rep;
     }
 
     public function index(ExportRequest $request)
     {
-        $this->repository->exportFile($this->action, $request->except('_token'))
-                         ->createFile()
-                         ->downloadFile();
+        ## for test
+//             $this->repository->test();
+        ##
+      
+        $this->repository->initiate(
+                                    Route::current()->parameter('action'), 
+                                    $request->except('_token')
+                                   )
+          ->test();
+//                          ->contentPrepare()
+//                          ->createFile()
+//                          ->downloadFile();
     }
 
     

@@ -180,7 +180,9 @@ return [
 
         ElForastero\Transliterate\TransliterationServiceProvider::class,
         App\Providers\Select2ServiceProvider::class,
-        Barryvdh\Elfinder\ElfinderServiceProvider::class
+        Barryvdh\Elfinder\ElfinderServiceProvider::class,
+      
+        App\Providers\ExportServiceProvider::class
        
 
     ],

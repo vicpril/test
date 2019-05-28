@@ -101,7 +101,10 @@
 
 				<!-- EXPORT ARTICLES -->
 				<div class="col-md-4">
-					<issues-index-export :articles="exportArticles"></issues-index-export>
+					<issues-index-export 
+									:articles="exportArticles"
+									:issue="currentIssue.id"						 
+					></issues-index-export>
 				</div>
 				<!-- end EXPORT ARTICLES -->
 			</div>

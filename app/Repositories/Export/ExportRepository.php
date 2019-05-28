@@ -1,73 +1,69 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Export;
 
 use DB;
+use Blade;
 use App\Models\Issue;
 use App\Models\Article;
+use App\Repositories\Export\Exporter;
+use App\Repositories\Export\ExportRepositoryInterface;
 
-class ExportRepository extends Repository
+class ExportRepository implements ExportRepositoryInterface
 {
     protected $action;
+    protected $data;
+    protected $exporter;
   
     protected $filename;
     protected $temp_file_uri;
-    protected $prepare;
+    protected $content;
   
-    protected $dataPrepeared;
-  
-    public function __construct(Article $article)
+    public function initiate(String $action, Array $data)
     {
-        $this->model = $article;
+        $this->action = $action;
+      
+        $this->data = $data;
+      
+        $this->exporter = Exporter::create($this->action, $this->data);
+      
+        return $this;
+    }
+  
+    
+  
+    public function test() {
+      dd($this->exporter->getProperties());
     }
     
     /*
     *     Enter method
     */
-    public function exportFile($action, $data) {
+    public function contentPrepare() {
         
-        $this->action = $action;
-      
         $this->filename = "export_{$this->action}_" . date('d-m-Y') . ".docx";
       
         $this->temp_file_uri = tempnam('','temp_file');
       
-        $this->prepare = "prepareTo_{$this->action}";
+        $this->content = $this->exporter->getContent();
       
-        return $this->{$this->prepare}($data);
-    }
-  
-  
-    /*
-    *   Prepare data to RINC
-    */
-    public function prepareTo_rinc($articles) 
-    {
-        $this->dataPrepeared = ['result' => date('D, d M Y H:i:s') . '<br>' . print_r($articles, true)];
-
         return $this;
     }
-  
-  
-  
   
     
     public function createFile ()
     {
         if (
-          !$this->dataPrepeared ||
+          !$this->content ||
           !$this->temp_file_uri
         ) {
             throw new Exception('Data for export is not prepared', 500);
         }
       
-        // Create content
-        $content = view(env('THEME_BACK') . ".back.export.{$this->action}", $this->dataPrepeared)->render();
-
         // Create temp file & past content
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $section = $phpWord->addSection();
-        $section->addText($content);
+        $section->addText($this->content);
 
         // Save file
         // Saving the document as OOXML file...

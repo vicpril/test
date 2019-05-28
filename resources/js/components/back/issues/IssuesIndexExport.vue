@@ -37,6 +37,11 @@
 					>Отображать email у автора, если он редактировался</b-form-checkbox>
 				</div>
 				<input
+					name="issue"
+					:value="issue"
+					hidden
+				>
+				<input
 					v-for="(article, index) in articles"
 					:key="index"
 					name="articles[]"
@@ -71,6 +76,9 @@
 <script>
 export default {
 	props: {
+		issue: {
+			type: Number
+		},
 		articles: {
 			type: Array
 		}
