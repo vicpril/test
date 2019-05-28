@@ -39,19 +39,37 @@ class ExporterRinc extends Exporter
         parent:: __construct($data);
         
         $this->title = $data['title'];
-        $this->issn = $data['issn'];
+        $this->issn = $data['issn'] ? "ISSN {$data['issn']}" : $this->getISSN();
+      
+        $this->emails = $data['emails'];
+
+      
+        
         $this->no = $this->issue->no;
         $this->full_no = $this->issue->full_no;
         $this->year = $this->issue->year;
         $this->tom = $this->issue->tom;
         $this->part = $this->issue->part;
-
+        
 
 
 
     }  
   
     public function getContent() {}
+  
+  
+    private function getISSN()
+    {
+        foreach ($this->articles as $article) {
+            if (!empty($article->doi)) {
+                $doi_str = explode('/', $article->doi);
+                $doi_str[1] = explode('-', $doi_str[1]);
+                return "ISSN {$doi_str[1][0]}-{$doi_str[1][1]}";
+            }
+        }
+        return '';
+    }
   
 }
 
