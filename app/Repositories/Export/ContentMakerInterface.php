@@ -1,7 +1,7 @@
 <?php 
 namespace App\Repositories\Export;
   
-interface ExporterInterface {
+interface ContentMakerInterface {
   
   public function getContent();
   

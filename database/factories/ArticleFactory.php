@@ -21,12 +21,15 @@ $enFaker = Faker\Factory::create("en_En");
 $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
 
     $i = $faker->unique()->numerify('####');
+    $c1 = $faker->numerify('##');
+    $c2 = $faker->numerify('##');
+
     $date_arrival = $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = null);
     $date_review = $faker->dateTimeBetween($startDate = $date_arrival, $endDate = 'now', $timezone = null);
 
     return [
         'alias' => 'article-' . $i,
-        'doi' => 'doi-' . $i,
+        'doi' => '10.17212/2075-0862-2019-11.1.1-'.min($c1,$c2).'-'.max($c1,$c2).'',
         'udk' => $faker->unique()->numerify('####'),
         'issue_id' => random_int(1, 8),
         'status_id' => random_int(1, 2),

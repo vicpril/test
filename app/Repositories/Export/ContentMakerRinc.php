@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Export;
 
-use App\Repositories\Export\Exporter;
+use App\Repositories\Export\ContentMaker;
 
-class ExporterRinc extends Exporter
+class ContentMakerRinc extends ContentMaker
 {
     protected $title;
     protected $issn;
@@ -13,8 +13,8 @@ class ExporterRinc extends Exporter
     protected $year;      #mag_yearno
     protected $tom;       #mag_vol
     protected $part;      #mag_tom       
-    protected $f_page;
-    protected $l_page;
+    protected $firstPage; #mag_f_page;
+    protected $lastPage;  #mag_l_page;
   
     protected $articles;
   
@@ -37,27 +37,36 @@ class ExporterRinc extends Exporter
     public function __construct(Array $data) 
     {
         parent:: __construct($data);
+      
+        $this->articles->loadMissing([
+          'categories',
+          'users'
+        ]);
         
         $this->title = $data['title'];
         $this->issn = $data['issn'] ? "ISSN {$data['issn']}" : $this->getISSN();
-      
         $this->emails = $data['emails'];
 
-      
-        
         $this->no = $this->issue->no;
         $this->full_no = $this->issue->full_no;
         $this->year = $this->issue->year;
         $this->tom = $this->issue->tom;
         $this->part = $this->issue->part;
-        
-
-
+      
+        // get pages from DOI
+        $this->articles->each(function($article) {
+            $article->firstPage = $this->getDoiPage($article, 'first');
+            $article->lastPage = $this->getDoiPage($article, 'last');
+        });
+      
+        $this->firstPage = $this->articles->first()->firstPage;
+        $this->lastPage = $this->articles->last()->lastPage;
 
     }  
   
-    public function getContent() {}
-  
+    public function getContent() {
+      return $this->getProperties();
+    }
   
     private function getISSN()
     {
@@ -70,6 +79,25 @@ class ExporterRinc extends Exporter
         }
         return '';
     }
+  
+  
+    private function getDoiPage($article, $page = 'first')
+    {
+        $doi_str = explode('/', $article->doi);
+        $doi_str[1] = (isset($doi_str[1])) ? explode('-', $doi_str[1]) : '';
+        
+        switch($page) {
+          case 'first': $result = $doi_str[1][4] ?? ''; break; // первая страница первой статьи
+          case 'last': $result = $doi_str[1][5] ?? ''; break;  // последняя страница последней статьи
+        }
+
+        if ($result) {
+            return $result;
+        } else {
+            return '';
+        }
+    }
+  
   
 }
 

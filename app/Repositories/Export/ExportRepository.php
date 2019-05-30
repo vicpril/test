@@ -6,7 +6,7 @@ use DB;
 use Blade;
 use App\Models\Issue;
 use App\Models\Article;
-use App\Repositories\Export\Exporter;
+use App\Repositories\Export\ContentMaker;
 use App\Repositories\Export\ExportRepositoryInterface;
 
 class ExportRepository implements ExportRepositoryInterface
@@ -25,7 +25,7 @@ class ExportRepository implements ExportRepositoryInterface
       
         $this->data = $data;
       
-        $this->exporter = Exporter::create($this->action, $this->data);
+        $this->exporter = ContentMaker::create($this->action, $this->data);
       
         return $this;
     }
@@ -33,7 +33,7 @@ class ExportRepository implements ExportRepositoryInterface
     
   
     public function test() {
-      dd($this->exporter->getProperties());
+      dd($this->exporter->getContent());
     }
     
     /*
