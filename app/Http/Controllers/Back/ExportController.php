@@ -29,10 +29,10 @@ class ExportController extends Controller
                                     Route::current()->parameter('action'), 
                                     $request->except('_token')
                                    )
-          ->test();
-//                          ->contentPrepare()
-//                          ->createFile()
-//                          ->downloadFile();
+//           ->test();
+                         ->contentPrepare()
+                         ->createFile()
+                         ->downloadFile();
     }
 
     

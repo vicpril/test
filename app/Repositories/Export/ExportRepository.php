@@ -41,7 +41,7 @@ class ExportRepository implements ExportRepositoryInterface
     */
     public function contentPrepare() {
         
-        $this->filename = "export_{$this->action}_" . date('d-m-Y') . ".docx";
+        $this->filename = "export_{$this->action}_" . date('d-m-Y h:i:s') . ".docx";
       
         $this->temp_file_uri = tempnam('','temp_file');
       
@@ -60,15 +60,20 @@ class ExportRepository implements ExportRepositoryInterface
             throw new Exception('Data for export is not prepared', 500);
         }
       
+        
         // Create temp file & past content
-        $phpWord = new \PhpOffice\PhpWord\PhpWord();
-        $section = $phpWord->addSection();
-        $section->addText($this->content);
+//         $phpWord = new \PhpOffice\PhpWord\PhpWord();
+//         $section = $phpWord->addSection();
+//       \PhpOffice\PhpWord\Shared\Html::addHtml($section, $this->content);
+//         $section->addText($this->content);
 
+        $document = new \PhpOffice\PhpWord\TemplateProcessor('../rinc.docx');
+        $document->setValue('content', $this->content);
+        $document->saveAs($this->temp_file_uri);
         // Save file
         // Saving the document as OOXML file...
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objWriter->save($this->temp_file_uri);
+//         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+//         $objWriter->save($this->temp_file_uri);
 
         return $this;
     }
@@ -83,6 +88,7 @@ class ExportRepository implements ExportRepositoryInterface
         }
         //download code
         header('Content-Description: File Transfer');
+//       header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
         header("Content-Type: application/docx");//header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename='.$this->filename);
         header('Content-Transfer-Encoding: binary');

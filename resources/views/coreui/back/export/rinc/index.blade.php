@@ -1,7 +1,7 @@
-@include('header');
+@header
 
 @foreach($articles as $article)
 
-  @include('article', ['article' => $article])
+  @article(['article' => $article])
 
 @endforeach

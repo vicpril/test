@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Export;
 
+use Blade;
 use App\Repositories\Export\ContentMaker;
 
 class ContentMakerRinc extends ContentMaker
@@ -65,7 +66,10 @@ class ContentMakerRinc extends ContentMaker
     }  
   
     public function getContent() {
-      return $this->getProperties();
+        Blade::include(env('THEME_BACK').'.back.export.rinc._header', 'header');
+        Blade::include(env('THEME_BACK').'.back.export.rinc._article', 'article');
+
+        return view(env('THEME_BACK').'.back.export.rinc.index')->with($this->getProperties())->render();
     }
   
     private function getISSN()
