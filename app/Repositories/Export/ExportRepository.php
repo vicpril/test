@@ -40,8 +40,9 @@ class ExportRepository implements ExportRepositoryInterface
     *     Enter method
     */
     public function contentPrepare() {
-        
+      
         $this->filename = "export_{$this->action}_" . date('d-m-Y h:i:s') . ".doc";
+
       
         $this->temp_file_uri = tempnam('','temp_file');
       
@@ -68,9 +69,9 @@ class ExportRepository implements ExportRepositoryInterface
 //       \PhpOffice\PhpWord\Shared\Html::addHtml($section, $this->content);
 //         $section->addText($this->content);
 
-//         $document = new \PhpOffice\PhpWord\TemplateProcessor('../rinc.docx');
+//         $document = new \PhpOffice\PhpWord\TemplateProcessor($this->temp_file_uri.".doc");
 //         $document->setValue('content', $this->content);
-//         $document->saveAs($this->temp_file_uri);
+//         $document->saveAs($this->temp_file_uri.".docx");
         // Save file
         // Saving the document as OOXML file...
 //         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
@@ -90,13 +91,14 @@ class ExportRepository implements ExportRepositoryInterface
         //download code
         header('Content-Description: File Transfer');
 //       header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-        header("Content-Type: application/doc");//header('Content-Type: application/octet-stream');
+        header("Content-Type: application/docx");//header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename='.$this->filename);
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
         header('Content-Length: ' . filesize($this->temp_file_uri));
         readfile($this->temp_file_uri);
         unlink($this->temp_file_uri); // deletes the temporary file
+
         exit;
     }
 
