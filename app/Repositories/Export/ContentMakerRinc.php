@@ -67,7 +67,9 @@ class ContentMakerRinc extends ContentMaker
   
     public function getContent() {
         Blade::include(env('THEME_BACK').'.back.export.rinc._header', 'header');
+        Blade::include(env('THEME_BACK').'.back.export.rinc._articleHead', 'articleHead');
         Blade::include(env('THEME_BACK').'.back.export.rinc._article', 'article');
+        Blade::include(env('THEME_BACK').'.back.export.rinc._footer', 'footer');
 
         return view(env('THEME_BACK').'.back.export.rinc.index')->with($this->getProperties())->render();
     }
