@@ -33,6 +33,11 @@ class RouteServiceProvider extends ServiceProvider
             $object = \App\Models\Article::where('alias', $value)->first();
             return $object ?: abort(404, 'Статья не найдена');
         });
+
+        Route::bind('pageAlias', function($value) {
+            $object = \App\Models\Page::where('alias', $value)->first();
+            return $object ?: abort(404, 'Статья не найдена');
+        });
         
       
         // Bind parameters for ADMIN

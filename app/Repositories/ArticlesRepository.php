@@ -292,6 +292,12 @@ class ArticlesRepository extends Repository
         ];
     }
 
+
+    /*
+     *
+     *   Delete the article & meta from database 
+     *
+     */
     public function deleteArticle(Article $article)
     {
         $article->meta->each(function ($meta) {

@@ -112,173 +112,108 @@ class PagesRepository extends Repository
         return $pages_id;
     }
 
-//     /*
-//      *
-//      *   Add new article to database
-//      *
-//      */
-//     public function create($data)
-//     {
-//         $alias = Transliterate::make($data['title_ru'], ['type' => 'url', 'lowercase' => true]);
-//         $alias = $this->getUnique($alias, 'articles', 'alias');
-//         $article = $this->model->make([
-//             'alias' => $alias,
-//             'doi' => $data['doi'],
-//             'udk' => $data['udk'],
-//             'stol' => filter_var($data['stol'], FILTER_VALIDATE_BOOLEAN),
-//             'date_arrival' => $data['date_arrival'],
-//             'date_review' => $data['date_review'],
-//             'applications' => $data['applications'],
-//             'finance' => $data['finance'],
-//             'file_audio' => $data['file_audio'],
-//         ]);
+    /*
+     *
+     *   Add new page to database
+     *
+     */
+    public function create($data)
+    {
+        $alias = Transliterate::make($data['title_ru'], ['type' => 'url', 'lowercase' => true]);
+        $alias = $this->getUnique($alias, 'pages', 'alias');
+        $page = $this->model->make([
+            'alias' => $alias,
+            'template' => $data['template'],
+        ]);
 
-//         $article->save();
+        $page->save();
 
-//         $article->meta()->create([
-//             'lang' => 'ru',
-//             'title' => $data['title_ru'],
-//             'text' => $data['text_ru'],
-//             'annotation' => $data['annotation_ru'],
-//             'keywords' => $data['keywords_ru'],
-//             'file' => $data['file_ru'],
-//             'bibliography' => $data['bibliography_ru'],
-//         ]);
+        $page->meta()->create([
+            'lang' => 'ru',
+            'on' => $data['on_ru'],
+            'title' => $data['title_ru'],
+            'content' => $data['content_ru'],
+        ]);
 
-//         $article->meta()->create([
-//             'lang' => 'en',
-//             'title' => $data['title_en'],
-//             'text' => $data['text_en'],
-//             'annotation' => $data['annotation_en'],
-//             'keywords' => $data['keywords_en'],
-//             'file' => $data['file_en'],
-//             'bibliography' => $data['bibliography_en'],
-//         ]);
+        $page->meta()->create([
+            'lang' => 'en',
+            'on' => $data['on_en'],
+            'title' => $data['title_en'],
+            'content' => $data['content_en'],
+        ]);
 
-//         if (filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
-//             $article->status()->associate(1);
-//         } else {
-//             $article->status()->associate(2);
-//         }
+        if (filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
+            $page->status()->associate(1);
+        } else {
+            $page->status()->associate(2);
+        }
 
-//         $article->users()->detach();
-//         foreach ($data['users'] as $user_id) {
-//             $article->users()->attach($user_id);
-//         }
 
-//         $article->tags()->sync($data['tags']);
-//         $article->categories()->sync($data['categories']);
+        return [
+            'status' => 'success',
+            'message' => 'Новая страница добавлена',
+        ];
+    }
 
-//         $issue = Issue::firstOrCreate([
-//             'year' => $data['year'],
-//             'no' => $data['no'],
-//             'part' => $data['part'],
-//         ], [
-//             'year' => $data['year'],
-//             'tom' => $data['tom'],
-//             'no' => $data['no'],
-//             'full_no' => $data['full_no'],
-//             'part' => $data['part'],
-//         ]);
-//         $article->position = $issue->articles()->count() + 1;
-//         $issue->articles()->save($article);
+    /*
+     *
+     *   Update the page in database
+     *
+     */
+    public function update(Page $page, $data)
+    {
+        $page->update([
+            'alias' => $data['alias'],
+            'template' => $data['template'],
+        ]);
 
-//         return [
-//             'status' => 'success',
-//             'message' => 'Новая статья добавлена',
-//             'issueId' => $issue->id,
-//         ];
-//     }
+        $page->ru->update([
+            'lang' => 'ru',
+            'on' => (isset($data['on_ru']) && $data['on_ru'] == "true") ? 1 : 0,
+            'title' => $data['title_ru'] ?? '',
+            'content' => $data['content_ru'] ?? '',
+        ]);
 
-//     /*
-//      *
-//      *   Update the article in database
-//      *
-//      */
-//     public function update(Article $article, $data)
-//     {
-// //       dd($data);
-//         $article->update([
-//             'doi' => $data['doi'],
-//             'udk' => $data['udk'],
-//             'stol' => filter_var($data['stol'], FILTER_VALIDATE_BOOLEAN),
-//             'date_arrival' => $data['date_arrival'],
-//             'date_review' => $data['date_review'],
-//             'applications' => $data['applications'],
-//             'finance' => $data['finance'],
-//             'file_audio' => $data['file_audio'],
-//         ]);
+        $page->en->update([
+            'lang' => 'en',
+            'on' => (isset($data['on_en']) && $data['on_en'] == "true") ? 1 : 0,
+            'title' => $data['title_en'] ?? '',
+            'content' => $data['content_en'] ?? '',
+        ]);
 
-//         $article->ru->update([
-//             'title' => $data['title_ru'],
-//             'text' => $data['text_ru'],
-//             'annotation' => $data['annotation_ru'],
-//             'keywords' => $data['keywords_ru'],
-//             'file' => $data['file_ru'],
-//             'bibliography' => $data['bibliography_ru'],
-//         ]);
+        if (filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
+            $page->status()->associate(1);
+        } else {
+            $page->status()->associate(2);
+        }
 
-//         $article->en->update([
-//             'title' => $data['title_en'],
-//             'text' => $data['text_en'],
-//             'annotation' => $data['annotation_en'],
-//             'keywords' => $data['keywords_en'],
-//             'file' => $data['file_en'],
-//             'bibliography' => $data['bibliography_en'],
-//         ]);
+        $page->touch();
 
-//         if (filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
-//             $article->status()->associate(1);
-//         } else {
-//             $article->status()->associate(2);
-//         }
+        return [
+            'status' => 'success',
+            'message' => 'Страница обновлена',
+        ];
+    }
 
-//         if (!arraysStrickEquil($article->users_id(), $data['users'])) {
-//             $article->users()->detach();
-//             foreach ($data['users'] as $user_id) {
-//                 $article->users()->attach($user_id);
-//             }
-//         }
+    /*
+     *
+     *   Delete the page & meta from database 
+     *
+     */
 
-//         $article->tags()->sync($data['tags']);
-//         $article->categories()->sync($data['categories']);
+    public function deletePage(Page $page)
+    {
+        $page->meta->each(function ($meta) {
+            $meta->delete();
+        });
 
-//         $issue = Issue::firstOrCreate([
-//             'year' => $data['year'],
-//             'no' => $data['no'],
-//             'part' => $data['part'],
-//         ], [
-//             'year' => $data['year'],
-//             'tom' => $data['tom'],
-//             'no' => $data['no'],
-//             'full_no' => $data['full_no'],
-//             'part' => $data['part'],
-//         ])->articles()->save($article);
-
-//         $article->touch();
-
-//         return [
-//             'status' => 'success',
-//             'message' => 'Статья обновлена',
-//         ];
-//     }
-
-//     public function deleteArticle(Article $article)
-//     {
-//         $article->meta->each(function ($meta) {
-//             $meta->delete();
-//         });
-//         $article->users()->detach();
-//         $article->categories()->detach();
-//         $article->tags()->detach();
-
-//         if ($article->delete()) {
-//             return ['status' => 'success',
-//                 'message' => 'Статья удалена'];
-//         } else {
-//             return ['status' => 'error',
-//                 'message' => 'Что-то пошло не так'];
-//         }
-//     }
+        if ($page->delete()) {
+            return ['status' => 'success',
+                'message' => 'Страница удалена'];
+        } else {
+            return ['status' => 'error',
+                'message' => 'Что-то пошло не так'];
+        }
+    }
 
 }

@@ -3345,6 +3345,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3400,13 +3406,26 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         value: "authors",
         text: "Наши авторы"
-      }]
+      }],
+      editAlias: false,
+      newAlias: ""
     };
   },
   computed: {
     newPage: function newPage() {
       return this.page.id ? false : true;
-    }
+    },
+    uri: function uri() {
+      return window.location.protocol + "//" + window.location.host + "/";
+    } // newAlias: {
+    // 	get() {
+    // 		return this.page.alias;
+    // 	},
+    // 	set(value) {
+    // 		return value;
+    // 	}
+    // }
+
   },
   created: function created() {
     // fetching page
@@ -3428,18 +3447,22 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    saveAlias: function saveAlias() {
+      this.page.alias = this.newAlias;
+      this.editAlias = false;
+    },
+    cancelEditAlias: function cancelEditAlias() {
+      this.newAlias = this.page.alias;
+      this.editAlias = false;
+    },
     fetchPage: function fetchPage(id) {
       var _this = this;
 
       axios.get("/api/pages/" + id).then(function (_ref) {
         var data = _ref.data;
         _this.page = data.data;
-      }); // .then(() => {
-      // 	this.collapsed.text =
-      // 		this.page.text_ru !== "" || this.page.text_ru !== ""
-      // 			? false
-      // 			: true;
-      // })
+        _this.newAlias = _this.page.alias;
+      });
     },
     deletePage: function deletePage() {
       if (confirm("Удалить страницу ?")) {
@@ -28125,7 +28148,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
 
 // exports
 
@@ -62743,17 +62766,121 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     !_vm.newPage
-      ? _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Ссылка на сайте:")]),
+      ? _c("div", { staticClass: "m-0" }, [
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.editAlias,
+                  expression: "!editAlias"
+                }
+              ],
+              staticClass: "form-group"
+            },
+            [
+              _c("label", { staticClass: "mr-1" }, [
+                _vm._v("Ссылка на сайте:")
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { attrs: { href: _vm.uri + _vm.page.alias, target: "_blank" } },
+                [_vm._v(_vm._s(_vm.uri + _vm.page.alias))]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-light btn-sm",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.editAlias = !_vm.editAlias
+                    }
+                  }
+                },
+                [_vm._v("Изменить")]
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
-            "a",
+            "div",
             {
-              staticClass: "ml-1",
-              attrs: { href: _vm.page.link, target: "_blank" }
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.editAlias,
+                  expression: "editAlias"
+                }
+              ],
+              staticClass: "form-inline mb-2"
             },
-            [_vm._v(_vm._s(_vm.page.link))]
-          )
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { staticClass: "mr-1" }, [
+                  _vm._v("Ссылка на сайте:")
+                ]),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.uri))]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group input-group-sm" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newAlias,
+                        expression: "newAlias"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.newAlias },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.newAlias = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group-append" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button" },
+                        on: { click: _vm.saveAlias }
+                      },
+                      [_vm._v("OK")]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-sm btn-link",
+                    attrs: { type: "button" },
+                    on: { click: _vm.cancelEditAlias }
+                  },
+                  [_vm._v("Отмена")]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "text", hidden: "", name: "alias" },
+            domProps: { value: _vm.page.alias }
+          })
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -62891,11 +63018,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("vue-ckeditor", {
                   staticClass: "mt-2",
-                  attrs: {
-                    name: "content_ru",
-                    id: "content_ru",
-                    readOnlyMode: !_vm.page.on_ru
-                  },
+                  attrs: { name: "content_ru", id: "content_ru" },
                   model: {
                     value: _vm.page.content_ru,
                     callback: function($$v) {
@@ -63042,11 +63165,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("vue-ckeditor", {
                   staticClass: "mt-2",
-                  attrs: {
-                    name: "content_en",
-                    id: "content_en",
-                    readOnlyMode: !_vm.page.on_en
-                  },
+                  attrs: { name: "content_en", id: "content_en" },
                   model: {
                     value: _vm.page.content_en,
                     callback: function($$v) {

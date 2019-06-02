@@ -25,6 +25,8 @@ Route::group(
         Route::name('articles')->get('articles', 'ArticlesController@index');
         Route::name('article')->get('articles/{articleAlias}', 'ArticlesController@show');
 
+        Route::name('page')->get('{pageAlias}', 'PagesController@show');
+
         Route::resource('categories', 'CategoriesController', [
             'only' => ['show'],
             'parameters' => ['categories' => 'alias'],

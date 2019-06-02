@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Page;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Requests\PageRequest;
 use App\Repositories\PagesRepository;
@@ -56,9 +56,16 @@ class PagesController extends AdminController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PageRequest $request)
     {
-        //
+        $result = $this->repository->create($request->except('_token', '_method'));
+
+        if (is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+
+        return redirect(route('pages.index'))->with(['message' => $result]);
+
     }
 
     /**
@@ -80,7 +87,11 @@ class PagesController extends AdminController
      */
     public function edit(Page $page)
     {
-        //
+        $this->subtitle = "Редактировать страницу";
+
+        $this->template = env('THEME_BACK') . '.back.pages.edit';
+
+        return $this->renderOutput(['id' => $page->id]);
     }
 
     /**
@@ -90,9 +101,15 @@ class PagesController extends AdminController
      * @param  \App\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Page $page)
+    public function update(PageRequest $request, Page $page)
     {
-        //
+        $result = $this->repository->update($page, $request->except('_token', '_method'));
+
+        if (is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+
+        return redirect(route('pages.index'))->with(['message' => $result]);
     }
 
     /**

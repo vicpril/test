@@ -1,8 +1,26 @@
 <template>
 	<div>
-		<div class="form-group" v-if="!newPage">
-			<label>Ссылка на сайте:</label>
-			<a :href="page.link" class="ml-1" target="_blank">{{ page.link }}</a>
+		<div class="m-0" v-if="!newPage">
+			<div class="form-group" v-show="!editAlias">
+				<label class="mr-1">Ссылка на сайте:</label>
+				<a :href="uri + page.alias" target="_blank">{{ uri + page.alias }}</a>
+				<button class="btn btn-light btn-sm" type="button" @click="editAlias = !editAlias">Изменить</button>
+			</div>
+			<div class="form-inline mb-2" v-show="editAlias">
+				<div class="form-group">
+					<label class="mr-1">Ссылка на сайте:</label>
+					<span>{{ uri }}</span>
+
+					<div class="input-group input-group-sm">
+						<input type="text" class="form-control" v-model="newAlias">
+						<div class="input-group-append">
+							<button class="btn btn-secondary" type="button" @click="saveAlias">OK</button>
+						</div>
+					</div>
+					<button class="btn btn-sm btn-link" type="button" @click="cancelEditAlias">Отмена</button>
+				</div>
+			</div>
+			<input type="text" hidden :value="page.alias" name="alias">
 		</div>
 		<div class="row">
 			<div class="col-md">
@@ -44,13 +62,7 @@
 
 						<div class="form-group">
 							<label class="h6">Содержание</label>
-							<vue-ckeditor
-								class="mt-2"
-								name="content_ru"
-								id="content_ru"
-								v-model="page.content_ru"
-								:readOnlyMode="!page.on_ru"
-							/>
+							<vue-ckeditor class="mt-2" name="content_ru" id="content_ru" v-model="page.content_ru"/>
 						</div>
 					</div>
 				</div>
@@ -94,13 +106,7 @@
 
 						<div class="form-group">
 							<label class="h6">Содержание</label>
-							<vue-ckeditor
-								class="mt-2"
-								name="content_en"
-								id="content_en"
-								v-model="page.content_en"
-								:readOnlyMode="!page.on_en"
-							/>
+							<vue-ckeditor class="mt-2" name="content_en" id="content_en" v-model="page.content_en"/>
 						</div>
 					</div>
 				</div>
@@ -223,14 +229,28 @@ export default {
 				{ value: "redkollegiya", text: "Редколлегия и Редсовет" },
 				{ value: "contacts", text: "Контакты" },
 				{ value: "authors", text: "Наши авторы" }
-			]
+			],
+
+			editAlias: false,
+			newAlias: ""
 		};
 	},
 
 	computed: {
 		newPage() {
 			return this.page.id ? false : true;
+		},
+		uri() {
+			return window.location.protocol + "//" + window.location.host + "/";
 		}
+		// newAlias: {
+		// 	get() {
+		// 		return this.page.alias;
+		// 	},
+		// 	set(value) {
+		// 		return value;
+		// 	}
+		// }
 	},
 
 	created() {
@@ -255,16 +275,20 @@ export default {
 	},
 
 	methods: {
+		saveAlias() {
+			this.page.alias = this.newAlias;
+			this.editAlias = false;
+		},
+		cancelEditAlias() {
+			this.newAlias = this.page.alias;
+			this.editAlias = false;
+		},
+
 		fetchPage(id) {
 			axios.get("/api/pages/" + id).then(({ data }) => {
 				this.page = data.data;
+				this.newAlias = this.page.alias;
 			});
-			// .then(() => {
-			// 	this.collapsed.text =
-			// 		this.page.text_ru !== "" || this.page.text_ru !== ""
-			// 			? false
-			// 			: true;
-			// })
 		},
 
 		deletePage() {

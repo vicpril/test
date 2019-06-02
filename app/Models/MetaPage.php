@@ -21,6 +21,15 @@ class MetaPage extends Model
             'content',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'on' => 'boolean',
+    ];
+
     public $timestamps = false;
 
     public function page() {
