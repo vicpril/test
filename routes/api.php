@@ -34,4 +34,6 @@ Route::apiResource('categories', 'Api\CategoriesController')->only('index');
 
 Route::apiResource('tags', 'Api\TagsController')->except('index')->middleware('auth:api');
 Route::apiResource('tags', 'Api\TagsController')->only('index');
-// Route::get('tagslist/', 'Api\TagsController@getList');
+
+Route::apiResource('pages', 'Api\PagesController')->except('index', 'update')->middleware('auth:api');
+Route::apiResource('pages', 'Api\PagesController')->only('index');

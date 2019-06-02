@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\ArticleListResource;
-use App\Http\Resources\ArticleResource;
 use App\Models\Article;
-use App\Repositories\ArticlesRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ArticleResource;
+use App\Repositories\ArticlesRepository;
+use App\Http\Resources\ArticleListResource;
 
 class ArticlesController extends Controller
 {

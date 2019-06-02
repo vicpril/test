@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Http\Controllers\Back\AdminController;
-use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
-use App\Repositories\ArticlesRepository;
 use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
+use App\Repositories\ArticlesRepository;
+use App\Http\Controllers\Back\AdminController;
 
 class ArticlesController extends AdminController
 {

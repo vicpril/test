@@ -55,6 +55,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('tag', function($value) {
             return \App\Models\Tag::where('id', $value)->first();
         });
+
+        Route::bind('page', function($value) {
+            return \App\Models\Page::where('id', $value)->first();
+        });
     }
 
     /**

@@ -64,13 +64,12 @@ Route::prefix('admin')->namespace('Back')->group(function () {
         Route::resource('categories', 'CategoriesController')->only(['index']);
         Route::resource('tags', 'TagsController')->only(['index']);
 
+        //pages and menus
+        Route::resource('pages', 'PagesController')->except(['show']);
+
+
         // export
         Route::post('export/{action}', 'ExportController@index')->name('export')->where('action', 'articles|authors|contents|emails|rinc');
-        // Route::post('export/article', 'ExportController@article')->name('export.article');
-        // Route::post('export/authors', 'ExportController@authors')->name('export.authors');
-        // Route::post('export/contents', 'ExportController@contents')->name('export.contents');
-        // Route::post('export/emails', 'ExportController@emails')->name('export.emails');
-        // Route::post('export/rinc', 'ExportController@rinc')->name('export.rinc');
 
         // template's examples
         Route::get('icons', function () {return view(env('THEME_BACK') . '.examples.icons')->render();});

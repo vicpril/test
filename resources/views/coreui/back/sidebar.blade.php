@@ -28,7 +28,7 @@
       <li class="divider"></li>
       <li class="nav-title">Настройки</li>
       <li class="nav-item">
-         <a class="nav-link text-danger" href="#">
+         <a class="nav-link" href="{{ route('pages.index') }}">
             <i class="nav-icon icon-doc"></i> Страницы</a
          >
          <a class="nav-link text-danger" href="#">

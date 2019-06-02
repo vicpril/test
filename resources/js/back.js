@@ -69,6 +69,14 @@ Vue.component(
    "tags-list",
    require("./components/back/tags/TagsList.vue").default
 );
+Vue.component(
+   "pages-list",
+   require("./components/back/pages/PagesList.vue").default
+);
+Vue.component(
+   "page-profile",
+   require("./components/back/pages/PageProfile.vue").default
+);
 
 Vue.component("alert", require("./components/back/Alert.vue").default);
 Vue.component(
