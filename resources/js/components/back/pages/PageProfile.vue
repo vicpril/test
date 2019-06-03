@@ -307,7 +307,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 /* ADMIN right sidebar */
 .right-sidebar {
 	-ms-flex: 0 0 320px !important;
