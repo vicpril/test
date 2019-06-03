@@ -41,50 +41,50 @@ class PagesController extends Controller
         return new PageResource($page);
     }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  \App\Models\Article  $article
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy(Article $article)
-    // {
-    //     $result = $this->repository->deleteArticle($article);
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Page  $page
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Page $page)
+    {
+        $result = $this->repository->deletePage($page);
 
-    //     if (is_array($result)) {
-    //         return response()->json($result);
-    //     }
-    // }
+        if (is_array($result)) {
+            return response()->json($result);
+        }
+    }
 
-    // public function statusChange(Request $request, Article $article)
-    // {
-    //     $status = \App\Models\Status::where('title_en', $request->get('status'))->first();
-    //     if ($status) {
-    //         $message = ($status->title_en === 'public') ? 'Статья опубликована' : 'Статья снята с публикации';
+    public function statusChange(Request $request, Page $page)
+    {
+        $status = \App\Models\Status::where('title_en', $request->get('status'))->first();
+        if ($status) {
+            $message = ($status->title_en === 'public') ? 'Страница опубликована' : 'Страница отмечена как "Черновик"';
 
-    //         try {
-    //             $article->status()->associate($status->id);
-    //             $article->save();
-    //         } catch (Extension $e) {
-    //             $result = [
-    //                 'status' => 'error',
-    //                 'message' => 'Что-то пошло не так',
-    //             ];
-    //         }
-    //         $result = [
-    //             'status' => 'success',
-    //             'message' => $message,
-    //         ];
+            try {
+                $page->status()->associate($status->id);
+                $page->save();
+            } catch (Extension $e) {
+                $result = [
+                    'status' => 'error',
+                    'message' => 'Что-то пошло не так',
+                ];
+            }
+            $result = [
+                'status' => 'success',
+                'message' => $message,
+            ];
 
-    //     } else {
-    //         $result = [
-    //             'status' => 'error',
-    //             'message' => 'Новый статус не задан',
-    //         ];
-    //     }
+        } else {
+            $result = [
+                'status' => 'error',
+                'message' => 'Новый статус не задан',
+            ];
+        }
 
-    //     if (is_array($result)) {
-    //         return response()->json($result);
-    //     }
-    // }
+        if (is_array($result)) {
+            return response()->json($result);
+        }
+    }
 }

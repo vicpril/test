@@ -17,6 +17,8 @@ class PageListResource extends JsonResource
         return [
           'id' =>           $this->id,
           "alias" =>        $this->alias,
+          'on_ru' =>        $this->ru->on,
+          'on_en' =>        $this->en->on,
           'title_ru' =>     $this->ru->title,
           'title_en' =>     $this->en->title,
           'editLink' =>     $this->editLink,

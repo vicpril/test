@@ -52,7 +52,7 @@
 							<input
 								id="title_ru"
 								name="title_ru"
-								class="form-control"
+								class="form-control title"
 								v-model="page.title_ru"
 								:class="{'is-invalid' : errors.hasOwnProperty('title_ru')}"
 								:readOnly="!page.on_ru"
@@ -96,7 +96,7 @@
 							<input
 								id="title_en"
 								name="title_en"
-								class="form-control"
+								class="form-control title"
 								v-model="page.title_en"
 								:class="{'is-invalid' : errors.hasOwnProperty('title_en')}"
 								:readOnly="!page.on_en"
@@ -314,7 +314,7 @@ export default {
 	flex: 0 0 320px;
 }
 
-#title_ru {
+.title {
 	font-size: 20px;
 	height: calc(1.7em + 1px);
 	padding: 3px 8px 3px 8px;

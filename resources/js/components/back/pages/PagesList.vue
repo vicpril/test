@@ -56,8 +56,8 @@
 						<br>
 						<span class="text-muted d-none d-xl-block">{{ page.title_en }}</span>
 					</td>
-					<td>✓</td>
-					<td>✕</td>
+					<td v-if="page.on_ru">✓</td><td v-else="page.on_ru">✕</td>
+					<td v-if="page.on_en">✓</td><td v-else="page.on_en">✕</td>
 					<td>
 						<label class="mx-1 switch switch-label switch-3d switch-success form-check-label">
 							<input

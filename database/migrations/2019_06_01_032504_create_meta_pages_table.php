@@ -19,11 +19,11 @@ class CreateMetaPagesTable extends Migration
             $table->string('lang');
             $table->string('title');
             $table->text('content')->nullable();
+            $table->integer('page_id')->unsigned()->default(0);
         });
         
         // create foreign keys
         Schema::table('meta_pages', function (Blueprint $table) {
-            $table->integer('page_id')->unsigned()->default(0);
             $table->foreign('page_id')->references('id')->on('pages')
                             ->onDelete('restrict')
                             ->onUpdate('restrict')
@@ -40,7 +40,7 @@ class CreateMetaPagesTable extends Migration
     {
         Schema::table('meta_pages', function (Blueprint $table) {
             //
-            $table->dropForeign('pages_status_id_foreign');
+            $table->dropForeign('meta_pages_page_id_foreign');
         });
 
         Schema::dropIfExists('meta_pages');

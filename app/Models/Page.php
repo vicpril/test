@@ -59,6 +59,6 @@ class Page extends Model
 
     public function getLinkAttribute()
     {
-        return route('page', $this->alias);
+//         return route('page', $this->alias);
     }
 }

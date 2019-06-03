@@ -5,7 +5,7 @@ namespace App\Repositories\Export;
 use Blade;
 use App\Repositories\Export\ContentMaker;
 
-class ContentMakerRinc extends ContentMaker
+class ContentMakerArticle extends ContentMaker
 {
     protected $title;
     protected $issn;

@@ -120,6 +120,24 @@ class PagesController extends AdminController
      */
     public function destroy(Page $page)
     {
-        //
+        $result = $this->repository->deletePage($page);
+
+        if (request()->ajax()) {
+
+            if (is_array($result) && ($result['status'] === 'success')) {
+                $result = array_add($result, 'redirect', route('pages.index'));
+            }
+
+            return response()->json($result);
+
+        } else {
+
+            if (is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
+
+            return redirect(route('pages.index'))->with(['message' => $result]);
+
+        }
     }
 }

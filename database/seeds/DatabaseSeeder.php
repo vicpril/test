@@ -25,9 +25,23 @@ class DatabaseSeeder extends Seeder
 	 */
 	public function run()
 	{
-		// $this->call(UsersTableSeeder::class);
-		
 		$faker = Faker::create('ru_RU');
+		
+	/**************************
+	 *			Add Status
+	 **************************/
+	$this->call(StatusSeeder::class);
+
+		
+		
+		/**************************
+	 *			Add Pages
+	 **************************/
+		$this->call([
+        PageSeeder::class,
+
+    ]);
+	 	
 		
 
 	/**************************
@@ -129,18 +143,6 @@ class DatabaseSeeder extends Seeder
             'address_en' => Transliterate::make($address),
 					] );
 		}
-
-	/**************************
-	 *			Add Status
-	 **************************/
-	 	DB::table('status')->insert([
-																	'title_en'=>'public',
-																	'title_ru'=>'Опубликована'
-																]);
-	 	DB::table('status')->insert([
-																	'title_en'=>'private',
-																	'title_ru'=>'Черновик'
-																]);
 
 			
 			

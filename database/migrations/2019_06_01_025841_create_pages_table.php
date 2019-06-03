@@ -23,7 +23,7 @@ class CreatePagesTable extends Migration
         //create foreign key
         Schema::table('pages', function (Blueprint $table) {
             
-            $table->integer('status_id')->unsigned()->default(2);
+            $table->integer('status_id')->unsigned()->default(1);
             $table->foreign('status_id')->references('id')->on('status')
                             ->onDelete('restrict')
                             ->onUpdate('restrict')
@@ -40,7 +40,7 @@ class CreatePagesTable extends Migration
     public function down()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->dropForeign('pages_tag_article_id_foreign');
+            $table->dropForeign('pages_status_id_foreign');
 
             Schema::dropIfExists('pages');
         });
