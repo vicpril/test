@@ -121,23 +121,21 @@ class PagesRepository extends Repository
     {
         $alias = Transliterate::make($data['title_ru'], ['type' => 'url', 'lowercase' => true]);
         $alias = $this->getUnique($alias, 'pages', 'alias');
-        $page = $this->model->make([
+        $page = $this->model->create([
             'alias' => $alias,
             'template' => $data['template'],
         ]);
 
-        $page->save();
-
         $page->meta()->create([
             'lang' => 'ru',
-            'on' => $data['on_ru'],
+            'on' => filter_var($data['on_ru'], FILTER_VALIDATE_BOOLEAN),
             'title' => $data['title_ru'],
             'content' => $data['content_ru'],
         ]);
 
         $page->meta()->create([
             'lang' => 'en',
-            'on' => $data['on_en'],
+            'on' => filter_var($data['on_en'], FILTER_VALIDATE_BOOLEAN),
             'title' => $data['title_en'],
             'content' => $data['content_en'],
         ]);

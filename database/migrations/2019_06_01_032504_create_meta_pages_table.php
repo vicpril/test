@@ -17,7 +17,7 @@ class CreateMetaPagesTable extends Migration
             $table->increments('id');
             $table->boolean('on');
             $table->string('lang');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->text('content')->nullable();
             $table->integer('page_id')->unsigned()->default(0);
         });
