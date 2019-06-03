@@ -19,13 +19,14 @@ Route::group(
     function () {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
         Route::name('home')->get('/', 'IndexController@index');
-
+        
         // Route::resource('/articles', 'ArticlesController', ['only' => ['index']]);
-
+        
         Route::name('articles')->get('articles', 'ArticlesController@index');
         Route::name('article')->get('articles/{articleAlias}', 'ArticlesController@show');
-
-//         Route::name('page')->get('{pageAlias}', 'PagesController@show');
+        
+        // Route::name('page')->get('{pageAlias}', 'PagesController@show');
+        
 
         Route::resource('categories', 'CategoriesController', [
             'only' => ['show'],
@@ -42,6 +43,8 @@ Route::group(
         ]);
 
         Route::name('archive')->get('/archive', 'ArticlesController@archiveIndex');
+
+        Route::name('page')->get('{pageAlias}', function() { return 'hello' ;});
 
     });
 

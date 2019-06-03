@@ -38,8 +38,7 @@ class DatabaseSeeder extends Seeder
 	 *			Add Pages
 	 **************************/
 		$this->call([
-        PageSeeder::class,
-
+        	PageSeeder::class,
     ]);
 	 	
 		
