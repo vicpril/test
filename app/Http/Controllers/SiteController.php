@@ -78,11 +78,11 @@ class SiteController extends Controller
             foreach($menu as $item) {
                 
                 if($item->parent == 0) {
-                    $m->add($item->title, route('home').$item->path)->id($item->id);
+                    $m->add($item->loc, route('home').$item->path)->id($item->id);
                 }
                 else {
                     if($m->find($item->parent)) {
-                        $m->find($item->parent)->add($item->title,$item->path)->id($item->id);
+                        $m->find($item->parent)->add($item->loc,$item->path)->id($item->id);
                     }
                 }
             }

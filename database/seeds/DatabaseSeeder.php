@@ -48,37 +48,37 @@ class DatabaseSeeder extends Seeder
 	 **************************/
 
     	DB::table('menus')->insert([
-    		'title' => 'О журнале',
+    		'title_ru' => 'О журнале',
     		'title_en' => 'About',
     		'path' => '/',
     	]);
     	DB::table('menus')->insert([
-    		'title' => 'Свежий номер',
+    		'title_ru' => 'Свежий номер',
     		'title_en' => 'New Issue',
     		'path' => '/articles',
     	]);
     	DB::table('menus')->insert([
-    		'title' => 'Архив',
+    		'title_ru' => 'Архив',
     		'title_en' => 'Archive',
     		'path' => '/archive',
     	]);
     	DB::table('menus')->insert([
-    		'title' => 'Редколлегия и Редсовет',
+    		'title_ru' => 'Редколлегия и Редсовет',
     		'title_en' => 'Editorial board',
     		'path' => '#',
     	]);
     	DB::table('menus')->insert([
-    		'title' => 'Подписка и покупка',
+    		'title_ru' => 'Подписка и покупка',
     		
     		'path' => '#',
     	]);
     	DB::table('menus')->insert([
-    		'title' => 'Как подать статью',
+    		'title_ru' => 'Как подать статью',
     		
     		'path' => '#',
     	]);
     	DB::table('menus')->insert([
-    		'title' => 'Контакты',
+    		'title_ru' => 'Контакты',
     		'title_en' => 'Contacts',
     		'path' => '/contacts',
     	]);

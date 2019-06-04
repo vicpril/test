@@ -221,10 +221,12 @@ export default {
 				content_en: ""
 			},
 
-			templates: [{
+			templates: [
+				{
 					value: "common",
 					text: "Базовый шаблон"
-			}],
+				}
+			],
 
 			editAlias: false,
 			newAlias: ""
@@ -251,7 +253,7 @@ export default {
 	created() {
 		// fetching templates
 		this.fetchTemplates();
-		
+
 		// fetching page
 		if (!this.isEmptyObject(this.old)) {
 			this.page = this.old;
@@ -288,13 +290,11 @@ export default {
 				this.newAlias = this.page.alias;
 			});
 		},
-		
+
 		fetchTemplates() {
-			axios
-				.get("/api/templates")
-				.then(({data}) => {
-					this.templates = data;
-			})
+			axios.get("/api/templates").then(({ data }) => {
+				this.templates = data;
+			});
 		},
 
 		deletePage() {
