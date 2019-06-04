@@ -11,44 +11,7 @@
 |
  */
 
-Route::group(
-    [
-        'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
-    ],
-    function () {
-        /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-        Route::name('home')->get('/', 'IndexController@index');
-        
-        // Route::resource('/articles', 'ArticlesController', ['only' => ['index']]);
-        
-        Route::name('articles')->get('articles', 'ArticlesController@index');
-        Route::name('article')->get('articles/{articleAlias}', 'ArticlesController@show');
-        
-        // Route::name('page')->get('{pageAlias}', 'PagesController@show');
-        
-
-        Route::resource('categories', 'CategoriesController', [
-            'only' => ['show'],
-            'parameters' => ['categories' => 'alias'],
-        ]);
-        Route::resource('tags', 'TagsController', [
-            'only' => ['show'],
-            'parameters' => ['tags' => 'alias'],
-        ]);
-
-        Route::resource('authors', 'AuthorsController', [
-            'only' => ['index', 'show'],
-            'parameters' => ['authors' => 'alias'],
-        ]);
-
-        Route::name('archive')->get('/archive', 'ArticlesController@archiveIndex');
-
-        Route::name('page')->get('{pageAlias}', function() { return 'hello' ;});
-
-    });
-
-/** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
+/** PAGES THAT SHOULD NOT BE LOCALIZED **/
 
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
@@ -86,3 +49,43 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
     });
 });
+
+
+/** PAGES THAT SHOULD BE LOCALIZED **/
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
+    ],
+    function () {
+        /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+        Route::name('home')->get('/', 'IndexController@index');
+        
+        // Route::resource('/articles', 'ArticlesController', ['only' => ['index']]);
+        
+        Route::name('articles')->get('articles', 'ArticlesController@index');
+        Route::name('article')->get('articles/{articleAlias}', 'ArticlesController@show');
+        
+        // Route::name('page')->get('{pageAlias}', 'PagesController@show');
+        
+
+        Route::resource('categories', 'CategoriesController', [
+            'only' => ['show'],
+            'parameters' => ['categories' => 'alias'],
+        ]);
+        Route::resource('tags', 'TagsController', [
+            'only' => ['show'],
+            'parameters' => ['tags' => 'alias'],
+        ]);
+
+        Route::resource('authors', 'AuthorsController', [
+            'only' => ['index', 'show'],
+            'parameters' => ['authors' => 'alias'],
+        ]);
+
+        Route::name('archive')->get('/archive', 'ArticlesController@archiveIndex');
+
+        Route::name('page')->get('{pageAlias}', function() { return 'hello' ;});
+
+    });

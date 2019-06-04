@@ -87,4 +87,8 @@ class PagesController extends Controller
             return response()->json($result);
         }
     }
+  
+    public function getTemplates() {
+      return response()->json(config('settings.templates'));
+    }
 }

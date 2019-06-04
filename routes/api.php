@@ -38,3 +38,5 @@ Route::apiResource('tags', 'Api\TagsController')->only('index');
 Route::apiResource('pages', 'Api\PagesController')->except('index', 'update')->middleware('auth:api');
 Route::apiResource('pages', 'Api\PagesController')->only('index');
 Route::post('pages/status/{page}', 'Api\PagesController@statusChange')->middleware('auth:api');
+Route::get('templates/', 'Api\PagesController@getTemplates');
+

@@ -155,7 +155,7 @@
 							</span>
 							<select name="template" v-model="page.template" class="form-control mt-1">
 								<option
-									v-for="(option, index) in options"
+									v-for="(option, index) in templates"
 									:key="index"
 									:value="option.value"
 								>{{ option.text }}</option>
@@ -221,15 +221,10 @@ export default {
 				content_en: ""
 			},
 
-			options: [
-				{ value: "common", text: "Базовый шаблон" },
-				{ value: "mainpage", text: "Главная страница" },
-				{ value: "currentissue", text: "Свежий номер" },
-				{ value: "archive", text: "Архив" },
-				{ value: "redkollegiya", text: "Редколлегия и Редсовет" },
-				{ value: "contacts", text: "Контакты" },
-				{ value: "authors", text: "Наши авторы" }
-			],
+			templates: [{
+					value: "common",
+					text: "Базовый шаблон"
+			}],
 
 			editAlias: false,
 			newAlias: ""
@@ -254,6 +249,9 @@ export default {
 	},
 
 	created() {
+		// fetching templates
+		this.fetchTemplates();
+		
 		// fetching page
 		if (!this.isEmptyObject(this.old)) {
 			this.page = this.old;
@@ -289,6 +287,14 @@ export default {
 				this.page = data.data;
 				this.newAlias = this.page.alias;
 			});
+		},
+		
+		fetchTemplates() {
+			axios
+				.get("/api/templates")
+				.then(({data}) => {
+					this.templates = data;
+			})
 		},
 
 		deletePage() {
