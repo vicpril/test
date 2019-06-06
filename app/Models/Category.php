@@ -33,8 +33,8 @@ class Category extends Model
 	
     public function getLocAttribute() {
 				switch (app()->getLocale()) {
-					case 'ru': return $this->title_ru;
-					case 'en': return $this->title_en;
+					case 'ru': return $this->title_ru; break;
+					case 'en': return $this->title_en; break;
 				}
     }
 
