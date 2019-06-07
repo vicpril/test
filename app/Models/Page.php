@@ -18,7 +18,7 @@ class Page extends Model
       'status_id',
       'template'
     ];
-
+  
     public function status()
     {
         return $this->belongsTo('App\Models\Status');

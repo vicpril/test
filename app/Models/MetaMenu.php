@@ -4,16 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MetaMenus extends Model
+class MetaMenu extends Model
 {
+    protected $table = 'meta_menus';
+  
     protected $fillable = [
-    	'title', 'type', 'path', 'parent', 'menu_id'
+    	'title', 'type', 'path', 'parent', 'menu_id', 'order'
     ];
 
     public $timestamps = false;
 
     public function menu() {
-        $this->belongsTo('App\Models\Menu');
+        return $this->belongsTo('App\Models\Menu');
     }
 
 }

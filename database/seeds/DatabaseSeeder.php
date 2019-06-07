@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
 	/**************************
 	 *			Add Status
 	 **************************/
-	$this->call(StatusSeeder::class);
+		$this->call(StatusSeeder::class);
 
 		
 		
@@ -41,47 +41,49 @@ class DatabaseSeeder extends Seeder
         	PageSeeder::class,
     ]);
 	 	
-		
 
 	/**************************
 	 *			Add Menus
 	 **************************/
+		$this->call([
+        	MenuSeeder::class,
+    ]);
 
-    	DB::table('menus')->insert([
-    		'title_ru' => 'О журнале',
-    		'title_en' => 'About',
-    		'path' => '/',
-    	]);
-    	DB::table('menus')->insert([
-    		'title_ru' => 'Свежий номер',
-    		'title_en' => 'New Issue',
-    		'path' => '/articles',
-    	]);
-    	DB::table('menus')->insert([
-    		'title_ru' => 'Архив',
-    		'title_en' => 'Archive',
-    		'path' => '/archive',
-    	]);
-    	DB::table('menus')->insert([
-    		'title_ru' => 'Редколлегия и Редсовет',
-    		'title_en' => 'Editorial board',
-    		'path' => '#',
-    	]);
-    	DB::table('menus')->insert([
-    		'title_ru' => 'Подписка и покупка',
+//     	DB::table('menus')->insert([
+//     		'title_ru' => 'О журнале',
+//     		'title_en' => 'About',
+//     		'path' => '/',
+//     	]);
+//     	DB::table('menus')->insert([
+//     		'title_ru' => 'Свежий номер',
+//     		'title_en' => 'New Issue',
+//     		'path' => '/articles',
+//     	]);
+//     	DB::table('menus')->insert([
+//     		'title_ru' => 'Архив',
+//     		'title_en' => 'Archive',
+//     		'path' => '/archive',
+//     	]);
+//     	DB::table('menus')->insert([
+//     		'title_ru' => 'Редколлегия и Редсовет',
+//     		'title_en' => 'Editorial board',
+//     		'path' => '#',
+//     	]);
+//     	DB::table('menus')->insert([
+//     		'title_ru' => 'Подписка и покупка',
     		
-    		'path' => '#',
-    	]);
-    	DB::table('menus')->insert([
-    		'title_ru' => 'Как подать статью',
+//     		'path' => '#',
+//     	]);
+//     	DB::table('menus')->insert([
+//     		'title_ru' => 'Как подать статью',
     		
-    		'path' => '#',
-    	]);
-    	DB::table('menus')->insert([
-    		'title_ru' => 'Контакты',
-    		'title_en' => 'Contacts',
-    		'path' => '/contacts',
-    	]);
+//     		'path' => '#',
+//     	]);
+//     	DB::table('menus')->insert([
+//     		'title_ru' => 'Контакты',
+//     		'title_en' => 'Contacts',
+//     		'path' => '/contacts',
+//     	]);
 
 
 
