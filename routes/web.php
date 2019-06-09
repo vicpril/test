@@ -31,9 +31,10 @@ Route::prefix('admin')->namespace('Back')->group(function () {
         Route::resource('issues', 'IssuesController')->except(['show', 'update']);
         Route::resource('categories', 'CategoriesController')->only(['index']);
         Route::resource('tags', 'TagsController')->only(['index']);
-
+        
         //pages and menus
         Route::resource('pages', 'PagesController')->except(['show']);
+        Route::resource('menus', 'MenusController')->only(['index']);
 
 
         // export

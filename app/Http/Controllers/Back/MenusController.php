@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Back;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoriesController extends AdminController
+class MenusController extends AdminController
 {
     
     /**
@@ -15,9 +15,9 @@ class CategoriesController extends AdminController
      */
     public function index()
     {
-        $this->subtitle = "Рубрики";
+        $this->subtitle = "Меню";
 
-        $this->template = env('THEME_BACK') . '.back.categories.index';
+        $this->template = env('THEME_BACK') . '.back.menus.index';
       
         return $this->renderOutput();
     }

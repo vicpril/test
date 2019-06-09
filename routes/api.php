@@ -40,3 +40,6 @@ Route::apiResource('pages', 'Api\PagesController')->only('index');
 Route::post('pages/status/{page}', 'Api\PagesController@statusChange')->middleware('auth:api');
 Route::get('templates/', 'Api\PagesController@getTemplates');
 
+Route::apiResource('menus', 'Api\MenusController')->except('index')->middleware('auth:api');
+Route::apiResource('menus', 'Api\MenusController')->only('index');
+

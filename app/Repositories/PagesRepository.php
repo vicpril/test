@@ -59,7 +59,7 @@ class PagesRepository extends Repository
      */
     public function getPagesList(\Illuminate\Http\Request $request)
     {
-        $paginate = ($request->input('paginate')) ? $request->input('paginate') : '';
+        $paginate = ($request->input('paginate')) ? $request->input('paginate') : false;
         $search = ($request->input('search')) ? $request->input('search') : '';
         $sortBy = ($request->input('sortBy')) ? $request->input('sortBy') : 'id';
         $orderBy = ($request->input('orderBy')) ? $request->input('orderBy') : 'asc';
@@ -71,10 +71,14 @@ class PagesRepository extends Repository
                 'meta',
                 'status',
             ])
-            ->orderByRaw("FIELD(id, " . implode(',', $pages_id) . ")")
-            ->paginate($paginate);
+            ->orderByRaw("FIELD(id, " . implode(',', $pages_id) . ")");
 
-        return $pages;
+        if ($paginate) {
+            return $pages->paginate($paginate);
+        } else {
+            return $pages->get();
+        }
+        
 
     }
 

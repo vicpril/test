@@ -77,6 +77,10 @@ Vue.component(
    "page-profile",
    require("./components/back/pages/PageProfile.vue").default
 );
+Vue.component(
+   "menus-index",
+   require("./components/back/menus/MenusIndex.vue").default
+);
 
 Vue.component("alert", require("./components/back/Alert.vue").default);
 Vue.component(

@@ -48,9 +48,10 @@ class SiteController extends Controller
 
     protected function renderOutput() {
 
-        $menu = $this->getMenu();
+        $menu_top = $this->m_rep->getMenu('top', app()->getLocale());
+        // $menu = $this->getMenu();
 
-        $navigation = view(env('THEME').'.navigation')->with('menu', $menu)->render();
+        $navigation = view(env('THEME').'.navigation')->with('menu', $menu_top)->render();
         $this->vars = array_add($this->vars, 'navigation', $navigation);
 
         $header = view(env('THEME').'.header')->with('navigation', $navigation)->render();

@@ -36,13 +36,6 @@
 					@end="showCat=true"
 				>
 					<template v-for="(article, index) in articles">
-						<!-- <tr v-if="showCat" :key="article.id+1000">
-							<td
-								colspan="7"
-								class="text-center h6"
-
-							>{{ article.categories[0].title_ru }}</td>
-						</tr>-->
 						<tr :key="article.id">
 							<td
 								class="handle text-secondary my-auto px-2"
@@ -50,7 +43,6 @@
 								@mouseout="$event.target.classList.remove('text-warning')"
 							>
 								<i class="fa fa-arrows-v fa-lg"></i>
-								<!-- {{ article.position }} -->
 							</td>
 							<td>
 								<b-form-checkbox
@@ -108,12 +100,12 @@
 
 <script>
 import draggable from "vuedraggable";
-	
+
 export default {
 	components: {
 		draggable
 	},
-	
+
 	props: {
 		value: {
 			type: Array,
@@ -121,7 +113,7 @@ export default {
 				[];
 			}
 		},
-		
+
 		export: {
 			type: Array,
 			default: () => {
@@ -129,7 +121,7 @@ export default {
 			}
 		}
 	},
-	
+
 	data() {
 		return {
 			exportArticles: [],
@@ -143,7 +135,7 @@ export default {
 			get() {
 				return this.value;
 			},
-			
+
 			set(value) {
 				value.forEach(function(article, index) {
 					article.position = index + 1;
@@ -153,7 +145,7 @@ export default {
 			}
 		}
 	},
-	
+
 	watch: {
 		exportArticles(value) {
 			this.changeCheckAll(value);
@@ -178,7 +170,7 @@ export default {
 			}
 			this.exportArticles = selected;
 		},
-		
+
 		changeCheckAll(value) {
 			if (value.length === 0) {
 				this.indeterminate = false;

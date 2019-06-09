@@ -18,4 +18,17 @@ class MetaMenu extends Model
         return $this->belongsTo('App\Models\Menu');
     }
 
+    public function getUrlAttribute() {
+        switch ($this->type) {
+            case 'page':
+                return route('page', $this->path);
+                break;
+            
+            default:
+                return $this->path;
+                break;
+        }
+    }
+    
+
 }

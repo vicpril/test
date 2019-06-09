@@ -33,14 +33,16 @@ class MenuSeeder extends Seeder
         $pages->each(function($page) use (&$i, $top_ru, $top_en) {
             $top_ru->meta()->create([
                   'title' => $page->ru->title,
-                  'path' => $page->id,
+                //   'path' => $page->id,
+                  'path' => $page->alias,
                   'type' => 'page',
                   'parent' => '0',
                   'order' => $i,
               ]); 
             $top_en->meta()->create([
                   'title' => $page->en->title,
-                  'path' => $page->id,
+                //   'path' => $page->id,
+                  'path' => $page->alias,
                   'type' => 'page',
                   'parent' => '0',
                   'order' => $i,

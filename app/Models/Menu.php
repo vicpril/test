@@ -15,5 +15,10 @@ class Menu extends Model
     public function meta() {
         return $this->hasMany('App\Models\MetaMenu', 'menu_id');
     }
-    
+
+    public function links() {
+        return $this->hasMany('App\Models\MetaMenu', 'menu_id');
+    }
+
+   
 }
