@@ -3404,6 +3404,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3417,7 +3432,29 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  methods: {}
+  methods: {
+    getItemType: function getItemType($type) {
+      switch ($type) {
+        case "page":
+          return "Страница";
+          break;
+
+        case "common":
+          return "Произвольная ссылка";
+          break;
+
+        default:
+          break;
+      }
+    },
+    collapsedAll: function collapsedAll() {// var links = document.getElementsByClassName(
+      // 	"item-edit:has(.collapsed)"
+      // );
+      // Array.prototype.forEach.call(links, function(el) {
+      // 	el.classList.add("collapsed");
+      // });
+    }
+  }
 });
 
 /***/ }),
@@ -28444,7 +28481,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n#menu-title[data-v-4a91dbb3] {\r\n\twidth: 40%;\r\n\t/* font-size: 1.1em; */\n}\n.list-group-item[data-v-4a91dbb3] {\r\n\twidth: 400px;\r\n\tbackground: #fafafa;\r\n\tcolor: #23282d;\n}\n.list-group[data-v-4a91dbb3] :hover {\r\n\tcursor: move;\r\n\tborder-color: #999;\n}\n.ghost[data-v-4a91dbb3] {\r\n\topacity: 0.5;\r\n\tbackground: #c8ebfb;\n}\r\n", ""]);
+exports.push([module.i, "\n#menu-title[data-v-4a91dbb3] {\r\n\twidth: 40%;\r\n\t/* font-size: 1.1em; */\n}\n.list-group[data-v-4a91dbb3] {\r\n\twidth: 400px;\n}\n.list-group-item[data-v-4a91dbb3] {\r\n\tbackground: #fafafa;\r\n\tcolor: #23282d;\r\n\tborder-radius: 0px;\r\n\tmargin-top: 7px;\n}\n.list-group[data-v-4a91dbb3] :hover {\r\n\tcursor: move;\r\n\tborder-color: #999;\n}\n.ghost[data-v-4a91dbb3] {\r\n\topacity: 0.5;\r\n\tbackground: #c8ebfb;\n}\r\n\r\n/* a.collapsed > i.when-opened,\r\na:not(.collapsed) > i.when-closed {\r\n\tdisplay: none;\r\n} */\r\n/* a.collapsed {\r\n\tcontent: \"123\";\r\n} */\na.item-edit[data-v-4a91dbb3] {\r\n\tposition: absolute;\r\n\tright: -1px;\r\n\ttop: 0;\r\n\tdisplay: flex;\r\n\talign-items: center;\r\n\tjustify-content: center;\r\n\twidth: 30px;\r\n\theight: 100%;\r\n\tmargin-right: 0 !important;\r\n\toutline: 0;\r\n\toverflow: hidden;\r\n\twhite-space: nowrap;\r\n\tcursor: pointer !important;\r\n\ttext-decoration: none !important;\r\n\tcolor: #000;\n}\na.item-edit.collapsed[data-v-4a91dbb3]:before {\r\n\tcontent: \"\\F0D7\";\r\n\tfont-family: FontAwesome;\r\n\ttext-indent: 0;\n}\na.item-edit[data-v-4a91dbb3]:before {\r\n\tcontent: \"\\F0D8\";\r\n\tfont-family: FontAwesome;\r\n\ttext-indent: 0;\n}\n.link-info[data-v-4a91dbb3] {\r\n\tborder-radius: 0px;\r\n\tborder-top: none;\r\n\tmargin: 0px;\r\n\tpadding-left: 8px;\r\n\tpadding-right: 8px;\n}\r\n", ""]);
 
 // exports
 
@@ -63470,12 +63507,46 @@ var render = function() {
             staticClass: "list-group",
             attrs: { list: _vm.value.links, "ghost-class": "ghost" }
           },
-          _vm._l(_vm.value.links, function(link, index) {
-            return _c(
-              "div",
-              { key: "link-" + index, staticClass: "list-group-item mb-1" },
-              [_c("strong", [_vm._v(_vm._s(link.title))])]
-            )
+          _vm._l(_vm.value.links, function(link) {
+            return _c("div", { key: "link-group-" + link.id }, [
+              _c(
+                "div",
+                { key: "link-" + link.id, staticClass: "list-group-item mb-0" },
+                [
+                  _c("strong", [_vm._v(_vm._s(link.title))]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "float-right m-0 p-0" }, [
+                    _c("span", { staticClass: "text-grey mr-3" }, [
+                      _vm._v(_vm._s(_vm.getItemType(link.type)))
+                    ]),
+                    _vm._v(" "),
+                    _c("a", {
+                      staticClass: "item-edit text-grey collapsed",
+                      attrs: {
+                        "data-toggle": "collapse",
+                        href: "#link-content-" + link.id,
+                        "aria-expanded": "false",
+                        "aria-controls": "link-content-" + link.id
+                      }
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  key: "link-content-" + link.id,
+                  staticClass: "collapse",
+                  attrs: { id: "link-content-" + link.id }
+                },
+                [
+                  _c("div", { staticClass: "card card-body link-info" }, [
+                    _vm._v(_vm._s(link.title))
+                  ])
+                ]
+              )
+            ])
           }),
           0
         )

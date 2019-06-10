@@ -17,8 +17,23 @@
 			<p>Расположите элементы в желаемом порядке путём перетаскивания. Можно также щёлкнуть на стрелку справа от элемента, чтобы открыть дополнительные настройки.</p>
 
 			<draggable :list="value.links" class="list-group" ghost-class="ghost">
-				<div v-for="(link, index) in value.links" :key="'link-'+index" class="list-group-item mb-1">
-					<strong>{{ link.title }}</strong>
+				<div v-for="(link) in value.links" :key="'link-group-'+link.id">
+					<div class="list-group-item mb-0" :key="'link-'+link.id">
+						<strong>{{ link.title }}</strong>
+						<div class="float-right m-0 p-0">
+							<span class="text-grey mr-3">{{ getItemType(link.type) }}</span>
+							<a
+								class="item-edit text-grey collapsed"
+								data-toggle="collapse"
+								:href="'#link-content-'+link.id"
+								aria-expanded="false"
+								:aria-controls="'link-content-'+link.id"
+							></a>
+						</div>
+					</div>
+					<div class="collapse" :id="'link-content-'+link.id" :key="'link-content-'+link.id">
+						<div class="card card-body link-info">{{ link.title }}</div>
+					</div>
 				</div>
 			</draggable>
 		</div>
@@ -41,7 +56,29 @@ export default {
 		}
 	},
 
-	methods: {}
+	methods: {
+		getItemType($type) {
+			switch ($type) {
+				case "page":
+					return "Страница";
+					break;
+				case "common":
+					return "Произвольная ссылка";
+					break;
+				default:
+					break;
+			}
+		},
+
+		collapsedAll() {
+			// var links = document.getElementsByClassName(
+			// 	"item-edit:has(.collapsed)"
+			// );
+			// Array.prototype.forEach.call(links, function(el) {
+			// 	el.classList.add("collapsed");
+			// });
+		}
+	}
 };
 </script>
 
@@ -51,10 +88,15 @@ export default {
 	/* font-size: 1.1em; */
 }
 
-.list-group-item {
+.list-group {
 	width: 400px;
+}
+
+.list-group-item {
 	background: #fafafa;
 	color: #23282d;
+	border-radius: 0px;
+	margin-top: 7px;
 }
 
 .list-group :hover {
@@ -65,6 +107,52 @@ export default {
 .ghost {
 	opacity: 0.5;
 	background: #c8ebfb;
+}
+
+/* a.collapsed > i.when-opened,
+a:not(.collapsed) > i.when-closed {
+	display: none;
+} */
+/* a.collapsed {
+	content: "123";
+} */
+
+a.item-edit {
+	position: absolute;
+	right: -1px;
+	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 100%;
+	margin-right: 0 !important;
+	outline: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer !important;
+	text-decoration: none !important;
+	color: #000;
+}
+
+a.item-edit.collapsed:before {
+	content: "\f0d7";
+	font-family: FontAwesome;
+	text-indent: 0;
+}
+
+a.item-edit:before {
+	content: "\f0d8";
+	font-family: FontAwesome;
+	text-indent: 0;
+}
+
+.link-info {
+	border-radius: 0px;
+	border-top: none;
+	margin: 0px;
+	padding-left: 8px;
+	padding-right: 8px;
 }
 </style>
 
