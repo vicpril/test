@@ -32,7 +32,16 @@
 						</div>
 					</div>
 					<div class="collapse" :id="'link-content-'+link.id" :key="'link-content-'+link.id">
-						<div class="card card-body link-info">{{ link.title }}</div>
+						<div class="card card-body link-info">
+								<div class="form-group">
+										<label><i>Текст ссылки:</i></label>
+										<input type="text" class="form-control" v-model="link.title">
+								</div>
+								<div class="form-group mb-0">
+										<label><i>Страница:</i></label>
+										<a :href="link.url" target="_blank">{{link.path}}</a>
+								</div>
+						</div>
 					</div>
 				</div>
 			</draggable>
@@ -97,9 +106,10 @@ export default {
 	color: #23282d;
 	border-radius: 0px;
 	margin-top: 7px;
+	
 }
 
-.list-group :hover {
+.list-group-item :hover {
 	cursor: move;
 	border-color: #999;
 }
@@ -108,14 +118,6 @@ export default {
 	opacity: 0.5;
 	background: #c8ebfb;
 }
-
-/* a.collapsed > i.when-opened,
-a:not(.collapsed) > i.when-closed {
-	display: none;
-} */
-/* a.collapsed {
-	content: "123";
-} */
 
 a.item-edit {
 	position: absolute;
@@ -151,8 +153,8 @@ a.item-edit:before {
 	border-radius: 0px;
 	border-top: none;
 	margin: 0px;
-	padding-left: 8px;
-	padding-right: 8px;
+/* 	padding-left: 8px;
+	padding-right: 8px; */
 }
 </style>
 

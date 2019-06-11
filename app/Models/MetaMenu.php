@@ -11,6 +11,8 @@ class MetaMenu extends Model
     protected $fillable = [
     	'title', 'type', 'path', 'parent', 'menu_id', 'order'
     ];
+  
+    protected $appends = ['url'];
 
     public $timestamps = false;
 
