@@ -14,7 +14,7 @@
 								<b-form-checkbox
 									:id="'add-page-' + page.id"
 									:value="index"
-									v-model="exportPages"
+									v-model="exportPagesIndex"
 								>{{ page.title_ru }}</b-form-checkbox>
 							</li>
 						</ul>
@@ -55,12 +55,20 @@ export default {
 	data() {
 		return {
 			pages: [],
-			exportPages: [],
+			exportPagesIndex: [],
 			commonPage: {
 				title: "",
 				url: "",
 			}
 		};
+	},
+	
+	computed: {
+// 		exportPages() {
+// 			return this.pages.filter((page, index) => {
+// 				return this.exportPagesIndex.includes(index);
+// 			});
+// 		}
 	},
 
 	created() {
@@ -75,13 +83,28 @@ export default {
 		},
 
 		selectAll() {
-			this.exportPages = [];
+			this.exportPagesIndex = [];
 			this.pages.forEach(function(item, index) {
-				this.exportPages.push(index);
+				this.exportPagesIndex.push(index);
 			}, this);
 		},
 
-		addToMenu() {}
+		addToMenu(type) {
+			switch(type) {
+				case "page":
+					if(this.exportPagesIndex.length == 0) {
+						alert("Выберите страницы для добавления в меню");
+					} else {
+						this.exportPagesIndex.forEach((index)=>{
+							this.$emit('addPage', this.pages[index]);
+						})
+					}
+					break;
+				case "common":
+					
+					break;
+			}
+		}
 	}
 };
 </script>

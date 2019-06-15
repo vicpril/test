@@ -11,10 +11,12 @@
 
 		<div class="row">
 			<div class="col-md left-column">
-				<menus-links></menus-links>
+				<menus-links @addPage="addLink"></menus-links>
 			</div>
 			<div class="col-md">
-				<menu-profile v-model="menus[currentMenuIndex]"></menu-profile>
+				<menu-profile 
+											v-model="menus[currentMenuIndex]"
+											@delete="deleteLink"></menu-profile>
 			</div>
 		</div>
 	</div>
@@ -61,6 +63,28 @@ export default {
 				this.menus = resp.data.data;
 			});
 		},
+		
+		addLink(link){
+			var newLink = {
+					id: 0,
+					menu_id: this.menus[this.currentMenuIndex].id,
+// 					order:6,
+					parent:0,
+					path: link.alias,
+					title: link.title_ru,
+					type: link.type,
+					url: link.path,
+
+			}
+			
+			this.menus[this.currentMenuIndex].links.push(newLink);
+		},
+		
+		deleteLink(index) {
+			this.menus[this.currentMenuIndex].links.splice(index, 1);
+		},
+		
+		
 
 		// selectMenu(e) {
 		// 	window.location =

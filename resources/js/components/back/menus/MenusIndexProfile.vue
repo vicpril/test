@@ -17,29 +17,32 @@
 			<p>Расположите элементы в желаемом порядке путём перетаскивания. Можно также щёлкнуть на стрелку справа от элемента, чтобы открыть дополнительные настройки.</p>
 
 			<draggable :list="value.links" class="list-group" ghost-class="ghost">
-				<div v-for="(link) in value.links" :key="'link-group-'+link.id">
-					<div class="list-group-item mb-0" :key="'link-'+link.id">
+				<div v-for="(link, index) in value.links" :key="'link-group-'+link.path+index">
+					<div class="list-group-item mb-0" :key="'link-'+link.path+index">
 						<strong>{{ link.title }}</strong>
 						<div class="float-right m-0 p-0">
 							<span class="text-grey mr-3">{{ getItemType(link.type) }}</span>
 							<a
 								class="item-edit text-grey collapsed"
 								data-toggle="collapse"
-								:href="'#link-content-'+link.id"
+								:href="'#link-content-'+link.path+index"
 								aria-expanded="false"
-								:aria-controls="'link-content-'+link.id"
+								:aria-controls="'link-content-'+link.path+index"
 							></a>
 						</div>
 					</div>
-					<div class="collapse" :id="'link-content-'+link.id" :key="'link-content-'+link.id">
+					<div class="collapse" :id="'link-content-'+link.path+index" :key="'link-content-'+link.path+index">
 						<div class="card card-body link-info">
-								<div class="form-group">
+								<div class="form-group mb-2">
 										<label><i>Текст ссылки:</i></label>
 										<input type="text" class="form-control" v-model="link.title">
 								</div>
-								<div class="form-group mb-0">
+								<div class="form-group mb-2">
 										<label><i>Страница:</i></label>
 										<a :href="link.url" target="_blank">{{link.path}}</a>
+								</div>
+								<div class="form-group mb-0">
+										<a href="#" class="text-danger" @click.prevent="$emit('delete', index)">Удалить</a>
 								</div>
 						</div>
 					</div>

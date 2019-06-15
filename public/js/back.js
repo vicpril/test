@@ -3181,6 +3181,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3216,6 +3218,22 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/menus").then(function (resp) {
         _this.menus = resp.data.data;
       });
+    },
+    addLink: function addLink(link) {
+      var newLink = {
+        id: 0,
+        menu_id: this.menus[this.currentMenuIndex].id,
+        // 					order:6,
+        parent: 0,
+        path: link.alias,
+        title: link.title_ru,
+        type: link.type,
+        url: link.path
+      };
+      this.menus[this.currentMenuIndex].links.push(newLink);
+    },
+    deleteLink: function deleteLink(index) {
+      this.menus[this.currentMenuIndex].links.splice(index, 1);
     },
     // selectMenu(e) {
     // 	window.location =
@@ -3348,12 +3366,18 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       pages: [],
-      exportPages: [],
+      exportPagesIndex: [],
       commonPage: {
         title: "",
         url: ""
       }
     };
+  },
+  computed: {// 		exportPages() {
+    // 			return this.pages.filter((page, index) => {
+    // 				return this.exportPagesIndex.includes(index);
+    // 			});
+    // 		}
   },
   created: function created() {
     this.fetchPages();
@@ -3368,12 +3392,30 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     selectAll: function selectAll() {
-      this.exportPages = [];
+      this.exportPagesIndex = [];
       this.pages.forEach(function (item, index) {
-        this.exportPages.push(index);
+        this.exportPagesIndex.push(index);
       }, this);
     },
-    addToMenu: function addToMenu() {}
+    addToMenu: function addToMenu(type) {
+      var _this2 = this;
+
+      switch (type) {
+        case "page":
+          if (this.exportPagesIndex.length == 0) {
+            alert("Выберите страницы для добавления в меню");
+          } else {
+            this.exportPagesIndex.forEach(function (index) {
+              _this2.$emit('addPage', _this2.pages[index]);
+            });
+          }
+
+          break;
+
+        case "common":
+          break;
+      }
+    }
   }
 });
 
@@ -3390,6 +3432,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.min.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
 //
 //
 //
@@ -28466,7 +28511,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.left-column[data-v-68796274] {\n\tflex: 0 0 320px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.left-column[data-v-68796274] {\n\tflex: 0 0 320px;\n}\n", ""]);
 
 // exports
 
@@ -63271,13 +63316,19 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md left-column" }, [_c("menus-links")], 1),
+      _c(
+        "div",
+        { staticClass: "col-md left-column" },
+        [_c("menus-links", { on: { addPage: _vm.addLink } })],
+        1
+      ),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "col-md" },
         [
           _c("menu-profile", {
+            on: { delete: _vm.deleteLink },
             model: {
               value: _vm.menus[_vm.currentMenuIndex],
               callback: function($$v) {
@@ -63376,11 +63427,11 @@ var render = function() {
                                 value: index
                               },
                               model: {
-                                value: _vm.exportPages,
+                                value: _vm.exportPagesIndex,
                                 callback: function($$v) {
-                                  _vm.exportPages = $$v
+                                  _vm.exportPagesIndex = $$v
                                 },
-                                expression: "exportPages"
+                                expression: "exportPagesIndex"
                               }
                             },
                             [_vm._v(_vm._s(page.title_ru))]
@@ -63601,11 +63652,14 @@ var render = function() {
             staticClass: "list-group",
             attrs: { list: _vm.value.links, "ghost-class": "ghost" }
           },
-          _vm._l(_vm.value.links, function(link) {
-            return _c("div", { key: "link-group-" + link.id }, [
+          _vm._l(_vm.value.links, function(link, index) {
+            return _c("div", { key: "link-group-" + link.path + index }, [
               _c(
                 "div",
-                { key: "link-" + link.id, staticClass: "list-group-item mb-0" },
+                {
+                  key: "link-" + link.path + index,
+                  staticClass: "list-group-item mb-0"
+                },
                 [
                   _c("strong", [_vm._v(_vm._s(link.title))]),
                   _vm._v(" "),
@@ -63618,9 +63672,9 @@ var render = function() {
                       staticClass: "item-edit text-grey collapsed",
                       attrs: {
                         "data-toggle": "collapse",
-                        href: "#link-content-" + link.id,
+                        href: "#link-content-" + link.path + index,
                         "aria-expanded": "false",
-                        "aria-controls": "link-content-" + link.id
+                        "aria-controls": "link-content-" + link.path + index
                       }
                     })
                   ])
@@ -63630,13 +63684,13 @@ var render = function() {
               _c(
                 "div",
                 {
-                  key: "link-content-" + link.id,
+                  key: "link-content-" + link.path + index,
                   staticClass: "collapse",
-                  attrs: { id: "link-content-" + link.id }
+                  attrs: { id: "link-content-" + link.path + index }
                 },
                 [
                   _c("div", { staticClass: "card card-body link-info" }, [
-                    _c("div", { staticClass: "form-group" }, [
+                    _c("div", { staticClass: "form-group mb-2" }, [
                       _c("label", [_c("i", [_vm._v("Текст ссылки:")])]),
                       _vm._v(" "),
                       _c("input", {
@@ -63662,12 +63716,29 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group mb-0" }, [
+                    _c("div", { staticClass: "form-group mb-2" }, [
                       _c("label", [_c("i", [_vm._v("Страница:")])]),
                       _vm._v(" "),
                       _c("a", { attrs: { href: link.url, target: "_blank" } }, [
                         _vm._v(_vm._s(link.path))
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group mb-0" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "text-danger",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.$emit("delete", index)
+                            }
+                          }
+                        },
+                        [_vm._v("Удалить")]
+                      )
                     ])
                   ])
                 ]
