@@ -35,10 +35,10 @@ class MenusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MenuRequest $request) {
-        $result = $this->repository->create($request->except('_token', '_method'));
-        return response()->json($result);
-    }
+    // public function store(MenuRequest $request) {
+    //     $result = $this->repository->create($request->except('_token', '_method'));
+    //     return response()->json($result);
+    // }
   
     /**
      * Update the specified resource in storage.
@@ -47,8 +47,8 @@ class MenusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MenuRequest $request, Menu $cat) {
-        $result = $this->repository->update($cat, $request->except('_token', '_method'));
+    public function update(Request $request, Menu $menu) {
+        $result = $this->repository->update($menu, $request->except('_token', '_method'));
         return response()->json($result);
     }
   
@@ -58,12 +58,12 @@ class MenusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Menu $cat) {
-        $this->middleware('auth:api');
-        $result = $this->repository->deleteMenu($cat);
+    // public function destroy(Menu $cat) {
+    //     $this->middleware('auth:api');
+    //     $result = $this->repository->deleteMenu($cat);
 
-        if (is_array($result)) {
-            return response()->json($result);
-        }
-    }
+    //     if (is_array($result)) {
+    //         return response()->json($result);
+    //     }
+    // }
 }

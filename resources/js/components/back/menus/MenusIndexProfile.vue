@@ -3,12 +3,12 @@
 		<div class="card-header">
 			<div class="form-inline">
 				<i class="mr-1">Название меню</i>
-				<input id="menu-title" type="text" class="form-control" :value="value.title">
+				<input id="menu-title" type="text" class="form-control" v-model="value.title">
 
 				<button
 					type="button"
 					class="btn btn-primary text-nowrap ml-auto"
-					@click="$emit('save')"
+					@click="$emit('save', value)"
 				>Сохранить изменения</button>
 			</div>
 		</div>
@@ -16,12 +16,7 @@
 			<h5>Структура меню</h5>
 			<p>Расположите элементы в желаемом порядке путём перетаскивания. Можно также щёлкнуть на стрелку справа от элемента, чтобы открыть дополнительные настройки.</p>
 
-			<draggable 
-								 v-model="links" 
-								 
-								 class="list-group" 
-								 ghost-class="ghost"
-								 >
+			<draggable v-model="links" class="list-group" ghost-class="ghost">
 				<div v-for="(link, index) in links" :key="'link-group-'+index">
 					<div class="list-group-item mb-0" :key="'link-'+index">
 						<strong>{{ link.title }}</strong>
@@ -38,17 +33,22 @@
 					</div>
 					<div class="collapse" :id="'link-content-'+index" :key="'link-content-'+index">
 						<div class="card card-body link-info">
-								<div class="form-group mb-2">
-										<label><i>Текст ссылки:</i></label>
-										<input type="text" class="form-control" v-model="link.title">
-								</div>
-								<div class="form-group mb-2">
-										<label><i>Страница:</i></label>
-										<a :href="link.url" target="_blank">{{link.path}}</a>
-								</div>
-								<div class="form-group mb-0">
-										<a href="#" class="text-danger" @click.prevent="$emit('delete', index)">Удалить</a>
-								</div>
+							<div class="form-group mb-2">
+								<label>
+									<i>Текст ссылки:</i>
+								</label>
+								<input type="text" class="form-control" v-model="link.title">
+							</div>
+							<div class="form-group mb-2">
+								<label>
+									<i v-if="link.type == 'page'">Страница:</i>
+									<i v-if="link.type == 'common'">Путь:</i>
+								</label>
+								<a :href="link.url" target="_blank">{{link.path}}</a>
+							</div>
+							<div class="form-group mb-0">
+								<a href="#" class="text-danger" @click.prevent="$emit('delete', index)">Удалить</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -71,7 +71,7 @@ export default {
 			default: () => ({})
 		}
 	},
-	
+
 	computed: {
 		links: {
 			get() {
@@ -101,15 +101,6 @@ export default {
 				default:
 					break;
 			}
-		},
-
-		collapsedAll() {
-			// var links = document.getElementsByClassName(
-			// 	"item-edit:has(.collapsed)"
-			// );
-			// Array.prototype.forEach.call(links, function(el) {
-			// 	el.classList.add("collapsed");
-			// });
 		}
 	}
 };
@@ -130,7 +121,6 @@ export default {
 	color: #23282d;
 	border-radius: 0px;
 	margin-top: 7px;
-	
 }
 
 .list-group-item :hover {
@@ -177,7 +167,7 @@ a.item-edit:before {
 	border-radius: 0px;
 	border-top: none;
 	margin: 0px;
-/* 	padding-left: 8px;
+	/* 	padding-left: 8px;
 	padding-right: 8px; */
 }
 </style>

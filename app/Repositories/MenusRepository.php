@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Menu;
+use App\Models\MetaMenu;
+
 
 use Menu as LavaryMenu;
 
@@ -51,6 +53,27 @@ class MenusRepository extends Repository{
      */
     public function getAllMenus() {
         return $this->model->with('meta')->get();
+    }
+
+    /*
+    *
+    *   Update menu
+    *
+    */
+    public function update(Menu $menu, $data) {
+        $menu->update([
+            'title' => $data['title']
+        ]);
+
+        foreach($data['links'] as $newLink) {
+            $link = ($newLink['id']) ? MetaMenu::find($newLink['id']) : MetaMenu::make();
+            // $menu->            
+        }
+
+        return [
+            'status' => 'success',
+            'message' => 'Меню обновлено',
+        ];
     }
 
 }

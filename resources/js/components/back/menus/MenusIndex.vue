@@ -11,14 +11,10 @@
 
 		<div class="row">
 			<div class="col-md left-column">
-				<menus-links 
-										 @addPage="addPage"
-										 @addCustomLink="addCustomLink"></menus-links>
+				<menus-links @addPage="addPage" @addCustomLink="addCustomLink"></menus-links>
 			</div>
 			<div class="col-md">
-				<menu-profile 
-											v-model="menus[currentMenuIndex]"
-											@delete="deleteLink"></menu-profile>
+				<menu-profile v-model="menus[currentMenuIndex]" @delete="deleteLink" @save="saveMenu"></menu-profile>
 			</div>
 		</div>
 	</div>
@@ -65,107 +61,64 @@ export default {
 				this.menus = resp.data.data;
 			});
 		},
-		
-		addPage(link){
+
+		addPage(link) {
 			var newLink = {
-// 					id: 0,
-					menu_id: this.menus[this.currentMenuIndex].id,
-					order: this.menus[this.currentMenuIndex].links.length + 1,
-					parent: 0,
-					path: link.alias,
-					title: link.title_ru,
-					type: 'page',
-					url: link.link,
-
-			}
+				// 					id: 0,
+				menu_id: this.menus[this.currentMenuIndex].id,
+				order: this.menus[this.currentMenuIndex].links.length + 1,
+				parent: 0,
+				path: link.alias,
+				title: link.title_ru,
+				type: "page",
+				url: link.link
+			};
 			this.menus[this.currentMenuIndex].links.push(newLink);
 		},
-		
+
 		addCustomLink(link) {
-				var newLink = {
-// 					id: 0,
-					menu_id: this.menus[this.currentMenuIndex].id,
-					order: this.menus[this.currentMenuIndex].links.length + 1,
-					parent: 0,
-					path: link.url,
-					title: link.title,
-					type: 'common',
-					url: link.url,
-
-			}
+			var newLink = {
+				// 					id: 0,
+				menu_id: this.menus[this.currentMenuIndex].id,
+				order: this.menus[this.currentMenuIndex].links.length + 1,
+				parent: 0,
+				path: link.url,
+				title: link.title,
+				type: "common",
+				url: link.url
+			};
 			this.menus[this.currentMenuIndex].links.push(newLink);
 		},
-		
+
 		deleteLink(index) {
 			this.menus[this.currentMenuIndex].links.splice(index, 1);
 		},
-		
-		
 
-		// selectMenu(e) {
-		// 	window.location =
-		// 		e.target.options[e.target.options.selectedIndex].dataset.link;
-		// },
-
-		// fetchMenu(id) {
-		// 	if (id != 0) {
-		// 		axios.get("/api/menus/" + id).then(({ data }) => {
-		// 			this.currentMenu = data.data;
-		// 		});
-		// 	}
-		// },
-		// setFullNo() {
-		// 	this.currentMenu.full_no =
-		// 		(this.currentMenu.year - 2009 - 1) * 4 + 2 + this.currentMenu.no;
-		// },
-		saveMenu() {
-			// 	var data = Object.assign({}, this.currentMenu);
-			// 	delete data.articles;
-			// 	data.articlesOrder = this.currentMenu.articles.map(function(a) {
-			// 		return a.id;
-			// 	});
-			// 	axios
-			// 		.put("/api/menus/" + this.id, data)
-			// 		.then(resp => {
-			// 			if (resp.data.status === "success") {
-			// 				this.fetchMenusList();
-			// 				this.$notify({
-			// 					group: "custom-template",
-			// 					type: "alert-success",
-			// 					text: resp.data.message,
-			// 					duration: 5000
-			// 				});
-			// 			} else {
-			// 				this.$notify({
-			// 					group: "custom-template",
-			// 					type: "alert-danger",
-			// 					text: resp.data.message,
-			// 					duration: -1
-			// 				});
-			// 			}
-			// 		})
-			// 		.catch(error => {
-			// 			this.errors = error.response.data.errors;
-			// 			this.$notify({
-			// 				group: "custom-template",
-			// 				type: "alert-danger",
-			// 				text: error.response.data.errors.title[0],
-			// 				duration: -1
-			// 			});
-			// 		});
+		saveMenu(menu) {
+			axios
+				.put("/api/menus/" + menu.id, menu)
+				.then(resp => {
+					if (resp.data.status === "success") {
+						this.$notify({
+							group: "custom-template",
+							type: "alert-success",
+							text: resp.data.message,
+							duration: -1
+						});
+						this.fetch();
+						this.clearForm();
+					}
+				})
+				.catch(error => {
+					this.errors = error.response.data.errors;
+					this.$notify({
+						group: "custom-template",
+						type: "alert-danger",
+						text: error.response.data.errors.title[0],
+						duration: -1
+					});
+				});
 		}
-
-		// deleteMenu() {
-		// 	if (this.currentMenu.articles.length > 0) {
-		// 		alert(
-		// 			"Во избежании случайной потери статей удалите статьи вручную или перенесите их в другой выпуск."
-		// 		);
-		// 	} else {
-		// 		if (confirm("Вы хотите удалить выпуск?")) {
-		// 			document.getElementById("formDelete").submit();
-		// 		}
-		// 	}
-		// }
 	}
 };
 </script>
