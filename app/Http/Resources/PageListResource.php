@@ -22,6 +22,7 @@ class PageListResource extends JsonResource
           'title_ru' =>     $this->ru->title ?? "",
           'title_en' =>     $this->en->title ?? "",
           'editLink' =>     $this->editLink,
+          'link' =>         $this->getLink,
           'status' =>       ($this->status->title_en === 'public') ? true : false,
           "updated_at" =>   $this->updated_at->format('Y-m-d H:i:s'),
           "created_at" =>   $this->created_at->format('Y-m-d H:i:s'),

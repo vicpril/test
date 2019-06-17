@@ -97,11 +97,18 @@ export default {
 					} else {
 						this.exportPagesIndex.forEach((index)=>{
 							this.$emit('addPage', this.pages[index]);
-						})
+							this.exportPagesIndex = [];
+						});
 					}
 					break;
 				case "common":
-					
+					if(this.commonPage.title == '' || this.commonPage.url == '') {
+						alert("Заполните поля");
+					} else {
+						this.$emit('addCustomLink', this.commonPage);
+						this.commonPage.title = '';
+						this.commonPage.url = '';
+					}
 					break;
 			}
 		}

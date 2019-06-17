@@ -11,7 +11,9 @@
 
 		<div class="row">
 			<div class="col-md left-column">
-				<menus-links @addPage="addLink"></menus-links>
+				<menus-links 
+										 @addPage="addPage"
+										 @addCustomLink="addCustomLink"></menus-links>
 			</div>
 			<div class="col-md">
 				<menu-profile 
@@ -64,19 +66,33 @@ export default {
 			});
 		},
 		
-		addLink(link){
+		addPage(link){
 			var newLink = {
-					id: 0,
+// 					id: 0,
 					menu_id: this.menus[this.currentMenuIndex].id,
-// 					order:6,
-					parent:0,
+					order: this.menus[this.currentMenuIndex].links.length + 1,
+					parent: 0,
 					path: link.alias,
 					title: link.title_ru,
-					type: link.type,
-					url: link.path,
+					type: 'page',
+					url: link.link,
 
 			}
-			
+			this.menus[this.currentMenuIndex].links.push(newLink);
+		},
+		
+		addCustomLink(link) {
+				var newLink = {
+// 					id: 0,
+					menu_id: this.menus[this.currentMenuIndex].id,
+					order: this.menus[this.currentMenuIndex].links.length + 1,
+					parent: 0,
+					path: link.url,
+					title: link.title,
+					type: 'common',
+					url: link.url,
+
+			}
 			this.menus[this.currentMenuIndex].links.push(newLink);
 		},
 		

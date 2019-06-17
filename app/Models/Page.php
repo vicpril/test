@@ -57,8 +57,8 @@ class Page extends Model
         return route('pages.edit', $this->id);
     }
 
-    public function getLinkAttribute()
+    public function getGetLinkAttribute()
     {
-//         return route('page', $this->alias);
+        return route('page', $this->alias);
     }
 }

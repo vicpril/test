@@ -3183,6 +3183,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3219,16 +3221,29 @@ __webpack_require__.r(__webpack_exports__);
         _this.menus = resp.data.data;
       });
     },
-    addLink: function addLink(link) {
+    addPage: function addPage(link) {
       var newLink = {
-        id: 0,
+        // 					id: 0,
         menu_id: this.menus[this.currentMenuIndex].id,
-        // 					order:6,
+        order: this.menus[this.currentMenuIndex].links.length + 1,
         parent: 0,
         path: link.alias,
         title: link.title_ru,
-        type: link.type,
-        url: link.path
+        type: 'page',
+        url: link.link
+      };
+      this.menus[this.currentMenuIndex].links.push(newLink);
+    },
+    addCustomLink: function addCustomLink(link) {
+      var newLink = {
+        // 					id: 0,
+        menu_id: this.menus[this.currentMenuIndex].id,
+        order: this.menus[this.currentMenuIndex].links.length + 1,
+        parent: 0,
+        path: link.url,
+        title: link.title,
+        type: 'common',
+        url: link.url
       };
       this.menus[this.currentMenuIndex].links.push(newLink);
     },
@@ -3407,12 +3422,22 @@ __webpack_require__.r(__webpack_exports__);
           } else {
             this.exportPagesIndex.forEach(function (index) {
               _this2.$emit('addPage', _this2.pages[index]);
+
+              _this2.exportPagesIndex = [];
             });
           }
 
           break;
 
         case "common":
+          if (this.commonPage.title == '' || this.commonPage.url == '') {
+            alert("Заполните поля");
+          } else {
+            this.$emit('addCustomLink', this.commonPage);
+            this.commonPage.title = '';
+            this.commonPage.url = '';
+          }
+
           break;
       }
     }
@@ -3487,6 +3512,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3497,6 +3526,21 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       default: function _default() {
         return {};
+      }
+    }
+  },
+  computed: {
+    links: {
+      get: function get() {
+        return this.value.links;
+      },
+      set: function set(value) {
+        value.forEach(function (link, index) {
+          link.order = index + 1;
+        });
+        var newMenu = this.value;
+        newMenu.links = value;
+        this.$emit("input", newMenu);
       }
     }
   },
@@ -28511,7 +28555,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.left-column[data-v-68796274] {\n\tflex: 0 0 320px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.left-column[data-v-68796274] {\n\tflex: 0 0 320px;\n}\n", ""]);
 
 // exports
 
@@ -63319,7 +63363,11 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-md left-column" },
-        [_c("menus-links", { on: { addPage: _vm.addLink } })],
+        [
+          _c("menus-links", {
+            on: { addPage: _vm.addPage, addCustomLink: _vm.addCustomLink }
+          })
+        ],
         1
       ),
       _vm._v(" "),
@@ -63650,16 +63698,20 @@ var render = function() {
           "draggable",
           {
             staticClass: "list-group",
-            attrs: { list: _vm.value.links, "ghost-class": "ghost" }
+            attrs: { "ghost-class": "ghost" },
+            model: {
+              value: _vm.links,
+              callback: function($$v) {
+                _vm.links = $$v
+              },
+              expression: "links"
+            }
           },
-          _vm._l(_vm.value.links, function(link, index) {
-            return _c("div", { key: "link-group-" + link.path + index }, [
+          _vm._l(_vm.links, function(link, index) {
+            return _c("div", { key: "link-group-" + index }, [
               _c(
                 "div",
-                {
-                  key: "link-" + link.path + index,
-                  staticClass: "list-group-item mb-0"
-                },
+                { key: "link-" + index, staticClass: "list-group-item mb-0" },
                 [
                   _c("strong", [_vm._v(_vm._s(link.title))]),
                   _vm._v(" "),
@@ -63672,9 +63724,9 @@ var render = function() {
                       staticClass: "item-edit text-grey collapsed",
                       attrs: {
                         "data-toggle": "collapse",
-                        href: "#link-content-" + link.path + index,
+                        href: "#link-content-" + index,
                         "aria-expanded": "false",
-                        "aria-controls": "link-content-" + link.path + index
+                        "aria-controls": "link-content-" + index
                       }
                     })
                   ])
@@ -63684,9 +63736,9 @@ var render = function() {
               _c(
                 "div",
                 {
-                  key: "link-content-" + link.path + index,
+                  key: "link-content-" + index,
                   staticClass: "collapse",
-                  attrs: { id: "link-content-" + link.path + index }
+                  attrs: { id: "link-content-" + index }
                 },
                 [
                   _c("div", { staticClass: "card card-body link-info" }, [
@@ -63749,9 +63801,7 @@ var render = function() {
         )
       ],
       1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-footer" })
+    )
   ])
 }
 var staticRenderFns = []

@@ -16,22 +16,27 @@
 			<h5>Структура меню</h5>
 			<p>Расположите элементы в желаемом порядке путём перетаскивания. Можно также щёлкнуть на стрелку справа от элемента, чтобы открыть дополнительные настройки.</p>
 
-			<draggable :list="value.links" class="list-group" ghost-class="ghost">
-				<div v-for="(link, index) in value.links" :key="'link-group-'+link.path+index">
-					<div class="list-group-item mb-0" :key="'link-'+link.path+index">
+			<draggable 
+								 v-model="links" 
+								 
+								 class="list-group" 
+								 ghost-class="ghost"
+								 >
+				<div v-for="(link, index) in links" :key="'link-group-'+index">
+					<div class="list-group-item mb-0" :key="'link-'+index">
 						<strong>{{ link.title }}</strong>
 						<div class="float-right m-0 p-0">
 							<span class="text-grey mr-3">{{ getItemType(link.type) }}</span>
 							<a
 								class="item-edit text-grey collapsed"
 								data-toggle="collapse"
-								:href="'#link-content-'+link.path+index"
+								:href="'#link-content-'+index"
 								aria-expanded="false"
-								:aria-controls="'link-content-'+link.path+index"
+								:aria-controls="'link-content-'+index"
 							></a>
 						</div>
 					</div>
-					<div class="collapse" :id="'link-content-'+link.path+index" :key="'link-content-'+link.path+index">
+					<div class="collapse" :id="'link-content-'+index" :key="'link-content-'+index">
 						<div class="card card-body link-info">
 								<div class="form-group mb-2">
 										<label><i>Текст ссылки:</i></label>
@@ -49,7 +54,6 @@
 				</div>
 			</draggable>
 		</div>
-		<div class="card-footer"></div>
 	</div>
 </template>
 
@@ -65,6 +69,23 @@ export default {
 		value: {
 			type: Object,
 			default: () => ({})
+		}
+	},
+	
+	computed: {
+		links: {
+			get() {
+				return this.value.links;
+			},
+
+			set(value) {
+				value.forEach(function(link, index) {
+					link.order = index + 1;
+				});
+				var newMenu = this.value;
+				newMenu.links = value;
+				this.$emit("input", newMenu);
+			}
 		}
 	},
 
