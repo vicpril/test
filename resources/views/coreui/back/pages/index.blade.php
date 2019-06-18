@@ -17,7 +17,7 @@
 
 @section('content')
 <div class="content">
-  <h2 class="mb-3">Статьи</h2>
+  <h2 class="mb-3">{{$subtitle}}</h2>
   <div class="row">
       <div class="col-md-12">
         <div class="card">

@@ -16,14 +16,14 @@ class CreateMetaMenusTable extends Migration
         Schema::create('meta_menus', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('path')->nullable();
+            $table->string('path')->default("");
             $table->string('type');
             $table->integer('parent')->nullable();
             $table->integer('order')->default(1);
         });
 
         Schema::table('meta_menus', function (Blueprint $table) {
-            $table->integer('menu_id')->unsigned()->default(0);
+            $table->integer('menu_id')->unsigned()->nullable();
             $table->foreign('menu_id')->references('id')->on('menus')
                             ->onDelete('restrict')
                             ->onUpdate('restrict');

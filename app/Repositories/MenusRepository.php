@@ -25,7 +25,11 @@ class MenusRepository extends Repository{
 		$menu = Menu::where([
 			'position' => $position,
 			'lang' => $lang
-		])->with('meta')->first()->links;
+		])
+			->with('meta')
+			->first()
+			->links
+			->sortBy('order');
 
 		$mBuilder = LavaryMenu::make(ucfirst($position).'Nav', function($m) use ($menu) {
 
@@ -52,7 +56,9 @@ class MenusRepository extends Repository{
      *    
      */
     public function getAllMenus() {
-        return $this->model->with('meta')->get();
+        return $this->model->with(['meta' => function($query) {
+					$query->orderBy('order', 'asc');
+				}])->get();
     }
 
     /*
@@ -64,12 +70,19 @@ class MenusRepository extends Repository{
         $menu->update([
             'title' => $data['title']
         ]);
-
+			
+				$menu->links()->each(function($link) {
+					$link->menu()->dissociate()->save();
+				});
+			
         foreach($data['links'] as $newLink) {
-            $link = ($newLink['id']) ? MetaMenu::find($newLink['id']) : MetaMenu::make();
-            // $menu->            
+            $link = (isset($newLink['id'])) ? MetaMenu::find($newLink['id']) : MetaMenu::create();
+            $link->update($newLink);
+						$menu->meta()->save($link);
         }
-
+			
+				MetaMenu::doesntHave('menu')->delete();
+				
         return [
             'status' => 'success',
             'message' => 'Меню обновлено',
