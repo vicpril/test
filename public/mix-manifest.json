@@ -1,6 +1,8 @@
 {
-    "/js/back.js": "/js/back.js",
-    "/css/coreui.css": "/css/coreui.css",
-    "/js/manifest.js": "/js/manifest.js",
-    "/js/vendor.js": "/js/vendor.js"
+    "/js/back/back.js": "/js/back/back.js",
+    "/css/back/coreui.css": "/css/back/coreui.css",
+    "/css/front/bootstrap.css": "/css/front/bootstrap.css",
+    "/js/front/front.js": "/js/front/front.js",
+    "/js/front/manifest.js": "/js/front/manifest.js",
+    "/js/front/vendor.js": "/js/front/vendor.js"
 }

@@ -20,7 +20,7 @@
          @endif
       </title>
       <!-- Icons-->
-      <link href="{{ asset('css/coreui.css') }}" rel="stylesheet" />
+      <link href="{{ asset('css/back/coreui.css') }}" rel="stylesheet" />
       @stack('css')
       <!-- <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet"> -->
    </head>
@@ -111,10 +111,10 @@
     <script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
     <script src="js/main.js"></script> -->
 
-      <script src="{{ mix('js/manifest.js') }}"></script>
-      <script src="{{ mix('js/vendor.js') }}"></script>
+      <script src="{{ mix('js/back/manifest.js') }}"></script>
+      <script src="{{ mix('js/back/vendor.js') }}"></script>
   @stack('lib')
-      <script src="{{ mix('js/back.js') }}"></script>
+      <script src="{{ mix('js/back/back.js') }}"></script>
   @stack('js')
 
 

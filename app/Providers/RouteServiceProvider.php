@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('pageAlias', function($value) {
             $object = \App\Models\Page::where('alias', $value)->first();
-            return $object ?: abort(404, 'Статья не найдена');
+            return $object ?: abort(404, 'Страница не найдена');
         });
         
       

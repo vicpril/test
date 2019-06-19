@@ -146,12 +146,12 @@ Vue.filter("cutString", function(value) {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 const router = new VueRouter({
-   mode: "history"
+   mode: "history",
 });
 
 const app = new Vue({
    router,
    //    storage: {path: window.location.origin + '/storage/'},
    store,
-   el: "#app"
+   el: "#app",
 });
