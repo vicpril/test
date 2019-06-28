@@ -96,6 +96,11 @@ class Article extends Model
     {
         return $this->meta->where('lang', 'en')->first();
     }
+  
+    public function getCategoryAttribute()
+    {
+        return $this->categories()->first();
+    }
 
     /*
      *   Get links

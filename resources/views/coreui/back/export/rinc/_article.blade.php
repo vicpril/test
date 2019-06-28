@@ -1,1 +1,0 @@
-article-id: {{$article->id}}

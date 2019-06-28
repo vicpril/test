@@ -61,10 +61,10 @@
 					>Выгрузить</button>
 					<div class="dropdown-menu">
 						<button type="submit" class="dropdown-item" @click.prevent="doExport('rinc')">РИНЦ</button>
-						<button type="submit" class="dropdown-item">Содержание</button>
-						<button type="submit" class="dropdown-item">Статья</button>
-						<button type="submit" class="dropdown-item">Наши авторы</button>
-						<button type="submit" class="dropdown-item">Список E-mail'ов</button>
+						<button type="submit" class="dropdown-item" @click.prevent="">Содержание</button>
+						<button type="submit" class="dropdown-item" @click.prevent="">Статья</button>
+						<button type="submit" class="dropdown-item" @click.prevent="">Наши авторы</button>
+						<button type="submit" class="dropdown-item" @click.prevent="">Список E-mail'ов</button>
 					</div>
 					<!-- <b-tooltip target="tooltip-button">Выберите статьи для выгрузки</b-tooltip> -->
 				</div>

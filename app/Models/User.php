@@ -22,7 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email', 'alias', 'role', 'password', 'orcid', 'avatar'
     ];
-
+  
     protected $relation = ['meta', 'articles'];
   
     /**
@@ -70,5 +70,9 @@ class User extends Authenticatable
 
     public function getEditLinkAttribute(){
         return route('users.edit', $this->id);
+    }
+  
+    public function getEmailHostAttribute(){
+        return explode('@', $this->email)[1];
     }
 }

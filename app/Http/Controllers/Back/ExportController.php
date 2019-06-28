@@ -21,15 +21,10 @@ class ExportController extends Controller
 
     public function index(ExportRequest $request)
     {
-        ## for test
-//             $this->repository->test();
-        ##
-      
         $this->repository->initiate(
                                     Route::current()->parameter('action'), 
                                     $request->except('_token')
                                    )
-//           ->test();
                          ->contentPrepare()
                          ->createFile()
                          ->downloadFile();

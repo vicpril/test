@@ -41,12 +41,14 @@ class ContentMakerRinc extends ContentMaker
       
         $this->articles->loadMissing([
           'categories',
-          'users'
+          'users' => function($query) {
+              $query->with('meta');
+          }, 
         ]);
         
         $this->title = $data['title'];
         $this->issn = $data['issn'] ? "ISSN {$data['issn']}" : $this->getISSN();
-        $this->emails = $data['emails'];
+        $this->email_on = isset($data['emails']) ? true : false;
 
         $this->no = $this->issue->no;
         $this->full_no = $this->issue->full_no;
@@ -59,16 +61,21 @@ class ContentMakerRinc extends ContentMaker
             $article->firstPage = $this->getDoiPage($article, 'first');
             $article->lastPage = $this->getDoiPage($article, 'last');
         });
-      
         $this->firstPage = $this->articles->first()->firstPage;
         $this->lastPage = $this->articles->last()->lastPage;
+        
+        //work with jobs
+        //...
+      
 
     }  
   
     public function getContent() {
+      
+//       dd($this->getProperties());
         Blade::include(env('THEME_BACK').'.back.export.rinc._header', 'header');
         Blade::include(env('THEME_BACK').'.back.export.rinc._articleHead', 'articleHead');
-        Blade::include(env('THEME_BACK').'.back.export.rinc._article', 'article');
+        Blade::include(env('THEME_BACK').'.back.export.rinc._body', 'body');
         Blade::include(env('THEME_BACK').'.back.export.rinc._footer', 'footer');
 
         return view(env('THEME_BACK').'.back.export.rinc.index')->with($this->getProperties())->render();

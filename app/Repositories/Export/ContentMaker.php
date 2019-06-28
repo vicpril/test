@@ -10,6 +10,7 @@ abstract class ContentMaker implements ContentMakerInterface
 {
     protected $issue;
     protected $articles;
+    protected $email_on;
 
     public function __construct(Array $data) {
         $this->issue = Issue::find( $data['issue'] );
