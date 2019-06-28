@@ -111,8 +111,8 @@
     <script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
     <script src="js/main.js"></script> -->
 
-      <script src="{{ mix('js/back/manifest.js') }}"></script>
-      <script src="{{ mix('js/back/vendor.js') }}"></script>
+      <script src="{{ mix('js/front/manifest.js') }}"></script>
+      <script src="{{ mix('js/front/vendor.js') }}"></script>
   @stack('lib')
       <script src="{{ mix('js/back/back.js') }}"></script>
   @stack('js')

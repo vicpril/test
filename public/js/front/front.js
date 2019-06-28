@@ -26797,7 +26797,7 @@ var routes = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

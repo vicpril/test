@@ -33,6 +33,7 @@ let mix = require("laravel-mix");
 // ).copyDirectory("node_modules/@coreui/coreui/scss", "resources/sass/coreui");
 
 mix.js("resources/js/back.js", "public/js/back/")
+   .js("resources/js/front.js", "public/js/front/")
    .extract([
       "lodash",
       "jquery",
@@ -43,17 +44,5 @@ mix.js("resources/js/back.js", "public/js/back/")
       "vue"
       //     "vue-router",
    ])
-   .sass("resources/sass/coreui/coreui.scss", "public/css/back/");
-
-mix.js("resources/js/front.js", "public/js/front/")
-//    .extract([
-//       "lodash",
-//       "jquery",
-// //       "popper.js",
-//       "bootstrap",
-//       // "resources/js/coreui/index.js",
-//       "axios",
-//       "vue",
-//       "vue-router",
-//    ])
+   .sass("resources/sass/coreui/coreui.scss", "public/css/back/")
    .sass("resources/sass/coreui/bootstrap/bootstrap.scss", "public/css/front/");
