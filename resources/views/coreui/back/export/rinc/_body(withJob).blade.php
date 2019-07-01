@@ -1,7 +1,7 @@
 
 <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
 layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
-"Times New Roman";mso-fareast-language:RU'>Статья {{$index + 1}}<o:p></o:p></span></p>
+"Times New Roman";mso-fareast-language:RU'>Статья {{$index}}<o:p></o:p></span></p>
 
 <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
 layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
@@ -27,14 +27,14 @@ layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
 
 {{-- информацию про институт пока не вывожу, т.к. неясно как это нужно делать в сыязи с отказом от институтов
     
-            конец комментария --}}
-
-    <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
+<!-- @if( $article->multy_job == false )
+    {{--/////Одно место работы/////--}}}    
+            <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
             layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
             "Times New Roman";mso-fareast-language:RU'>
-        @foreach($article->users as $user)
-                    {{$user->ru->last_name}} {{$user->ru->first_name}}@if(strlen($user->ru->first_name) - 1 == 1).@endif {{$user->ru->patronymic}}@if(strlen($user->ru->patronymic) - 1 == 1).@endif{{ '' }}@if(!$loop->last),@endif
-        @endforeach             
+        @foreach from=$jobs[0].user key=i item=user_id}}
+                    {{$users[$user_id].us_last_name}} {{$users[$user_id].us_first_name}}@if( ($users[$user_id].us_first_name|@strlen) - 1 == 1}}.@endif {{$users[$user_id].us_patronymic}}@if( $users[$user_id].us_patronymic|@strlen - 1 == 1}}.@endif@if( $jobs[0].user|@count - 1 > $i}}, @endif
+        {{/foreach}}             
             <span style='text-transform:uppercase'><o:p></o:p></span></span></p>
 
 
@@ -42,8 +42,51 @@ layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
             layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
             "Times New Roman";text-transform:uppercase;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span></p>
 
+            <p class=MsoNormal style='text-indent:0.0cm;tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><span
+            class=SpellE><span style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";
+            mso-fareast-language:RU'>{{$jobs[0].job_name}} </p><p class=MsoNormal style='text-indent:0.0cm;tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><span
+            class=SpellE><span style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";
+            mso-fareast-language:RU'>{{$jobs[0].job_adress}}</p>
+
+    @else
+        {{--/////Разные места работы/////--}}}    
+          
+            <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><sup><span style='font-size:10.0pt;mso-fareast-font-family:
+            "Times New Roman";mso-fareast-language:RU'></span></sup><span
+            style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+            RU'>{{foreach from=$users key=i item=user}}  
+                {{$user.us_last_name}} {{$user.us_first_name}}@if( ($user.us_first_name|@strlen) - 1 == 1}}.@endif {{$user.us_patronymic}}@if( $user.us_patronymic|@strlen - 1 == 1}}.@endif<sup>{{foreach from=$jobs key=k item=job}}@if( $user.job_id == $job.id}}{{$k+1}}@endif{{/foreach}}</sup>@if( ($users|@count - 1) > $user.index}}, @endif
+                
+        {{/foreach}}
+        <span style='text-transform:uppercase'><o:p></o:p></span></span></p>
+        
+            
+            <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
+            "Times New Roman";text-transform:uppercase;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span></p>
+        
+            
+            
+        {{foreach from=$jobs key=i item=job}}
+            <p class=MsoNormal style='tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><sup><span style='font-size:10.0pt;mso-fareast-font-family:
+            "Times New Roman";mso-fareast-language:RU'>{{$i+1}}</span></sup><span
+            style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+            RU'>{{$job.job_name}} </p><p class=MsoNormal style='tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><sup></sup><span
+            style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+            RU'>{{$job.job_adress}}<o:p></o:p></span></p>
+        {{/foreach}}
+            
+    @endif
+ -->
+             конец комментария --}}
+
     
-    {{--///////////////Список email///////////////--}}
+    {{--///////////////Список email///////////////--}}}
 
     @if($email_on)
             <span style='mso-bookmark:OLE_LINK2'></span><span style='mso-bookmark:OLE_LINK1'></span>
@@ -53,7 +96,7 @@ layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
             "Times New Roman";mso-fareast-language:RU'><o:p>&nbsp;</o:p></span></p>
 
             @foreach($article->users as $user)
-            @if( $user->emailHost !== 'localhost.lo' )
+            @if( $user.emailHost != 'localhost.lo' )
             <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
             layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
             "Times New Roman";mso-fareast-language:RU'>@if( count($article->users) > 1){{$user->ru->last_name}} @endif{{$user->email}}<o:p></o:p></span></p>
@@ -67,7 +110,7 @@ layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
 @endif
 
 
-{{--///////////////  Название  ///////////////--}}
+{{--///////////////  Название  ///////////////--}}}
 
     <p class=MsoNormal style='text-transform: uppercase; text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
     layout-grid-mode:char'><b style='mso-bidi-font-weight:normal'><span
@@ -79,14 +122,14 @@ layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
     style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
     RU'><o:p>&nbsp;</o:p></span></b></p>
 
-{{--///////////////  Аннотация  ///////////////--}}
+{--///////////////  Аннотация  ///////////////--}}}
 
 <div class=MsoNormal style='margin-top:0.0pt;margin-right:0cm;margin-bottom:
 0.0pt; text-indent:1.0cm;mso-hyphenate:none;tab-stops:49.6pt 154.5pt;
 layout-grid-mode:char'>
 <span style='font-size:10.0pt;mso-fareast-font-family:
 "Times New Roman";mso-fareast-language:RU;mso-bidi-font-weight:bold'>
-{!!$article->ru->annotation!!}
+{{$article->ru->annotation}}
 <o:p></o:p></span></div>
 
 {{--<p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
@@ -97,7 +140,7 @@ layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
 
 
 
-{{--///////////////  УДК  ///////////////--}}
+{--///////////////  УДК  ///////////////--}}}
 
 @if($article->udk)
 <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
@@ -118,7 +161,7 @@ layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
 "Times New Roman";mso-fareast-language:RU'><o:p>&nbsp;</o:p></span></p>
 @endif
 {{--///////////////  keywords  ///////////////--}}
-@if( $article->ru->keywords )
+@if( $article->ru->keywords}}
 <p class=MsoNormal style='text-indent:1.0cm'><b style='mso-bidi-font-weight:
 normal'><i style='mso-bidi-font-style:normal'><span style='font-size:10.0pt;
 mso-bidi-font-size:11.0pt'>Ключевые слова: </span></i></b><span
@@ -140,7 +183,7 @@ uppercase;mso-fareast-language:RU'>СПИСОК ЛИТЕРАТУРЫ<o:p></o:p><
 layout-grid-mode:char'>
 <span style='font-size:10.0pt;mso-fareast-font-family:
 "Times New Roman";mso-fareast-language:RU;mso-bidi-font-weight:bold'>
-{!!$article->ru->bibliography!!}
+{{$article->ru->bibliography}}
 <o:p></o:p></span></div>
 
 @endif
@@ -195,19 +238,68 @@ mso-bidi-font-size:11.0pt;mso-ansi-language:EN-US'> <span lang=EN-US style="text
 @if( !$article->stol)
 @if( $article->users)
 
+    {{--
+              
+@if( $article->multy_job == false)
+{{--/////Одно место работы/////--}}    
         <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
         layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
         "Times New Roman";mso-fareast-language:RU'>
-    @foreach($article->users as $user)
-                {{$user->en->last_name}} {{$user->en->initials}}@if(!$loop->last), @endif
-    @endforeach             
+    {foreach from=$jobs[0].user key=i item=user_id}
+                {$users[$user_id].us_name_en}} {$users[$user_id].us_initials_en}}@if( $jobs[0].user|@count - 1 > $i}}, @endif
+    {/foreach}             
         <span style='text-transform:uppercase'><o:p></o:p></span></span></p>
     
     
         <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
         layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
         "Times New Roman";text-transform:uppercase;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span></p>
+@if( $jobs[0].job_name_en}}
+        <p class=MsoNormal style='tab-stops:49.6pt 154.5pt;layout-grid-mode:char'><a
+        name="OLE_LINK2"></a><a name="OLE_LINK1"><span style='mso-bookmark:OLE_LINK2'></span></a><span
+        class=SpellE><span style='mso-bookmark:OLE_LINK1'><span style='mso-bookmark:
+        OLE_LINK2'><span style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";
+        mso-fareast-language:RU'>{$jobs[0].job_name_en}} </p><p class=MsoNormal style='tab-stops:49.6pt 154.5pt;layout-grid-mode:char'><a
+        name="OLE_LINK2"></a><a name="OLE_LINK1"><span style='mso-bookmark:OLE_LINK2'></span></a><span
+        class=SpellE><span style='mso-bookmark:OLE_LINK1'><span style='mso-bookmark:
+        OLE_LINK2'><span style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";
+        mso-fareast-language:RU'>{$jobs[0].job_adress_en}}<o:p></o:p></p>
 @endif
+        
+{else}}
+    {{--/////Разные места работы/////--}}   
+    
+            <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><sup><span style='font-size:10.0pt;mso-fareast-font-family:
+            "Times New Roman";mso-fareast-language:RU'></span></sup><span
+            style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+            RU'>{foreach from=$users key=i item=user}  
+                <sup>{foreach from=$jobs key=k item=job}{if $user.job_id == $job.id}{$k+1}@endif{/foreach}</sup>{$user.us_name_en} {$user.us_initials_en}{if ($users|@count - 1) > $user.index}, @endif
+                
+        {/foreach}
+        <span style='text-transform:uppercase'><o:p></o:p></span></span></p>
+        
+            
+            <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
+            "Times New Roman";text-transform:uppercase;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span></p>
+            
+        {foreach from=$jobs key=i item=job}
+            <p class=MsoNormal style='tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><sup><span style='font-size:10.0pt;mso-fareast-font-family:
+            "Times New Roman";mso-fareast-language:RU'>{$i+1}</span></sup><span
+            style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+            RU'>{$job.job_name_en} </p><p class=MsoNormal style='tab-stops:49.6pt 154.5pt;
+            layout-grid-mode:char'><sup></sup><span
+            style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+            RU'>{$job.job_adress_en}<o:p></o:p></span></p>
+        {/foreach}
+      
+            
+            
+@endif
+@endif
+        --}}
 
 {{--///////////////Список email///////////////--}}
 @if ($email_on)
@@ -218,10 +310,10 @@ mso-bidi-font-size:11.0pt;mso-ansi-language:EN-US'> <span lang=EN-US style="text
         layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
         "Times New Roman";mso-fareast-language:RU'><o:p>&nbsp;</o:p></span></p>
     @foreach($article->users as $user)
-        @if ($user->emailHost !== 'localhost.lo')
+        @if ($user.emailHost != 'localhost.lo')
         <p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
         layout-grid-mode:char'><span style='font-size:10.0pt;mso-fareast-font-family:
-        "Times New Roman";mso-fareast-language:RU'>@if(count($article->users) > 1){{$user->en->last_name}} @endif{{$user->email}}<o:p></o:p></span></p>
+        "Times New Roman";mso-fareast-language:RU'>@if(count($article->users) > 1}{{$user->en->last_name}} @endif{{$user->email}}<o:p></o:p></span></p>
         @endif
     @endforeach
 @endif
@@ -245,7 +337,7 @@ RU'><o:p>&nbsp;</o:p></span></p>
 
 <div class=MsoNormal style='text-indent:1.0cm;mso-hyphenate:none'><span
 lang=EN-US style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";
-mso-ansi-language:EN-US;mso-fareast-language:RU'>{!!$article->en->annotation!!}<o:p></o:p></span></div>
+mso-ansi-language:EN-US;mso-fareast-language:RU'>{{$article->en->annotation}}<o:p></o:p></span></div>
 
 
 {{--<p class=MsoNormal style='text-indent:1.0cm;tab-stops:49.6pt 154.5pt;
@@ -278,7 +370,7 @@ mso-fareast-font-family:"Times New Roman";mso-fareast-language:RU'><o:p>&nbsp;</
 
 <div class=MsoNormal style='text-indent:1.0cm;mso-hyphenate:none'><span
 lang=EN-US style='font-size:10.0pt;mso-fareast-font-family:"Times New Roman";
-mso-ansi-language:EN-US;mso-fareast-language:RU'>{!!$article->ru->text!!}<o:p></o:p></span></div>
+mso-ansi-language:EN-US;mso-fareast-language:RU'>{{$article->ru->text}}<o:p></o:p></span></div>
 
 
 <p class=MsoNormal style='text-indent:1.0cm'><span style='font-size:10.0pt'><o:p>&nbsp;</o:p></span></p>
