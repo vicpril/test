@@ -38,7 +38,7 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
 
         // export
-        Route::post('export/{action}', 'ExportController@index')->name('export')->where('action', 'articles|authors|contents|emails|rinc');
+        Route::post('export/{action}', 'ExportController@index')->name('export')->where('action', 'article|authors|contents|emails|rinc');
 
         // template's examples
         Route::get('icons', function () {return view(env('THEME_BACK') . '.examples.icons')->render();});

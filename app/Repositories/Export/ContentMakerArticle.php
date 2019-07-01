@@ -40,69 +40,44 @@ class ContentMakerArticle extends ContentMaker
         parent:: __construct($data);
       
         $this->articles->loadMissing([
-          'categories',
-          'users'
+          'users' => function($query) {
+              $query->with('meta');
+          }, 
         ]);
         
-        $this->title = $data['title'];
-        $this->issn = $data['issn'] ? "ISSN {$data['issn']}" : $this->getISSN();
-        $this->emails = $data['emails'];
-
-        $this->no = $this->issue->no;
-        $this->full_no = $this->issue->full_no;
-        $this->year = $this->issue->year;
-        $this->tom = $this->issue->tom;
-        $this->part = $this->issue->part;
-      
         // get pages from DOI
         $this->articles->each(function($article) {
             $article->firstPage = $this->getDoiPage($article, 'first');
             $article->lastPage = $this->getDoiPage($article, 'last');
+            $article->jobLinkTextRu = view(env('THEME_BACK').'.back.export.article.components.jobLinkTextRu')
+              ->with([
+                   'article' => $article,
+                   'year' => $this->year,
+                   'no' => $this->no,
+                   'part' => $this->part,
+            ])->render();
+            $article->jobLinkTextEn = view(env('THEME_BACK').'.back.export.article.components.jobLinkTextEn')
+              ->with([
+                   'article' => $article,
+                   'year' => $this->year,
+                   'no' => $this->no,
+                   'part' => $this->part,
+            ])->render();
+
         });
       
-        $this->firstPage = $this->articles->first()->firstPage;
-        $this->lastPage = $this->articles->last()->lastPage;
+//         $this->firstPage = $this->articles->first()->firstPage;
+//         $this->lastPage = $this->articles->last()->lastPage;
 
     }  
   
     public function getContent() {
         Blade::include(env('THEME_BACK').'.back.export.article._header', 'header');
-        Blade::include(env('THEME_BACK').'.back.export.article._article', 'article');
+        Blade::include(env('THEME_BACK').'.back.export.article._body', 'body');
         Blade::include(env('THEME_BACK').'.back.export.article._footer', 'footer');
 
         return view(env('THEME_BACK').'.back.export.article.index')->with($this->getProperties())->render();
     }
-  
-    private function getISSN()
-    {
-        foreach ($this->articles as $article) {
-            if (!empty($article->doi)) {
-                $doi_str = explode('/', $article->doi);
-                $doi_str[1] = explode('-', $doi_str[1]);
-                return "ISSN {$doi_str[1][0]}-{$doi_str[1][1]}";
-            }
-        }
-        return '';
-    }
-  
-  
-    private function getDoiPage($article, $page = 'first')
-    {
-        $doi_str = explode('/', $article->doi);
-        $doi_str[1] = (isset($doi_str[1])) ? explode('-', $doi_str[1]) : '';
-        
-        switch($page) {
-          case 'first': $result = $doi_str[1][4] ?? ''; break; // первая страница первой статьи
-          case 'last': $result = $doi_str[1][5] ?? ''; break;  // последняя страница последней статьи
-        }
-
-        if ($result) {
-            return $result;
-        } else {
-            return '';
-        }
-    }
-  
   
 }
 

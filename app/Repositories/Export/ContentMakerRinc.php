@@ -50,12 +50,6 @@ class ContentMakerRinc extends ContentMaker
         $this->issn = $data['issn'] ? "ISSN {$data['issn']}" : $this->getISSN();
         $this->email_on = isset($data['emails']) ? true : false;
 
-        $this->no = $this->issue->no;
-        $this->full_no = $this->issue->full_no;
-        $this->year = $this->issue->year;
-        $this->tom = $this->issue->tom;
-        $this->part = $this->issue->part;
-      
         // get pages from DOI
         $this->articles->each(function($article) {
             $article->firstPage = $this->getDoiPage($article, 'first');
@@ -93,24 +87,7 @@ class ContentMakerRinc extends ContentMaker
         return '';
     }
   
-  
-    private function getDoiPage($article, $page = 'first')
-    {
-        $doi_str = explode('/', $article->doi);
-        $doi_str[1] = (isset($doi_str[1])) ? explode('-', $doi_str[1]) : '';
-        
-        switch($page) {
-          case 'first': $result = $doi_str[1][4] ?? ''; break; // первая страница первой статьи
-          case 'last': $result = $doi_str[1][5] ?? ''; break;  // последняя страница последней статьи
-        }
-
-        if ($result) {
-            return $result;
-        } else {
-            return '';
-        }
-    }
-  
+ 
   
 }
 
