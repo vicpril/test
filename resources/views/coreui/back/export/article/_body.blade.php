@@ -5,7 +5,7 @@ style='font-size:12.0pt;font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p>
 
 <p class=MsoNoSpacing align=center style='text-align:center;text-indent:35.45pt'><b
 style='mso-bidi-font-weight:normal'><span style='font-size:12.0pt;font-family:
-"Times New Roman","serif"; {*text-transform: uppercase;*}'>{{$article->title}}@if ($article->financial)<sup>1</sup>@endif<o:p></o:p></span></b></p>
+"Times New Roman","serif"; {*text-transform: uppercase;*}'>{{$article->ru->title}}@if ($article->finance)<sup>1</sup>@endif<o:p></o:p></span></b></p>
 
 <p class=MsoNoSpacing align=center style='text-align:center;text-indent:35.45pt'><span
 style='font-size:12.0pt;font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
