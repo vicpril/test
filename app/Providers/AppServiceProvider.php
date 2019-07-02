@@ -33,7 +33,11 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('set', function($exp) {
             list($name, $val) = explode(',', $exp);
             return "<?php $name = $val; ?>";
-        });      
+        });
+      
+        Blade::directive('articleDate', function ($expression) {
+            return "<?php echo ($expression)->format('d.m.Y'); ?>";
+        });
 
 //         view()->composer('back/layout', HeaderComposer::class);
 

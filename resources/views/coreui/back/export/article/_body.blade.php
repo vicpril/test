@@ -14,12 +14,12 @@ style='font-size:12.0pt;font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p>
 
 @if( !$article->stol )
 
-@foreach( $article->users as $user}
+@foreach( $article->users as $user )
     <p class=MsoNormal style=''><b style='mso-bidi-font-weight:
     normal'><span style='font-size:12.0pt;;font-family:"Times New Roman","serif"'>{{$user->ru->full_name}}</span></b>@if( $user->ru->degree ), <span style='font-size:12.0pt;line-height:115%;
 font-family:"Times New Roman","serif"'>{{$user->ru->degree}}</span><br>@endif</p>
     @if( $user->ru->jobs )
-        @foreach( $user->ru->jobs as $job }
+        @foreach( $user->ru->jobs as $job )
             <i>{{$job}}</i>@if( $loop->index !== count($user->jobs) - 1 );@else.@endif
             <br>
         @endforeach
@@ -58,7 +58,7 @@ line-height:115%;font-family:"Times New Roman","serif";mso-ansi-language:EN-US'>
 style='mso-spacerun:yes'> </span></span></b><b style='mso-bidi-font-weight:
 normal'><span style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'>Аннотация.<o:p></o:p></span></b></p>
 <div class=MsoNoSpacing style='text-align:justify;text-justify:inter-ideograph;
-text-indent:35.45pt'><span style='font-size:12.0pt;font-family:"Times New Roman","serif"'>{!!$article->ru->description!!}<o:p></o:p></span></div>
+text-indent:35.45pt'><span style='font-size:12.0pt;font-family:"Times New Roman","serif"'>{!!$article->ru->annotation!!}<o:p></o:p></span></div>
 
 {{--////Ключевые слова////--}}
 
@@ -85,16 +85,15 @@ style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'>
 style='mso-tab-count:1'></span><o:p></o:p></span></b></p>
 
 <p class=MsoNormal style='line-height:115%;border:none;mso-border-alt:solid windowtext .5pt;
-padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'>{{!!$article->jobLinkTextRu!!}}<o:p></o:p></span></p>
+padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'>{!!$article->jobLinkTextRu!!}<o:p></o:p></span></p>
 
 </div>
 
 
-{*////Текст статьи////*}
+{{--////Текст статьи////--}}
 
-<div class=MsoNoSpacing style='text-align:justify;text-justify:inter-ideograph;
-text-indent:35.45pt'><span style='font-size:12.0pt;font-family:"Times New Roman","serif"'>{{$article->text}<o:p></o:p></span></div>
-@if( {{$article->financial}}<div>_____________________________<p><sup>1</sup> <span>{{$article->financial}}<span></p></div>@endif
+<div class=MsoNoSpacing style='text-align:justify;text-justify:inter-ideograph;text-indent:35.45pt'><span style='font-size:12.0pt;font-family:"Times New Roman","serif"'>{!!$article->ru->text!!}<o:p></o:p></span></div>
+@if( $article->finance )<div>_____________________________<p><sup>1</sup> <span>{{$article->finance}}<span></p></div>@endif
 
 
 {{--<p class=MsoNoSpacing style='text-align:justify;text-justify:inter-ideograph;
@@ -110,7 +109,7 @@ text-indent:35.45pt'><span style='font-size:12.0pt;font-family:"Times New Roman"
 
 <div class=MsoNoSpacing style='margin-left:0.0cm;text-align:justify;text-justify:
 inter-ideograph;text-indent: 1.25cm'><span lang=EN-US style='font-size:12.0pt;
-font-family:"Times New Roman","serif";mso-ansi-language:EN-US'>{!!$article->bibliography!!}<o:p></o:p></span></div>
+font-family:"Times New Roman","serif";mso-ansi-language:EN-US'>{!!$article->ru->bibliography!!}<o:p></o:p></span></div>
             
 
 {{--<p class=MsoNoSpacing style='text-align:justify;text-justify:inter-ideograph'><span
@@ -120,11 +119,11 @@ style='font-size:12.0pt;font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p>
 {{--////Даты////--}}
 <p class=MsoNormal style='line-height:115%'><span lang=EN-US style='font-size:
 12.0pt;line-height:115%;font-family:"Times New Roman","serif";
-mso-ansi-language:EN-US'>Статья поступила в редакцию {{$article->date_arrival}}.<o:p></o:p></span></p>
+mso-ansi-language:EN-US'>Статья поступила в редакцию @articleDate($article->date_arrival).<o:p></o:p></span></p>
 
 <p class=MsoNormal style='line-height:115%'><span lang=EN-US style='font-size:
 12.0pt;line-height:115%;font-family:"Times New Roman","serif";
-mso-ansi-language:EN-US'>Статья прошла рецензирование {{$article->date_review}}.</span><span
+mso-ansi-language:EN-US'>Статья прошла рецензирование @articleDate($article->date_review).</span><span
 lang=EN-US style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif";
 mso-ansi-language:EN-US'><o:p></o:p></span></p>
 
@@ -152,7 +151,7 @@ font-family:"Times New Roman","serif";mso-ansi-language:EN-US; {*text-transform:
 style='font-size:12.0pt;font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
 
 {{--////шапка////--}}
-@if( !{$article->stol}
+@if( !$article->stol )
     
 @foreach( $article->users as $user )
     <p class=MsoNormal ><b style='mso-bidi-font-weight:
@@ -160,7 +159,7 @@ normal'><span lang=EN-US style='font-size:12.0pt;line-height:115%;font-family:
 "Times New Roman","serif";mso-ansi-language:EN-US'>{{$user->en->last_name}} {{$user->en->first_name}}@if(strlen($user->en->first_name) - 1 == 1).@endif</span></b>@if( $user->en->degree), <span style='font-size:12.0pt;line-height:115%;
 font-family:"Times New Roman","serif"'>{{$user->en->degree}}</span><br>@endif</p>
     @if( $user->en->jobs )
-        @foreach( $user->en->jobs as $job }
+        @foreach( $user->en->jobs as $job )
             <i>{{$job}}</i>@if( $loop->index !== count($user->jobs) - 1 );@else.@endif
             <br>
         @endforeach
@@ -201,7 +200,7 @@ style='mso-spacerun:yes'> </span></span></b><b style='mso-bidi-font-weight:
 normal'><span style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'>Abstract<o:p></o:p></span></b></p>
 <div class=MsoNoSpacing style='text-align:justify;text-justify:inter-ideograph;
 text-indent:35.45pt'><span lang=EN-US style='font-size:12.0pt;font-family:"Times New Roman","serif";
-mso-fareast-font-family:"Times New Roman";color:black;mso-ansi-language:EN-US'>{!!$article->en->description!!}<o:p></o:p></span></div>
+mso-fareast-font-family:"Times New Roman";color:black;mso-ansi-language:EN-US'>{!!$article->en->annotation!!}<o:p></o:p></span></div>
 
 {{--////Keywords////--}}
 
@@ -236,7 +235,7 @@ style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'>
 style='mso-tab-count:1'></span><o:p></o:p></span></b></p>
 
 <p class=MsoNormal style='line-height:115%;border:none;mso-border-alt:solid windowtext .5pt;
-padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'>{{$article->jobLinkTextEn}}<o:p></o:p></span></p>
+padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'>{!!$article->jobLinkTextEn!!}<o:p></o:p></span></p>
 
 </div>
 
@@ -247,11 +246,11 @@ mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
 {{--////Dates////--}}
 <p class=MsoNormal style='line-height:115%'><span lang=EN-US style='font-size:
 12.0pt;line-height:115%;font-family:"Times New Roman","serif";
-mso-ansi-language:EN-US'>The article was received on {{$article->date_arrival}}.<o:p></o:p></span></p>
+mso-ansi-language:EN-US'>The article was received on @articleDate($article->date_arrival).<o:p></o:p></span></p>
 
 <p class=MsoNormal style='line-height:115%'><span lang=EN-US style='font-size:
 12.0pt;line-height:115%;font-family:"Times New Roman","serif";
-mso-ansi-language:EN-US'>The article was reviewed on {{$article->date_review}}.</span><span
+mso-ansi-language:EN-US'>The article was reviewed on @articleDate($article->date_review).</span><span
 lang=EN-US style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif";
 mso-ansi-language:EN-US'><o:p></o:p></span></p>
 

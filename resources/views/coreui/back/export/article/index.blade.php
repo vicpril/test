@@ -1,7 +1,5 @@
 @header
 
-@articleHead
-
 @foreach($articles as $article)
 
 @body([
