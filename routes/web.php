@@ -54,7 +54,7 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
 /** PAGES THAT SHOULD BE LOCALIZED **/
 
-Route::group(
+Route::namespace('Front')->group(
     [
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
@@ -68,7 +68,7 @@ Route::group(
         Route::name('articles')->get('articles', 'ArticlesController@index');
         Route::name('article')->get('articles/{articleAlias}', 'ArticlesController@show');
         
-        // Route::name('page')->get('{pageAlias}', 'PagesController@show');
+//         Route::name('page')->get('{pageAlias}', 'PagesController@show');
         
 
         Route::resource('categories', 'CategoriesController', [
@@ -92,9 +92,8 @@ Route::group(
         Route::name('authors')->get('/authors', function() { return 'authors' ;});
 
 
-        // Route::name('page')->get('{pageAlias}', function() { return 'hello' ;});
-//         Route::name('page')->get('{pageAlias}', 'PagesController@index');
-           Route::name('page')->get('/{page}', 'SpaController@index')->where('page', '.*');
+        Route::name('page')->get('{pageAlias}', 'PagesController@index');
+//            Route::name('page')->get('/{page}', 'SpaController@index')->where('page', '.*');
 
 
     });
