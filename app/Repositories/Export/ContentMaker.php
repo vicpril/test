@@ -25,6 +25,7 @@ abstract class ContentMaker implements ContentMakerInterface
                                  ->sortBy(function($article) use ($data) {
                                       return array_search($article->id, $data['articles']);
                                   })
+                                  ->load('meta')
                                   ->values();
     }
   
