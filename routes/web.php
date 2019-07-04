@@ -54,8 +54,9 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
 /** PAGES THAT SHOULD BE LOCALIZED **/
 
-Route::namespace('Front')->group(
+Route::group(
     [
+        'namespace' => 'Front',
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
     ],
