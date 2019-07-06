@@ -14,20 +14,20 @@ class TagsController extends SiteController
 
 		$this->t_rep = $t_rep;
 
-		$this->template = env('THEME').'.single';
+		$this->template = 'front.single';
 	}
 
 	public function show ($alias) {
 
 		$tag = $this->getTag($alias, '*');
 
-		$content = view(env('THEME').'.tag_content')->with('tag', $tag)
+		$content = view('front.tag_content')->with('tag', $tag)
                                                         ->render();
         $this->vars = array_add($this->vars, 'content', $content);
 
         $sidebar_menu = '';
 
-        $sidebar = view(env('THEME').'.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
         $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
 		return $this->renderOutput();

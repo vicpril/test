@@ -18,7 +18,7 @@ class TagsController extends AdminController
     {
         $this->subtitle = "Метки";
 
-        $this->template = env('THEME_BACK') . '.back.tags.index';
+        $this->template = 'back.tags.index';
       
         return $this->renderOutput();
     }

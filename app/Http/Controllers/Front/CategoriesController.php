@@ -14,20 +14,20 @@ class CategoriesController extends SiteController
 
 		$this->c_rep = $c_rep;
 
-		$this->template = env('THEME').'.single';
+		$this->template = 'front.single';
 	}
 
 	public function show ($alias) {
 
 		$category = $this->getCategory($alias, '*');
 
-		$content = view(env('THEME').'.category_content')->with('category', $category)
+		$content = view('front.category_content')->with('category', $category)
                                                         ->render();
         $this->vars = array_add($this->vars, 'content', $content);
 
         $sidebar_menu = '';
 
-        $sidebar = view(env('THEME').'.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
         $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
 		return $this->renderOutput();

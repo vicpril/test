@@ -35,19 +35,19 @@ class AdminController extends Controller
 
         $this->vars = ($vars) ? array_merge($this->vars,  $vars) : $this->vars;
 
-        $sidebar = view(env('THEME_BACK').'.back.sidebar')->render();
+        $sidebar = view('back.sidebar')->render();
         $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 //         $this->vars = array_merge($this->vars, compact('sidebar', $sidebar));
     
         
-        $navbar = view(env('THEME_BACK').'.back.navbar')
+        $navbar = view('back.navbar')
                         ->with([
                             'subtitle'=>$this->subtitle
                             ])
                         ->render();
         $this->vars = array_add($this->vars, 'navbar', $navbar);
 
-        $footer = view(env('THEME_BACK').'.back.footer')->render();
+        $footer = view('back.footer')->render();
         $this->vars = array_add($this->vars, 'footer', $footer);
       
         return view($this->template)->with($this->vars);
@@ -61,7 +61,7 @@ class AdminController extends Controller
      */
     // public function index()
     // {
-    //     return view(env('THEME_BACK').'.back.index');
+    //     return view('back.index');
     // }
 
     public function logout()
@@ -73,7 +73,7 @@ class AdminController extends Controller
     {
         $this->subtitle = "Панель администратора";
 
-        $this->template = env('THEME_BACK').'.back.index';
+        $this->template = 'back.index';
 
         return $this->renderOutput();
     }
@@ -82,7 +82,7 @@ class AdminController extends Controller
     {
         $this->subtitle = "Панель администратора";
 
-        $this->template = env('THEME_BACK').'.back.test';
+        $this->template = 'back.test';
 
         return $this->renderOutput();
     }

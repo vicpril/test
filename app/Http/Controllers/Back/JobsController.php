@@ -19,7 +19,7 @@ class JobsController extends AdminController
         
         $this->subtitle = 'Организации';
 
-        $this->template = env('THEME_BACK').'.back.jobs.index';
+        $this->template = 'back.jobs.index';
         
         $this->repository = $j_rep;
        

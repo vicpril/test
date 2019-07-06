@@ -17,7 +17,7 @@ class CategoriesController extends AdminController
     {
         $this->subtitle = "Рубрики";
 
-        $this->template = env('THEME_BACK') . '.back.categories.index';
+        $this->template = 'back.categories.index';
       
         return $this->renderOutput();
     }

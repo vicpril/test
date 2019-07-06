@@ -17,7 +17,7 @@ class MenusController extends AdminController
     {
         $this->subtitle = "Меню";
 
-        $this->template = env('THEME_BACK') . '.back.menus.index';
+        $this->template = 'back.menus.index';
       
         return $this->renderOutput();
     }

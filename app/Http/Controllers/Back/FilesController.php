@@ -17,7 +17,7 @@ class FilesController extends AdminController
         
         $this->subtitle = 'Файлы';
 
-        $this->template = env('THEME_BACK').'.back.files.index';
+        $this->template = 'back.files.index';
       
         $this->table = 'files';
       
@@ -58,7 +58,7 @@ class FilesController extends AdminController
         if ($request->ajax()) {
             $file = $result['result'];
             $result['id'] = $file->id;
-            $result['row'] = view(env('THEME_BACK').'.back.files.table_row')->with('file', $file)->render();
+            $result['row'] = view('back.files.table_row')->with('file', $file)->render();
             return response()->json($result);
         }
             
@@ -121,7 +121,7 @@ class FilesController extends AdminController
     public function update(FileRequest $request, $id)
     {
         $result = $this->repository->update($request->only('title'), $id);
-        $result['row'] = view(env('THEME_BACK').'.back.files.table_row')->with('file', $result['result'])->render();
+        $result['row'] = view('back.files.table_row')->with('file', $result['result'])->render();
         if ($request->ajax()) {
             return response()->json($result);
         }

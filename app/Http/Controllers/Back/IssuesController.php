@@ -16,7 +16,7 @@ class IssuesController extends AdminController
 
         $this->subtitle = "Выпуски";
 
-        $this->template = env('THEME_BACK') . '.back.issues.index';
+        $this->template = 'back.issues.index';
 
         $this->repository = $i_rep;
 
@@ -66,7 +66,7 @@ class IssuesController extends AdminController
     {
         $this->subtitle = "Редактировать выпуск";
 
-        $this->template = env('THEME_BACK') . '.back.issues.index';
+        $this->template = 'back.issues.index';
 
         return $this->renderOutput(['id' => $issue->id]);
     }

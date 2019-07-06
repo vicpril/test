@@ -49,7 +49,7 @@ trait Indexable
           ]);
         }
 
-    //    return view (env('THEME_BACK').".back.$this->table.index", [$this->table => $records]);
+    //    return view ('.".back.$this->table.index", [$this->table => $records]);
         
         return $this->renderOutput([$this->table => $records]);
 

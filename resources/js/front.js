@@ -14,18 +14,18 @@ require("./bootstrap");
 // require("./plugins/bootstrap-notify");
 
 //Vue
-window.Vue = require("vue");
+// window.Vue = require("vue");
 
 //Vue-router
-import VueRouter from "vue-router";
-Vue.use(VueRouter);
+// import VueRouter from "vue-router";
+// Vue.use(VueRouter);
 
 //Vuex
 // import { store } from "./components/back/store";
 
 //BootstrapVue
-import BootstrapVue from "bootstrap-vue";
-Vue.use(BootstrapVue);
+// import BootstrapVue from "bootstrap-vue";
+// Vue.use(BootstrapVue);
 
 //Notification
 // import Notifications from "vue-notification";
@@ -47,16 +47,16 @@ Vue.use(BootstrapVue);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-import App from './components/front/App.vue';
-import {routes} from './routes.js';
+// import App from './components/front/App.vue';
+// import {routes} from './routes.js';
 
-const router = new VueRouter({
-   mode: "history",
-   routes: routes,
-});
+// const router = new VueRouter({
+//    mode: "history",
+//    routes: routes,
+// });
 
-const app = new Vue({
-   router,
-   el: "#app",
-    components: { App }
-});
+// const app = new Vue({
+//    router,
+//    el: "#app",
+//     components: { App }
+// });

@@ -16,7 +16,7 @@ class UsersController extends AdminController
 
         $this->subtitle = "Авторы";
 
-        $this->template = env('THEME_BACK') . '.back.users.index';
+        $this->template = 'back.users.index';
 
         $this->repository = $u_rep;
 
@@ -32,7 +32,7 @@ class UsersController extends AdminController
     {
         $this->subtitle = "Авторы";
 
-        $this->template = env('THEME_BACK') . '.back.users.index';
+        $this->template = 'back.users.index';
 
         return $this->renderOutput();
     }
@@ -46,7 +46,7 @@ class UsersController extends AdminController
     {
         $this->subtitle = "Новый автор";
 
-        $this->template = env('THEME_BACK') . '.back.users.edit';
+        $this->template = 'back.users.edit';
 
         return $this->renderOutput();
     }
@@ -89,7 +89,7 @@ class UsersController extends AdminController
     {
         $this->subtitle = "Редактировать автора";
 
-        $this->template = env('THEME_BACK') . '.back.users.edit';
+        $this->template = 'back.users.edit';
 
         return $this->renderOutput(['id' => $user->id]);
     }

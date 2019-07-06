@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
             // dump(app()->getLocale());
         });
 
-        Blade::component(env('THEME_BACK').'.back.components.alert', 'alert');
+        Blade::component('back.components.alert', 'alert');
       
         // create custom directive for blade: @set($i,10)
         Blade::directive('set', function($exp) {

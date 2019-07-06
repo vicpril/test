@@ -51,13 +51,13 @@ class SiteController extends Controller
         $menu_top = $this->m_rep->getMenu('top', app()->getLocale());
         // $menu = $this->getMenu();
 
-        $navigation = view(env('THEME').'.navigation')->with('menu', $menu_top)->render();
+        $navigation = view('front.navigation')->with('menu', $menu_top)->render();
         $this->vars = array_add($this->vars, 'navigation', $navigation);
 
-        $header = view(env('THEME').'.header')->with('navigation', $navigation)->render();
+        $header = view('front.header')->with('navigation', $navigation)->render();
         $this->vars = array_add($this->vars, 'header', $header);
 
-        $footer = view(env('THEME').'.footer')->render();
+        $footer = view('front.footer')->render();
         $this->vars = array_add($this->vars, 'footer', $footer);
 
         if (auth()->check()) {

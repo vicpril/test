@@ -18,7 +18,7 @@ class ArticlesController extends SiteController
 
 		// $this->s_rep = $s_rep;
 
-		$this->template = env('THEME').'.single';
+		$this->template = 'front.single';
 	}
 
 
@@ -39,7 +39,7 @@ class ArticlesController extends SiteController
         $nextIssue = $this->i_rep->getNextIssue($issue);
         $prevIssue = $this->i_rep->getPrevIssue($issue);
 
-    	$content = view(env('THEME').'.articles_content')->with('issue', $issue)
+    	$content = view('front.articles_content')->with('issue', $issue)
                                                         ->with('nextIssue', $nextIssue)
                                                         ->with('prevIssue', $prevIssue)
                                                         ->render();
@@ -47,7 +47,7 @@ class ArticlesController extends SiteController
 
         $sidebar_menu = '';
 
-        $sidebar = view(env('THEME').'.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
         $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
     	return $this->renderOutput();
@@ -66,7 +66,7 @@ class ArticlesController extends SiteController
         // $nextIssue = $this->i_rep->getNextIssue($issue);
         // $prevIssue = $this->i_rep->getPrevIssue($issue);
 
-        $content = view(env('THEME').'.article_content')->with('article', $article)
+        $content = view('front.article_content')->with('article', $article)
                                                         // ->with('nextArticle', $nextIssue)
                                                         // ->with('prevArticle', $prevIssue)
                                                         ->render();
@@ -74,7 +74,7 @@ class ArticlesController extends SiteController
 
         $sidebar_menu = '';
 
-        $sidebar = view(env('THEME').'.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
         $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
         return $this->renderOutput();

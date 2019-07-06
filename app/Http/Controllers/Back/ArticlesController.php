@@ -16,7 +16,7 @@ class ArticlesController extends AdminController
 
         $this->subtitle = "Статьи";
 
-        $this->template = env('THEME_BACK') . '.back.articles.index';
+        $this->template = 'back.articles.index';
 
         $this->repository = $a_rep;
 
@@ -33,7 +33,7 @@ class ArticlesController extends AdminController
 
         $this->subtitle = "Статьи";
 
-        $this->template = env('THEME_BACK') . '.back.articles.index';
+        $this->template = 'back.articles.index';
 
         return $this->renderOutput();
     }
@@ -47,7 +47,7 @@ class ArticlesController extends AdminController
     {
         $this->subtitle = "Новая статья";
 
-        $this->template = env('THEME_BACK') . '.back.articles.edit';
+        $this->template = 'back.articles.edit';
 
         return $this->renderOutput();
     }
@@ -81,7 +81,7 @@ class ArticlesController extends AdminController
     {
         $this->subtitle = "Редактировать статью";
 
-        $this->template = env('THEME_BACK') . '.back.articles.edit';
+        $this->template = 'back.articles.edit';
 
         return $this->renderOutput(['id' => $article->id]);
     }

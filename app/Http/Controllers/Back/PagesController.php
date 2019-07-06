@@ -15,7 +15,7 @@ class PagesController extends AdminController
 
         $this->subtitle = "Страницы";
 
-        $this->template = env('THEME_BACK') . '.back.pages.index';
+        $this->template = 'back.pages.index';
 
         $this->repository = $p_rep;
 
@@ -31,7 +31,7 @@ class PagesController extends AdminController
     {
         $this->subtitle = "Страницы";
 
-        $this->template = env('THEME_BACK') . '.back.pages.index';
+        $this->template = 'back.pages.index';
 
         return $this->renderOutput();
     }
@@ -45,7 +45,7 @@ class PagesController extends AdminController
     {
         $this->subtitle = "Новая страница";
 
-        $this->template = env('THEME_BACK') . '.back.pages.edit';
+        $this->template = 'back.pages.edit';
 
         return $this->renderOutput();
     }
@@ -89,7 +89,7 @@ class PagesController extends AdminController
     {
         $this->subtitle = "Редактировать страницу";
 
-        $this->template = env('THEME_BACK') . '.back.pages.edit';
+        $this->template = 'back.pages.edit';
 
         return $this->renderOutput(['id' => $page->id]);
     }

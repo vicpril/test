@@ -10,7 +10,7 @@ class PagesController extends SiteController
 	public function __construct() {
         parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
         
-		$this->template = env('THEME').'.single';
+		$this->template = 'front.single';
     }
     
 
@@ -32,14 +32,14 @@ class PagesController extends SiteController
     private function show(Page $page) {
 
         // $content = $this->page->loc->content;
-    	// $content = view(env('THEME').'.index_content')->render();
+    	// $content = view('front.index_content')->render();
         // $this->vars = array_add($this->vars, 'content', $content);
         $this->vars = array_add($this->vars, 'title', $page->loc->title);
         $this->vars = array_add($this->vars, 'content', $page->loc->content);
 
         $sidebar_menu = '';
 
-        $sidebar = view(env('THEME').'.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
         $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
     	return $this->renderOutput();

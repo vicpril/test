@@ -17,19 +17,19 @@ class AuthorsController extends SiteController
 
 		// $this->s_rep = $s_rep;
 
-		$this->template = env('THEME').'.single';
+		$this->template = 'front.single';
 	}
 
 	public function index() {
 
         $users = $this->getAuthors();
 
-        $content = view(env('THEME').'.authors_content')->with('users', $users)->render();
+        $content = view('front.authors_content')->with('users', $users)->render();
         $this->vars = array_add($this->vars, 'content', $content);
 
         $sidebar_menu = '';
 
-        $sidebar = view(env('THEME').'.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
         $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
         return $this->renderOutput();
@@ -39,12 +39,12 @@ class AuthorsController extends SiteController
 
         $user = $this->getAuthor($alias);
 
-        $content = view(env('THEME').'.author_content')->with('user', $user)->render();
+        $content = view('front.author_content')->with('user', $user)->render();
         $this->vars = array_add($this->vars, 'content', $content);
 
         $sidebar_menu = '';
 
-        $sidebar = view(env('THEME').'.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
         $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
         return $this->renderOutput();
