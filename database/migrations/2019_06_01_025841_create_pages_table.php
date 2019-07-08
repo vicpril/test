@@ -17,6 +17,10 @@ class CreatePagesTable extends Migration
             $table->increments('id');
             $table->string('alias')->unique();
             $table->string('template')->default('common');
+            $table->boolean('show_top_menu')->default(true);
+            $table->boolean('show_sidebar_menu')->default(false);
+            $table->boolean('show_review_menu')->default(false);
+
             $table->timestamps();
         });
         
