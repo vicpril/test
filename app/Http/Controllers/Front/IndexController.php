@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 
 use App\Models\Article;
+use App\Models\Page;
 
 class IndexController extends SiteController
 {
@@ -16,9 +17,12 @@ class IndexController extends SiteController
 	}
 
     public function index() {
-
-    	// $content = view('front.index_content')->render();
-        // $this->vars = array_add($this->vars, 'content', $content);
+			$homepage = Page::with('meta')->where('template', 'mainpage')->first();
+			
+      $this->vars = array_add($this->vars, 'title', $homepage->loc->title);
+			
+			$content = $homepage->loc->content;
+      $this->vars = array_add($this->vars, 'content', $content);
 
     	return $this->renderOutput();
 

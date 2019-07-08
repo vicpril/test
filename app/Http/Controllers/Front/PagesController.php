@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class PagesController extends SiteController
 {
 	public function __construct() {
-        parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
-        
+    parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
+    
 		$this->template = 'front.single';
     }
     
