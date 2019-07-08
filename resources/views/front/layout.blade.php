@@ -12,7 +12,7 @@
          content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
       />
       <meta name="generator" content="Jekyll v3.8.5" />
-      <title>Blog Template · Bootstrap</title>
+      <title>@lang('Идеи и Идеалы')</title>
 
       <link
          rel="canonical"
@@ -31,7 +31,7 @@
                </a>
 
                <div class=" dropdown form-inline">
-                  <span class="text-white">Язык сайта: </span>
+                  <span class="text-white">@lang('Язык сайта'): </span>
                   <a
                      class="nav-link dropdown-toggle text-white "
                      href="#"
@@ -40,12 +40,23 @@
                      aria-haspopup="true"
                      aria-expanded="false"
                   >
-                  <i class="flag-icon flag-icon-ru mr-1"></i>Русский
+                  
+                  @if( Config::get('app.locale') == "ru" )
+                     <i class="flag-icon flag-icon-ru mr-1"></i>Русский
+                  @else
+                     <i class="flag-icon flag-icon-us mr-1"></i>English
+                  @endif
                   </a>
                   <div class="dropdown-menu">
-                     <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-ru mr-1"></i>Русский</a>
-                     <div class="dropdown-divider"></div>
-                     <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-us mr-1"></i>Английский</a>
+                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <a rel="alternate" class="dropdown-item" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                           <i class="flag-icon flag-icon-{{ $properties['flag'] }} mr-1"></i>@lang($properties['title'])
+                        </a>
+
+                        @if(!$loop->last)
+                           <div class="dropdown-divider"></div>
+                        @endif
+                     @endforeach
                   </div>
                </div>
             </div>
