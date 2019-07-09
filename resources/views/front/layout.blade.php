@@ -60,7 +60,9 @@
 
       <div class="nav-scroller py-1 mb-2 bg-white shadow">
          <div class="container">
-            @yield('navigation')
+            @if('show_top_menu')
+               @yield('navigation')
+            @endif
          </div>
       </div>
 

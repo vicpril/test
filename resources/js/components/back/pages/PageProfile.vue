@@ -12,7 +12,7 @@
 					<span>{{ uri }}</span>
 
 					<div class="input-group input-group-sm">
-						<input type="text" class="form-control" v-model="newAlias">
+						<input type="text" class="form-control" v-model="newAlias" />
 						<div class="input-group-append">
 							<button class="btn btn-secondary" type="button" @click="saveAlias">OK</button>
 						</div>
@@ -20,7 +20,7 @@
 					<button class="btn btn-sm btn-link" type="button" @click="cancelEditAlias">Отмена</button>
 				</div>
 			</div>
-			<input type="text" hidden :value="page.alias" name="alias">
+			<input type="text" hidden :value="page.alias" name="alias" />
 		</div>
 		<div class="row">
 			<div class="col-md">
@@ -39,10 +39,10 @@
 									class="switch-input"
 									v-model="page.on_ru"
 									@click="page.on_ru = !page.on_ru"
-								>
+								/>
 								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 							</label>
-							<input type="text" name="on_ru" :value="page.on_ru" hidden>
+							<input type="text" name="on_ru" :value="page.on_ru" hidden />
 						</div>
 					</div>
 					<!-- </div> -->
@@ -56,13 +56,13 @@
 								v-model="page.title_ru"
 								:class="{'is-invalid' : errors.hasOwnProperty('title_ru')}"
 								:readOnly="!page.on_ru"
-							>
+							/>
 							<div class="invalid-feedback" v-for="(error, key) in errors['title_ru']" :key="key">{{error}}</div>
 						</div>
 
 						<div class="form-group">
 							<label class="h6">Содержание</label>
-							<vue-ckeditor class="mt-2" name="content_ru" id="content_ru" v-model="page.content_ru"/>
+							<vue-ckeditor class="mt-2" name="content_ru" id="content_ru" v-model="page.content_ru" />
 						</div>
 					</div>
 				</div>
@@ -83,10 +83,10 @@
 									class="switch-input"
 									v-model="page.on_en"
 									@click="page.on_en = !page.on_en"
-								>
+								/>
 								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 							</label>
-							<input type="text" name="on_en" :value="page.on_en" hidden>
+							<input type="text" name="on_en" :value="page.on_en" hidden />
 						</div>
 					</div>
 					<!-- </div> -->
@@ -100,13 +100,13 @@
 								v-model="page.title_en"
 								:class="{'is-invalid' : errors.hasOwnProperty('title_en')}"
 								:readOnly="!page.on_en"
-							>
+							/>
 							<div class="invalid-feedback" v-for="(error, key) in errors['title_en']" :key="key">{{error}}</div>
 						</div>
 
 						<div class="form-group">
 							<label class="h6">Содержание</label>
-							<vue-ckeditor class="mt-2" name="content_en" id="content_en" v-model="page.content_en"/>
+							<vue-ckeditor class="mt-2" name="content_en" id="content_en" v-model="page.content_en" />
 						</div>
 					</div>
 				</div>
@@ -137,10 +137,10 @@
 									class="switch-input"
 									v-model="page.status"
 									@click="page.status = !page.status"
-								>
+								/>
 								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 							</label>
-							<input type="text" name="status" :value="page.status" hidden>
+							<input type="text" name="status" :value="page.status" hidden />
 						</div>
 						<div class="form-group" v-if="page.updated_at">
 							<span class="text-muted">
@@ -172,13 +172,47 @@
 							class="btn btn-primary btn-round float-right"
 							type="submit"
 							:value="newPage ? 'Опубликовать' : 'Обновить' "
-						>
+						/>
+					</div>
+				</div>
+				<!-- END STATUS -->
+
+				<!-- </div> -->
+
+				<!-- SHOW MENUS -->
+				<div class="card">
+					<div class="card-header">
+						<h5 class="h5 mb-0">Отображать меню на странице</h5>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<b-form-checkbox
+								id="show_top_menu"
+								v-model="page.show_top_menu"
+								name="show_top_menu"
+							>Главное меню (горизонтальное)</b-form-checkbox>
+						</div>
+						<div class="form-group">
+							<b-form-checkbox
+								id="show_sidebar_menu"
+								v-model="page.show_sidebar_menu"
+								name="show_sidebar_menu"
+							>Боковое меню (вертикальное)</b-form-checkbox>
+						</div>
+						<div class="form-group">
+							<b-form-checkbox
+								id="show_review_menu"
+								v-model="page.show_review_menu"
+								name="show_review_menu"
+							>Перечень документов для подачи статьи (вертикальное)</b-form-checkbox>
+						</div>
 					</div>
 				</div>
 				<!-- END STATUS -->
 
 				<!-- </div> -->
 			</div>
+			<!-- END SHOW MENUS -->
 		</div>
 	</div>
 </template>

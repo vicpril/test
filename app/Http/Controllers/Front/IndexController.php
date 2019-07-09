@@ -17,12 +17,16 @@ class IndexController extends SiteController
 	}
 
     public function index() {
-			$homepage = Page::with('meta')->where('template', 'mainpage')->first();
+		$homepage = Page::with('meta')->where('template', 'mainpage')->first();
+
+		$this->show_top_menu = $homepage->show_top_menu;
+		$this->show_sidebar_menu = $homepage->show_sidebar_menu;
+		$this->show_review_menu = $homepage->show_review_menu;
 			
-      $this->vars = array_add($this->vars, 'title', $homepage->loc->title);
+      	$this->vars = array_add($this->vars, 'title', $homepage->loc->title);
 			
-			$content = $homepage->loc->content;
-      $this->vars = array_add($this->vars, 'content', $content);
+		$content = $homepage->loc->content;
+      	$this->vars = array_add($this->vars, 'content', $content);
 
     	return $this->renderOutput();
 

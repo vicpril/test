@@ -85,12 +85,12 @@ class MenuSeeder extends Seeder
         });
       
         $review_ru = Menu::create([
-              'position' => 'sidebar',
+              'position' => 'review',
               'lang' => 'ru',
               'title' => 'Для рецензирования (русское)',
             ]);
         $review_en = Menu::create([
-              'position' => 'sidebar',
+              'position' => 'review',
               'lang' => 'en',
               'title' => 'Для рецензирования (английское)',
             ]);

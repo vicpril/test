@@ -14,10 +14,20 @@ class Page extends Model
      * @var array
      */
     protected $fillable = [
-      'alias',
-      'status_id',
-      'template'
+        'alias',
+        'status_id',
+        'template',
+        "show_top_menu",
+        "show_sidebar_menu",
+        "show_review_menu",
     ];
+
+    protected $casts = [
+        "show_top_menu" => "boolean",
+        "show_sidebar_menu" => "boolean",
+        "show_review_menu" => "boolean",
+    ];
+
   
     public function status()
     {
@@ -61,4 +71,5 @@ class Page extends Model
     {
         return route('page', $this->alias);
     }
+
 }
