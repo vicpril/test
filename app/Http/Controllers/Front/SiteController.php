@@ -61,6 +61,7 @@ class SiteController extends Controller
         // SIDEBAR MENU
         if($this->show_sidebar_menu) {
             $menu_sidebar = $this->m_rep->getMenu('sidebar', app()->getLocale());
+//             dd($menu_sidebar);
             $menu = view('front.components.sidebar_menu')->with('menu', $menu_sidebar)->render();
             $this->vars = array_add($this->vars, 'sidebar_menu', $menu);
         } else {
