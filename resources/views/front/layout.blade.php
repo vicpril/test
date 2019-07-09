@@ -60,9 +60,9 @@
 
       <div class="nav-scroller py-1 mb-2 bg-white shadow">
          <div class="container">
-            @if('show_top_menu')
+            
                @yield('navigation')
-            @endif
+            
          </div>
       </div>
 
@@ -106,6 +106,13 @@
             <!-- /.blog-main -->
 
             <aside class="col-md-3 blog-sidebar">
+              
+                    @yield('review_menu')
+               
+                    @yield('sidebar_menu')
+              
+
+                  
                <div class="card mb-3">
                   <div class="card-header">
                      <h5 class="font-italic mb-0">About</h5>

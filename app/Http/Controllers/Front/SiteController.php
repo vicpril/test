@@ -36,10 +36,7 @@ class SiteController extends Controller
     protected $template;
     // переменные для шаблона
     protected $vars = array();
-    //указание на использования сайдбрара
-    // protected $bar = 'no';
-    // protected $contentRightBar = FALSE;
-    // protected $contentLeftBar = FALSE;
+    //указание на отображение меню
     protected $show_top_menu = true;
     protected $show_sidebar_menu = false;
     protected $show_review_menu = false;
@@ -52,31 +49,33 @@ class SiteController extends Controller
     }
 
     protected function renderOutput() {
-
-
-
-        $menu_top = $this->m_rep->getMenu('top', app()->getLocale());
-        $navigation = view('front.components.navigation')->with('menu', $menu_top)->render();
-        $this->vars = array_add($this->vars, 'navigation', $navigation);
-        $this->vars = array_add($this->vars, 'show_top_menu', $this->show_top_menu);
-
-        $menu_sidebar = $this->m_rep->getMenu('sidebar', app()->getLocale());
-        $sidebar_menu = view('front.components.sidebar_menu')->with('menu', $menu_sidebar)->render();
-        $this->vars = array_add($this->vars, 'sidebar_menu', $sidebar_menu);
-        $this->vars = array_add($this->vars, 'show_sidebar_menu', $this->show_sidebar_menu);
-
-        $menu_review = $this->m_rep->getMenu('review', app()->getLocale());
-        $review_menu = view('front.components.review_menu')->with('menu', $menu_review)->render();
-        $this->vars = array_add($this->vars, 'review_menu', $review_menu);
-        $this->vars = array_add($this->vars, 'show_review_menu', $this->show_review_menu);
-
-
-
-        $header = view('front.header')->with('navigation', $navigation)->render();
-        $this->vars = array_add($this->vars, 'header', $header);
-
-        $footer = view('front.footer')->render();
-        $this->vars = array_add($this->vars, 'footer', $footer);
+        // TOP MENU
+        if($this->show_top_menu) {
+            $menu_top = $this->m_rep->getMenu('top', app()->getLocale());
+            $menu = view('front.components.navigation')->with('menu', $menu_top)->render();
+            $this->vars = array_add($this->vars, 'navigation', $menu);
+        } else {
+            $this->vars = array_add($this->vars, 'navigation', "");
+        }
+      
+        // SIDEBAR MENU
+        if($this->show_sidebar_menu) {
+            $menu_sidebar = $this->m_rep->getMenu('sidebar', app()->getLocale());
+            $menu = view('front.components.sidebar_menu')->with('menu', $menu_sidebar)->render();
+            $this->vars = array_add($this->vars, 'sidebar_menu', $menu);
+        } else {
+            $this->vars = array_add($this->vars, 'sidebar_menu', "");
+        }
+      
+        // REVIEW MENU
+        if($this->show_review_menu) {
+            $menu_review = $this->m_rep->getMenu('review', app()->getLocale());
+            $menu = view('front.components.review_menu')->with('menu', $menu_review)->render();
+            $this->vars = array_add($this->vars, 'review_menu', $menu);
+        } else {
+            $this->vars = array_add($this->vars, 'review_menu', "");
+        }
+      
 
         if (auth()->check()) {
             dump(auth()->user()->loc->full_name . ' - '. auth()->user()->role);
@@ -86,31 +85,5 @@ class SiteController extends Controller
 
     	return view($this->template)->with($this->vars);
     }
-
-    // public function getMenu() {
-        
-    //     $menu = $this->m_rep->get();
-        
-    //     $mBuilder = Menu::make('MyNav', function($m) use ($menu) {
-             
-
-    //         foreach($menu as $item) {
-                
-    //             if($item->parent == 0) {
-    //                 $m->add($item->loc, route('home').$item->path)->id($item->id);
-    //             }
-    //             else {
-    //                 if($m->find($item->parent)) {
-    //                     $m->find($item->parent)->add($item->loc,$item->path)->id($item->id);
-    //                 }
-    //             }
-    //         }
-            
-    //     });
-        
-    //     return $mBuilder;
-
-    // }   
-
 
 }

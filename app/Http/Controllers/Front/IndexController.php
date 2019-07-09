@@ -10,27 +10,32 @@ use App\Models\Page;
 class IndexController extends SiteController
 {
     //
-	public function __construct() {
+	protected $page;
+	
+	public function __construct() 
+	{
 		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
+		
+		$this->page = Page::with('meta')->where('template', 'mainpage')->first();
+		
+		$this->show_top_menu = $this->page->show_top_menu;
+		$this->show_sidebar_menu = $this->page->show_sidebar_menu;
+		$this->show_review_menu = $this->page->show_review_menu;
 
 		$this->template = 'front.index';
 	}
 
-    public function index() {
-		$homepage = Page::with('meta')->where('template', 'mainpage')->first();
-
-		$this->show_top_menu = $homepage->show_top_menu;
-		$this->show_sidebar_menu = $homepage->show_sidebar_menu;
-		$this->show_review_menu = $homepage->show_review_menu;
+  public function index() 
+	{
+// 		dd($this);
+		$this->vars = array_add($this->vars, 'title', $this->page->loc->title);
 			
-      	$this->vars = array_add($this->vars, 'title', $homepage->loc->title);
-			
-		$content = $homepage->loc->content;
-      	$this->vars = array_add($this->vars, 'content', $content);
+		$content = $this->page->loc->content;
+    $this->vars = array_add($this->vars, 'content', $content);
 
-    	return $this->renderOutput();
+    return $this->renderOutput();
 
-    }
+  }
 
 
 }
