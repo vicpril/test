@@ -105,14 +105,14 @@ class MenuSeeder extends Seeder
                   'parent' => '0',
                   'order' => $i,
               ]); 
-            $review_en->meta()->create([
-                  'title' => $page->en->title,
-                //   'path' => $page->id,
-                  'path' => $page->alias,
-                  'type' => 'page',
-                  'parent' => '0',
-                  'order' => $i,
-            ]); 
+            // $review_en->meta()->create([
+            //       'title' => $page->en->title,
+            //     //   'path' => $page->id,
+            //       'path' => $page->alias,
+            //       'type' => 'page',
+            //       'parent' => '0',
+            //       'order' => $i,
+            // ]); 
 
             $i++;
         });

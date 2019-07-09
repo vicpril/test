@@ -87,7 +87,7 @@ Route::group(
         ]);
 
         // Route::name('archive')->get('/archive', 'ArticlesController@archiveIndex');
-        Route::name('archive')->get('/archive', function() { return 'archive' ;});
+        // Route::name('archive')->get('/archive', function() { return 'archive' ;});
         Route::name('redkollegiya')->get('/redkollegiya', function() { return 'redkollegiya' ;});
         Route::name('contacts')->get('/contacts', function() { return 'contacts' ;});
         Route::name('authors')->get('/authors', function() { return 'authors' ;});

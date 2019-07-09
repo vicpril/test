@@ -1,5 +1,5 @@
 @foreach($items as $item)
-	<li class="p-2 p-md-0" {{ (URL::current() == $item->url()) ? "class=active" : '' }} >
+	<li class="p-2 p-md-0 {{ (URL::current() == $item->url()) ? 'active' : '' }}"  >
 	
 		<a class="m-0 p-2 text-dark" href="{{ $item->url() }}">{{ $item->title }}</a>
 		@if($item->hasChildren())

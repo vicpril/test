@@ -31,6 +31,10 @@ class SiteController extends Controller
     protected $keywords;
     protected $meta_desc;
     protected $title;
+    protected $subtitle;
+    protected $content;
+
+
 
     // шаблон (макет) отображения
     protected $template;
@@ -61,21 +65,24 @@ class SiteController extends Controller
         // SIDEBAR MENU
         if($this->show_sidebar_menu) {
             $menu_sidebar = $this->m_rep->getMenu('sidebar', app()->getLocale());
-//             dd($menu_sidebar);
             $menu = view('front.components.sidebar_menu')->with('menu', $menu_sidebar)->render();
             $this->vars = array_add($this->vars, 'sidebar_menu', $menu);
         } else {
             $this->vars = array_add($this->vars, 'sidebar_menu', "");
         }
-      
+        
         // REVIEW MENU
         if($this->show_review_menu) {
             $menu_review = $this->m_rep->getMenu('review', app()->getLocale());
+            // dd($menu_review->roots());
             $menu = view('front.components.review_menu')->with('menu', $menu_review)->render();
             $this->vars = array_add($this->vars, 'review_menu', $menu);
         } else {
             $this->vars = array_add($this->vars, 'review_menu', "");
         }
+
+        $this->vars = array_add($this->vars, 'title', $this->title);
+        $this->vars = array_add($this->vars, 'content', $this->content);
       
 
         if (auth()->check()) {
@@ -85,6 +92,14 @@ class SiteController extends Controller
         }
 
     	return view($this->template)->with($this->vars);
+    }
+
+    protected function setMenu(Page $page) {
+
+        $this->show_top_menu = $page->show_top_menu;
+		$this->show_sidebar_menu = $page->show_sidebar_menu;
+        $this->show_review_menu = $page->show_review_menu;
+    
     }
 
 }

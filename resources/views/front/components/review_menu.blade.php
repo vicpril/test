@@ -4,9 +4,11 @@
       <h5 class="font-italic mb-0">@lang('Информация для авторов')</h5>
     </div>
     <div class="card-body">
-         <ul class="mb-0">
+         <ul class="list-unstyled  mb-0">
             @foreach($menu->roots() as $item)
+            <li>
                 <a href="{{ $item->url() }}">{{ $item->title }}</a>        
+            </li>
             @endforeach
           </ul>
     </div>

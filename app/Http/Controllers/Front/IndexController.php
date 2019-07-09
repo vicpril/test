@@ -18,9 +18,7 @@ class IndexController extends SiteController
 		
 		$this->page = Page::with('meta')->where('template', 'mainpage')->first();
 		
-		$this->show_top_menu = $this->page->show_top_menu;
-		$this->show_sidebar_menu = $this->page->show_sidebar_menu;
-		$this->show_review_menu = $this->page->show_review_menu;
+		$this->setMenu($this->page);
 
 		$this->template = 'front.index';
 	}
@@ -28,6 +26,8 @@ class IndexController extends SiteController
   public function index() 
 	{
 // 		dd($this);
+
+
 		$this->vars = array_add($this->vars, 'title', $this->page->loc->title);
 			
 		$content = $this->page->loc->content;
