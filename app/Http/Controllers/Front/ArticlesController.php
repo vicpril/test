@@ -40,11 +40,16 @@ class ArticlesController extends SiteController
         $issue = $this->getIssue($request, '*');
         $nextIssue = $this->i_rep->getNextIssue($issue);
         $prevIssue = $this->i_rep->getPrevIssue($issue);
+			
+			$this->title = view('front.articles_title')->with('issue', $issue)->render();
+			$this->subtitle = 'Содержание тома';
 
-    	$this->content = view('front.articles_content')->with('issue', $issue)
-                                                        ->with('nextIssue', $nextIssue)
+    	$this->content = view('front.articles_content')->with('issue', $issue)->render();
+			
+    	$this->content_footer = view('front.articles_footer')->with('nextIssue', $nextIssue)
                                                         ->with('prevIssue', $prevIssue)
                                                         ->render();
+			
         // $this->vars = array_add($this->vars, 'content', $content);
 
         // $sidebar_menu = '';

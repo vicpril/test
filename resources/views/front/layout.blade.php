@@ -69,7 +69,7 @@
       <div class="page-header-section">
          <div class="container">
             <div class="row col-md-12">
-               <div class="page-title">{{ $title }}</div>
+               <div class="page-title">{!! $title !!}</div>
             </div>
          </div>
       </div>
@@ -81,24 +81,16 @@
                   @if(isset($subtitle))
                   <div class="card-header ">
                      <h2 class="my-1 px-2">
-                        {{ $subtitle }}
+                        {!! $subtitle !!}
                      </h2>
                   </div>
                   @endif
                   <div class="card-body mx-2">
-                     {!! $content !!}
+                     
                   </div>
                   @if(isset($contentFooter))
-                    <div class="card-footer mx-2 d-flex justify-content-between">
-                     <a href="#" class="btn btn-primary">
-                        Previous Issue
-                     </a>
-                     <a href="#" class="btn btn-link">
-                        <strong>Back to top</strong>
-                     </a>
-                     <a href="#" class="btn btn-primary">
-                        Next Issue
-                     </a>
+                  <div class="card-footer mx-2 d-flex justify-content-between">
+                     {!! $contentFooter !!}
                   </div>
                   @endif
                </div>
