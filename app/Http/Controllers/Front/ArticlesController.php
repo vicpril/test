@@ -11,14 +11,17 @@ class ArticlesController extends SiteController
 {
     //
     public function __construct(IssuesRepository $i_rep, ArticlesRepository $a_rep) {
-		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
+		parent::__construct(
+			new \App\Repositories\MenusRepository(new \App\Models\Menu),
+			new \App\Repositories\TagsRepository(new \App\Models\Tag)
+		);
 
 		$this->i_rep = $i_rep;
 		$this->a_rep = $a_rep;
 
 		// $this->s_rep = $s_rep;
 
-		$this->template = 'front.single';
+		$this->template = 'front.index';
 	}
 
 
@@ -29,26 +32,25 @@ class ArticlesController extends SiteController
     */
     public function index(Request $request) {
         
-        if (!$request->year || !$request->no || !$request->tom) {
+        if (!$request->year || !$request->no || !$request->part) {
             return $this->redirectOnLastIssue();
         }
 
-        
        // dump($request);
         $issue = $this->getIssue($request, '*');
         $nextIssue = $this->i_rep->getNextIssue($issue);
         $prevIssue = $this->i_rep->getPrevIssue($issue);
 
-    	$content = view('front.articles_content')->with('issue', $issue)
+    	$this->content = view('front.articles_content')->with('issue', $issue)
                                                         ->with('nextIssue', $nextIssue)
                                                         ->with('prevIssue', $prevIssue)
                                                         ->render();
-        $this->vars = array_add($this->vars, 'content', $content);
+        // $this->vars = array_add($this->vars, 'content', $content);
 
-        $sidebar_menu = '';
+        // $sidebar_menu = '';
 
-        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-        $this->vars = array_add($this->vars, 'sidebar', $sidebar);
+        // $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        // $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
     	return $this->renderOutput();
     }
@@ -94,12 +96,12 @@ class ArticlesController extends SiteController
                 // dump(route('articles', [
                 //                             'year' => $issue->year,
                 //                             'no' => $issue->no,
-                //                             'tom' => $issue->tom,
+                //                             'part' => $issue->part,
                                         // ]));
                 return redirect()->route('articles', [
                                             'year' => $issue->year,
                                             'no' => $issue->no,
-                                            'tom' => $issue->tom,
+                                            'part' => $issue->part,
                                         ]);
             } else {
                 return die('Записей нет');
@@ -162,7 +164,7 @@ class ArticlesController extends SiteController
                 echo $issue->id . ' - ' ;
                 echo $issue->year . ' - ' ;
                 echo $issue->no . ' - ' ;
-                echo $issue->tom . ' - ' ;
+                echo $issue->part . ' - ' ;
                 echo $article->id . ' - ' ;
                 echo '<b>'.$article->title . '</b> - ' 
                     . $article->status->name . ' - ' ;

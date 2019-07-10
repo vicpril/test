@@ -14,7 +14,10 @@ class IndexController extends SiteController
 	
 	public function __construct() 
 	{
-		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
+		parent::__construct(
+			new \App\Repositories\MenusRepository(new \App\Models\Menu),
+			new \App\Repositories\TagsRepository(new \App\Models\Tag)
+		);
 		
 		$this->page = Page::with('meta')->where('template', 'mainpage')->first();
 		

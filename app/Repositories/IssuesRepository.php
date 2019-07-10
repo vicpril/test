@@ -24,7 +24,7 @@ class IssuesRepository extends Repository
 
         $result = $result->orderBy('year', 'desc');
         $result = $result->orderBy('no', 'desc');
-        $result = $result->orderBy('tom', 'asc');
+        $result = $result->orderBy('part', 'asc');
 
         $result = $result->with(['articles' => function ($query) {
             $query->with('status');
@@ -39,7 +39,7 @@ class IssuesRepository extends Repository
      *  Get last Issue with current status
      *   with relations
      */
-    public function one($attr = array(), $lang = 'ru', $load = true, $orderBy = array('year', 'no', 'tom'))
+    public function one($attr = array(), $lang = 'ru', $load = true, $orderBy = array('year', 'no', 'part'))
     {
         $result = $this->model;
 
@@ -81,7 +81,7 @@ class IssuesRepository extends Repository
         return $result;
     }
 
-    public function getIssuesByArticleStatus($status = false, $issues = false, $orderBy = array('year', 'no', 'tom'))
+    public function getIssuesByArticleStatus($status = false, $issues = false, $orderBy = array('year', 'no', 'part'))
     {
 
         if (!$issues) {
@@ -91,7 +91,7 @@ class IssuesRepository extends Repository
         if ($status && $status !== '*') {
             if (is_a($issues, '\Illuminate\Database\Eloquent\Model')) {
                 $issues->articles = $issues->articles->filter(function ($article) use ($status) {
-                    if ($article->status->name == $status) {
+                    if ($article->status->type == $status) {
                         return $article;
                     }
                 });
@@ -99,7 +99,7 @@ class IssuesRepository extends Repository
             } else {
                 $issues->each(function ($issue) use ($status) {
                     $issue->articles = $issue->articles->filter(function ($article) use ($status) {
-                        if ($article->status->name == $status) {
+                        if ($article->status->type == $status) {
                             return $article;
                         }
                     });
@@ -170,7 +170,7 @@ class IssuesRepository extends Repository
     public function getNextIssue($issue)
     {
         if ($issue) {
-            $nextIssue = $this->one(['full_no' => $issue->full_no + 1, 'tom' => 1], 'ru', false);
+            $nextIssue = $this->one(['full_no' => $issue->full_no + 1, 'part' => 1], 'ru', false);
             return $nextIssue;
         }
         return null;
@@ -179,7 +179,7 @@ class IssuesRepository extends Repository
     public function getPrevIssue($issue)
     {
         if ($issue) {
-            $prevIssue = $this->one(['full_no' => $issue->full_no - 1, 'tom' => 1], 'ru', false);
+            $prevIssue = $this->one(['full_no' => $issue->full_no - 1, 'part' => 1], 'ru', false);
             return $prevIssue;
         }
         return null;

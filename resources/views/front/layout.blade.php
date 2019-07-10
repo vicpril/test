@@ -111,18 +111,32 @@
                
                     @yield('sidebar_menu')
               
-
-                  
                <div class="card mb-3">
-                  <div class="card-header">
-                     <h5 class="font-italic mb-0">About</h5>
-                  </div>
                   <div class="card-body">
-                     <p class="mb-0">
-                        Etiam porta <em>sem malesuada magna</em> mollis euismod.
-                        Cras mattis consectetur purus sit amet fermentum. Aenean
-                        lacinia bibendum nulla sed consectetur.
-                     </p>
+                     <ul class="list-unstyled mb-0">
+                        <li>
+                           <a href="{{ route('authors') }}">@lang('Поиск по авторам')</a>
+                        </li>
+                        <li>
+                           <span class="text-uppercase">@lang("Предметный указатель")</span>
+                           <ul>
+                              @foreach($tags as $tag)
+                                 <li>
+                                    <a href="{{ route('tags.show', $tag->alias) }}">{{ $tag->loc }}</a>
+                                 </li>
+                              @endforeach
+                           </ul>
+                        </li>
+                        <li>
+                           <span class="text-uppercase">@lang('Поиск по ключевым словам')</span>
+                           <form action="{{ route('search') }}" method="GET">
+                              <div class="form-group">
+                                 <input type="text" class="form-control my-1" name="s" required>
+                                 <button type="submit" class="btn btn-light">@lang('Поиск')</button>
+                              </div>
+                           </form>
+                        </li>
+                     </ul>
                   </div>
                </div>
 

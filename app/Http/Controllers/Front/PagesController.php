@@ -10,14 +10,17 @@ class PagesController extends SiteController
     protected $page;
 
 	public function __construct(Page $page) {
-        parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
+        parent::__construct(
+            new \App\Repositories\MenusRepository(new \App\Models\Menu),
+            new \App\Repositories\TagsRepository(new \App\Models\Tag),
+        );
 
 		$this->template = 'front.index';
     }
     
     
     public function index (Page $page) {
-
+        // dd($page);
         switch ($page->template) {
             case 'common':
                 if($page->loc->on){
@@ -32,6 +35,13 @@ class PagesController extends SiteController
                 break;
             case 'mainpage':
                 return redirect(url("/"));
+                break;
+            case 'articles':
+            case 'article':
+            case 'categories':
+            case 'tags':
+            case 'authors':
+                return redirect(url("/$page->template"));
                 break;
             
             default:

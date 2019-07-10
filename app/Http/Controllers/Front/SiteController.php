@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\MenusRepository;
+use App\Repositories\TagsRepository;
 
 use Menu;
 use App\Models\Page;
@@ -47,8 +48,9 @@ class SiteController extends Controller
     protected $show_stol = false;
     
 
-    public function __construct(MenusRepository $m_rep) {
+    public function __construct(MenusRepository $m_rep, TagsRepository $t_rep) {
     	$this->m_rep = $m_rep;
+    	$this->t_rep = $t_rep;
 
     }
 
@@ -80,6 +82,10 @@ class SiteController extends Controller
         } else {
             $this->vars = array_add($this->vars, 'review_menu', "");
         }
+
+        //TAGS
+        $tags = $this->t_rep->all()->sortBy("title_".app()->getLocale());
+        $this->vars = array_add($this->vars, 'tags', $tags);
 
         $this->vars = array_add($this->vars, 'title', $this->title);
         $this->vars = array_add($this->vars, 'content', $this->content);
