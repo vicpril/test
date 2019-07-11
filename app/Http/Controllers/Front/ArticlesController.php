@@ -37,7 +37,7 @@ class ArticlesController extends SiteController
         }
 
        // dump($request);
-        $issue = $this->getIssue($request, '*');
+        $issue = $this->getIssue($request, true);
 // 				dd($issue);
         $nextIssue = $this->i_rep->getNextIssue($issue);
         $prevIssue = $this->i_rep->getPrevIssue($issue);
@@ -119,7 +119,7 @@ class ArticlesController extends SiteController
         return $article;
     }
 
-    public function getIssue(Request $request, $articleStatus = '*') {
+    private function getIssue(Request $request, $articleStatus = '*') {
         
     
         $issue = $this->i_rep->one($request->all(), app()->getLocale());

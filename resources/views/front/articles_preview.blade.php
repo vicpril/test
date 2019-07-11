@@ -20,8 +20,7 @@
          >
             @foreach($article->users as $user)
             <li>
-               <a href="{{ route('authors.show', $user->alias) }}">{{$user->loc->short_name}}</a>
-              @if(!$loop->last)<span>,&ensp;</span>@endif
+               <a href="{{ route('authors.show', $user->alias) }}">{{$user->loc->short_name}}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
             </li>
             @endforeach
          </ul>
