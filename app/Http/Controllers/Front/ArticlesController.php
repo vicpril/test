@@ -21,7 +21,7 @@ class ArticlesController extends SiteController
 
 		// $this->s_rep = $s_rep;
 
-		$this->template = 'front.index';
+		$this->template = 'front.articles';
 	}
 
 
@@ -41,10 +41,15 @@ class ArticlesController extends SiteController
         $nextIssue = $this->i_rep->getNextIssue($issue);
         $prevIssue = $this->i_rep->getPrevIssue($issue);
 			
-			$this->title = view('front.articles_title')->with('issue', $issue)->render();
+            $this->title = view('front.articles_title')->with('issue', $issue)->render();
+
+        $this->vars = array_add($this->vars, 'issue', $issue);
+        $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);
+        $this->vars = array_add($this->vars, 'prevIssue', $prevIssue);
+            
 			$this->subtitle = 'Содержание тома';
 
-    	$this->content = view('front.articles_content')->with('issue', $issue)->render();
+    	// $this->content = view('front.articles_content')->with('issue', $issue)->render();
 			
     	$this->content_footer = view('front.articles_footer')->with('nextIssue', $nextIssue)
                                                         ->with('prevIssue', $prevIssue)

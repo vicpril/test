@@ -89,17 +89,17 @@ class SiteController extends Controller
         $tags = $this->t_rep->all()->sortBy("title_".app()->getLocale());
         $this->vars = array_add($this->vars, 'tags', $tags);
 				
-				//CONTENT
+		//CONTENT
         $this->vars = array_add($this->vars, 'title', $this->title);
         if($this->subtitle) { 
-						$this->vars = array_add($this->vars, 'subtitle', $this->subtitle);
-				};
+			$this->vars = array_add($this->vars, 'subtitle', $this->subtitle);
+		};
 			
         $this->vars = array_add($this->vars, 'content', $this->content);
 			
-				if($this->content_footer) { 
-						$this->vars = array_add($this->vars, 'contentFooter', $this->content_footer);
-				};
+        if($this->content_footer) { 
+                $this->vars = array_add($this->vars, 'contentFooter', $this->content_footer);
+        };
       
 
         if (auth()->check()) {

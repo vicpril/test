@@ -15,3 +15,6 @@
 @section('content')
 	{!! $content !!}
 @endsection
+
+@section('scripts')
+@endsection

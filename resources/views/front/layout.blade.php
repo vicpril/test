@@ -86,10 +86,10 @@
                   </div>
                   @endif
                   <div class="card-body mx-2">
-                     
+                     @yield('content')
                   </div>
                   @if(isset($contentFooter))
-                  <div class="card-footer mx-2 d-flex justify-content-between">
+                  <div class="card-footer ">
                      {!! $contentFooter !!}
                   </div>
                   @endif
@@ -199,4 +199,7 @@
    <script src="{{ asset('js/front.js') }}"></script>
    <script src="{{ asset('js/manifest.js') }}"></script>
    <script src="{{ asset('js/vendor.js') }}"></script>
+
+   @stack('scripts')
+
 </html>
