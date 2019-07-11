@@ -54,31 +54,42 @@ class IssuesRepository extends Repository
                 $result = $result->orderBy($value, 'desc');
             }
         }
+        
+      if ($load) {
+        $result = $result->with([
+          'articles', 
+          'articles.meta', 
+          'articles.tags', 
+          'articles.status', 
+          'articles.categories', 
+          'articles.users', 
+          'articles.users.meta']);
+      }
+//                                )->first();
+// dd($result);
 
-        $result = $result->first();
+//         
+//             if ($result) {
+//                 $result->load('articles');
+//                 $result->articles->load(['meta', 'status', 'categories', 'tags', 'issue', 'users' => function ($query) {
+//                     $query->with('meta');
+//                 }]);
+//                 $result->articles->each(function ($a) use ($lang) {
+//                     // Meta Article prepare
+//                     $prop = $a->meta->where('lang', $lang)->first()->getAttributes();
+//                     $a->setRawAttributes(array_merge($a->getAttributes(), $prop));
 
-        if ($load) {
-            if ($result) {
-                $result->load('articles');
-                $result->articles->load(['meta', 'status', 'categories', 'tags', 'issue', 'users' => function ($query) {
-                    $query->with('meta');
-                }]);
-                $result->articles->each(function ($a) use ($lang) {
-                    // Meta Article prepare
-                    $prop = $a->meta->where('lang', $lang)->first()->getAttributes();
-                    $a->setRawAttributes(array_merge($a->getAttributes(), $prop));
+//                     // Meta Users prepare
+//                     $a->users->each(function ($u) use ($lang) {
+//                         $prop = $u->meta->where('lang', $lang)->first()->getAttributes();
+//                         $u->setRawAttributes(array_merge($u->getAttributes(), $prop));
+//                     });
 
-                    // Meta Users prepare
-                    $a->users->each(function ($u) use ($lang) {
-                        $prop = $u->meta->where('lang', $lang)->first()->getAttributes();
-                        $u->setRawAttributes(array_merge($u->getAttributes(), $prop));
-                    });
+//                 });
+//             }
+//         }
 
-                });
-            }
-        }
-
-        return $result;
+        return $result->first();
     }
 
     public function getIssuesByArticleStatus($status = false, $issues = false, $orderBy = array('year', 'no', 'part'))

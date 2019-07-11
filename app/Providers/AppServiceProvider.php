@@ -38,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('articleDate', function ($expression) {
             return "<?php echo ($expression)->format('d.m.Y'); ?>";
         });
+      
+        Blade::if('admin', function () {
+            return !auth()->guest() && auth()->user()->role === 'admin';
+        });
 
 //         view()->composer('back/layout', HeaderComposer::class);
 

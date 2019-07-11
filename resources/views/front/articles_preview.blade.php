@@ -1,6 +1,19 @@
   <article class="ml-4">
+    @admin
+     <!-- LABEL -->
+      <div class="row">
+        ID: {{$article->id}}
+        @if($article->status->type)
+           <span class="badge badge-pill badge-success mr-2">Опубликована</span>
+        @else
+           <span class="badge badge-pill badge-danger mr-2">Черновик</span>
+        @endif
+        <a href="{{ $article->editLink }}" target="_blank">Редактровать</a>
+      </div>
+      <!-- END LABEL -->
+    @endadmin
          <h5 class="article-title">
-            {{ $article->title }}
+            {{ $article->loc->title }}
          </h5>
          <ul
             class="authors mb-2 list-unstyled list-group list-group-horizontal"

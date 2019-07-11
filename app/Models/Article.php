@@ -69,7 +69,7 @@ class Article extends Model
 
     public function meta()
     {
-        return $this->hasMany('App\Models\MetaArticle', 'article_id');
+        return $this->hasMany('App\Models\MetaArticle');
     }
 
     public function users_id() {

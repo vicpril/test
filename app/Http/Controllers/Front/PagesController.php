@@ -12,7 +12,7 @@ class PagesController extends SiteController
 	public function __construct(Page $page) {
         parent::__construct(
             new \App\Repositories\MenusRepository(new \App\Models\Menu),
-            new \App\Repositories\TagsRepository(new \App\Models\Tag),
+            new \App\Repositories\TagsRepository(new \App\Models\Tag)
         );
 
 		$this->template = 'front.index';

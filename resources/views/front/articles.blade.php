@@ -12,6 +12,14 @@
 	{!! $review_menu !!}
 @endsection
 
+@section('title')
+	{!! $title !!}
+@endsection
+
+@section('subtitle')
+	@lang('Содержание тома')
+@endsection
+
 @section('content')
     @if($issue)   
         @foreach($issue->mapedArticles as $category => $articles)
@@ -41,9 +49,9 @@
     </div>
 
     <div class="col d-flex justify-content-center">
-    <a href="#" class="btn btn-link link-to-top">
+    <button class="btn btn-link toTop">
         <strong>Back to top</strong>
-    </a>
+    </button>
     </div>
 
     <div class="col d-flex justify-content-end">
@@ -57,6 +65,9 @@
 
 @push('scripts')
     <script>
-    alert('hello');
+    $('.toTop').on('click', function(event) {
+			event.preventDefault();
+			$('html, body').animate({ scrollTop: 0 }, 'slow');         
+		});
     </script>
 @endpush

@@ -12,6 +12,10 @@
 	{!! $review_menu !!}
 @endsection
 
+@section('title')
+	{!! $title !!}
+@endsection
+
 @section('content')
 	{!! $content !!}
 @endsection

@@ -69,7 +69,7 @@
       <div class="page-header-section">
          <div class="container">
             <div class="row col-md-12">
-               <div class="page-title">{!! $title !!}</div>
+               <div class="page-title">@yield('title')</div>
             </div>
          </div>
       </div>
@@ -78,19 +78,19 @@
          <div class="row">
             <div class="col-md-9 blog-main">
                <div class="card ">
-                  @if(isset($subtitle))
-                  <div class="card-header ">
-                     <h2 class="my-1 px-2">
-                        {!! $subtitle !!}
-                     </h2>
-                  </div>
+                  @hasSection('subtitle')
+                    <div class="card-header ">
+                       <h2 class="my-1 px-2">
+                          @yield('subtitle')
+                       </h2>
+                    </div>
                   @endif
                   <div class="card-body mx-2">
                      @yield('content')
                   </div>
-                  @if(isset($contentFooter))
+                  @hasSection('contentFooter')
                   <div class="card-footer ">
-                     {!! $contentFooter !!}
+                     @yield('contentFooter')
                   </div>
                   @endif
                </div>
@@ -98,6 +98,8 @@
             <!-- /.blog-main -->
 
             <aside class="col-md-3 blog-sidebar">
+              
+                    @yield('stol_menu')
               
                     @yield('review_menu')
                

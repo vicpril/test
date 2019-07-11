@@ -38,31 +38,17 @@ class ArticlesController extends SiteController
 
        // dump($request);
         $issue = $this->getIssue($request, '*');
+// 				dd($issue);
         $nextIssue = $this->i_rep->getNextIssue($issue);
         $prevIssue = $this->i_rep->getPrevIssue($issue);
 			
-            $this->title = view('front.articles_title')->with('issue', $issue)->render();
+        $this->title = view('front.articles_title')->with('issue', $issue)->render();
 
         $this->vars = array_add($this->vars, 'issue', $issue);
         $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);
         $this->vars = array_add($this->vars, 'prevIssue', $prevIssue);
             
-			$this->subtitle = 'Содержание тома';
-
-    	// $this->content = view('front.articles_content')->with('issue', $issue)->render();
-			
-    	$this->content_footer = view('front.articles_footer')->with('nextIssue', $nextIssue)
-                                                        ->with('prevIssue', $prevIssue)
-                                                        ->render();
-			
-        // $this->vars = array_add($this->vars, 'content', $content);
-
-        // $sidebar_menu = '';
-
-        // $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-        // $this->vars = array_add($this->vars, 'sidebar', $sidebar);
-
-    	return $this->renderOutput();
+    		return $this->renderOutput();
     }
 
 
@@ -137,7 +123,7 @@ class ArticlesController extends SiteController
         
     
         $issue = $this->i_rep->one($request->all(), app()->getLocale());
-
+// dd($issue);
         if ($issue) {
             $issue = $this->i_rep->getIssuesByArticleStatus($articleStatus, $issue);
             $issue = $this->i_rep->prepareIssue($issue);
