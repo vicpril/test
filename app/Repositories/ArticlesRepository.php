@@ -48,6 +48,26 @@ class ArticlesRepository extends Repository
             ->paginate($nbrPages);
     }
 
+    public function getArticles($onlyPublished, $stol = false, $order = 'date_review' ) {
+        $result = $this->model->with('meta', 'status');
+
+        if ($stol) {
+            $result = $result->where('stol', true);
+        }
+
+        $result = $result->get();
+        
+        if ($onlyPublished) {
+            $result = $result->filter(function($articles) {
+                return $articles->status->type == true;
+            });
+        }
+        
+        $result = $result->sortBy($order);
+
+        return $result;
+    }
+
     /*
      *
      *    Get articles with conditions

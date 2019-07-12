@@ -4,8 +4,8 @@
 	{!! $navigation !!}
 @endsection
 
-@section('sidebar_menu')
-	{!! $sidebar_menu !!}
+@section('sidebar')
+	@include('front.sidebar')
 @endsection
 
 @section('review_menu')

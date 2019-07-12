@@ -32,6 +32,10 @@ article:not(:last-child) {
   border-bottom: #ced4da 1px solid;
 }
 
+section:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
 .links > ul > li {
   display: inline;
   padding-right: 1rem;

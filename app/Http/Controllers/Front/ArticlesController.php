@@ -36,13 +36,18 @@ class ArticlesController extends SiteController
             return $this->redirectOnLastIssue();
         }
 
+        $onlyPublished = (!auth()->guest() && auth()->user()->role === 'admin') ? false : true ;
        // dump($request);
-        $issue = $this->getIssue($request, true);
-// 				dd($issue);
+        $issue = $this->getIssue($request, $onlyPublished);
+
+        // 				dd($issue);
         $nextIssue = $this->i_rep->getNextIssue($issue);
         $prevIssue = $this->i_rep->getPrevIssue($issue);
-			
+        
         $this->title = view('front.articles_title')->with('issue', $issue)->render();
+
+        $stol_menu = $this->a_rep->getArticles($onlyPublished, $stol = true)->take(4);
+        $this->vars = array_add($this->vars, 'stol_menu', $stol_menu);
 
         $this->vars = array_add($this->vars, 'issue', $issue);
         $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);
@@ -136,51 +141,51 @@ class ArticlesController extends SiteController
 
 
 
-    /***********************************
-    *              FOR TEST
-    ***********************************/
+    // /***********************************
+    // *              FOR TEST
+    // ***********************************/
 
-    public function renderIssues($issues = FALSE) {
-        if ($issues) {
-            if (is_a($issues, 'Illuminate\Database\Eloquent\Model')) {
-                $this->renderIssue($issues);
-            } 
-            if (is_a($issues, 'Illuminate\Database\Eloquent\Collection')) {
-                $issues->each(function($issue){
-                    $this->renderIssue($issue);
-                });
-            }
+    // public function renderIssues($issues = FALSE) {
+    //     if ($issues) {
+    //         if (is_a($issues, 'Illuminate\Database\Eloquent\Model')) {
+    //             $this->renderIssue($issues);
+    //         } 
+    //         if (is_a($issues, 'Illuminate\Database\Eloquent\Collection')) {
+    //             $issues->each(function($issue){
+    //                 $this->renderIssue($issue);
+    //             });
+    //         }
             
-        }
-    }
+    //     }
+    // }
 
-    public function renderIssue($issue = FALSE) {
-        if ($issue) {
-            foreach ($issue->articles as $article) {
-                echo $issue->id . ' - ' ;
-                echo $issue->year . ' - ' ;
-                echo $issue->no . ' - ' ;
-                echo $issue->part . ' - ' ;
-                echo $article->id . ' - ' ;
-                echo '<b>'.$article->title . '</b> - ' 
-                    . $article->status->name . ' - ' ;
+    // public function renderIssue($issue = FALSE) {
+    //     if ($issue) {
+    //         foreach ($issue->articles as $article) {
+    //             echo $issue->id . ' - ' ;
+    //             echo $issue->year . ' - ' ;
+    //             echo $issue->no . ' - ' ;
+    //             echo $issue->part . ' - ' ;
+    //             echo $article->id . ' - ' ;
+    //             echo '<b>'.$article->title . '</b> - ' 
+    //                 . $article->status->name . ' - ' ;
 
-                foreach ($article->users as $user) {
-                    echo '<i>'.$user->name  . '</i> - ';
-                }
+    //             foreach ($article->users as $user) {
+    //                 echo '<i>'.$user->name  . '</i> - ';
+    //             }
 
-                foreach ($article->tags as $tag) {
-                    echo $tag->name  . ' - ';
-                }
+    //             foreach ($article->tags as $tag) {
+    //                 echo $tag->name  . ' - ';
+    //             }
 
-                foreach ($article->categories as $category) {
-                    echo $category->name  . ' - ';
-                }
+    //             foreach ($article->categories as $category) {
+    //                 echo $category->name  . ' - ';
+    //             }
 
-                echo '<br />';
-            }
-        }
-    }
+    //             echo '<br />';
+    //         }
+    //     }
+    // }
 
     
 
