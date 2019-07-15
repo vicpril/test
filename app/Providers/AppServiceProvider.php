@@ -20,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
         //
 //         Article::observe(\App\Observers\ArticleObserver::class);
 
+        // Localization Carbon
+        \Carbon\Carbon::setLocale(config('app.locale'));
+        setLocale(LC_TIME, (config('app.locale') == 'ru')? 'ru_RU.UTF-8': 'en_US.UTF-8');
+
         //for watching SQL-query
         DB::listen(function($query) {
             // dump($query->sql) ;

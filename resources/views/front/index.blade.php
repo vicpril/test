@@ -4,12 +4,12 @@
 	{!! $navigation !!}
 @endsection
 
-@section('sidebar')
-	@include('front.sidebar')
-@endsection
-
 @section('review_menu')
 	{!! $review_menu !!}
+@endsection
+
+@section('sidebar_menu')
+	{!! $sidebar_menu !!}
 @endsection
 
 @section('title')

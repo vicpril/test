@@ -47,7 +47,7 @@ class SiteController extends Controller
     protected $show_top_menu = true;
     protected $show_sidebar_menu = false;
     protected $show_review_menu = false;
-    protected $show_stol = false;
+    protected $show_stol_menu = false;
     
 
     public function __construct(MenusRepository $m_rep, TagsRepository $t_rep) {

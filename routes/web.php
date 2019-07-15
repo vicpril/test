@@ -93,6 +93,7 @@ Route::group(
         Route::name('authors')->get('/authors', function() { return 'authors' ;});
 
         Route::name('search')->get('/search', function() { return 'search' ;});
+        Route::name('club')->get('/diskussionnye-cluby', function() { return 'КРУГЛЫЕ СТОЛЫ' ;});
 
 
         Route::name('page')->get('{pageAlias}', 'PagesController@index');

@@ -21,7 +21,9 @@ class ArticlesController extends SiteController
 
 		// $this->s_rep = $s_rep;
 
-		$this->template = 'front.articles';
+        $this->template = 'front.articles';
+        
+        $this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
 	}
 
 
@@ -46,8 +48,12 @@ class ArticlesController extends SiteController
         
         $this->title = view('front.articles_title')->with('issue', $issue)->render();
 
-        $stol_menu = $this->a_rep->getArticles($onlyPublished, $stol = true)->take(4);
-        $this->vars = array_add($this->vars, 'stol_menu', $stol_menu);
+        if($this->show_stol_menu) {
+            $stol_menu = $this->a_rep->getArticles($onlyPublished, $stol = true)->take(4);
+            $this->vars = array_add($this->vars, 'stol_menu', $stol_menu);
+        } else {
+            $this->vars = array_add($this->vars, 'stol_menu', []);
+        }
 
         $this->vars = array_add($this->vars, 'issue', $issue);
         $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);

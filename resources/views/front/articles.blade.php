@@ -4,28 +4,9 @@
 	{!! $navigation !!}
 @endsection
 
-@section('sidebar')
-	@include('front.sidebar')
-@endsection
 
 @section('stol_menu')
-    @if(count($stol_menu) > 0)
-    <div class="card mb-3">
-        <div class="card-header">
-        <h5 class="font-italic mb-0">@lang('Информация для авторов')</h5>
-        </div>
-        <div class="card-body">
-            <ul class="list-unstyled  mb-0">
-                @foreach($stol_menu as $article)
-                <li>
-                    <span class="date text-secondary">{{ \Carbon\Carbon::parse($article->date_review)->format('d M Y')}}</span>
-                    <a href="{{ $article->link }}">{{ $article->title }}</a>        
-                </li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-    @endif
+    @include('front.components.stol_menu')
 @endsection
 
 @section('review_menu')
