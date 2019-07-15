@@ -98,76 +98,31 @@
 
             <div class="card mb-3">
                <div class="card-body">
-                  <ul class="list-unstyled mb-0">
-                     <li>
-                        <a href="{{ route('authors') }}">@lang('Поиск по авторам')</a>
-                     </li>
-                     <li>
+                     <div class="mb-3">
+                        <a class="text-uppercase" href="{{ route('authors') }}">@lang('Поиск по авторам')</a>
+                     </div>
+                     <div class="mb-3">
                         <span class="text-uppercase">@lang("Предметный указатель")</span>
                         <ul>
                            @foreach($tags as $tag)
                            <li>
                               <a href="{{ route('tags.show', $tag->alias) }}">{{ $tag->loc }}</a>
+                              <span class="badge badge-secondary badge-pill">{{ count($tag->articles) }}</span>
                            </li>
                            @endforeach
                         </ul>
-                     </li>
-                     <li>
+                     </div>
+                     <div>
                         <span class="text-uppercase">@lang('Поиск по ключевым словам')</span>
                         <form action="{{ route('search') }}" method="GET">
                            <div class="form-group">
-                              <input type="text" class="form-control my-1" name="s" required />
-                              <button type="submit" class="btn btn-light">
+                              <input type="text" class="form-control my-1 mb-2" name="s" required />
+                              <button type="submit" class="btn btn-outline-secondary">
                                  @lang('Поиск')
                               </button>
                            </div>
                         </form>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-
-            <div class="card mb-3">
-               <div class="card-header">
-                  <h5 class="font-italic mb-0">Archives</h5>
-               </div>
-               <div class="card-body">
-                  <ol class="list-unstyled mb-0">
-                     <li><a href="#">March 2014</a></li>
-                     <li><a href="#">February 2014</a></li>
-                     <li><a href="#">January 2014</a></li>
-                     <li><a href="#">December 2013</a></li>
-                     <li><a href="#">November 2013</a></li>
-                     <li><a href="#">October 2013</a></li>
-                     <li><a href="#">September 2013</a></li>
-                     <li><a href="#">August 2013</a></li>
-                     <li><a href="#">July 2013</a></li>
-                     <li><a href="#">June 2013</a></li>
-                     <li><a href="#">May 2013</a></li>
-                     <li><a href="#">April 2013</a></li>
-                  </ol>
-               </div>
-            </div>
-
-            <div class="card">
-               <div class="card-header bg-white">
-                  <h5 class="font-italic mb-0">Browse by subject</h5>
-               </div>
-               <div class="card-body">
-                  <ul class="list-unstyled">
-                     <li class=" d-flex justify-content-between align-items-center">
-                        Cras justo odio
-                        <span class="badge badge-primary badge-pill">14</span>
-                     </li>
-                     <li class=" d-flex justify-content-between align-items-center">
-                        Dapibus ac facilisis in
-                        <span class="badge badge-primary badge-pill">2</span>
-                     </li>
-                     <li class=" d-flex justify-content-between align-items-center">
-                        Morbi leo risus
-                        <span class="badge badge-primary badge-pill">1</span>
-                     </li>
-                  </ul>
+                     </div>
                </div>
             </div>
 
@@ -179,7 +134,7 @@
    <!-- /.container -->
 
    <footer class="py-3 mt-3 d-flex justify-content-center">
-      <small class="text-white">Powered by <a href="#" class="desiner">Viktor Prilepin</a></small>
+      <small class="text-white">@lang('Разработал') <a href="#" class="desiner">@lang('Виктор Прилепин')</a></small>
    </footer>
 </body>
 <script src="{{ asset('js/front.js') }}"></script>

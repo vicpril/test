@@ -80,6 +80,19 @@ section:not(:last-child) {
    margin-bottom: 2rem;
 }
 
+a.author-name {
+   text-decoration-line: none !important;
+}
+
+.article-title > a {
+   color: #000;
+
+   &:hover {
+      color: $danger !important;
+      text-decoration-line: none;
+   }
+}
+
 ul.list-stol {
    list-style-image: url("#{$imgPath}/list.gif") !important;
    padding-left: 14px;

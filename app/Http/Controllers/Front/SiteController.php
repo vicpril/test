@@ -86,7 +86,7 @@ class SiteController extends Controller
         }
 
         //TAGS
-        $tags = $this->t_rep->all()->sortBy("title_".app()->getLocale());
+        $tags = $this->t_rep->all()->loadMissing('articles')->sortBy("title_".app()->getLocale());
         $this->vars = array_add($this->vars, 'tags', $tags);
 				
 		//CONTENT

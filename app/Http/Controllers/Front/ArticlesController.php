@@ -69,6 +69,23 @@ class ArticlesController extends SiteController
     *
     */
     public function show(Article $article) {
+        
+        
+        if (auth()->guest() && !$article->status->type) {
+            return abort(404, 'Статья не найдена');
+        }
+        
+        $article->loadMissing([
+            'meta',
+            'users',
+            'users.meta',
+            'issue',
+            'categories',
+            'tags'
+        ]);
+
+        $this->template = 'front.index';
+
 				
 //         $article = $this->getArticle($alias);
         dump($article);
@@ -81,10 +98,10 @@ class ArticlesController extends SiteController
                                                         ->render();
         $this->vars = array_add($this->vars, 'content', $content);
 
-        $sidebar_menu = '';
+        // $sidebar_menu = '';
 
-        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-        $this->vars = array_add($this->vars, 'sidebar', $sidebar);
+        // $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        // $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
         return $this->renderOutput();
     }

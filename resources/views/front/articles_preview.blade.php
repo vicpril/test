@@ -13,14 +13,14 @@
       <!-- END LABEL -->
     @endadmin
          <h5 class="article-title">
-            {{ $article->loc->title }}
+            <a class="" href="{{ route('article', $article->alias) }}">{{ $article->loc->title }}</a>
          </h5>
          <ul
             class="authors mb-2 list-unstyled list-group list-group-horizontal"
          >
             @foreach($article->users as $user)
             <li>
-               <a href="{{ route('authors.show', $user->alias) }}">{{$user->loc->short_name}}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
+               <a class="author-name" href="{{ route('authors.show', $user->alias) }}">{{$user->loc->short_name}}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
             </li>
             @endforeach
          </ul>
