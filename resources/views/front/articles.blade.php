@@ -51,7 +51,7 @@
 
     <div class="col d-flex justify-content-center">
     <button class="btn btn-link toTop">
-        <strong>Back to top</strong>
+        <strong>@lang('К началу страницы')</strong>
     </button>
     </div>
 
