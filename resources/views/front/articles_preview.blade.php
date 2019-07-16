@@ -25,7 +25,7 @@
             @endforeach
          </ul>
          <div class="doi py-1">
-            <span><strong>DOI: </strong></span>
+            <span class="text-dark"><strong>DOI: </strong></span>
             {{ $article->doi }}
          </div>
          <div class="links my-2 d-flex">
