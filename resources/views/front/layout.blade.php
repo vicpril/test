@@ -72,6 +72,7 @@
             <div class="card ">
                @hasSection('subtitle')
                <div class="card-header ">
+                  @yield('breadcrumbs')
                   <h2 class="my-1 px-2">
                      @yield('subtitle')
                   </h2>

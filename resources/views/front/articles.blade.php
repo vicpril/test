@@ -1,24 +1,11 @@
-@extends('front.layout')
-
-@section('navigation')
-	{!! $navigation !!}
-@endsection
-
+@extends('front.index')
 
 @section('stol_menu')
     @include('front.components.stol_menu')
 @endsection
 
-@section('review_menu')
-	{!! $review_menu !!}
-@endsection
-
-@section('title')
-	{!! $title !!}
-@endsection
-
 @section('subtitle')
-	@lang('Содержание тома')
+	{!! $subtitle !!}
 @endsection
 
 @section('content')

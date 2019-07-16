@@ -9,6 +9,7 @@ use App\Repositories\ArticlesRepository;
 
 class ArticlesController extends SiteController
 {
+    protected $onlyPublished;
     //
     public function __construct(IssuesRepository $i_rep, ArticlesRepository $a_rep) {
 		parent::__construct(
@@ -24,6 +25,13 @@ class ArticlesController extends SiteController
         $this->template = 'front.articles';
         
         $this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
+        $this->onlyPublished = (!auth()->guest() && auth()->user()->role === 'admin') ? false : true ;
+        if($this->show_stol_menu) {
+            $stol_menu = $this->a_rep->getArticles($this->onlyPublished, $stol = true)->take(4);
+            $this->vars = array_add($this->vars, 'stol_menu', $stol_menu);
+        } else {
+            $this->vars = array_add($this->vars, 'stol_menu', []);
+        }
 	}
 
 
@@ -38,9 +46,8 @@ class ArticlesController extends SiteController
             return $this->redirectOnLastIssue();
         }
 
-        $onlyPublished = (!auth()->guest() && auth()->user()->role === 'admin') ? false : true ;
        // dump($request);
-        $issue = $this->getIssue($request, $onlyPublished);
+        $issue = $this->getIssue($request, $this->onlyPublished);
 
         // 				dd($issue);
         $nextIssue = $this->i_rep->getNextIssue($issue);
@@ -48,12 +55,7 @@ class ArticlesController extends SiteController
         
         $this->title = view('front.articles_title')->with('issue', $issue)->render();
 
-        if($this->show_stol_menu) {
-            $stol_menu = $this->a_rep->getArticles($onlyPublished, $stol = true)->take(4);
-            $this->vars = array_add($this->vars, 'stol_menu', $stol_menu);
-        } else {
-            $this->vars = array_add($this->vars, 'stol_menu', []);
-        }
+        $this->subtitle = __('Содержание тома');
 
         $this->vars = array_add($this->vars, 'issue', $issue);
         $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);
@@ -70,7 +72,6 @@ class ArticlesController extends SiteController
     */
     public function show(Article $article) {
         
-        
         if (auth()->guest() && !$article->status->type) {
             return abort(404, 'Статья не найдена');
         }
@@ -84,24 +85,13 @@ class ArticlesController extends SiteController
             'tags'
         ]);
 
-        $this->template = 'front.index';
+        $this->template = 'front.article';
+        
+        $this->title = view('front.articles_title')->with('issue', $article->issue)->render();
 
-				
-//         $article = $this->getArticle($alias);
-        dump($article);
-        // $nextIssue = $this->i_rep->getNextIssue($issue);
-        // $prevIssue = $this->i_rep->getPrevIssue($issue);
+        $this->subtitle = $article->loc->title;
 
-        $content = view('front.article_content')->with('article', $article)
-                                                        // ->with('nextArticle', $nextIssue)
-                                                        // ->with('prevArticle', $prevIssue)
-                                                        ->render();
-        $this->vars = array_add($this->vars, 'content', $content);
-
-        // $sidebar_menu = '';
-
-        // $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-        // $this->vars = array_add($this->vars, 'sidebar', $sidebar);
+        $this->vars = array_add($this->vars, 'article', $article);
 
         return $this->renderOutput();
     }
