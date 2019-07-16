@@ -53,12 +53,19 @@
 		<div class="article-tags mb-3">
 			<span class="text-dark"><strong>@lang('Темы материала'):</strong></span>
 			<ul class="authors list-unstyled list-group list-group-horizontal">
-			@foreach($article->tags as $tag)
-			<li>
-				 <a class="text-info" href="{{ route('tags.show', $tag->alias) }}">{{$tag->loc}}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
-			</li>
-			@endforeach
-	</ul>	
+				@foreach($article->tags as $tag)
+				<li>
+					 <a class="text-info" href="{{ route('tags.show', $tag->alias) }}">{{$tag->loc}}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
+				</li>
+				@endforeach
+		</ul>	
+		</div>
+	@endif
+
+	@if($article->ru->file)
+		<div class="article-doi mb-3">
+			<span class="text-dark d-block"><strong>@lang('Вы можете скачать статью по ссылке'):</strong></span>
+			<a href="{{ Storage::url($article->ru->file) }}" target="_blank">{{ explode('/', $article->ru->file)[count(explode('/', $article->ru->file))-1] }}</a>
 		</div>
 	@endif
 @endsection
