@@ -98,3 +98,30 @@
 		</div>
 	@endif
 @endsection
+
+@section('contentFooter')
+	@if( $prevArticle || $nextArticle)
+			<div class="row mx-2 d-flex">
+
+			<div class="col d-flex justify-content-start">
+			@if($prevArticle)
+					<a class="btn btn-primary float-right" href="{{ route('article', $prevArticle->alias) }}">Предыдущая статья выпуска</a>
+			@endif
+			</div>
+
+			<div class="col d-flex justify-content-center">
+			<button class="btn btn-link toTop">
+					<strong>@lang('К началу страницы')</strong>
+			</button>
+			</div>
+
+			<div class="col d-flex justify-content-end">
+			@if($nextArticle)
+					<a class="btn btn-primary" href="{{ route('article', ['aliasArticle' => $nextArticle->alias]) }}">Следующая статья выпуска</a>
+			@endif
+			</div>
+
+			</div>
+
+	@endif
+@endsection

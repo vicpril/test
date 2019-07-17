@@ -73,14 +73,14 @@ class ArticlesController extends SiteController
 				$this->onlyPublished = (!auth()->guest() && auth()->user()->role == 'admin') ? false : true ;
 				$this->prepareStolMenu();
         
-        $article->load([
-            'meta',
-            'users',
-            'users.meta',
-            'issue',
-            'categories',
-            'tags'
-        ]);
+//         $article->loadMissing([
+//             'meta',
+//             'users',
+//             'users.meta',
+//             'issue',
+//             'categories',
+//             'tags'
+//         ]);
 
         $this->template = 'front.article';
         
@@ -89,6 +89,16 @@ class ArticlesController extends SiteController
         $this->subtitle = $article->loc->title;
 
         $this->vars = array_add($this->vars, 'article', $article);
+			
+				$prevArticle = ($article->order > 1) 
+						? $article->issue->articles[$article->order - 1]
+						: false ;
+				$this->vars = array_add($this->vars, 'prevArticle', $prevArticle);
+			
+				$nextArticle = ($article->order < count($article->issue->articles)) 
+						? $article->issue->articles[$article->order + 1]
+						: false ;
+				$this->vars = array_add($this->vars, 'nextArticle', $nextArticle);
 
         return $this->renderOutput();
     }
