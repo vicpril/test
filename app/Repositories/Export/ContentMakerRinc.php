@@ -52,8 +52,10 @@ class ContentMakerRinc extends ContentMaker
 
         // get pages from DOI
         $this->articles->each(function($article) {
-            $article->firstPage = $this->getDoiPage($article, 'first');
-            $article->lastPage = $this->getDoiPage($article, 'last');
+            // $article->firstPage = $this->getDoiPage($article, 'first');
+            // $article->lastPage = $this->getDoiPage($article, 'last');
+            $article->firstPage = $article->doiFirstPage;
+            $article->lastPage = $article->doiLastPage;
         });
         $this->firstPage = $this->articles->first()->firstPage;
         $this->lastPage = $this->articles->last()->lastPage;

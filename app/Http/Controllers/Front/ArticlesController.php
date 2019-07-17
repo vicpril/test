@@ -76,7 +76,7 @@ class ArticlesController extends SiteController
             return abort(404, 'Статья не найдена');
         }
         
-        $article->loadMissing([
+        $article->load([
             'meta',
             'users',
             'users.meta',

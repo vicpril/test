@@ -32,6 +32,19 @@
 @endsection
 
 @section('content')
+	@admin
+     <!-- LABEL -->
+    <div class="row">
+        @if($article->status->type)
+           <span class="badge badge-pill badge-success mr-2">Опубликована</span>
+        @else
+           <span class="badge badge-pill badge-danger mr-2">Черновик</span>
+        @endif
+        <a href="{{ $article->editLink }}" target="_blank">Редактровать</a>
+    </div>
+    <!-- END LABEL -->
+    @endadmin
+
 	<span class="text-dark"><strong>@lang('Авторы'):</strong></span>
 	<ul class="authors mb-3 list-unstyled list-group list-group-horizontal">
 			@foreach($article->users as $user)
@@ -65,7 +78,7 @@
 	@if($article->ru->file)
 		<div class="article-doi mb-3">
 			<span class="text-dark d-block"><strong>@lang('Вы можете скачать статью по ссылке'):</strong></span>
-			<a href="{{ Storage::url($article->ru->file) }}" target="_blank">{{ explode('/', $article->ru->file)[count(explode('/', $article->ru->file))-1] }}</a>
+			<a href="{{ Storage::url($article->ru->file) }}" target="_blank">{!! $article->loc->fileTitle !!}</a>
 		</div>
 	@endif
 @endsection

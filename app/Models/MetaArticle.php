@@ -37,4 +37,8 @@ class MetaArticle extends Model
       return $this->belongsTo('App\Models\File');
     }
 
+    public function getFileTitleAttribute() {
+        return view("front.components.file_title_$this->lang")->with('article', $this->article)->render();
+    }
+
 }

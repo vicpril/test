@@ -20,7 +20,11 @@
          >
             @foreach($article->users as $user)
             <li>
-               <a class="author-name" href="{{ route('authors.show', $user->alias) }}">{{$user->loc->short_name}}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
+               @if( Config::get('app.locale') == 'ru' )
+                  <a class="author-name" href="{{ route('authors.show', $user->alias) }}">{{$user->loc->short_name}}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
+               @else
+                  <a class="author-name" href="{{ route('authors.show', $user->alias) }}">{{ $user->en->last_name }} {{ $user->en->first_name }}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
+               @endif
             </li>
             @endforeach
          </ul>
@@ -58,7 +62,7 @@
             <div class="article-section article-annotation">
                <span><strong>@lang('Аннотация'): </strong></span>
                <p class="mb-0">
-                  {{ $article->loc->annotation }}
+                  {!! $article->loc->annotation !!}
                </p>
             </div>
 

@@ -115,4 +115,26 @@ class Article extends Model
         return route('article', $this->alias);
     }
 
+    /*
+     *   Get pages from doi
+     */
+    public function getDoiPagesAttribute()
+    {
+        $doi_str = explode('/', $this->doi);
+        $doi_str[1] = (isset($doi_str[1])) ? explode('-', $doi_str[1]) : '';
+        
+        $result['first'] = $doi_str[1][4] ?? ''; // первая страница первой статьи
+        $result['last'] = $doi_str[1][5] ?? '';  // последняя страница последней статьи
+        
+        return ($result) ?: '';
+    }
+
+    public function getDoiFirstPageAttribute() {
+        return $this->doiPages['first'];
+    }
+
+    public function getDoiLastPageAttribute() {
+        return $this->doiPages['last'];
+    }
+
 }

@@ -47,8 +47,10 @@ class ContentMakerArticle extends ContentMaker
         
         // get pages from DOI
         $this->articles->each(function($article) {
-            $article->firstPage = $this->getDoiPage($article, 'first');
-            $article->lastPage = $this->getDoiPage($article, 'last');
+            // $article->firstPage = $this->getDoiPage($article, 'first');
+            // $article->lastPage = $this->getDoiPage($article, 'last');
+            $article->firstPage = $article->doiFirstPage;
+            $article->lastPage = $article->doiLastPage;
             $article->jobLinkTextRu = view(env('THEME_BACK').'.back.export.article.components.jobLinkTextRu')
               ->with([
                    'article' => $article,

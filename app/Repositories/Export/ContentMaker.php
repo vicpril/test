@@ -43,22 +43,22 @@ abstract class ContentMaker implements ContentMakerInterface
         return get_object_vars($this);
     }
   
-    protected function getDoiPage(Article $article, $page = 'first')
-    {
-        $doi_str = explode('/', $article->doi);
-        $doi_str[1] = (isset($doi_str[1])) ? explode('-', $doi_str[1]) : '';
+    // protected function getDoiPage(Article $article, $page = 'first')
+    // {
+    //     $doi_str = explode('/', $article->doi);
+    //     $doi_str[1] = (isset($doi_str[1])) ? explode('-', $doi_str[1]) : '';
         
-        switch($page) {
-          case 'first': $result = $doi_str[1][4] ?? ''; break; // первая страница первой статьи
-          case 'last': $result = $doi_str[1][5] ?? ''; break;  // последняя страница последней статьи
-        }
+    //     switch($page) {
+    //       case 'first': $result = $doi_str[1][4] ?? ''; break; // первая страница первой статьи
+    //       case 'last': $result = $doi_str[1][5] ?? ''; break;  // последняя страница последней статьи
+    //     }
 
-        if ($result) {
-            return $result;
-        } else {
-            return '';
-        }
-    }
+    //     if ($result) {
+    //         return $result;
+    //     } else {
+    //         return '';
+    //     }
+    // }
   
 }
 
