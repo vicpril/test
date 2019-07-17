@@ -42,7 +42,13 @@ class ArticlesController extends SiteController
 				$this->onlyPublished = (!auth()->guest() && auth()->user()->role == 'admin') ? false : true ;
 				$this->prepareStolMenu();
 			
-        $issue = $this->getIssue($request, $this->onlyPublished);
+//         $issue = $this->getIssue($request, $this->onlyPublished);
+        $issue = $this->getIssue($request, false);
+				dump($issue->articles);
+				dump($issue->published()->articles);
+				dump($issue->unpublished()->articles);
+
+
 
         $nextIssue = $this->i_rep->getNextIssue($issue);
         $prevIssue = $this->i_rep->getPrevIssue($issue);
@@ -69,6 +75,8 @@ class ArticlesController extends SiteController
         if (auth()->guest() && !$article->status->type) {
             return abort(404, 'Статья не найдена');
         }
+			
+				$issue = $this->getIssue($request, $this->onlyPublished);
 			
 				$this->onlyPublished = (!auth()->guest() && auth()->user()->role == 'admin') ? false : true ;
 				$this->prepareStolMenu();
@@ -139,6 +147,9 @@ class ArticlesController extends SiteController
         return $article;
     }
 
+	/*
+	*
+	*/
     private function getIssue(Request $request, $articleStatus = '*') {
         
         $issue = $this->i_rep->one($request->all(), app()->getLocale());

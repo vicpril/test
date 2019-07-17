@@ -34,5 +34,27 @@ class Issue extends Model
     {
         return route('issues.edit', $this->id);
     }
+  
+    /*
+    *   Scopes
+    */
+    public function scopePublished ($query)
+    {
+        return $this->withStatus('public');
+    }
+  
+    public function scopeUnpublished ($query)
+    {
+        return $this->withStatus('private');
+    }
+  
+    public function scopeWithStatus ($query, $status)
+    {
+        $this->articles = $this->articles->filter(function($article) use ($status){
+            return $article->status->title_en == $status;
+        });
+        return $this;
+    }
+  
 
 }
