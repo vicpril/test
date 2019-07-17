@@ -24,5 +24,7 @@
    "№:no, часть :part": "Issue :no, part :part",
    "Темы материала": "Tags",
    "Авторы": "Authors",
-   "Вы можете скачать статью по ссылке": "You can download this article"
+   "Вы можете скачать статью по ссылке": "Download this article",
+   "Вы можете прослушать аудио версию статьи": "Listen audio version",
+   "Приложения к статье": "Applications"
 }

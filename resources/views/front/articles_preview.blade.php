@@ -49,9 +49,13 @@
             <ul
                class="ml-auto list-unstyled list-group list-group-horizontal"
             >
-               <li><a href="{{ route('article', $article->alias) }}">@lang('Текст статьи')</a></li>
-               <li><a href="#">PDF</a></li>
-               <li><a href="#">@lang('Аудио версия')</a></li>
+                  <li><a href="{{ route('article', $article->alias) }}">@lang('Текст статьи')</a></li>
+               @if( $article->ru->file )
+                  <li><a href="{{ Storage::url($article->ru->file) }}" target="_blank">PDF</a></li>
+               @endif
+               @if( $article->file_audio )
+                  <li><a href="{{ Storage::url($article->file_audio) }}" target="_blank">@lang('Аудио версия')</a></li>
+               @endif
             </ul>
          </div>
          <div class="collapse annotation" id="annotation-{{ $article->id }}">

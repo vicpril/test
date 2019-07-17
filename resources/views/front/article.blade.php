@@ -75,10 +75,26 @@
 		</div>
 	@endif
 
+	@if($article->applications)
+		<div class="article-doi mb-3">
+			<span class="text-dark d-block"><strong>@lang('Приложения к статье'):</strong></span>
+			<div>
+				{!! $article->applications !!}
+			</div>
+		</div>
+	@endif
+
 	@if($article->ru->file)
 		<div class="article-doi mb-3">
 			<span class="text-dark d-block"><strong>@lang('Вы можете скачать статью по ссылке'):</strong></span>
 			<a href="{{ Storage::url($article->ru->file) }}" target="_blank">{!! $article->loc->fileTitle !!}</a>
+		</div>
+	@endif
+
+	@if($article->file_audio)
+		<div class="article-doi mb-3">
+			<span class="text-dark d-block"><strong>@lang('Вы можете прослушать аудио версию статьи'):</strong></span>
+			<a href="{{ Storage::url($article->file_audio) }}" target="_blank">{{ explode('/', $article->file_audio)[count(explode('/', $article->file_audio))-1] }}</a>
 		</div>
 	@endif
 @endsection
