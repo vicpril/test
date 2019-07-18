@@ -137,14 +137,21 @@ class ArticlesController extends SiteController
           $this->prepareStolMenu();
 
           $this->template = 'front.archive';
+
+          $this->title = __('Архив');
       
           $issues = ($this->status) ? $this->i_rep->allByStatus($this->status) : $this->i_rep->all();
       
-          $years = $issues->mapToGroups(function($issue) {
-              return [ $issue->year => $issue];
-          });
+          $years = $issues
+                    ->mapToGroups(function($issue) {
+                        return [ $issue->full_no => $issue];
+                    })
+                    ->mapToGroups(function($full_no) {
+                        return [ $full_no[0]->year => $full_no];
+                    })
+                    ->sort();
             
-//             dd($years);
+            // dd($years);
 
 //           dd($issues);
 

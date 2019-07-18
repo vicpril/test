@@ -68,7 +68,7 @@
 
    <main role="main" class="container">
       <div class="row">
-         <div class="col-md-9 blog-main">
+         <div class="col-md-9 blog-main mb-3">
             <div class="card ">
                @hasSection('subtitle')
                <div class="card-header ">
@@ -134,7 +134,7 @@
    </main>
    <!-- /.container -->
 
-   <footer class="py-3 mt-3 d-flex justify-content-center">
+   <footer class="py-3 d-flex justify-content-center">
       <small class="text-white">@lang('Разработал') <a href="#" class="desiner">@lang('Виктор Прилепин')</a></small>
    </footer>
 </body>

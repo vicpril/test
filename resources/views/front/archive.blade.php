@@ -5,15 +5,30 @@
 @endsection
 
 @section('content')
-		@foreach($years as $year => $issues)
-				<div class="col-4 d-flex justify-content-center">
-						<h5>{{ $year }}</h5>
+	<div class="row no-gutters">
+		@foreach($years as $year => $no)
+				<div class="col-sm-6 col-lg-4 text-center d-flex">
+					<div class="m-1 border flex-fill">
+						<h5>{{ $year }}, @lang('Том') {{ $no[0][0]->tom }}</h5>
 						<ul class="list-unstyled">
-						@foreach($issues as $issue)
-								<li><a href="{{ route('articles') }}?year={{$issue->year}}&no={{$issue->no}}&part={{$issue->part}}">Номер {{ $issue->no }} ({{$issue->fullno}}) Часть {{$issue->part}}</a></li>
+						@foreach($no as $issues)
+								<li class="mt-1">
+									<span>@lang('Номер')@if(Config::get('app.locale')=='en').@endif {{ $issues[0]->no }} ({{ $issues[0]->full_no }}) </span>
+									@foreach($issues as $issue)
+										<!-- <strong> -->
+											<a class="badge badge-primary badge-pill" href="{{ route('articles') }}?year={{ $issue->year }}&no={{ $issue->no }}&part={{  $issue->part }}">{{$issue->part}}</a>
+										<!-- </strong> -->
+										@if(!$loop->last)
+											<span> | </span>
+										@endif
+									@endforeach
+								</li>
 						@endforeach
 						</ul>
-						
+					</div>	
 				</div>
 		@endforeach
+		
+
+	</div>
 @endsection
