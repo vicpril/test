@@ -63,7 +63,7 @@ class Issue extends Model
     public function filterArticlesByStatus($status) {
         $this->articles = $this->articles->filter(function ($article) use ($status) {
             return $article->status->title_en == $status;
-        });
+        })->values();
         return $this;
     }
 

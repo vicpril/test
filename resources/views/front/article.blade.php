@@ -105,19 +105,16 @@
 
 			<div class="col d-flex justify-content-start">
 			@if($prevArticle)
-					<a class="btn btn-primary float-right" href="{{ route('article', $prevArticle->alias) }}">Предыдущая статья выпуска</a>
+					<a class="btn btn-primary float-right" href="{{ route('article', $prevArticle->alias) }}" title="{{$prevArticle->loc->title}}">@lang('Предыдущая статья выпуска')</a>
 			@endif
 			</div>
 
 			<div class="col d-flex justify-content-center">
-			<button class="btn btn-link toTop">
-					<strong>@lang('К началу страницы')</strong>
-			</button>
 			</div>
 
 			<div class="col d-flex justify-content-end">
 			@if($nextArticle)
-					<a class="btn btn-primary" href="{{ route('article', ['aliasArticle' => $nextArticle->alias]) }}">Следующая статья выпуска</a>
+					<a class="btn btn-primary" href="{{ route('article', ['aliasArticle' => $nextArticle->alias]) }}" title="{{$nextArticle->loc->title}}">@lang('Следующая статья выпуска')</a>
 			@endif
 			</div>
 

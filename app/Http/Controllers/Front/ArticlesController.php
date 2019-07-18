@@ -81,14 +81,12 @@ class ArticlesController extends SiteController
      */
     public function show(Article $article)
     {
+        $this->setStatus();
 
         if (auth()->guest() && !$article->status->type) {
             return abort(404, 'Статья не найдена');
         }
 
-        $issue = $this->getIssue($request, $this->onlyPublished);
-
-        $this->onlyPublished = (!auth()->guest() && auth()->user()->role == 'admin') ? false : true;
         $this->prepareStolMenu();
 
         $this->template = 'front.article';
@@ -98,16 +96,30 @@ class ArticlesController extends SiteController
         $this->subtitle = $article->loc->title;
 
         $this->vars = array_add($this->vars, 'article', $article);
+      
+        /* Previous + Next Articles */
 
-        $prevArticle = ($article->order > 1)
-        ? $article->issue->articles[$article->order - 1]
-        : false;
-        $this->vars = array_add($this->vars, 'prevArticle', $prevArticle);
+              $issue = $article->issue;
+              $issue->loadMissing([
+                'articles',
+                'articles.status',
+                'articles.meta'
+              ]);
+              $issue = ($this->onlyPublished) ? $issue->published() : $issue ;
 
-        $nextArticle = ($article->order < count($article->issue->articles))
-        ? $article->issue->articles[$article->order + 1]
-        : false;
-        $this->vars = array_add($this->vars, 'nextArticle', $nextArticle);
+              $index = $issue->articles->search(function($item) use ($article){
+                  return $item->alias == $article->alias;
+              });  
+
+              $prevArticle = ($index > 0)
+                            ? $issue->articles[$index - 1]
+                            : false;
+              $this->vars = array_add($this->vars, 'prevArticle', $prevArticle);
+
+              $nextArticle = ($index < count($issue->articles) - 1 )
+                            ? $issue->articles[$index + 1]
+                            : false;
+              $this->vars = array_add($this->vars, 'nextArticle', $nextArticle);
 
         return $this->renderOutput();
     }
