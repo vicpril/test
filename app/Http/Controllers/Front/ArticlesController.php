@@ -123,13 +123,42 @@ class ArticlesController extends SiteController
 
         return $this->renderOutput();
     }
+  
+    
+    /*
+    *
+    *   Render Archive
+    *
+    */
+    public function archive() 
+    {
+          $this->setStatus();
+
+          $this->prepareStolMenu();
+
+          $this->template = 'front.archive';
+      
+          $issues = ($this->status) ? $this->i_rep->allByStatus($this->status) : $this->i_rep->all();
+      
+          $years = $issues->mapToGroups(function($issue) {
+              return [ $issue->year => $issue];
+          });
+            
+//             dd($years);
+
+//           dd($issues);
+
+          $this->vars = array_add($this->vars, 'years', $years);
+      
+          return $this->renderOutput();
+    }
 
     /*
      *
      *  Check last Issue and rerirect if it isset
      *
      */
-    public function redirectOnLastIssue()
+    private function redirectOnLastIssue()
     {
 
         $issue = $this->i_rep->oneLastByStatus($this->status);

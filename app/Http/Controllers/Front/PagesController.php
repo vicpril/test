@@ -9,18 +9,18 @@ class PagesController extends SiteController
 {
     protected $page;
 
-	public function __construct(Page $page) {
+		public function __construct(Page $page) {
         parent::__construct(
             new \App\Repositories\MenusRepository(new \App\Models\Menu),
             new \App\Repositories\TagsRepository(new \App\Models\Tag)
         );
 
-		$this->template = 'front.index';
+				$this->template = 'front.index';
     }
     
     
     public function index (Page $page) {
-        // dd($page);
+//         dd($page);
         switch ($page->template) {
             case 'common':
                 if($page->loc->on){
@@ -38,6 +38,7 @@ class PagesController extends SiteController
                 break;
             case 'articles':
             case 'article':
+						case 'archive':
             case 'categories':
             case 'tags':
             case 'authors':
@@ -59,8 +60,8 @@ class PagesController extends SiteController
     private function show(Page $page) {
 
         $this->show_top_menu = $page->show_top_menu;
-		$this->show_sidebar_menu = $page->show_sidebar_menu;
-		$this->show_review_menu = $page->show_review_menu;
+				$this->show_sidebar_menu = $page->show_sidebar_menu;
+				$this->show_review_menu = $page->show_review_menu;
 
         // $content = $this->page->loc->content;
     	// $content = view('front.index_content')->render();

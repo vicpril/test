@@ -86,7 +86,7 @@ Route::group(
             'parameters' => ['authors' => 'alias'],
         ]);
 
-        // Route::name('archive')->get('/archive', 'ArticlesController@archiveIndex');
+        Route::name('archive')->get('/archive', 'ArticlesController@archive');
         // Route::name('archive')->get('/archive', function() { return 'archive' ;});
         // Route::name('redkollegiya')->get('/redkollegiya', function() { return 'redkollegiya' ;});
         // Route::name('contacts')->get('/contacts', function() { return 'contacts' ;});

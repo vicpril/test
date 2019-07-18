@@ -27,6 +27,24 @@ class IssuesRepository extends Repository
 
         return $result->first();
     }
+  
+      /*
+     *  Get ALL Issue with current status
+     *   without relations
+     */
+    public function allByStatus($status = false)
+    {
+//         $result
+      
+        $result = ($status) ? $this->model->withStatus($status) : $this->model;
+// dd($result);
+        $result = $result->orderBy('year', 'desc');
+        $result = $result->orderBy('no', 'desc');
+        $result = $result->orderBy('part', 'asc');
+
+        return $result->get();
+    }
+
 
     /*
      *  Get last Issue with current status
