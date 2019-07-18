@@ -38,23 +38,47 @@ class Issue extends Model
     /*
     *   Scopes
     */
-    public function scopePublished ($query)
-    {
-        return $this->withStatus('public');
-    }
+    // public function scopePublished ($query)
+    // {
+    //     return $this->withStatus('public');
+    // }
   
-    public function scopeUnpublished ($query)
-    {
-        return $this->withStatus('private');
-    }
+    // public function scopeUnpublished ($query)
+    // {
+    //     return $this->withStatus('private');
+    // }
   
     public function scopeWithStatus ($query, $status)
     {
-        $this->articles = $this->articles->filter(function($article) use ($status){
+        $query->whereHas('articles', function ($query) use ($status) {
+            $query->whereHas('status', function ($query) use ($status) {
+                $query->where('title_en', $status);
+            });
+        })->get();
+    }
+
+    /*
+    *   Filters
+    */
+    public function filterArticlesByStatus($status) {
+        $this->articles = $this->articles->filter(function ($article) use ($status) {
             return $article->status->title_en == $status;
         });
         return $this;
     }
+
+    public function published ()
+    {
+        return $this->filterArticlesByStatus('public');
+    }
+
+    public function unpublished ()
+    {
+        return $this->filterArticlesByStatus('private');
+    }
+
+
+
   
 
 }

@@ -2,57 +2,55 @@
 
 namespace App\Http\Controllers\Front;
 
-use Illuminate\Http\Request;
 use App\Models\Article;
-use App\Repositories\IssuesRepository;
 use App\Repositories\ArticlesRepository;
+use App\Repositories\IssuesRepository;
+use Illuminate\Http\Request;
 
 class ArticlesController extends SiteController
 {
     protected $onlyPublished = true;
+    protected $status = 'public';
+
     //
-    public function __construct(IssuesRepository $i_rep, ArticlesRepository $a_rep) 
-		{
-				parent::__construct(
-						new \App\Repositories\MenusRepository(new \App\Models\Menu),
-						new \App\Repositories\TagsRepository(new \App\Models\Tag)
-				);
+    public function __construct(IssuesRepository $i_rep, ArticlesRepository $a_rep)
+    {
+        parent::__construct(
+            new \App\Repositories\MenusRepository(new \App\Models\Menu),
+            new \App\Repositories\TagsRepository(new \App\Models\Tag)
+        );
 
-				$this->i_rep = $i_rep;
-				$this->a_rep = $a_rep;
+        $this->i_rep = $i_rep;
+        $this->a_rep = $a_rep;
 
-				$this->template = 'front.articles';
+        $this->template = 'front.articles';
 
-				$this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
-        
-		}
+        $this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
 
+    }
 
     /*
-    *
-    *  Render articles list of last Issue
-    *
-    */
-    public function index(Request $request) {
-        
+     *
+     *  Render articles list of last Issue
+     *
+     */
+    public function index(Request $request)
+    {
+
         if (!$request->year || !$request->no || !$request->part) {
             return $this->redirectOnLastIssue();
         }
 
-				$this->onlyPublished = (!auth()->guest() && auth()->user()->role == 'admin') ? false : true ;
-				$this->prepareStolMenu();
-			
+        $this->setStatus();
+        $this->prepareStolMenu();
+
 //         $issue = $this->getIssue($request, $this->onlyPublished);
-        $issue = $this->getIssue($request, false);
-				dump($issue->articles);
-				dump($issue->published()->articles);
-				dump($issue->unpublished()->articles);
+        $issue = $this->getIssue($request, $this->status);
+        if (!$issue) {return $this->redirectOnLastIssue();}
 
+        $nextIssue = $this->i_rep->getNextIssue($issue, $this->status);
+        $prevIssue = $this->i_rep->getPrevIssue($issue, $this->status);
 
-
-        $nextIssue = $this->i_rep->getNextIssue($issue);
-        $prevIssue = $this->i_rep->getPrevIssue($issue);
-        
         $this->title = view('front.articles_title')->with('issue', $issue)->render();
 
         $this->subtitle = __('Содержание тома');
@@ -60,122 +58,127 @@ class ArticlesController extends SiteController
         $this->vars = array_add($this->vars, 'issue', $issue);
         $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);
         $this->vars = array_add($this->vars, 'prevIssue', $prevIssue);
-            
-    		return $this->renderOutput();
+
+        return $this->renderOutput();
     }
 
+    private function setStatus()
+    {
+        if (!auth()->guest() && auth()->user()->role == 'admin') {
+            $this->onlyPublished = false;
+            $this->status = false;
+        } else {
+            $this->onlyPublished = true;
+            $this->status = 'public';
+        };
+    }
 
     /*
-    *
-    *  Render current article
-    *
-    */
-    public function show(Article $article) {
-        
+     *
+     *  Render current article
+     *
+     */
+    public function show(Article $article)
+    {
+
         if (auth()->guest() && !$article->status->type) {
             return abort(404, 'Статья не найдена');
         }
-			
-				$issue = $this->getIssue($request, $this->onlyPublished);
-			
-				$this->onlyPublished = (!auth()->guest() && auth()->user()->role == 'admin') ? false : true ;
-				$this->prepareStolMenu();
-        
-//         $article->loadMissing([
-//             'meta',
-//             'users',
-//             'users.meta',
-//             'issue',
-//             'categories',
-//             'tags'
-//         ]);
+
+        $issue = $this->getIssue($request, $this->onlyPublished);
+
+        $this->onlyPublished = (!auth()->guest() && auth()->user()->role == 'admin') ? false : true;
+        $this->prepareStolMenu();
 
         $this->template = 'front.article';
-        
+
         $this->title = view('front.articles_title')->with('issue', $article->issue)->render();
 
         $this->subtitle = $article->loc->title;
 
         $this->vars = array_add($this->vars, 'article', $article);
-			
-				$prevArticle = ($article->order > 1) 
-						? $article->issue->articles[$article->order - 1]
-						: false ;
-				$this->vars = array_add($this->vars, 'prevArticle', $prevArticle);
-			
-				$nextArticle = ($article->order < count($article->issue->articles)) 
-						? $article->issue->articles[$article->order + 1]
-						: false ;
-				$this->vars = array_add($this->vars, 'nextArticle', $nextArticle);
+
+        $prevArticle = ($article->order > 1)
+        ? $article->issue->articles[$article->order - 1]
+        : false;
+        $this->vars = array_add($this->vars, 'prevArticle', $prevArticle);
+
+        $nextArticle = ($article->order < count($article->issue->articles))
+        ? $article->issue->articles[$article->order + 1]
+        : false;
+        $this->vars = array_add($this->vars, 'nextArticle', $nextArticle);
 
         return $this->renderOutput();
     }
 
-
     /*
-    *
-    *  Check last Issue and rerirect if it isset
-    *
-    */
-    public function redirectOnLastIssue() {
-            
-			$issue = $this->i_rep->oneLastByStatus('public');
-      
-			if ($issue) {
-				return redirect()->route('articles', [
-																				'year' => $issue->year,
-																				'no' => $issue->no,
-																				'part' => $issue->part,
-																		]);
-				} else {
-						return die('Записей нет');
-				}
+     *
+     *  Check last Issue and rerirect if it isset
+     *
+     */
+    public function redirectOnLastIssue()
+    {
+
+        $issue = $this->i_rep->oneLastByStatus('public');
+
+        if ($issue) {
+            return redirect()->route('articles', [
+                'year' => $issue->year,
+                'no' => $issue->no,
+                'part' => $issue->part,
+            ]);
+        } else {
+            return die('Записей нет');
+        }
     }
 
+    public function getArticle($alias)
+    {
 
-    public function getArticle($alias) {
-        
         $article = $this->a_rep->one($alias, app()->getLocale());
 
         return $article;
     }
 
-    public function getArticleByStatus($alias) {
-        
+    public function getArticleByStatus($alias)
+    {
+
         $article = $this->a_rep->one($alias, 'public');
 
         return $article;
     }
 
-	/*
-	*
-	*/
-    private function getIssue(Request $request, $articleStatus = '*') {
-        
-        $issue = $this->i_rep->one($request->all(), app()->getLocale());
+    /*
+     *
+     */
+    private function getIssue(Request $request, $articleStatus = '*')
+    {
 
-				if ($issue) {
-            $issue = $this->i_rep->getIssuesByArticleStatus($articleStatus, $issue);
-            $issue = $this->i_rep->prepareIssue($issue);
+        $issue = $this->i_rep->getIssueByRequest($request->all());
+
+        if ($issue) {
+            $issue = ($this->onlyPublished) ? $issue->published(): $issue;
+            if (count($issue->articles) > 0) {
+                $issue = $this->i_rep->getIssuesByArticleStatus($articleStatus, $issue);
+                $issue = $this->i_rep->prepareIssue($issue);
+                return $issue;
+            }
         }
 
-        return $issue;
+        return null;
     }
-	
-		private function prepareStolMenu () {
-			
-				if($this->show_stol_menu) {
-						$stol_menu = $this->a_rep->getArticles($this->onlyPublished, $stol = true)->take(4);
-						$this->vars = array_add($this->vars, 'stol_menu', $stol_menu);
-				} else {
-						$this->vars = array_add($this->vars, 'stol_menu', []);
-				}
-			
-		}
 
+    private function prepareStolMenu()
+    {
 
+        if ($this->show_stol_menu) {
+            $stol_menu = $this->a_rep->getArticles($this->onlyPublished, $stol = true)->take(4);
+            $this->vars = array_add($this->vars, 'stol_menu', $stol_menu);
+        } else {
+            $this->vars = array_add($this->vars, 'stol_menu', []);
+        }
 
-
+    }
 
     // /***********************************
     // *              FOR TEST
@@ -185,13 +188,13 @@ class ArticlesController extends SiteController
     //     if ($issues) {
     //         if (is_a($issues, 'Illuminate\Database\Eloquent\Model')) {
     //             $this->renderIssue($issues);
-    //         } 
+    //         }
     //         if (is_a($issues, 'Illuminate\Database\Eloquent\Collection')) {
     //             $issues->each(function($issue){
     //                 $this->renderIssue($issue);
     //             });
     //         }
-            
+
     //     }
     // }
 
@@ -203,7 +206,7 @@ class ArticlesController extends SiteController
     //             echo $issue->no . ' - ' ;
     //             echo $issue->part . ' - ' ;
     //             echo $article->id . ' - ' ;
-    //             echo '<b>'.$article->title . '</b> - ' 
+    //             echo '<b>'.$article->title . '</b> - '
     //                 . $article->status->name . ' - ' ;
 
     //             foreach ($article->users as $user) {
@@ -222,7 +225,5 @@ class ArticlesController extends SiteController
     //         }
     //     }
     // }
-
-    
 
 }
