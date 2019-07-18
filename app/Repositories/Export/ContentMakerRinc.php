@@ -69,12 +69,12 @@ class ContentMakerRinc extends ContentMaker
     public function getContent() {
       
 //       dd($this->getProperties());
-        Blade::include(env('THEME_BACK').'.back.export.rinc._header', 'header');
-        Blade::include(env('THEME_BACK').'.back.export.rinc._articleHead', 'articleHead');
-        Blade::include(env('THEME_BACK').'.back.export.rinc._body', 'body');
-        Blade::include(env('THEME_BACK').'.back.export.rinc._footer', 'footer');
+        Blade::include('back.export.rinc._header', 'header');
+        Blade::include('back.export.rinc._articleHead', 'articleHead');
+        Blade::include('back.export.rinc._body', 'body');
+        Blade::include('back.export.rinc._footer', 'footer');
 
-        return view(env('THEME_BACK').'.back.export.rinc.index')->with($this->getProperties())->render();
+        return view('back.export.rinc.index')->with($this->getProperties())->render();
     }
   
     private function getISSN()

@@ -19,17 +19,11 @@ class IssuesRepository extends Repository
      */
     public function oneLastByStatus($status = false)
     {
-        $result = ($status) ? $this->model->withStatus($status) : $this->model->get();
-
+        $result = ($status) ? $this->model->withStatus($status) : $this->model;
+// dd($result);
         $result = $result->orderBy('year', 'desc');
         $result = $result->orderBy('no', 'desc');
         $result = $result->orderBy('part', 'asc');
-
-        // $result = $result->with(['articles' => function ($query) {
-        //     $query->with('status');
-        // }]);
-
-        // $result = $this->getIssuesByArticleStatus($status, $result->get());
 
         return $result->first();
     }
@@ -112,40 +106,40 @@ class IssuesRepository extends Repository
         return $result->first();
     }
 
-    public function getIssuesByArticleStatus($status = false, $issues = false, $orderBy = array('year', 'no', 'part'))
-    {
+//     public function getIssuesByArticleStatus($status = false, $issues = false, $orderBy = array('year', 'no', 'part'))
+//     {
 
-        if (!$issues) {
-            $issues = $this->getIssues($orderBy);
-        }
+//         if (!$issues) {
+//             $issues = $this->getIssues($orderBy);
+//         }
 
-        if ($status && $status !== '*') {
-            if (is_a($issues, '\Illuminate\Database\Eloquent\Model')) {
-                $issues->articles = $issues->articles->filter(function ($article) use ($status) {
-                    if ($article->status->type == $status) {
-                        return $article;
-                    }
-                });
+//         if ($status && $status !== '*') {
+//             if (is_a($issues, '\Illuminate\Database\Eloquent\Model')) {
+//                 $issues->articles = $issues->articles->filter(function ($article) use ($status) {
+//                     if ($article->status->type == $status) {
+//                         return $article;
+//                     }
+//                 });
 
-            } else {
-                $issues->each(function ($issue) use ($status) {
-                    $issue->articles = $issue->articles->filter(function ($article) use ($status) {
-                        if ($article->status->type == $status) {
-                            return $article;
-                        }
-                    });
+//             } else {
+//                 $issues->each(function ($issue) use ($status) {
+//                     $issue->articles = $issue->articles->filter(function ($article) use ($status) {
+//                         if ($article->status->type == $status) {
+//                             return $article;
+//                         }
+//                     });
 
-                });
+//                 });
 
-                $issues = $issues->reject(function ($issue) {
-                    return $issue->articles->count() < 1;
-                });
-            }
+//                 $issues = $issues->reject(function ($issue) {
+//                     return $issue->articles->count() < 1;
+//                 });
+//             }
 
-        };
+//         };
 
-        return $issues;
-    }
+//         return $issues;
+//     }
 
     public function getIssues($articles = false, $orderBy = array('year', 'no', 'part'))
     {
@@ -177,26 +171,23 @@ class IssuesRepository extends Repository
      *            ]
      *
      */
-    public function prepareIssue($issue = false)
-    {
-        if ($issue) {
+//     public function prepareIssue($issue = false)
+//     {
+//         if ($issue) {
+          
+//             $keyed = $issue->articles->mapToGroups(function ($article, $articleCat) {
+//                 $categoriesSorted = collect($article->categories->sortBy('name')->values()->all());
+//                 $atricleCat = view('front.components.categories_link')->with('categories', $categoriesSorted)->render();
+//                 return [$atricleCat => $article];
+//             });
 
-            $keyed = $issue->articles->mapToGroups(function ($article, $articleCat) {
-                $categoriesSorted = collect($article->categories->sortBy('name')->values()->all());
-                $atricleCat = view(env('THEME') . '.add.categories_link')->with('categories', $categoriesSorted)->render();
-                // $atricleCat = $categoriesSorted->implode('name', ' -> ');
-                return [$atricleCat => $article];
-            });
+//             $keyed->all();
 
-            $keyed->all();
+//             $issue->mapedArticles = $keyed;
 
-            // dd($keyed);
-
-            $issue->mapedArticles = $keyed;
-
-            return $issue;
-        }
-    }
+//             return $issue;
+//         }
+//     }
 
     public function getNextIssue($issue, $status = false)
     {

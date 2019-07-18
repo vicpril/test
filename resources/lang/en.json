@@ -26,5 +26,13 @@
    "Авторы": "Authors",
    "Вы можете скачать статью по ссылке": "Download this article",
    "Вы можете прослушать аудио версию статьи": "Listen audio version",
-   "Приложения к статье": "Applications"
+   "Приложения к статье": "Applications",
+    "Предыдущий выпуск": "",
+    "Предыдущий выпуск №:fullno": "Previous Issue :fullno",
+    "Следующий выпуск №:fullno": "Next Issue :fullno",
+
+    "": "",
+    "": "",
+    "": ""
+
 }

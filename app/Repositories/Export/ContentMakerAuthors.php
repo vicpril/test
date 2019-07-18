@@ -58,10 +58,10 @@ class ContentMakerAuthors extends ContentMaker
     }  
   
     public function getContent() {
-        Blade::include(env('THEME_BACK').'.back.export.authors._header', 'header');
-        Blade::include(env('THEME_BACK').'.back.export.authors._footer', 'footer');
+        Blade::include('back.export.authors._header', 'header');
+        Blade::include('back.export.authors._footer', 'footer');
 
-        return view(env('THEME_BACK').'.back.export.authors.index')->with($this->getProperties())->render();
+        return view('back.export.authors.index')->with($this->getProperties())->render();
     }
   
 }

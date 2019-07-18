@@ -51,14 +51,14 @@ class ContentMakerArticle extends ContentMaker
             // $article->lastPage = $this->getDoiPage($article, 'last');
             $article->firstPage = $article->doiFirstPage;
             $article->lastPage = $article->doiLastPage;
-            $article->jobLinkTextRu = view(env('THEME_BACK').'.back.export.article.components.jobLinkTextRu')
+            $article->jobLinkTextRu = view('back.export.article.components.jobLinkTextRu')
               ->with([
                    'article' => $article,
                    'year' => $this->year,
                    'no' => $this->no,
                    'part' => $this->part,
             ])->render();
-            $article->jobLinkTextEn = view(env('THEME_BACK').'.back.export.article.components.jobLinkTextEn')
+            $article->jobLinkTextEn = view('back.export.article.components.jobLinkTextEn')
               ->with([
                    'article' => $article,
                    'year' => $this->year,
@@ -74,11 +74,11 @@ class ContentMakerArticle extends ContentMaker
     }  
   
     public function getContent() {
-        Blade::include(env('THEME_BACK').'.back.export.article._header', 'header');
-        Blade::include(env('THEME_BACK').'.back.export.article._body', 'body');
-        Blade::include(env('THEME_BACK').'.back.export.article._footer', 'footer');
+        Blade::include('back.export.article._header', 'header');
+        Blade::include('back.export.article._body', 'body');
+        Blade::include('back.export.article._footer', 'footer');
 
-        return view(env('THEME_BACK').'.back.export.article.index')->with($this->getProperties())->render();
+        return view('back.export.article.index')->with($this->getProperties())->render();
     }
   
 }

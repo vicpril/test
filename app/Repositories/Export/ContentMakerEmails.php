@@ -60,10 +60,10 @@ class ContentMakerEmails extends ContentMaker
     }  
   
     public function getContent() {
-        Blade::include(env('THEME_BACK').'.back.export.emails._header', 'header');
-        Blade::include(env('THEME_BACK').'.back.export.emails._footer', 'footer');
+        Blade::include('back.export.emails._header', 'header');
+        Blade::include('back.export.emails._footer', 'footer');
 
-        return view(env('THEME_BACK').'.back.export.emails.index')->with($this->getProperties())->render();
+        return view('back.export.emails.index')->with($this->getProperties())->render();
     }
   
 }

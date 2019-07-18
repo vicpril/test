@@ -1,5 +1,5 @@
   <article class="ml-4">
-    @admin
+    {{--@admin--}}
      <!-- LABEL -->
       <div class="row">
         ID: {{$article->id}}
@@ -11,7 +11,7 @@
         <a href="{{ $article->editLink }}" target="_blank">Редактровать</a>
       </div>
       <!-- END LABEL -->
-    @endadmin
+    {{--@endadmin--}}
          <h5 class="article-title">
             <a class="" href="{{ route('article', $article->alias) }}">{{ $article->loc->title }}</a>
          </h5>

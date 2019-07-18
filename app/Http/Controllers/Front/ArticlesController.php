@@ -37,16 +37,17 @@ class ArticlesController extends SiteController
     public function index(Request $request)
     {
 
+        $this->setStatus();
+      
         if (!$request->year || !$request->no || !$request->part) {
             return $this->redirectOnLastIssue();
         }
 
-        $this->setStatus();
         $this->prepareStolMenu();
 
 //         $issue = $this->getIssue($request, $this->onlyPublished);
         $issue = $this->getIssue($request, $this->status);
-        if (!$issue) {return $this->redirectOnLastIssue();}
+        if (!$issue) { return $this->redirectOnLastIssue(); }
 
         $nextIssue = $this->i_rep->getNextIssue($issue, $this->status);
         $prevIssue = $this->i_rep->getPrevIssue($issue, $this->status);
@@ -119,7 +120,7 @@ class ArticlesController extends SiteController
     public function redirectOnLastIssue()
     {
 
-        $issue = $this->i_rep->oneLastByStatus('public');
+        $issue = $this->i_rep->oneLastByStatus($this->status);
 
         if ($issue) {
             return redirect()->route('articles', [
@@ -132,21 +133,21 @@ class ArticlesController extends SiteController
         }
     }
 
-    public function getArticle($alias)
-    {
+//     public function getArticle($alias)
+//     {
 
-        $article = $this->a_rep->one($alias, app()->getLocale());
+//         $article = $this->a_rep->one($alias, app()->getLocale());
 
-        return $article;
-    }
+//         return $article;
+//     }
 
-    public function getArticleByStatus($alias)
-    {
+//     public function getArticleByStatus($alias)
+//     {
 
-        $article = $this->a_rep->one($alias, 'public');
+//         $article = $this->a_rep->one($alias, 'public');
 
-        return $article;
-    }
+//         return $article;
+//     }
 
     /*
      *
@@ -159,8 +160,8 @@ class ArticlesController extends SiteController
         if ($issue) {
             $issue = ($this->onlyPublished) ? $issue->published(): $issue;
             if (count($issue->articles) > 0) {
-                $issue = $this->i_rep->getIssuesByArticleStatus($articleStatus, $issue);
-                $issue = $this->i_rep->prepareIssue($issue);
+//                 $issue = $this->i_rep->getIssuesByArticleStatus($articleStatus, $issue);
+//                 $issue = $this->i_rep->prepareIssue($issue);
                 return $issue;
             }
         }

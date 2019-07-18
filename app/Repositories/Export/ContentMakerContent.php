@@ -51,13 +51,13 @@ class ContentMakerContent extends ContentMaker
     }  
   
     public function getContent() {
-        Blade::include(env('THEME_BACK').'.back.export.content._header', 'header');
-        Blade::include(env('THEME_BACK').'.back.export.content._contentRu', 'contentRu');
-        Blade::include(env('THEME_BACK').'.back.export.content._contentEn', 'contentEn');
+        Blade::include('back.export.content._header', 'header');
+        Blade::include('back.export.content._contentRu', 'contentRu');
+        Blade::include('back.export.content._contentEn', 'contentEn');
 
-        Blade::include(env('THEME_BACK').'.back.export.content._footer', 'footer');
+        Blade::include('back.export.content._footer', 'footer');
 
-        return view(env('THEME_BACK').'.back.export.content.index')->with($this->getProperties())->render();
+        return view('back.export.content.index')->with($this->getProperties())->render();
     }
   
 }

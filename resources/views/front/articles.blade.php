@@ -10,6 +10,20 @@
 
 @section('content')
     @if($issue)   
+
+			@foreach ($issue->articles as $article)
+					@if( $loop->first || $article->categories[0]->loc !== $issue->articles[$loop->index - 1]->categories[0]->loc ) 
+							<h3 class="category-title mb-4">
+									@include('front.components.categories_link', ['categories' => $article->categories])
+								</h3>
+					@endif
+
+					@include('front.articles_preview', ['article'=>$article])
+        
+			@endforeach
+
+				{{--
+				<!-- 	По предварительной разметке -->
         @foreach($issue->mapedArticles as $category => $articles)
         <section>
                     <h3 class="category-title mb-4">
@@ -22,6 +36,8 @@
                             @endforeach
         </section>
         @endforeach
+
+				--}}
     @else
         <h3>Выпуск в базе не найден</h3>
     @endif
@@ -32,7 +48,7 @@
 
     <div class="col d-flex justify-content-start">
     @if($prevIssue)
-        <a class="btn btn-primary float-right" href="{{ route('articles') }}?year={{$prevIssue->year}}&no={{$prevIssue->no}}&part={{$prevIssue->part}}">Предыдущий выпуск №{{$prevIssue->full_no}}</a>
+        <a class="btn btn-primary float-right" href="{{ route('articles') }}?year={{$prevIssue->year}}&no={{$prevIssue->no}}&part={{$prevIssue->part}}">@lang('Предыдущий выпуск №:fullno', ['fullno' => $prevIssue->full_no] )</a>
     @endif
     </div>
 
@@ -44,7 +60,7 @@
 
     <div class="col d-flex justify-content-end">
     @if($nextIssue)
-        <a class="btn btn-primary" href="{{ route('articles') }}?year={{$nextIssue->year}}&no={{$nextIssue->no}}&part={{$nextIssue->part}}">Следующий выпуск №{{$nextIssue->full_no}}</a>
+        <a class="btn btn-primary" href="{{ route('articles') }}?year={{$nextIssue->year}}&no={{$nextIssue->no}}&part={{$nextIssue->part}}">@lang('Следующий выпуск №:fullno', ['fullno' => $nextIssue->full_no] )</a>
     @endif
     </div>
 
