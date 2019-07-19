@@ -94,6 +94,7 @@ class SiteController extends Controller
 								->sortBy("title_".app()->getLocale());
 			
 				if($this->onlyPublished) {
+						$tags->loadMissing(['articles', 'articles.status']);
 						foreach($tags as $tag) {
 								$tag->published();
 						}
