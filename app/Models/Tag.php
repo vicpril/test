@@ -41,6 +41,7 @@ class Tag extends Model
     *   Filters
     */
     public function filterArticlesByStatus($status) {
+				$this->loadMissing(['articles', 'articles.status']);
         $this->articles = $this->articles->filter(function ($article) use ($status) {
             return $article->status->title_en == $status;
         })->values();

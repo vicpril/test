@@ -89,7 +89,16 @@ class SiteController extends Controller
         }
 
         //TAGS
-        $tags = $this->t_rep->all()->loadMissing('articles')->sortBy("title_".app()->getLocale());
+        $tags = $this->t_rep->all()
+								->loadMissing('articles')
+								->sortBy("title_".app()->getLocale());
+			
+				if($this->onlyPublished) {
+						foreach($tags as $tag) {
+								$tag->published();
+						}
+				}
+			
         $this->vars = array_add($this->vars, 'tags', $tags);
 				
 		//CONTENT
@@ -117,7 +126,7 @@ class SiteController extends Controller
     protected function setMenu(Page $page) {
 
         $this->show_top_menu = $page->show_top_menu;
-		$this->show_sidebar_menu = $page->show_sidebar_menu;
+				$this->show_sidebar_menu = $page->show_sidebar_menu;
         $this->show_review_menu = $page->show_review_menu;
     
     }
