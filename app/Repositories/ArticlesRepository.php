@@ -67,6 +67,60 @@ class ArticlesRepository extends Repository
 
         return $result;
     }
+  
+    
+    public function getBy(
+//                       \Illuminate\Http\Request $request, 
+                      $relation = [], 
+                      $status = false,
+                      $paginate = false
+    ) {
+      
+      $query = DB::table('articles')->select('articles.id')
+            ->leftjoin('meta_articles', 'articles.id', '=', 'meta_articles.article_id')
+            ->leftjoin('status', 'articles.status_id', '=', 'status.id')
+            ->leftjoin('issues', 'articles.issue_id', '=', 'issues.id')
+            ->leftjoin('article_user', 'articles.id', '=', 'article_user.article_id')
+            ->leftjoin('users', 'users.id', '=', 'article_user.user_id')
+            ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
+            ->leftjoin('article_category', 'articles.id', '=', 'article_category.article_id')
+            ->leftjoin('categories', 'categories.id', '=', 'article_category.category_id')
+            ->leftjoin('article_tag', 'articles.id', '=', 'article_tag.article_id')
+            ->leftjoin('tags', 'tags.id', '=', 'article_tag.tag_id');
+      
+         if ($relation) {
+              $query->where("$relation[0].alias", $relation[1]);
+         }
+      
+        if ($status) {
+              $query->where("status.title_en", $status);
+         }
+      
+        $query->orderBy('issues.year');
+        $query->orderBy('issues.no');
+        $query->orderByDesc('issues.part');
+        $query->orderBy('articles.position');
+      
+        $ids = $query->groupBy('articles.id')
+                     ->pluck('articles.id')
+                     ->unique()
+                     ->toArray();
+      
+        $builder = Article::whereIn('id', $ids)
+            ->with([
+                'meta',
+                'status',
+                'issue',
+                'tags',
+                'categories',
+                'users',
+                'users.meta'
+            ])
+            ->orderByRaw("FIELD(id, " . implode(',', $ids) . ")");
+      
+         return ($paginate) ? $builder->paginate($paginate) : $builder->get();
+
+    }
 
     /*
      *

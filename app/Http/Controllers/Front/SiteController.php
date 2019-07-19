@@ -43,6 +43,9 @@ class SiteController extends Controller
     protected $template;
     // переменные для шаблона
     protected $vars = array();
+		// отображение статей по статусу
+		protected $onlyPublished = true;
+    protected $status = 'public';
     //указание на отображение меню
     protected $show_top_menu = true;
     protected $show_sidebar_menu = false;
@@ -117,6 +120,29 @@ class SiteController extends Controller
 		$this->show_sidebar_menu = $page->show_sidebar_menu;
         $this->show_review_menu = $page->show_review_menu;
     
+    }
+	
+	  protected function setStatus()
+    {
+        if (!auth()->guest() && auth()->user()->role == 'admin') {
+            $this->onlyPublished = false;
+            $this->status = false;
+        } else {
+            $this->onlyPublished = true;
+            $this->status = 'public';
+        };
+    }
+	
+	  protected function prepareStolMenu()
+    {
+
+        if ($this->show_stol_menu) {
+            $stol_menu = $this->a_rep->getArticles($this->onlyPublished, $stol = true)->take(4);
+            $this->vars = array_add($this->vars, 'stol_menu', $stol_menu);
+        } else {
+            $this->vars = array_add($this->vars, 'stol_menu', []);
+        }
+
     }
 
 }

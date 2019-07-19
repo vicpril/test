@@ -64,22 +64,14 @@ Route::group(
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
         Route::name('home')->get('/', 'IndexController@index');
         
-        // Route::resource('/articles', 'ArticlesController', ['only' => ['index']]);
-        
         Route::name('articles')->get('articles', 'ArticlesController@index');
         Route::name('article')->get('articles/{articleAlias}', 'ArticlesController@show');
         
-//         Route::name('page')->get('{pageAlias}', 'PagesController@show');
-        
-
         Route::resource('categories', 'CategoriesController', [
             'only' => ['show'],
             'parameters' => ['categories' => 'alias'],
         ]);
-        Route::resource('tags', 'TagsController', [
-            'only' => ['show'],
-            'parameters' => ['tags' => 'alias'],
-        ]);
+        Route::resource('tags', 'TagsController')->only(['show'])->parameters(['tags' => 'tagAlias']);
 
         Route::resource('authors', 'AuthorsController', [
             'only' => ['index', 'show'],
@@ -87,7 +79,6 @@ Route::group(
         ]);
 
         Route::name('archive')->get('/archive', 'ArticlesController@archive');
-        // Route::name('archive')->get('/archive', function() { return 'archive' ;});
         // Route::name('redkollegiya')->get('/redkollegiya', function() { return 'redkollegiya' ;});
         // Route::name('contacts')->get('/contacts', function() { return 'contacts' ;});
         Route::name('authors')->get('/authors', function() { return 'authors' ;});

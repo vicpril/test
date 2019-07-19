@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Article;
-use App\Repositories\ArticlesRepository;
-use App\Repositories\IssuesRepository;
 use Illuminate\Http\Request;
+use App\Repositories\IssuesRepository;
+use App\Repositories\ArticlesRepository;
 
 class ArticlesController extends SiteController
 {
-    protected $onlyPublished = true;
-    protected $status = 'public';
+    
 
     //
     public function __construct(IssuesRepository $i_rep, ArticlesRepository $a_rep)
@@ -63,16 +62,7 @@ class ArticlesController extends SiteController
         return $this->renderOutput();
     }
 
-    private function setStatus()
-    {
-        if (!auth()->guest() && auth()->user()->role == 'admin') {
-            $this->onlyPublished = false;
-            $this->status = false;
-        } else {
-            $this->onlyPublished = true;
-            $this->status = 'public';
-        };
-    }
+
 
     /*
      *
@@ -217,17 +207,7 @@ class ArticlesController extends SiteController
         return null;
     }
 
-    private function prepareStolMenu()
-    {
 
-        if ($this->show_stol_menu) {
-            $stol_menu = $this->a_rep->getArticles($this->onlyPublished, $stol = true)->take(4);
-            $this->vars = array_add($this->vars, 'stol_menu', $stol_menu);
-        } else {
-            $this->vars = array_add($this->vars, 'stol_menu', []);
-        }
-
-    }
 
     // /***********************************
     // *              FOR TEST

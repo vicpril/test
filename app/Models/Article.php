@@ -101,7 +101,15 @@ class Article extends Model
     {
         return $this->categories()->first();
     }
-
+  
+    /*
+    *   Scopes
+    */
+    
+    public function scopeByTag($query, $alias) {
+        return self::tags()->where('alias', $alias);
+    }
+  
     /*
      *   Get links
      */

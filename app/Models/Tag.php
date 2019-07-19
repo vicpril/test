@@ -36,4 +36,24 @@ class Tag extends Model
     public function getEnAttribute() {
         return $this->title_en;
     }
+	
+		/*
+    *   Filters
+    */
+    public function filterArticlesByStatus($status) {
+        $this->articles = $this->articles->filter(function ($article) use ($status) {
+            return $article->status->title_en == $status;
+        })->values();
+        return $this;
+    }
+
+    public function published ()
+    {
+        return $this->filterArticlesByStatus('public');
+    }
+
+    public function unpublished ()
+    {
+        return $this->filterArticlesByStatus('private');
+    }
 }

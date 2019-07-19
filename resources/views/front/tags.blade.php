@@ -4,46 +4,21 @@
     @include('front.components.stol_menu')
 @endsection
 
-@section('subtitle')
-	{!! $subtitle !!}
-@endsection
-
 @section('content')
-    @if($issue)   
-
-			@foreach ($issue->articles as $article)
-					@if( $loop->first || $article->categories[0]->loc !== $issue->articles[$loop->index - 1]->categories[0]->loc ) 
-							<h3 class="category-title mb-4">
-									@include('front.components.categories_link', ['categories' => $article->categories])
-								</h3>
-					@endif
+		@if($articles)
+			@foreach ($articles as $article)
 
 					@include('front.articles_preview', ['article'=>$article])
         
 			@endforeach
 
-				{{--
-				<!-- 	По предварительной разметке -->
-        @foreach($issue->mapedArticles as $category => $articles)
-        <section>
-                    <h3 class="category-title mb-4">
-                    {!! $category !!}
-                    </h3>
-                            @foreach($articles as $article)
-                                
-                                @include('front.articles_preview', ['article'=>$article])
-        
-                            @endforeach
-        </section>
-        @endforeach
-
-				--}}
     @else
-        <h3>@lang('Выпуск в базе не найден')</h3>
+        <h3>@lang('Статьи не найдены')</h3>
     @endif
 @endsection
 
 @section('contentFooter')
+{{--
     <div class="row mx-2 d-flex">
 
     <div class="col d-flex justify-content-start">
@@ -65,6 +40,7 @@
     </div>
 
     </div>
+--}}
 @endsection
 
 @push('scripts')

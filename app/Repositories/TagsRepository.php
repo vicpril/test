@@ -43,6 +43,29 @@ class TagsRepository extends Repository{
     }
 	
 		/*
+     *
+     *    Get TAG with conditions
+		 *						and filter by article->status
+		 *
+     */
+//     public function getTagsList(\Illuminate\Http\Request $request) {
+//         $paginate = ($request->input('paginate')) ? $request->input('paginate') : '';
+//         $search = ($request->input('search')) ? $request->input('search') : '';
+//         $sortBy = ($request->input('sortBy')) ? $request->input('sortBy') : 'id';
+//         $orderBy = ($request->input('orderBy')) ? $request->input('orderBy') : 'asc';
+
+// 				$tags = DB::table('tags as t')
+// 								->leftjoin('article_tag as a', 't.id', '=', 'a.tag_id')
+// 								->selectRaw("t.*, count(a.tag_id) as articles")
+// 								->groupBy('t.id')
+// 								->where('t.title_ru', 'like', "%".$search."%")
+// 								->orWhere('t.title_en', 'like', "%".$search."%")
+// 								->orderBy($sortBy, $orderBy)
+// 								->get();
+//         return $tags;
+//     }
+	
+		/*
     *
     *   Add new tag to database
     *

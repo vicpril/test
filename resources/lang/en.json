@@ -34,5 +34,8 @@
    "Следующая статья выпуска": "Next article",
    "Архив": "Archive",
    "Том": "Volume",
-   "Номер": "Issue"
+   "Номер": "Issue",
+   "Тема: :tag": "Index: :tag",
+   "Выпуск в базе не найден": "Issue is not found",
+   "Статьи не найдены": "There are no articles"
 }
