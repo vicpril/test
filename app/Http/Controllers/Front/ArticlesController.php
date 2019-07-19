@@ -149,6 +149,42 @@ class ArticlesController extends SiteController
       
           return $this->renderOutput();
     }
+  
+  
+    /*
+    *   Search articles
+    */
+    public function search(Request $request)
+    {
+        $this->setStatus();
+
+        $this->prepareStolMenu();
+
+        $this->template = 'front.search';
+
+// dd($request);
+        $request->request->add([
+            'paginate' => '10',
+            'status' => $this->status,
+            'relation' => [],
+            'sortBy' => 'issue',
+            'orderBy' => 'desc'
+        ]);
+        $articles = $this->a_rep->getArticlesList($request);
+
+        $this->vars = array_add($this->vars, 'articles', $articles);
+      
+        $this->title = __('Поиск:'). ' "'.$request->input('search').'"';
+
+        $this->subtitle = (count($articles) > 0 )
+           ? trans_choice('search.found', count($articles), ['s' => $request->input('search'), 'a' => count($articles)])
+           : __('search.noarticles');
+      
+        return $this->renderOutput();
+    }
+  
+  
+  
 
     /*
      *

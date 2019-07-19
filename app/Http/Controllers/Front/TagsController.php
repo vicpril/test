@@ -47,28 +47,4 @@ class TagsController extends SiteController
 			return $this->renderOutput();
 	}
 
-// 	public function getTag($alias, $articleStatus = '*') {
-// 		$tag = $this->t_rep->one($alias);
-
-// 		if ($tag) {
-// 			$tag->load(['articles' => function($query){
-//                                     $query->with('status', 'users', 'issue');
-//                                 }]);
-// 		}
-
-// 		$tag->articles = $tag->articles->sortByDesc(function($article, $key){
-// 			return [$article->issue->year, $article->issue->no, $article->issue->tom];
-// 		});
-
-
-// 		if ($articleStatus && $articleStatus !== '*') {
-// 			$tag->articles = $tag->articles->filter(function($article) use ($articleStatus){
-// 	            if ($article->status->name == $articleStatus) {
-// 	                return $article;
-// 	            }
-// 	        });
-// 		}
-		
-// 		return $tag;
-// 	}
 }

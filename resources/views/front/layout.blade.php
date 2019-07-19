@@ -117,7 +117,7 @@
                         <span class="text-uppercase">@lang('Поиск по ключевым словам')</span>
                         <form action="{{ route('search') }}" method="GET">
                            <div class="form-group">
-                              <input type="text" class="form-control my-1 mb-2" name="s" required />
+                              <input type="text" class="form-control my-1 mb-2" name="search" required />
                               <button type="submit" class="btn btn-outline-secondary">
                                  @lang('Поиск')
                               </button>

@@ -40,10 +40,15 @@ class RouteServiceProvider extends ServiceProvider
         });
       
         Route::bind('tagAlias', function($value) {
-//             dd($value);
             $object = \App\Models\Tag::where('alias', $value)->first();
             return $object ?: abort(404, 'Страница не найдена');
         });
+      
+        Route::bind('categoryAlias', function($value) {
+            $object = \App\Models\Category::where('alias', $value)->first();
+            return $object ?: abort(404, 'Страница не найдена');
+        });
+
         
       
         // Bind parameters for ADMIN

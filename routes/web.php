@@ -66,11 +66,11 @@ Route::group(
         
         Route::name('articles')->get('articles', 'ArticlesController@index');
         Route::name('article')->get('articles/{articleAlias}', 'ArticlesController@show');
+        Route::name('archive')->get('/archive', 'ArticlesController@archive');
+      
+        Route::name('search')->get('/search', 'ArticlesController@search');
         
-        Route::resource('categories', 'CategoriesController', [
-            'only' => ['show'],
-            'parameters' => ['categories' => 'alias'],
-        ]);
+        Route::resource('categories', 'CategoriesController')->only(['show'])->parameters(['categories' => 'categoryAlias']);
         Route::resource('tags', 'TagsController')->only(['show'])->parameters(['tags' => 'tagAlias']);
 
         Route::resource('authors', 'AuthorsController', [
@@ -78,12 +78,10 @@ Route::group(
             'parameters' => ['authors' => 'alias'],
         ]);
 
-        Route::name('archive')->get('/archive', 'ArticlesController@archive');
         // Route::name('redkollegiya')->get('/redkollegiya', function() { return 'redkollegiya' ;});
         // Route::name('contacts')->get('/contacts', function() { return 'contacts' ;});
         Route::name('authors')->get('/authors', function() { return 'authors' ;});
 
-        Route::name('search')->get('/search', function() { return 'search' ;});
         Route::name('club')->get('/diskussionnye-cluby', function() { return 'КРУГЛЫЕ СТОЛЫ' ;});
 
 

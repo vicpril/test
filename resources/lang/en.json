@@ -36,6 +36,8 @@
    "Том": "Volume",
    "Номер": "Issue",
    "Тема: :tag": "Index: :tag",
+   "Материалы под рубрикой: :cat": "Topic: :cat",
    "Выпуск в базе не найден": "Issue is not found",
-   "Статьи не найдены": "There are no articles"
+   "Статьи не найдены": "There are no articles",
+   "Поиск:":"Search:"
 }

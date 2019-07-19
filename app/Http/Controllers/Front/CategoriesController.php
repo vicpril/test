@@ -2,81 +2,49 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Category;
+use App\Models\Article;
 use Illuminate\Http\Request;
-
 use App\Repositories\CategoriesRepository;
+use App\Repositories\ArticlesRepository;
 
 class CategoriesController extends SiteController
 {
     //
-    public function __construct(CategoriesRepository $c_rep) {
-		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
+    public function __construct(ArticlesRepository $a_rep) {
+				parent::__construct(
+            new \App\Repositories\MenusRepository(new \App\Models\Menu),
+            new \App\Repositories\TagsRepository(new \App\Models\Tag)
+        );
+			
+				$this->a_rep = $a_rep;
+			
+				$this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
 
-		$this->c_rep = $c_rep;
-
-		$this->template = 'front.single';
-	}
-
-	public function show ($alias) {
-
-		$category = $this->getCategory($alias, '*');
-
-		$content = view('front.category_content')->with('category', $category)
-                                                        ->render();
-        $this->vars = array_add($this->vars, 'content', $content);
-
-        $sidebar_menu = '';
-
-        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-        $this->vars = array_add($this->vars, 'sidebar', $sidebar);
-
-		return $this->renderOutput();
-	}
-
-	public function getCategory($alias, $articleStatus = '*') {
-		$category = $this->c_rep->one($alias);
-
-		if ($category) {
-			$category->load(['articles' => function($query){
-                                    $query->with('status', 'users', 'issue');
-                                }]);
 		}
 
-		$category->articles = $category->articles->sortByDesc(function($article, $key){
-			return [$article->issue->year, $article->issue->no, $article->issue->tom];
-		});
-
-
-		if ($articleStatus && $articleStatus !== '*') {
-			$category->articles = $category->articles->filter(function($article) use ($articleStatus){
-	            if ($article->status->name == $articleStatus) {
-	                return $article;
-	            }
-	        });
-		}
+	public function show (Category $cat, Request $request) {
 		
-		return $category;
+			$this->setStatus();
+		
+			$this->prepareStolMenu();
+		
+			$this->template = 'front.categories';
+		
+			$this->title = __('Материалы под рубрикой: :cat', ['cat' => $cat->loc]);
+		
+			$request->request->add([
+				'paginate' => '10',
+				'status' => $this->status,
+				'relation' => ['categories.alias' => $cat->alias],
+				'sortBy' => 'issue',
+				'orderBy' => 'desc'
+			]);
+			$articles = $this->a_rep->getArticlesList($request);
+			
+			$this->vars = array_add($this->vars, 'articles', $articles);
+
+			return $this->renderOutput();
 	}
 
-
-
-    /***********************************
-    *              FOR TEST
-    ***********************************/
-	public function renderCategory($category = FALSE) {
-        if ($category) {
-            foreach ($category->articles as $article) {
-                echo $category->title . ' - ' ;
-                echo $article->id . ' - ' ;
-                echo '<b>'.$article->title . '</b> - ' 
-                    . $article->status->name . ' - ' ;
-
-                foreach ($article->users as $user) {
-                    echo '<i>'.$user->name  . '</i> - ';
-                }
-
-                echo '<br />';
-            }
-        }
-    }
 }
