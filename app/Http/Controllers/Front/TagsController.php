@@ -20,42 +20,29 @@ class TagsController extends SiteController
 				$this->a_rep = $a_rep;
 			
 				$this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
-			
 
 		}
 
-	public function show (Tag $tag) {
+	public function show (Tag $tag, Request $request) {
 		
 			$this->setStatus();
 		
 			$this->prepareStolMenu();
 		
-// 			$articles = Article::whereHas('tags', function($query) use ($tag){
-// 					return $query->where('alias', $tag->alias);
-// 			})->get();
-		
-// 			$articles = Article::tags()->where('alias', $tag->alias)
-// 												 ->where('status.title_en', $this->status );
-// 			$articles = Article::byTag($tag->alias)->get();
-			$articles = $this->a_rep->getBy(['tags', $tag->alias], $this->status, 10);
-		
-			
-			dump($articles);
-// 			$tag->loadMissing([
-// 					'articles',
-// 					'articles.status',
-// 					'articles.meta',
-// 					'articles.users',
-// 					'articles.users.meta'
-// 			]);
-			$tag = ($this->onlyPublished) ? $tag->published() : $tag;
-			dd($tag->articles);
-		
 			$this->template = 'front.tags';
 		
 			$this->title = __('Тема: :tag', ['tag' => $tag->loc]);
 		
-			$this->vars = array_add($this->vars, 'articles', $tag->articles);
+			$request->request->add([
+				'paginate' => '10',
+				'status' => $this->status,
+				'relation' => ['tags.alias' => $tag->alias],
+				'sortBy' => 'issue',
+				'orderBy' => 'desc'
+			]);
+			$articles = $this->a_rep->getArticlesList($request);
+			
+			$this->vars = array_add($this->vars, 'articles', $articles);
 
 			return $this->renderOutput();
 	}

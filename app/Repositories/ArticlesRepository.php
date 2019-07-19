@@ -69,59 +69,6 @@ class ArticlesRepository extends Repository
     }
   
     
-    public function getBy(
-//                       \Illuminate\Http\Request $request, 
-                      $relation = [], 
-                      $status = false,
-                      $paginate = false
-    ) {
-      
-      $query = DB::table('articles')->select('articles.id')
-            ->leftjoin('meta_articles', 'articles.id', '=', 'meta_articles.article_id')
-            ->leftjoin('status', 'articles.status_id', '=', 'status.id')
-            ->leftjoin('issues', 'articles.issue_id', '=', 'issues.id')
-            ->leftjoin('article_user', 'articles.id', '=', 'article_user.article_id')
-            ->leftjoin('users', 'users.id', '=', 'article_user.user_id')
-            ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
-            ->leftjoin('article_category', 'articles.id', '=', 'article_category.article_id')
-            ->leftjoin('categories', 'categories.id', '=', 'article_category.category_id')
-            ->leftjoin('article_tag', 'articles.id', '=', 'article_tag.article_id')
-            ->leftjoin('tags', 'tags.id', '=', 'article_tag.tag_id');
-      
-         if ($relation) {
-              $query->where("$relation[0].alias", $relation[1]);
-         }
-      
-        if ($status) {
-              $query->where("status.title_en", $status);
-         }
-      
-        $query->orderBy('issues.year');
-        $query->orderBy('issues.no');
-        $query->orderByDesc('issues.part');
-        $query->orderBy('articles.position');
-      
-        $ids = $query->groupBy('articles.id')
-                     ->pluck('articles.id')
-                     ->unique()
-                     ->toArray();
-      
-        $builder = Article::whereIn('id', $ids)
-            ->with([
-                'meta',
-                'status',
-                'issue',
-                'tags',
-                'categories',
-                'users',
-                'users.meta'
-            ])
-            ->orderByRaw("FIELD(id, " . implode(',', $ids) . ")");
-      
-         return ($paginate) ? $builder->paginate($paginate) : $builder->get();
-
-    }
-
     /*
      *
      *    Get articles with conditions
@@ -138,8 +85,10 @@ class ArticlesRepository extends Repository
         $search = ($request->input('search')) ? $request->input('search') : '';
         $sortBy = ($request->input('sortBy')) ? $request->input('sortBy') : 'id';
         $orderBy = ($request->input('orderBy')) ? $request->input('orderBy') : 'asc';
+        $relations = ($request->input('relation')) ? $request->input('relation') : [];
+        $status = ($request->input('status')) ? $request->input('status') : false;
 
-        $articles_id = $this->getSortedIdArray($search, $sortBy, $orderBy);
+        $articles_id = $this->getSortedIdArray($search, $sortBy, $orderBy, $status, $relations);
 
         $articles = Article::whereIn('id', $articles_id)
             ->with([
@@ -159,7 +108,7 @@ class ArticlesRepository extends Repository
 
     }
 
-    private function getSortedIdArray($search = '', $sortBy = 'title', $orderBy = 'asc')
+    private function getSortedIdArray($search = '', $sortBy = 'title', $orderBy = 'asc', $status = false, Array $relations = [])
     {
         switch ($sortBy) {
             case 'title':$sortBy = ['meta_articles.title'];
@@ -174,7 +123,7 @@ class ArticlesRepository extends Repository
                 break;
         }
 
-        $users_id = DB::table('articles')
+        $query = DB::table('articles')
             ->leftjoin('meta_articles', 'articles.id', '=', 'meta_articles.article_id')
             ->leftjoin('status', 'articles.status_id', '=', 'status.id')
             ->leftjoin('issues', 'articles.issue_id', '=', 'issues.id')
@@ -184,7 +133,17 @@ class ArticlesRepository extends Repository
             ->leftjoin('article_category', 'articles.id', '=', 'article_category.article_id')
             ->leftjoin('categories', 'categories.id', '=', 'article_category.category_id')
             ->leftjoin('article_tag', 'articles.id', '=', 'article_tag.article_id')
-            ->leftjoin('tags', 'tags.id', '=', 'article_tag.tag_id')
+            ->leftjoin('tags', 'tags.id', '=', 'article_tag.tag_id');
+          if ($relations) {
+              foreach ($relations as $relation => $value) {
+                $query->where($relation, $value);
+              }
+           }
+
+          if ($status) {
+               $query->where("status.title_en", $status);
+           }  
+      
 /*        search in:
  *                title
  *                issue: year, tom, no, part
@@ -193,7 +152,8 @@ class ArticlesRepository extends Repository
  *                                categories: title_ru,
  *                                tags: title_ru,
  */
-            ->where(function ($query) use ($search) {
+          if ($search) {
+            $query->where(function ($query) use ($search) {
                 $query->where('meta_articles.title', 'like', "%" . $search . "%")
                     ->orWhere('status.title_ru', 'like', "%" . $search . "%")
                     ->orWhere('issues.year', 'like', "%" . $search . "%")
@@ -204,15 +164,14 @@ class ArticlesRepository extends Repository
                     ->orWhere('categories.title_ru', 'like', "%" . $search . "%")
                     ->orWhere('tags.title_ru', 'like', "%" . $search . "%");
             });
+          }
 
         foreach ($sortBy as $sort) {
-            $users_id = $users_id->orderBy($sort, $orderBy);
+            $query = $query->orderBy($sort, $orderBy);
         }
 
-        $users_id = $users_id->groupBy('articles.id')
+        return $query->groupBy('articles.id')
             ->pluck('articles.id')->unique()->toArray();
-
-        return $users_id;
     }
 
     /*

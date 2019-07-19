@@ -12,6 +12,7 @@
       </div>
       <!-- END LABEL -->
     @endadmin
+         @isset($breadcrumb){{ $breadcrumb }}@endif
          <h5 class="article-title">
             <a class="" href="{{ route('article', $article->alias) }}">{{ $article->loc->title }}</a>
          </h5>

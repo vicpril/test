@@ -47,6 +47,10 @@ $container-max-widths: (
    xl: 1140px
 ) !default;
 
+ul.pagination {
+    margin-bottom: 0rem !important;
+}
+
 footer {
    background: $gray-800;
 }

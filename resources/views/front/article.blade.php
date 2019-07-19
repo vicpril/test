@@ -5,26 +5,9 @@
 @endsection
 
 @section('breadcrumbs')
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-white py-0 px-2">
-    <li class="breadcrumb-item">
-			<a href="{{ route('page', ['pageAlias'=>'archive']) }}#{{ $article->issue->year }}"
-				 >@lang('Журнал :year года', [
-        'year' => $article->issue->year,
-        'fullno' => $article->issue->full_no
-    ])</a></li>
-    <li class="breadcrumb-item">
-			<a href="{{ route('articles', ['year' => $article->issue->year,
-            'no' => $article->issue->no,
-            'part' => $article->issue->part,
-            ]) }}">@lang('№:no, часть :part', [
-										'no' => $article->issue->no,
-										'part' => $article->issue->part
-				])</a>
-		</li>
-    <li class="breadcrumb-item active" aria-current="page">{{ $article->category->loc }}</li>
-  </ol>
-</nav>
+	<div class="row mx-2">
+		@component('front.components.breadcrumbs', ['article'=> $article, 'cat'=>true])@endcomponent
+	</div>
 @endsection
 
 @section('subtitle')

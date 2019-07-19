@@ -18,7 +18,7 @@
 								</h3>
 					@endif
 
-					@include('front.articles_preview', ['article'=>$article])
+					@component('front.articles_preview', ['article'=>$article])@endcomponent
         
 			@endforeach
 

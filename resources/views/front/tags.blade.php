@@ -8,7 +8,11 @@
 		@if($articles)
 			@foreach ($articles as $article)
 
-					@include('front.articles_preview', ['article'=>$article])
+					@component('front.articles_preview', ['article'=>$article])
+							@slot('breadcrumb')
+										@component('front.components.breadcrumbs', ['article'=> $article])@endcomponent
+							@endslot
+					@endcomponent
         
 			@endforeach
 
@@ -18,29 +22,17 @@
 @endsection
 
 @section('contentFooter')
-{{--
-    <div class="row mx-2 d-flex">
-
-    <div class="col d-flex justify-content-start">
-    @if($prevIssue)
-        <a class="btn btn-primary float-right" href="{{ route('articles') }}?year={{$prevIssue->year}}&no={{$prevIssue->no}}&part={{$prevIssue->part}}">@lang('Предыдущий выпуск №:fullno', ['fullno' => $prevIssue->full_no] )</a>
-    @endif
-    </div>
-
-    <div class="col d-flex justify-content-center">
-    <button class="btn btn-link toTop">
-        <strong>@lang('К началу страницы')</strong>
-    </button>
-    </div>
-
-    <div class="col d-flex justify-content-end">
-    @if($nextIssue)
-        <a class="btn btn-primary" href="{{ route('articles') }}?year={{$nextIssue->year}}&no={{$nextIssue->no}}&part={{$nextIssue->part}}">@lang('Следующий выпуск №:fullno', ['fullno' => $nextIssue->full_no] )</a>
-    @endif
-    </div>
-
-    </div>
---}}
+		<div class="row mx-2 d-flex">
+			<div class="col d-flex justify-content-start">
+				{{$articles->links()}}
+			</div>
+			
+				<div class="col d-flex justify-content-end">
+				<button class="btn btn-link toTop">
+						<strong>@lang('К началу страницы')</strong>
+				</button>
+				</div>
+		</div>
 @endsection
 
 @push('scripts')
