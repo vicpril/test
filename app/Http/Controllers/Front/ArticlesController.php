@@ -171,13 +171,15 @@ class ArticlesController extends SiteController
             'orderBy' => 'desc'
         ]);
         $articles = $this->a_rep->getArticlesList($request);
+        $articles->withPath("search");
+        $articles->appends(['search' => $request->input('search')]);
 
         $this->vars = array_add($this->vars, 'articles', $articles);
       
         $this->title = __('Поиск:'). ' "'.$request->input('search').'"';
 
         $this->subtitle = (count($articles) > 0 )
-           ? trans_choice('search.found', count($articles), ['s' => $request->input('search'), 'a' => count($articles)])
+           ? trans_choice('search.found', $articles->total(), ['s' => $request->input('search'), 'a' => $articles->total()])
            : __('search.noarticles');
       
         return $this->renderOutput();
