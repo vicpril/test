@@ -9,9 +9,6 @@ use App\Repositories\ArticlesRepository;
 
 class ArticlesController extends SiteController
 {
-    
-
-    //
     public function __construct(IssuesRepository $i_rep, ArticlesRepository $a_rep)
     {
         parent::__construct(
@@ -89,27 +86,27 @@ class ArticlesController extends SiteController
       
         /* Previous + Next Articles */
 
-              $issue = $article->issue;
-              $issue->loadMissing([
-                'articles',
-                'articles.status',
-                'articles.meta'
-              ]);
-              $issue = ($this->onlyPublished) ? $issue->published() : $issue ;
+            $issue = $article->issue;
+            $issue->loadMissing([
+            'articles',
+            'articles.status',
+            'articles.meta'
+            ]);
+            $issue = ($this->onlyPublished) ? $issue->published() : $issue ;
 
-              $index = $issue->articles->search(function($item) use ($article){
-                  return $item->alias == $article->alias;
-              });  
+            $index = $issue->articles->search(function($item) use ($article){
+                return $item->alias == $article->alias;
+            });  
 
-              $prevArticle = ($index > 0)
-                            ? $issue->articles[$index - 1]
-                            : false;
-              $this->vars = array_add($this->vars, 'prevArticle', $prevArticle);
+            $prevArticle = ($index > 0)
+                        ? $issue->articles[$index - 1]
+                        : false;
+            $this->vars = array_add($this->vars, 'prevArticle', $prevArticle);
 
-              $nextArticle = ($index < count($issue->articles) - 1 )
-                            ? $issue->articles[$index + 1]
-                            : false;
-              $this->vars = array_add($this->vars, 'nextArticle', $nextArticle);
+            $nextArticle = ($index < count($issue->articles) - 1 )
+                        ? $issue->articles[$index + 1]
+                        : false;
+            $this->vars = array_add($this->vars, 'nextArticle', $nextArticle);
 
         return $this->renderOutput();
     }
@@ -141,10 +138,6 @@ class ArticlesController extends SiteController
                     })
                     ->sort();
             
-            // dd($years);
-
-//           dd($issues);
-
           $this->vars = array_add($this->vars, 'years', $years);
       
           return $this->renderOutput();
@@ -162,7 +155,6 @@ class ArticlesController extends SiteController
 
         $this->template = 'front.search';
 
-// dd($request);
         $request->request->add([
             'paginate' => '10',
             'status' => $this->status,
@@ -171,6 +163,7 @@ class ArticlesController extends SiteController
             'orderBy' => 'desc'
         ]);
         $articles = $this->a_rep->getArticlesList($request);
+
         $articles->withPath("search");
         $articles->appends(['search' => $request->input('search')]);
 
@@ -184,8 +177,6 @@ class ArticlesController extends SiteController
       
         return $this->renderOutput();
     }
-  
-  
   
 
     /*
@@ -209,22 +200,6 @@ class ArticlesController extends SiteController
         }
     }
 
-//     public function getArticle($alias)
-//     {
-
-//         $article = $this->a_rep->one($alias, app()->getLocale());
-
-//         return $article;
-//     }
-
-//     public function getArticleByStatus($alias)
-//     {
-
-//         $article = $this->a_rep->one($alias, 'public');
-
-//         return $article;
-//     }
-
     /*
      *
      */
@@ -245,52 +220,5 @@ class ArticlesController extends SiteController
         return null;
     }
 
-
-
-    // /***********************************
-    // *              FOR TEST
-    // ***********************************/
-
-    // public function renderIssues($issues = FALSE) {
-    //     if ($issues) {
-    //         if (is_a($issues, 'Illuminate\Database\Eloquent\Model')) {
-    //             $this->renderIssue($issues);
-    //         }
-    //         if (is_a($issues, 'Illuminate\Database\Eloquent\Collection')) {
-    //             $issues->each(function($issue){
-    //                 $this->renderIssue($issue);
-    //             });
-    //         }
-
-    //     }
-    // }
-
-    // public function renderIssue($issue = FALSE) {
-    //     if ($issue) {
-    //         foreach ($issue->articles as $article) {
-    //             echo $issue->id . ' - ' ;
-    //             echo $issue->year . ' - ' ;
-    //             echo $issue->no . ' - ' ;
-    //             echo $issue->part . ' - ' ;
-    //             echo $article->id . ' - ' ;
-    //             echo '<b>'.$article->title . '</b> - '
-    //                 . $article->status->name . ' - ' ;
-
-    //             foreach ($article->users as $user) {
-    //                 echo '<i>'.$user->name  . '</i> - ';
-    //             }
-
-    //             foreach ($article->tags as $tag) {
-    //                 echo $tag->name  . ' - ';
-    //             }
-
-    //             foreach ($article->categories as $category) {
-    //                 echo $category->name  . ' - ';
-    //             }
-
-    //             echo '<br />';
-    //         }
-    //     }
-    // }
 
 }

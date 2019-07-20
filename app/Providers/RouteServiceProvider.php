@@ -49,6 +49,11 @@ class RouteServiceProvider extends ServiceProvider
             return $object ?: abort(404, 'Страница не найдена');
         });
 
+        Route::bind('authorAlias', function($value) {
+            $object = \App\Models\User::where('alias', $value)->first();
+            return $object ?: abort(404, 'Страница не найдена');
+        });
+
         
       
         // Bind parameters for ADMIN

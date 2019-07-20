@@ -47,8 +47,27 @@ $container-max-widths: (
    xl: 1140px
 ) !default;
 
+@media (max-width: 1199px) {
+   .avatar-container {
+      display: flex;
+      justify-content: center;
+   }
+
+   .avatar {
+      max-width: 500px;
+   }
+}
+
+@media (min-width: 1200px) {
+   .avatar {
+      max-width: 400px;
+      float: left;
+      margin-right: 1.5rem;
+   }
+}
+
 ul.pagination {
-    margin-bottom: 0rem !important;
+   margin-bottom: 0rem !important;
 }
 
 footer {
@@ -88,7 +107,7 @@ a.author-name {
    text-decoration-line: none !important;
 }
 
-.article-title > a {
+a.article-title {
    color: #000;
 
    &:hover {

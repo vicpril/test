@@ -8,7 +8,9 @@
       content="ISSN (print) 2075—0862 ISSN (online) 2658-350X Индекс Роспечати 37150. ИДЕИ И ИДЕАЛЫ. Н А У Ч Н Ы Й Ж У Р Н А Л. Основан в 2009 году." />
    <meta name="author" content="Viktor Prilepin" />
    <meta name="csrf-token" content="{{ csrf_token() }}">
-   <title>@lang('Идеи и Идеалы')</title>
+   <title>
+      @lang('Идеи и Идеалы')
+   </title>
 
    <link href="{{ asset('css/front.css') }}" rel="stylesheet" />
 </head>
@@ -100,7 +102,7 @@
             <div class="card mb-3">
                <div class="card-body">
                      <div class="mb-3">
-                        <a class="text-uppercase" href="{{ route('authors') }}">@lang('Поиск по авторам')</a>
+                        <a class="text-uppercase" href="{{ route('authors.index') }}">@lang('Поиск по авторам')</a>
                      </div>
                      <div class="mb-3">
                         <span class="text-uppercase">@lang("Предметный указатель")</span>

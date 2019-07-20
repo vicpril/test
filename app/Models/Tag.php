@@ -37,11 +37,11 @@ class Tag extends Model
         return $this->title_en;
     }
 	
-		/*
+	/*
     *   Filters
     */
     public function filterArticlesByStatus($status) {
-				$this->loadMissing(['articles', 'articles.status']);
+		$this->loadMissing(['articles', 'articles.status']);
         $this->articles = $this->articles->filter(function ($article) use ($status) {
             return $article->status->title_en == $status;
         })->values();

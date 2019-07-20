@@ -75,4 +75,26 @@ class User extends Authenticatable
     public function getEmailHostAttribute(){
         return explode('@', $this->email)[1];
     }
+
+
+    /*
+    *   Filters
+    */
+    public function filterArticlesByStatus($status) {
+		$this->loadMissing(['articles', 'articles.status']);
+        $this->articles = $this->articles->filter(function ($article) use ($status) {
+            return $article->status->title_en == $status;
+        })->values();
+        return $this;
+    }
+
+    public function published ()
+    {
+        return $this->filterArticlesByStatus('public');
+    }
+
+    public function unpublished ()
+    {
+        return $this->filterArticlesByStatus('private');
+    }
 }

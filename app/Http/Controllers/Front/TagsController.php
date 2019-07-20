@@ -11,19 +11,21 @@ use App\Repositories\ArticlesRepository;
 class TagsController extends SiteController
 {
     //
-    public function __construct(ArticlesRepository $a_rep) {
-				parent::__construct(
+	public function __construct(ArticlesRepository $a_rep) 
+	{
+		parent::__construct(
             new \App\Repositories\MenusRepository(new \App\Models\Menu),
             new \App\Repositories\TagsRepository(new \App\Models\Tag)
         );
 			
-				$this->a_rep = $a_rep;
-			
-				$this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
+		$this->a_rep = $a_rep;
+		
+		$this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
 
-		}
+	}
 
-	public function show (Tag $tag, Request $request) {
+	public function show (Tag $tag, Request $request) 
+	{
 		
 			$this->setStatus();
 		

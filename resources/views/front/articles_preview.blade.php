@@ -13,8 +13,8 @@
       <!-- END LABEL -->
     @endadmin
          @isset($breadcrumb){{ $breadcrumb }}@endif
-         <h5 class="article-title">
-            <a class="" href="{{ route('article', $article->alias) }}">{{ $article->loc->title }}</a>
+         <h5 class="">
+            <a class="article-title" href="{{ route('article', $article->alias) }}">{{ $article->loc->title }}</a>
          </h5>
          <ul
             class="authors mb-2 list-unstyled list-group list-group-horizontal"

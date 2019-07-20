@@ -75,12 +75,12 @@ Route::group(
 
         Route::resource('authors', 'AuthorsController', [
             'only' => ['index', 'show'],
-            'parameters' => ['authors' => 'alias'],
+            'parameters' => ['authors' => 'authorAlias'],
         ]);
 
         // Route::name('redkollegiya')->get('/redkollegiya', function() { return 'redkollegiya' ;});
         // Route::name('contacts')->get('/contacts', function() { return 'contacts' ;});
-        Route::name('authors')->get('/authors', function() { return 'authors' ;});
+        // Route::name('authors')->get('/authors', function() { return 'authors' ;});
 
         Route::name('club')->get('/diskussionnye-cluby', function() { return 'КРУГЛЫЕ СТОЛЫ' ;});
 

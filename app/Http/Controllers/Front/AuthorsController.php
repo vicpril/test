@@ -3,49 +3,65 @@
 namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
 use App\Repositories\UsersRepository;
+use App\Repositories\ArticlesRepository;
 
 use Config;
 
 class AuthorsController extends SiteController
 {
-    public function __construct(UsersRepository $u_rep) {
-		parent::__construct(new \App\Repositories\MenusRepository(new \App\Models\Menu));
+    public function __construct(ArticlesRepository $a_rep) 
+	{
+		parent::__construct(
+            new \App\Repositories\MenusRepository(new \App\Models\Menu),
+            new \App\Repositories\TagsRepository(new \App\Models\Tag)
+        );
+			
+		$this->a_rep = $a_rep;
+		
+		$this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
 
-		$this->u_rep = $u_rep;
-
-		// $this->s_rep = $s_rep;
-
-		$this->template = 'front.single';
 	}
 
 	public function index() {
 
-        $users = $this->getAuthors();
+        // $users = $this->getAuthors();
 
-        $content = view('front.authors_content')->with('users', $users)->render();
-        $this->vars = array_add($this->vars, 'content', $content);
+        // $content = view('front.authors_content')->with('users', $users)->render();
+        // $this->vars = array_add($this->vars, 'content', $content);
 
-        $sidebar_menu = '';
+        // $sidebar_menu = '';
 
-        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-        $this->vars = array_add($this->vars, 'sidebar', $sidebar);
+        // $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+        // $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
-        return $this->renderOutput();
+        // return $this->renderOutput();
     }
 
-    public function show($alias) {
+    public function show(User $user) {
 
-        $user = $this->getAuthor($alias);
+        $this->setStatus();
+		
+        $this->prepareStolMenu();
+    
+        $this->template = 'front.author';
+    
+        $user->loadMissing([
+            'meta',
+            'articles',
+            'articles.meta',
+            'articles.status',
+            'articles.issue'
+        ]);
 
-        $content = view('front.author_content')->with('user', $user)->render();
-        $this->vars = array_add($this->vars, 'content', $content);
+        $this->title = __("Информация об авторе");
 
-        $sidebar_menu = '';
+        $this->subtitle = $user->loc->full_name;
+        
+        $user = ($this->onlyPublished) ? $user->published() : $user ;
 
-        $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-        $this->vars = array_add($this->vars, 'sidebar', $sidebar);
+        $this->vars = array_add($this->vars, 'user', $user);
 
         return $this->renderOutput();
     }

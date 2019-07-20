@@ -39,5 +39,9 @@
    "Материалы под рубрикой: :cat": "Topic: :cat",
    "Выпуск в базе не найден": "Issue is not found",
    "Статьи не найдены": "There are no articles",
-   "Поиск:":"Search:"
+   "Поиск:": "Search:",
+   "Информация об авторе": "Author profile",
+   "У данного автора еще нет материалов.": "The author hasn't published any article yet.",
+   "Материалы автора": "Proceedings of the author",
+   "Данный автор еще не представил биографическую информацию.": "This author has not yet provided biographical information."
 }
