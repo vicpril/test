@@ -11,7 +11,7 @@ use Config;
 
 class AuthorsController extends SiteController
 {
-    public function __construct(ArticlesRepository $a_rep) 
+    public function __construct(ArticlesRepository $a_rep, UsersRepository $u_rep) 
 	{
 		parent::__construct(
             new \App\Repositories\MenusRepository(new \App\Models\Menu),
@@ -19,6 +19,7 @@ class AuthorsController extends SiteController
         );
 			
 		$this->a_rep = $a_rep;
+		$this->u_rep = $u_rep;
 		
 		$this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
 
@@ -26,17 +27,19 @@ class AuthorsController extends SiteController
 
 	public function index() {
 
-        // $users = $this->getAuthors();
+        $this->setStatus();
+		
+        $this->prepareStolMenu();
+    
+        $this->template = 'front.authors';
+    
+        $this->title = __("Наши авторы");
 
-        // $content = view('front.authors_content')->with('users', $users)->render();
-        // $this->vars = array_add($this->vars, 'content', $content);
+        $users = $this->getAuthors(true);
 
-        // $sidebar_menu = '';
+        $this->vars = array_add($this->vars, 'userGroups', $users);
 
-        // $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-        // $this->vars = array_add($this->vars, 'sidebar', $sidebar);
-
-        // return $this->renderOutput();
+        return $this->renderOutput();
     }
 
     public function show(User $user) {
@@ -72,21 +75,19 @@ class AuthorsController extends SiteController
     	return $user;
     }
 
-    public function getAuthors() {
-    	$users = $this->u_rep->get('*', false, 'name');
-        $users->load('articles');
+    public function getAuthors($groups = false) {
+        $users = $this->u_rep->get('*', ['role', 'author']);
+        $users->loadMissing(['meta']);
+        $users = $users->sortBy(function ($user) {
+            return $user->loc->short_name;
+        });
+        
+        if ($groups) {
+            $users = $users->mapToGroups(function ($user) {
+                return [ucfirst(mb_substr($user->loc->short_name, 0, 1)) => $user];
+            });
+        }
 
-    	//prepare for column-output
-    	$col = Config::get('settings.authors_columns_count');
-		$users = $users->mapToGroups(function($user, $key) use ($users, $col) {
-			$maxInCols = ceil($users->count() / $col);
-			$row = $key % $maxInCols;
-			return [$row => $user];
-		});
-		// $users = $users->chunk($col);
-
-		// dd($users);
-    	
     	return $users;
     }
 }
