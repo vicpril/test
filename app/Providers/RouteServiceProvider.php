@@ -84,6 +84,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('menu', function($value) {
             return \App\Models\Menu::where('id', $value)->first();
         });
+
+        Route::bind('redcol', function($value) {
+            return \App\Models\Redcol::where('id', $value)->first();
+        });
     }
 
     /**

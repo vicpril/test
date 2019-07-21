@@ -23,6 +23,9 @@
          <a class="nav-link" href="{{ route('users.index') }}">
             <i class="nav-icon icon-people"></i> Авторы</a
          >
+         <a class="nav-link" href="{{ route('redcols.index') }}">
+            <i class="nav-icon icon-graduation"></i> Редколлегия и редсовет</a
+         >
       </li>
 
       <li class="divider"></li>

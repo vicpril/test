@@ -18,7 +18,7 @@
 			<!-- <ul class="list-unstyled"> -->
 				@foreach($users as  $user)
 				<!-- <li> -->
-					<div class="col-lg-3 col-md-4 col-sm-4 col-6">
+					<div class="col-lg-3 col-md-4 col-sm-4 col-12">
 						<div class="px-2">
 							<a href="{{ route('authors.show', ['authorAlias'=>$user->alias]) }}">
 								{{ $user->loc->short_name }}

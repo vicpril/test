@@ -25,7 +25,7 @@
 							class="form-control form-control-sm ml-1"
 							v-model="search"
 							@blur="fetch"
-						>
+						/>
 					</label>
 				</div>
 			</div>
@@ -53,11 +53,13 @@
 				<tr v-for="(page, index) in pages" :key="index">
 					<td>
 						<a :href="page.editLink">{{ page.title_ru }}</a>
-						<br>
+						<br />
 						<span class="text-muted d-none d-xl-block">{{ page.title_en }}</span>
 					</td>
-					<td v-if="page.on_ru">✓</td><td v-else="page.on_ru">✕</td>
-					<td v-if="page.on_en">✓</td><td v-else="page.on_en">✕</td>
+					<td v-if="page.on_ru">✓</td>
+					<td v-else>✕</td>
+					<td v-if="page.on_en">✓</td>
+					<td v-else>✕</td>
 					<td>
 						<label class="mx-1 switch switch-label switch-3d switch-success form-check-label">
 							<input
@@ -65,7 +67,7 @@
 								class="switch-input"
 								v-model="page.status"
 								@click="statusChange(index, !page.status)"
-							>
+							/>
 							<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 						</label>
 					</td>

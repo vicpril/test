@@ -74,6 +74,10 @@ Vue.component(
    require("./components/back/pages/PagesList.vue").default
 );
 Vue.component(
+   "redcols-list",
+   require("./components/back/redcols/RedcolsList.vue").default
+);
+Vue.component(
    "page-profile",
    require("./components/back/pages/PageProfile.vue").default
 );
@@ -146,12 +150,12 @@ Vue.filter("cutString", function(value) {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 const router = new VueRouter({
-   mode: "history",
+   mode: "history"
 });
 
 const app = new Vue({
    router,
    //    storage: {path: window.location.origin + '/storage/'},
    store,
-   el: "#app",
+   el: "#app"
 });

@@ -45,12 +45,11 @@ class User extends Authenticatable
 
     public function meta()  {
         return $this->hasMany('App\Models\MetaUser', 'user_id');
-                    
     }
   
-    // public function avatar()  {
-    //     return $this->belongsTo('App\Models\File');
-    // }
+    public function redcol()  {
+        return $this->hasMany('App\Models\Redcol');
+    }
 
     /*
     *   Locale getters

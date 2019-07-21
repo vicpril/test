@@ -43,3 +43,6 @@ Route::get('templates/', 'Api\PagesController@getTemplates');
 Route::apiResource('menus', 'Api\MenusController')->only('update')->middleware('auth:api');
 Route::apiResource('menus', 'Api\MenusController')->only('index');
 
+Route::apiResource('redcols', 'Api\RedcolsController')->only('update')->middleware('auth:api');
+Route::apiResource('redcols', 'Api\RedcolsController')->only('index');
+

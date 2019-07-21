@@ -38,7 +38,7 @@ class CreateMetaMenusTable extends Migration
     public function down()
     {
         Schema::table('meta_menus', function (Blueprint $table) {
-            $table->dropForeign('meta_menus_menus_id_foreign');
+            $table->dropForeign('meta_menus_menu_id_foreign');
         });
 
         Schema::dropIfExists('meta_menus');
