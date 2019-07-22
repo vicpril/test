@@ -4185,21 +4185,23 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    redaction: function redaction() {
-      return this.redcols.filter(function ($item) {
-        return $item.type == "red";
-      });
-    },
-    sovet: function sovet() {
-      return this.redcols.filter(function ($item) {
-        return $item.type == "sovet";
-      });
-    },
-    int_sovet: function int_sovet() {
-      return this.redcols.filter(function ($item) {
-        return $item.type == "int-sovet";
-      });
-    }
+    redaction: {
+      get: function get() {
+        return this.redcols.filter(function ($item) {
+          return $item.type == "red";
+        });
+      }
+    } // 		sovet() {
+    // 			return this.redcols.filter($item => {
+    // 				return $item.type == "sovet";
+    // 			});
+    // 		},
+    // 		int_sovet() {
+    // 			return this.redcols.filter($item => {
+    // 				return $item.type == "int-sovet";
+    // 			});
+    // 		}
+
   },
   created: function created() {
     this.fetchRedcols();
@@ -4227,6 +4229,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.min.js");
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -4243,24 +4249,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a,
+    vSelect: vue_select__WEBPACK_IMPORTED_MODULE_1___default.a
+  },
   props: {
     value: {
       type: Array,
       default: function _default() {
         return [];
       }
-    }
-  },
-  computed: {
-    redaction: {
-      get: function get() {
-        return this.value.filter(function ($item) {
-          return $item.type == "red";
-        });
+    },
+    users: {
+      type: Array,
+      default: function _default() {
+        return [];
       }
     }
-  }
+  },
+  computed: {}
 });
 
 /***/ }),
@@ -65077,17 +65141,7 @@ var render = function() {
               _c(
                 "b-tab",
                 { attrs: { title: "РЕДАКЦИЯ" } },
-                [
-                  _c("redaction-list", {
-                    model: {
-                      value: _vm.redcols,
-                      callback: function($$v) {
-                        _vm.redcols = $$v
-                      },
-                      expression: "redcols"
-                    }
-                  })
-                ],
+                [_c("redaction-list", { attrs: { value: _vm.redaction } })],
                 1
               ),
               _vm._v(" "),
@@ -65169,9 +65223,173 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("b-card-text", [
-        _vm._v(
-          "\n\t\tQuis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum\n\t\tconsequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex\n\t\tconsectetur mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt\n\t\tveniam velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua\n\t\tesse irure.\n\t"
-        )
+        _vm.value.length > 0
+          ? _c(
+              "table",
+              {
+                staticClass: "table table-sm table-striped table-responsive-md",
+                staticStyle: { width: "100%" },
+                attrs: { id: "" }
+              },
+              [
+                _c("thead", { staticClass: "text-black" }, [
+                  _c("tr", [
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Должность - RU")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Должность - EN")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Автор")]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "draggable",
+                  {
+                    attrs: { tag: "tbody", handle: ".handle" },
+                    model: {
+                      value: _vm.value,
+                      callback: function($$v) {
+                        _vm.value = $$v
+                      },
+                      expression: "value"
+                    }
+                  },
+                  [
+                    _vm._l(_vm.value, function(item, index) {
+                      return [
+                        _c("tr", { key: item.id }, [
+                          _c(
+                            "td",
+                            {
+                              staticClass: "handle text-secondary my-auto px-2",
+                              on: {
+                                mouseover: function($event) {
+                                  return $event.target.classList.add(
+                                    "text-warning"
+                                  )
+                                },
+                                mouseout: function($event) {
+                                  return $event.target.classList.remove(
+                                    "text-warning"
+                                  )
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-arrows-v fa-lg" })]
+                          ),
+                          _vm._v(" "),
+                          _c("td", {}, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: item.post_ru,
+                                  expression: "item.post_ru"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: item.post_ru },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(item, "post_ru", $event.target.value)
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: item.post_en,
+                                  expression: "item.post_en"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: item.post_en },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(item, "post_en", $event.target.value)
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "v-select",
+                                {
+                                  staticClass: "flex-grow-1",
+                                  attrs: {
+                                    id: "categories",
+                                    options: _vm.users,
+                                    label: "name",
+                                    value: item.user_id
+                                  },
+                                  on: { input: function($event) {} }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      attrs: { slot: "no-options" },
+                                      slot: "no-options"
+                                    },
+                                    [_vm._v("Авторов по запросу не найдено.")]
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-secondary" }, [
+                            _c("i", {
+                              staticClass: "fa fa-close",
+                              on: {
+                                mouseover: function($event) {
+                                  return $event.target.classList.add(
+                                    "text-danger"
+                                  )
+                                },
+                                mouseout: function($event) {
+                                  return $event.target.classList.remove(
+                                    "text-danger"
+                                  )
+                                },
+                                click: function($event) {
+                                  return _vm.$emit("deleteUser", item.id)
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      ]
+                    })
+                  ],
+                  2
+                )
+              ],
+              1
+            )
+          : _vm._e()
       ])
     ],
     1
@@ -74562,15 +74780,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************************************!*\
   !*** ./resources/js/components/back/redcols/RedcolsListRedaction.vue ***!
   \***********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RedcolsListRedaction_vue_vue_type_template_id_0ca4841d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RedcolsListRedaction.vue?vue&type=template&id=0ca4841d&scoped=true& */ "./resources/js/components/back/redcols/RedcolsListRedaction.vue?vue&type=template&id=0ca4841d&scoped=true&");
 /* harmony import */ var _RedcolsListRedaction_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RedcolsListRedaction.vue?vue&type=script&lang=js& */ "./resources/js/components/back/redcols/RedcolsListRedaction.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _RedcolsListRedaction_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _RedcolsListRedaction_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -74600,7 +74817,7 @@ component.options.__file = "resources/js/components/back/redcols/RedcolsListReda
 /*!************************************************************************************************!*\
   !*** ./resources/js/components/back/redcols/RedcolsListRedaction.vue?vue&type=script&lang=js& ***!
   \************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -3,7 +3,7 @@
 		<b-card no-body>
 			<b-tabs card>
 				<b-tab title="РЕДАКЦИЯ">
-					<redaction-list v-model="redcols"></redaction-list>
+					<redaction-list :value="redaction"></redaction-list>
 				</b-tab>
 
 				<b-tab no-body title="РЕДАКЦИОННЫЙ СОВЕТ">
@@ -35,21 +35,24 @@ export default {
 	},
 
 	computed: {
-		redaction() {
-			return this.redcols.filter($item => {
-				return $item.type == "red";
-			});
-		},
-		sovet() {
-			return this.redcols.filter($item => {
-				return $item.type == "sovet";
-			});
-		},
-		int_sovet() {
-			return this.redcols.filter($item => {
-				return $item.type == "int-sovet";
-			});
-		}
+		redaction: {
+					get() {
+						return this.redcols.filter($item => {
+							return $item.type == "red";
+						});
+
+					},
+				}
+// 		sovet() {
+// 			return this.redcols.filter($item => {
+// 				return $item.type == "sovet";
+// 			});
+// 		},
+// 		int_sovet() {
+// 			return this.redcols.filter($item => {
+// 				return $item.type == "int-sovet";
+// 			});
+// 		}
 	},
 
 	created() {
