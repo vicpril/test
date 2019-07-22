@@ -31,9 +31,9 @@ export default {
 				});
 
 			},
-			set(value) {
-				this.value = 
-			}
+// 			set(value) {
+// 				this.$emit
+// 			}
 		}
 	}
 };
