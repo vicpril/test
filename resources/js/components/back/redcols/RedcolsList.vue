@@ -3,7 +3,7 @@
 		<b-card no-body>
 			<b-tabs card>
 				<b-tab title="РЕДАКЦИЯ">
-					<redaction-list></redaction-list>
+					<redaction-list v-model="redcols"></redaction-list>
 				</b-tab>
 
 				<b-tab no-body title="РЕДАКЦИОННЫЙ СОВЕТ">

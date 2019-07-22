@@ -15,7 +15,28 @@
 </template>
 
 <script>
-export default {};
+export default {
+	props: {
+		value: {
+			type: Array,
+			default:() => ([])
+		}
+	},
+
+	computed: {
+		redaction: {
+			get() {
+				return this.value.filter($item => {
+					return $item.type == "red";
+				});
+
+			},
+			set(value) {
+				this.value = 
+			}
+		}
+	}
+};
 </script>
 
 <style scoped>
