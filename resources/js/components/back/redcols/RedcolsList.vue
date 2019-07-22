@@ -3,7 +3,7 @@
 		<b-card no-body>
 			<b-tabs card>
 				<b-tab title="РЕДАКЦИЯ">
-					<redaction-list :value="redaction"></redaction-list>
+					<redaction-list :value="redaction" :users="users"></redaction-list>
 				</b-tab>
 
 				<b-tab no-body title="РЕДАКЦИОННЫЙ СОВЕТ">
@@ -30,7 +30,8 @@ export default {
 
 	data() {
 		return {
-			redcols: []
+			redcols: [],
+			users:[]
 		};
 	},
 
@@ -57,6 +58,7 @@ export default {
 
 	created() {
 		this.fetchRedcols();
+		this.fetchUsers();
 	},
 
 	methods: {
@@ -66,7 +68,12 @@ export default {
 				.then(({ data }) => {
 					this.redcols = data.data;
 				});
-		}
+		},
+		fetchUsers() {
+			axios.get("/api/userslist").then(({ data }) => {
+				this.users = data.data;
+			});
+		},
 	}
 };
 </script>

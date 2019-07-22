@@ -7,7 +7,7 @@
 		<b-card-text>
 			<table
 				v-if="value.length > 0"
-				class="table table-sm table-striped table-responsive-md"
+				class="table table-sm table-responsive-md"
 				style="width:100%"
 				id
 			>
@@ -26,7 +26,7 @@
 					v-model="value"
 				>
 					<template v-for="(item, index) in value">
-						<tr :key="item.id">
+						<tr :key="index">
 							<td
 								class="handle text-secondary my-auto px-2"
 								@mouseover="$event.target.classList.add('text-warning')"
@@ -42,12 +42,12 @@
 							</td>
 							<td>
 								<v-select
-									id="categories"
 									class="flex-grow-1"
+									v-model="item.user_id"				
 									:options="users"
+									:reduce="u => u.id" 
+									:key="item.user_id"
 									label="name"
-									:value="item.user_id"
-									@input=""
 								>
 									<div slot="no-options">Авторов по запросу не найдено.</div>
 								</v-select>

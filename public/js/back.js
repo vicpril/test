@@ -4181,7 +4181,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      redcols: []
+      redcols: [],
+      users: []
     };
   },
   computed: {
@@ -4205,6 +4206,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.fetchRedcols();
+    this.fetchUsers();
   },
   methods: {
     fetchRedcols: function fetchRedcols() {
@@ -4213,6 +4215,14 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/redcols?sortBy=position&orderBy=asc").then(function (_ref) {
         var data = _ref.data;
         _this.redcols = data.data;
+      });
+    },
+    fetchUsers: function fetchUsers() {
+      var _this2 = this;
+
+      axios.get("/api/userslist").then(function (_ref2) {
+        var data = _ref2.data;
+        _this2.users = data.data;
       });
     }
   }
@@ -65141,7 +65151,11 @@ var render = function() {
               _c(
                 "b-tab",
                 { attrs: { title: "РЕДАКЦИЯ" } },
-                [_c("redaction-list", { attrs: { value: _vm.redaction } })],
+                [
+                  _c("redaction-list", {
+                    attrs: { value: _vm.redaction, users: _vm.users }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),
@@ -65227,7 +65241,7 @@ var render = function() {
           ? _c(
               "table",
               {
-                staticClass: "table table-sm table-striped table-responsive-md",
+                staticClass: "table table-sm table-responsive-md",
                 staticStyle: { width: "100%" },
                 attrs: { id: "" }
               },
@@ -65261,7 +65275,7 @@ var render = function() {
                   [
                     _vm._l(_vm.value, function(item, index) {
                       return [
-                        _c("tr", { key: item.id }, [
+                        _c("tr", { key: index }, [
                           _c(
                             "td",
                             {
@@ -65336,14 +65350,22 @@ var render = function() {
                               _c(
                                 "v-select",
                                 {
+                                  key: item.user_id,
                                   staticClass: "flex-grow-1",
                                   attrs: {
-                                    id: "categories",
                                     options: _vm.users,
-                                    label: "name",
-                                    value: item.user_id
+                                    reduce: function(u) {
+                                      return u.id
+                                    },
+                                    label: "name"
                                   },
-                                  on: { input: function($event) {} }
+                                  model: {
+                                    value: item.user_id,
+                                    callback: function($$v) {
+                                      _vm.$set(item, "user_id", $$v)
+                                    },
+                                    expression: "item.user_id"
+                                  }
                                 },
                                 [
                                   _c(
