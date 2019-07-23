@@ -3,20 +3,23 @@
 		<b-card no-body>
 			<b-tabs card>
 				<b-tab title="РЕДАКЦИЯ">
-					<redaction-list v-model="redaction" :users="users"></redaction-list>
+					<redaction-list v-model="redaction" type="red" :users="users"></redaction-list>
 				</b-tab>
 
 				<b-tab no-body title="РЕДАКЦИОННЫЙ СОВЕТ">
-					<b-card-img bottom src="https://picsum.photos/600/200/?image=25"></b-card-img>
-					<b-card-footer>Picture 2 footer</b-card-footer>
+					<redaction-list v-model="sovet" type="sovet" :users="users"></redaction-list>
 				</b-tab>
 
 				<b-tab no-body title="МЕЖДУНАРОДНЫЙ РЕДАКЦИОННЫЙ СОВЕТ ">
-					<b-card-img bottom src="https://picsum.photos/600/200/?image=26"></b-card-img>
-					<b-card-footer>Picture 3 footer</b-card-footer>
+					<redaction-list v-model="int_sovet" type="int-sovet" :users="users"></redaction-list>
 				</b-tab>
 			</b-tabs>
 		</b-card>
+		<ul>
+			<li v-for="(item,index) in redcols" :key="index">
+				{{item.id}} - {{item.position}} - {{item.type}} - {{item.post_ru}} - {{item.post_en}} - {{item.user_id}}
+			</li>
+		</ul>
 	</div>
 </template>
 
@@ -38,45 +41,43 @@ export default {
 	computed: {
 		redaction: {
 			get() {
-				return this.redcols.filter($item => {
-					return $item.type == "red";
+				return this.redcols.filter(item => {
+					return item.type == "red";
 				});
 			},
 			set(value) {
-				// value.forEach(item => {
-				// 	let index = this.redcols.find(el => {
-				// 		return el.id == item.id;
-				// 	});
-				// 	if (index !== -1) {
-				// 		this.redcols.splice(index, 1);
-				// 		this.redcols.push(item);
-				// 	}
-				// });
-				let red = this.redcols.filter($item => {
-					return $item.type == "red";
-				});
-				red.forEach(item => {
-					let index = this.redcols.findIndex(el => {
-						return el.id == item.id;
+					let tmp = this.redcols.filter(el => {
+						return el.type !== "red";
 					});
-					this.redcols.splice(index, 1);
-					this.redcols.push(item);
-				});
-				// value.forEach(item => {
-				// 	this.redcols.push(item);
-				// });
+					this.redcols = tmp.concat(value);
 			}
-		}
-		// 		sovet() {
-		// 			return this.redcols.filter($item => {
-		// 				return $item.type == "sovet";
-		// 			});
-		// 		},
-		// 		int_sovet() {
-		// 			return this.redcols.filter($item => {
-		// 				return $item.type == "int-sovet";
-		// 			});
-		// 		}
+		},
+				sovet: {
+					get() {
+						return this.redcols.filter(item => {
+							return item.type == "sovet";
+						});
+					},
+					set(value) {
+							let tmp = this.redcols.filter(el => {
+								return el.type !== "sovet";
+							});
+							this.redcols = tmp.concat(value);
+					}
+				},
+				int_sovet: {
+					get() {
+						return this.redcols.filter(item => {
+							return item.type == "int-sovet";
+						});
+					},
+					set(value) {
+							let tmp = this.redcols.filter(el => {
+								return el.type !== "int-sovet";
+							});
+							this.redcols = tmp.concat(value);
+					}
+				},
 	},
 
 	created() {

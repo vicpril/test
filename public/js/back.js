@@ -4194,6 +4194,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4208,48 +4211,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     redaction: {
       get: function get() {
-        return this.redcols.filter(function ($item) {
-          return $item.type == "red";
+        return this.redcols.filter(function (item) {
+          return item.type == "red";
         });
       },
       set: function set(value) {
-        var _this = this;
-
-        // value.forEach(item => {
-        // 	let index = this.redcols.find(el => {
-        // 		return el.id == item.id;
-        // 	});
-        // 	if (index !== -1) {
-        // 		this.redcols.splice(index, 1);
-        // 		this.redcols.push(item);
-        // 	}
-        // });
-        var red = this.redcols.filter(function ($item) {
-          return $item.type == "red";
+        var tmp = this.redcols.filter(function (el) {
+          return el.type !== "red";
         });
-        red.forEach(function (item) {
-          var index = _this.redcols.findIndex(function (el) {
-            return el.id == item.id;
-          });
-
-          _this.redcols.splice(index, 1);
-
-          _this.redcols.push(item);
-        }); // value.forEach(item => {
-        // 	this.redcols.push(item);
-        // });
+        this.redcols = tmp.concat(value);
       }
-    } // 		sovet() {
-    // 			return this.redcols.filter($item => {
-    // 				return $item.type == "sovet";
-    // 			});
-    // 		},
-    // 		int_sovet() {
-    // 			return this.redcols.filter($item => {
-    // 				return $item.type == "int-sovet";
-    // 			});
-    // 		}
-
+    },
+    sovet: {
+      get: function get() {
+        return this.redcols.filter(function (item) {
+          return item.type == "sovet";
+        });
+      },
+      set: function set(value) {
+        var tmp = this.redcols.filter(function (el) {
+          return el.type !== "sovet";
+        });
+        this.redcols = tmp.concat(value);
+      }
+    },
+    int_sovet: {
+      get: function get() {
+        return this.redcols.filter(function (item) {
+          return item.type == "int-sovet";
+        });
+      },
+      set: function set(value) {
+        var tmp = this.redcols.filter(function (el) {
+          return el.type !== "int-sovet";
+        });
+        this.redcols = tmp.concat(value);
+      }
+    }
   },
   created: function created() {
     this.fetchData();
@@ -4308,7 +4306,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _fetchUsers = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _this2 = this;
+        var _this = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -4317,7 +4315,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.next = 2;
                 return axios.get("/api/userslist").then(function (_ref) {
                   var data = _ref.data;
-                  _this2.users = data.data;
+                  _this.users = data.data;
                 });
 
               case 2:
@@ -4338,7 +4336,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _fetchRedcols = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var _this3 = this;
+        var _this2 = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
@@ -4347,7 +4345,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.next = 2;
                 return axios.get("/api/redcols?sortBy=position&orderBy=asc").then(function (_ref2) {
                   var data = _ref2.data;
-                  _this3.redcols = data.data;
+                  _this2.redcols = data.data;
                 });
 
               case 2:
@@ -4442,6 +4440,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4461,6 +4460,9 @@ __webpack_require__.r(__webpack_exports__);
       default: function _default() {
         return [];
       }
+    },
+    type: {
+      type: String
     }
   },
   computed: {
@@ -4469,13 +4471,30 @@ __webpack_require__.r(__webpack_exports__);
         return this.value;
       },
       set: function set(value) {
-        // console.log(value);
-        // console.log(value);
         value.forEach(function (item, index) {
           item.position = index + 1;
         });
         this.$emit("input", value);
       }
+    }
+  },
+  methods: {
+    addNew: function addNew() {
+      var item = {
+        id: '',
+        type: this.type,
+        position: this.redaction.length + 1,
+        post_ru: '',
+        post_en: '',
+        user_id: ''
+      };
+      console.log(item);
+      this.redaction.push(item);
+      this.$emit("input", this.redaction);
+    },
+    deleteRow: function deleteRow(index) {
+      this.redaction.splice(index, 1);
+      this.$emit("input", this.redaction);
     }
   }
 });
@@ -28753,7 +28772,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\na#btn-scroll-up {\r\n\tdisplay: inline-block;\r\n\tbackground-color: transparent;\r\n\twidth: 50px;\r\n\theight: 50px;\r\n\ttext-align: center;\r\n\tborder: 1px solid var(--secondary);\r\n\tborder-radius: 4px;\r\n\tmargin: 30px;\r\n\tposition: fixed;\r\n\tbottom: 30px;\r\n\tright: 30px;\r\n\t/* transition: background-color 0.3s; */\r\n\tz-index: 1000;\n}\na#btn-scroll-up:hover {\r\n\tcursor: pointer;\r\n\tbackground-color: var(--secondary);\r\n\ttransition: background-color 0.3s;\n}\na#btn-scroll-up:hover::after {\r\n\tcursor: pointer;\r\n\tcolor: #fff;\n}\na#btn-scroll-up:active {\r\n\tbackground-color: #555;\n}\na#btn-scroll-up::after {\r\n\tcontent: \"\\F077\";\r\n\tfont-family: FontAwesome;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 2em;\r\n\tline-height: 50px;\r\n\tcolor: var(--secondary);\n}\n.fade-enter {\r\n\topacity: 0;\n}\n.fade-enter-active {\r\n\ttransition: opacity 1s;\n}\n.fade-leave {\r\n\t/*opacity: 1;*/\n}\n.fade-leave-active {\r\n\ttransition: opacity 1s;\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\na#btn-scroll-up {\n\tdisplay: inline-block;\n\tbackground-color: transparent;\n\twidth: 50px;\n\theight: 50px;\n\ttext-align: center;\n\tborder: 1px solid var(--secondary);\n\tborder-radius: 4px;\n\tmargin: 30px;\n\tposition: fixed;\n\tbottom: 30px;\n\tright: 30px;\n\t/* transition: background-color 0.3s; */\n\tz-index: 1000;\n}\na#btn-scroll-up:hover {\n\tcursor: pointer;\n\tbackground-color: var(--secondary);\n\ttransition: background-color 0.3s;\n}\na#btn-scroll-up:hover::after {\n\tcursor: pointer;\n\tcolor: #fff;\n}\na#btn-scroll-up:active {\n\tbackground-color: #555;\n}\na#btn-scroll-up::after {\n\tcontent: \"\\F077\";\n\tfont-family: FontAwesome;\n\tfont-weight: normal;\n\tfont-style: normal;\n\tfont-size: 2em;\n\tline-height: 50px;\n\tcolor: var(--secondary);\n}\n.fade-enter {\n\topacity: 0;\n}\n.fade-enter-active {\n\ttransition: opacity 1s;\n}\n.fade-leave {\n\t/*opacity: 1;*/\n}\n.fade-leave-active {\n\ttransition: opacity 1s;\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -28772,7 +28791,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 320px;\n}\n#title_ru {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n", ""]);
 
 // exports
 
@@ -28791,7 +28810,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n#users .vs__selected {\r\n\tbackground-color: var(--primary);\r\n\tcolor: white;\r\n\tfont-weight: 600;\r\n\t/* font-size: 1rem; */\n}\r\n", ""]);
+exports.push([module.i, "\n#users .vs__selected {\n\tbackground-color: var(--primary);\n\tcolor: white;\n\tfont-weight: 600;\n\t/* font-size: 1rem; */\n}\n", ""]);
 
 // exports
 
@@ -28810,7 +28829,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n#tags .vs__selected {\r\n\tbackground-color: var(--warning);\r\n\t/* color: white; */\r\n\t/* font-weight: 600; */\r\n\t/* font-size: 1rem; */\n}\r\n", ""]);
+exports.push([module.i, "\n#tags .vs__selected {\n\tbackground-color: var(--warning);\n\t/* color: white; */\n\t/* font-weight: 600; */\n\t/* font-size: 1rem; */\n}\n", ""]);
 
 // exports
 
@@ -28829,7 +28848,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.title-column[data-v-95859fe0] {\r\n\twidth: 40% !important;\n}\nthead > tr > th.sorting_asc[data-v-95859fe0],\r\nthead > tr > th.sorting_desc[data-v-95859fe0],\r\nthead > tr > th.sorting[data-v-95859fe0],\r\nthead > tr > td.sorting_asc[data-v-95859fe0],\r\nthead > tr > td.sorting_desc[data-v-95859fe0],\r\nthead > tr > td.sorting[data-v-95859fe0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-95859fe0]:active,\r\nthead > tr > td[data-v-95859fe0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-95859fe0],\r\nthead .sorting_asc[data-v-95859fe0],\r\nthead .sorting_desc[data-v-95859fe0],\r\nthead .sorting_asc_disabled[data-v-95859fe0],\r\nthead .sorting_desc_disabled[data-v-95859fe0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-95859fe0]:before,\r\nthead .sorting[data-v-95859fe0]:after,\r\nthead .sorting_asc[data-v-95859fe0]:before,\r\nthead .sorting_asc[data-v-95859fe0]:after,\r\nthead .sorting_desc[data-v-95859fe0]:before,\r\nthead .sorting_desc[data-v-95859fe0]:after,\r\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\r\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:before,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-95859fe0]:before,\r\nthead .sorting_asc[data-v-95859fe0]:before,\r\nthead .sorting_desc[data-v-95859fe0]:before,\r\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-95859fe0]:after,\r\nthead .sorting_asc[data-v-95859fe0]:after,\r\nthead .sorting_desc[data-v-95859fe0]:after,\r\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-95859fe0]:before,\r\nthead .sorting_desc[data-v-95859fe0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\r\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.title-column[data-v-95859fe0] {\n\twidth: 40% !important;\n}\nthead > tr > th.sorting_asc[data-v-95859fe0],\nthead > tr > th.sorting_desc[data-v-95859fe0],\nthead > tr > th.sorting[data-v-95859fe0],\nthead > tr > td.sorting_asc[data-v-95859fe0],\nthead > tr > td.sorting_desc[data-v-95859fe0],\nthead > tr > td.sorting[data-v-95859fe0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-95859fe0]:active,\nthead > tr > td[data-v-95859fe0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-95859fe0],\nthead .sorting_asc[data-v-95859fe0],\nthead .sorting_desc[data-v-95859fe0],\nthead .sorting_asc_disabled[data-v-95859fe0],\nthead .sorting_desc_disabled[data-v-95859fe0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-95859fe0]:before,\nthead .sorting[data-v-95859fe0]:after,\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_asc[data-v-95859fe0]:after,\nthead .sorting_desc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:after,\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\nthead .sorting_desc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-95859fe0]:before,\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:before,\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-95859fe0]:after,\nthead .sorting_asc[data-v-95859fe0]:after,\nthead .sorting_desc[data-v-95859fe0]:after,\nthead .sorting_asc_disabled[data-v-95859fe0]:after,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-95859fe0]:before,\nthead .sorting_desc[data-v-95859fe0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-95859fe0]:before,\nthead .sorting_desc_disabled[data-v-95859fe0]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -28848,7 +28867,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\r\nthead > tr > th.sorting_desc[data-v-7425bcb0],\r\nthead > tr > th.sorting[data-v-7425bcb0],\r\nthead > tr > td.sorting_asc[data-v-7425bcb0],\r\nthead > tr > td.sorting_desc[data-v-7425bcb0],\r\nthead > tr > td.sorting[data-v-7425bcb0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\r\nthead > tr > td[data-v-7425bcb0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\r\nthead .sorting_asc[data-v-7425bcb0],\r\nthead .sorting_desc[data-v-7425bcb0],\r\nthead .sorting_asc_disabled[data-v-7425bcb0],\r\nthead .sorting_desc_disabled[data-v-7425bcb0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\r\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:before,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\r\nthead .sorting_asc[data-v-7425bcb0]:after,\r\nthead .sorting_desc[data-v-7425bcb0]:after,\r\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\r\nthead .sorting_desc[data-v-7425bcb0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\r\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-7425bcb0],\nthead > tr > th.sorting_desc[data-v-7425bcb0],\nthead > tr > th.sorting[data-v-7425bcb0],\nthead > tr > td.sorting_asc[data-v-7425bcb0],\nthead > tr > td.sorting_desc[data-v-7425bcb0],\nthead > tr > td.sorting[data-v-7425bcb0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-7425bcb0]:active,\nthead > tr > td[data-v-7425bcb0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-7425bcb0],\nthead .sorting_asc[data-v-7425bcb0],\nthead .sorting_desc[data-v-7425bcb0],\nthead .sorting_asc_disabled[data-v-7425bcb0],\nthead .sorting_desc_disabled[data-v-7425bcb0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-7425bcb0]:before,\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:before,\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-7425bcb0]:after,\nthead .sorting_asc[data-v-7425bcb0]:after,\nthead .sorting_desc[data-v-7425bcb0]:after,\nthead .sorting_asc_disabled[data-v-7425bcb0]:after,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-7425bcb0]:before,\nthead .sorting_desc[data-v-7425bcb0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-7425bcb0]:before,\nthead .sorting_desc_disabled[data-v-7425bcb0]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -28867,7 +28886,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* tablestyle */\ntable {\r\n\twidth: 100%;\n}\ntable tr td {\r\n\tvertical-align: middle !important;\n}\ntd.trunc {\r\n\tmax-width: 0;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\n}\ntd.title {\r\n\twidth: 30%;\n}\r\n\r\n/* checkbox color */\ntable .custom-control-input:checked ~ .custom-control-label::before {\r\n\tcolor: #fff;\r\n\tborder-color: var(--success);\r\n\tbackground-color: var(--success);\n}\ntable\r\n\t.custom-checkbox\r\n\t.custom-control-input:indeterminate\r\n\t~ .custom-control-label::before {\r\n\tborder-color: var(--secondary);\r\n\tbackground-color: var(--secondary);\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* tablestyle */\ntable {\n\twidth: 100%;\n}\ntable tr td {\n\tvertical-align: middle !important;\n}\ntd.trunc {\n\tmax-width: 0;\n\toverflow: hidden;\n\ttext-overflow: ellipsis;\n\twhite-space: nowrap;\n}\ntd.title {\n\twidth: 30%;\n}\n\n/* checkbox color */\ntable .custom-control-input:checked ~ .custom-control-label::before {\n\tcolor: #fff;\n\tborder-color: var(--success);\n\tbackground-color: var(--success);\n}\ntable\n\t.custom-checkbox\n\t.custom-control-input:indeterminate\n\t~ .custom-control-label::before {\n\tborder-color: var(--secondary);\n\tbackground-color: var(--secondary);\n}\n", ""]);
 
 // exports
 
@@ -28886,7 +28905,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.left-column[data-v-68796274] {\r\n\tflex: 0 0 320px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.left-column[data-v-68796274] {\n\tflex: 0 0 320px;\n}\n", ""]);
 
 // exports
 
@@ -28905,7 +28924,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nul.page-list[data-v-39ef6e43] {\r\n\tlist-style: none;\r\n\tpadding: 0;\r\n\tmargin: 13px 0;\n}\n.pages-panel[data-v-39ef6e43] {\r\n\tmin-height: 42px;\r\n\tmax-height: 200px;\r\n\toverflow: auto;\r\n\tpadding: 0 0.9em;\r\n\tborder: 1px solid #ddd;\r\n\tbackground-color: #fdfdfd;\n}\r\n", ""]);
+exports.push([module.i, "\nul.page-list[data-v-39ef6e43] {\n\tlist-style: none;\n\tpadding: 0;\n\tmargin: 13px 0;\n}\n.pages-panel[data-v-39ef6e43] {\n\tmin-height: 42px;\n\tmax-height: 200px;\n\toverflow: auto;\n\tpadding: 0 0.9em;\n\tborder: 1px solid #ddd;\n\tbackground-color: #fdfdfd;\n}\n", ""]);
 
 // exports
 
@@ -28924,7 +28943,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n#menu-title[data-v-4a91dbb3] {\r\n\twidth: 40%;\r\n\t/* font-size: 1.1em; */\n}\n.list-group[data-v-4a91dbb3] {\r\n\twidth: 400px;\n}\n.list-group-item[data-v-4a91dbb3] {\r\n\tbackground: #fafafa;\r\n\tcolor: #23282d;\r\n\tborder-radius: 0px;\r\n\tmargin-top: 7px;\n}\n.list-group-item[data-v-4a91dbb3] :hover {\r\n\tcursor: move;\r\n\tborder-color: #999;\n}\n.ghost[data-v-4a91dbb3] {\r\n\topacity: 0.5;\r\n\tbackground: #c8ebfb;\n}\na.item-edit[data-v-4a91dbb3] {\r\n\tposition: absolute;\r\n\tright: -1px;\r\n\ttop: 0;\r\n\tdisplay: flex;\r\n\talign-items: center;\r\n\tjustify-content: center;\r\n\twidth: 30px;\r\n\theight: 100%;\r\n\tmargin-right: 0 !important;\r\n\toutline: 0;\r\n\toverflow: hidden;\r\n\twhite-space: nowrap;\r\n\tcursor: pointer !important;\r\n\ttext-decoration: none !important;\r\n\tcolor: #000;\n}\na.item-edit.collapsed[data-v-4a91dbb3]:before {\r\n\tcontent: \"\\F0D7\";\r\n\tfont-family: FontAwesome;\r\n\ttext-indent: 0;\n}\na.item-edit[data-v-4a91dbb3]:before {\r\n\tcontent: \"\\F0D8\";\r\n\tfont-family: FontAwesome;\r\n\ttext-indent: 0;\n}\n.link-info[data-v-4a91dbb3] {\r\n\tborder-radius: 0px;\r\n\tborder-top: none;\r\n\tmargin: 0px;\r\n\t/* \tpadding-left: 8px;\r\n\tpadding-right: 8px; */\n}\r\n", ""]);
+exports.push([module.i, "\n#menu-title[data-v-4a91dbb3] {\n\twidth: 40%;\n\t/* font-size: 1.1em; */\n}\n.list-group[data-v-4a91dbb3] {\n\twidth: 400px;\n}\n.list-group-item[data-v-4a91dbb3] {\n\tbackground: #fafafa;\n\tcolor: #23282d;\n\tborder-radius: 0px;\n\tmargin-top: 7px;\n}\n.list-group-item[data-v-4a91dbb3] :hover {\n\tcursor: move;\n\tborder-color: #999;\n}\n.ghost[data-v-4a91dbb3] {\n\topacity: 0.5;\n\tbackground: #c8ebfb;\n}\na.item-edit[data-v-4a91dbb3] {\n\tposition: absolute;\n\tright: -1px;\n\ttop: 0;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\twidth: 30px;\n\theight: 100%;\n\tmargin-right: 0 !important;\n\toutline: 0;\n\toverflow: hidden;\n\twhite-space: nowrap;\n\tcursor: pointer !important;\n\ttext-decoration: none !important;\n\tcolor: #000;\n}\na.item-edit.collapsed[data-v-4a91dbb3]:before {\n\tcontent: \"\\F0D7\";\n\tfont-family: FontAwesome;\n\ttext-indent: 0;\n}\na.item-edit[data-v-4a91dbb3]:before {\n\tcontent: \"\\F0D8\";\n\tfont-family: FontAwesome;\n\ttext-indent: 0;\n}\n.link-info[data-v-4a91dbb3] {\n\tborder-radius: 0px;\n\tborder-top: none;\n\tmargin: 0px;\n\t/* \tpadding-left: 8px;\n\tpadding-right: 8px; */\n}\n", ""]);
 
 // exports
 
@@ -28943,7 +28962,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar[data-v-89cd28dc] {\r\n\tflex: 0 0 320px;\n}\n.title[data-v-89cd28dc] {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar[data-v-89cd28dc] {\n\tflex: 0 0 320px;\n}\n.title[data-v-89cd28dc] {\n\tfont-size: 20px;\n\theight: calc(1.7em + 1px);\n\tpadding: 3px 8px 3px 8px;\n}\n", ""]);
 
 // exports
 
@@ -28962,7 +28981,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.title-column[data-v-70b01c0c] {\r\n\twidth: 40% !important;\n}\nthead > tr > th.sorting_asc[data-v-70b01c0c],\r\nthead > tr > th.sorting_desc[data-v-70b01c0c],\r\nthead > tr > th.sorting[data-v-70b01c0c],\r\nthead > tr > td.sorting_asc[data-v-70b01c0c],\r\nthead > tr > td.sorting_desc[data-v-70b01c0c],\r\nthead > tr > td.sorting[data-v-70b01c0c] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-70b01c0c]:active,\r\nthead > tr > td[data-v-70b01c0c]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-70b01c0c],\r\nthead .sorting_asc[data-v-70b01c0c],\r\nthead .sorting_desc[data-v-70b01c0c],\r\nthead .sorting_asc_disabled[data-v-70b01c0c],\r\nthead .sorting_desc_disabled[data-v-70b01c0c] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-70b01c0c]:before,\r\nthead .sorting[data-v-70b01c0c]:after,\r\nthead .sorting_asc[data-v-70b01c0c]:before,\r\nthead .sorting_asc[data-v-70b01c0c]:after,\r\nthead .sorting_desc[data-v-70b01c0c]:before,\r\nthead .sorting_desc[data-v-70b01c0c]:after,\r\nthead .sorting_asc_disabled[data-v-70b01c0c]:before,\r\nthead .sorting_asc_disabled[data-v-70b01c0c]:after,\r\nthead .sorting_desc_disabled[data-v-70b01c0c]:before,\r\nthead .sorting_desc_disabled[data-v-70b01c0c]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-70b01c0c]:before,\r\nthead .sorting_asc[data-v-70b01c0c]:before,\r\nthead .sorting_desc[data-v-70b01c0c]:before,\r\nthead .sorting_asc_disabled[data-v-70b01c0c]:before,\r\nthead .sorting_desc_disabled[data-v-70b01c0c]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-70b01c0c]:after,\r\nthead .sorting_asc[data-v-70b01c0c]:after,\r\nthead .sorting_desc[data-v-70b01c0c]:after,\r\nthead .sorting_asc_disabled[data-v-70b01c0c]:after,\r\nthead .sorting_desc_disabled[data-v-70b01c0c]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-70b01c0c]:before,\r\nthead .sorting_desc[data-v-70b01c0c]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-70b01c0c]:before,\r\nthead .sorting_desc_disabled[data-v-70b01c0c]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.title-column[data-v-70b01c0c] {\n\twidth: 40% !important;\n}\nthead > tr > th.sorting_asc[data-v-70b01c0c],\nthead > tr > th.sorting_desc[data-v-70b01c0c],\nthead > tr > th.sorting[data-v-70b01c0c],\nthead > tr > td.sorting_asc[data-v-70b01c0c],\nthead > tr > td.sorting_desc[data-v-70b01c0c],\nthead > tr > td.sorting[data-v-70b01c0c] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-70b01c0c]:active,\nthead > tr > td[data-v-70b01c0c]:active {\n\toutline: none;\n}\nthead .sorting[data-v-70b01c0c],\nthead .sorting_asc[data-v-70b01c0c],\nthead .sorting_desc[data-v-70b01c0c],\nthead .sorting_asc_disabled[data-v-70b01c0c],\nthead .sorting_desc_disabled[data-v-70b01c0c] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-70b01c0c]:before,\nthead .sorting[data-v-70b01c0c]:after,\nthead .sorting_asc[data-v-70b01c0c]:before,\nthead .sorting_asc[data-v-70b01c0c]:after,\nthead .sorting_desc[data-v-70b01c0c]:before,\nthead .sorting_desc[data-v-70b01c0c]:after,\nthead .sorting_asc_disabled[data-v-70b01c0c]:before,\nthead .sorting_asc_disabled[data-v-70b01c0c]:after,\nthead .sorting_desc_disabled[data-v-70b01c0c]:before,\nthead .sorting_desc_disabled[data-v-70b01c0c]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-70b01c0c]:before,\nthead .sorting_asc[data-v-70b01c0c]:before,\nthead .sorting_desc[data-v-70b01c0c]:before,\nthead .sorting_asc_disabled[data-v-70b01c0c]:before,\nthead .sorting_desc_disabled[data-v-70b01c0c]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-70b01c0c]:after,\nthead .sorting_asc[data-v-70b01c0c]:after,\nthead .sorting_desc[data-v-70b01c0c]:after,\nthead .sorting_asc_disabled[data-v-70b01c0c]:after,\nthead .sorting_desc_disabled[data-v-70b01c0c]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-70b01c0c]:before,\nthead .sorting_desc[data-v-70b01c0c]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-70b01c0c]:before,\nthead .sorting_desc_disabled[data-v-70b01c0c]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -28981,7 +29000,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-47dfc4e0],\r\nthead > tr > th.sorting_desc[data-v-47dfc4e0],\r\nthead > tr > th.sorting[data-v-47dfc4e0],\r\nthead > tr > td.sorting_asc[data-v-47dfc4e0],\r\nthead > tr > td.sorting_desc[data-v-47dfc4e0],\r\nthead > tr > td.sorting[data-v-47dfc4e0] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-47dfc4e0]:active,\r\nthead > tr > td[data-v-47dfc4e0]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-47dfc4e0],\r\nthead .sorting_asc[data-v-47dfc4e0],\r\nthead .sorting_desc[data-v-47dfc4e0],\r\nthead .sorting_asc_disabled[data-v-47dfc4e0],\r\nthead .sorting_desc_disabled[data-v-47dfc4e0] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-47dfc4e0]:before,\r\nthead .sorting[data-v-47dfc4e0]:after,\r\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_asc[data-v-47dfc4e0]:after,\r\nthead .sorting_desc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:after,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-47dfc4e0]:before,\r\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:before,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-47dfc4e0]:after,\r\nthead .sorting_asc[data-v-47dfc4e0]:after,\r\nthead .sorting_desc[data-v-47dfc4e0]:after,\r\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-47dfc4e0]:before,\r\nthead .sorting_desc[data-v-47dfc4e0]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\r\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-47dfc4e0],\nthead > tr > th.sorting_desc[data-v-47dfc4e0],\nthead > tr > th.sorting[data-v-47dfc4e0],\nthead > tr > td.sorting_asc[data-v-47dfc4e0],\nthead > tr > td.sorting_desc[data-v-47dfc4e0],\nthead > tr > td.sorting[data-v-47dfc4e0] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-47dfc4e0]:active,\nthead > tr > td[data-v-47dfc4e0]:active {\n\toutline: none;\n}\nthead .sorting[data-v-47dfc4e0],\nthead .sorting_asc[data-v-47dfc4e0],\nthead .sorting_desc[data-v-47dfc4e0],\nthead .sorting_asc_disabled[data-v-47dfc4e0],\nthead .sorting_desc_disabled[data-v-47dfc4e0] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-47dfc4e0]:before,\nthead .sorting[data-v-47dfc4e0]:after,\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_asc[data-v-47dfc4e0]:after,\nthead .sorting_desc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:after,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-47dfc4e0]:before,\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:before,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-47dfc4e0]:after,\nthead .sorting_asc[data-v-47dfc4e0]:after,\nthead .sorting_desc[data-v-47dfc4e0]:after,\nthead .sorting_asc_disabled[data-v-47dfc4e0]:after,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-47dfc4e0]:before,\nthead .sorting_desc[data-v-47dfc4e0]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-47dfc4e0]:before,\nthead .sorting_desc_disabled[data-v-47dfc4e0]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -29000,7 +29019,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 300px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* ADMIN right sidebar */\n.right-sidebar {\n\tflex: 0 0 300px;\n}\n", ""]);
 
 // exports
 
@@ -29019,7 +29038,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-3b5f38fc],\r\nthead > tr > th.sorting_desc[data-v-3b5f38fc],\r\nthead > tr > th.sorting[data-v-3b5f38fc],\r\nthead > tr > td.sorting_asc[data-v-3b5f38fc],\r\nthead > tr > td.sorting_desc[data-v-3b5f38fc],\r\nthead > tr > td.sorting[data-v-3b5f38fc] {\r\n\tpadding-right: 30px;\r\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-3b5f38fc]:active,\r\nthead > tr > td[data-v-3b5f38fc]:active {\r\n\toutline: none;\n}\nthead .sorting[data-v-3b5f38fc],\r\nthead .sorting_asc[data-v-3b5f38fc],\r\nthead .sorting_desc[data-v-3b5f38fc],\r\nthead .sorting_asc_disabled[data-v-3b5f38fc],\r\nthead .sorting_desc_disabled[data-v-3b5f38fc] {\r\n\tcursor: pointer;\r\n\tposition: relative;\n}\nthead .sorting[data-v-3b5f38fc]:before,\r\nthead .sorting[data-v-3b5f38fc]:after,\r\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_asc[data-v-3b5f38fc]:after,\r\nthead .sorting_desc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:after,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\tposition: absolute;\r\n\tbottom: 0.9em;\r\n\tdisplay: block;\r\n\topacity: 0.3;\n}\nthead .sorting[data-v-3b5f38fc]:before,\r\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:before,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before {\r\n\tright: 1em;\r\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-3b5f38fc]:after,\r\nthead .sorting_asc[data-v-3b5f38fc]:after,\r\nthead .sorting_desc[data-v-3b5f38fc]:after,\r\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\tright: 0.5em;\r\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-3b5f38fc]:before,\r\nthead .sorting_desc[data-v-3b5f38fc]:after {\r\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\r\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\r\n\topacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nthead > tr > th.sorting_asc[data-v-3b5f38fc],\nthead > tr > th.sorting_desc[data-v-3b5f38fc],\nthead > tr > th.sorting[data-v-3b5f38fc],\nthead > tr > td.sorting_asc[data-v-3b5f38fc],\nthead > tr > td.sorting_desc[data-v-3b5f38fc],\nthead > tr > td.sorting[data-v-3b5f38fc] {\n\tpadding-right: 30px;\n\tcolor: var(--primary);\n}\nthead > tr > th[data-v-3b5f38fc]:active,\nthead > tr > td[data-v-3b5f38fc]:active {\n\toutline: none;\n}\nthead .sorting[data-v-3b5f38fc],\nthead .sorting_asc[data-v-3b5f38fc],\nthead .sorting_desc[data-v-3b5f38fc],\nthead .sorting_asc_disabled[data-v-3b5f38fc],\nthead .sorting_desc_disabled[data-v-3b5f38fc] {\n\tcursor: pointer;\n\tposition: relative;\n}\nthead .sorting[data-v-3b5f38fc]:before,\nthead .sorting[data-v-3b5f38fc]:after,\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_asc[data-v-3b5f38fc]:after,\nthead .sorting_desc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:after,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\tposition: absolute;\n\tbottom: 0.9em;\n\tdisplay: block;\n\topacity: 0.3;\n}\nthead .sorting[data-v-3b5f38fc]:before,\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:before,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:before {\n\tright: 1em;\n\tcontent: \"\\2191\";\n}\nthead .sorting[data-v-3b5f38fc]:after,\nthead .sorting_asc[data-v-3b5f38fc]:after,\nthead .sorting_desc[data-v-3b5f38fc]:after,\nthead .sorting_asc_disabled[data-v-3b5f38fc]:after,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\tright: 0.5em;\n\tcontent: \"\\2193\";\n}\nthead .sorting_asc[data-v-3b5f38fc]:before,\nthead .sorting_desc[data-v-3b5f38fc]:after {\n\topacity: 1;\n}\nthead .sorting_asc_disabled[data-v-3b5f38fc]:before,\nthead .sorting_desc_disabled[data-v-3b5f38fc]:after {\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -66033,7 +66052,7 @@ var render = function() {
                 { attrs: { title: "РЕДАКЦИЯ" } },
                 [
                   _c("redaction-list", {
-                    attrs: { users: _vm.users },
+                    attrs: { type: "red", users: _vm.users },
                     model: {
                       value: _vm.redaction,
                       callback: function($$v) {
@@ -66050,14 +66069,16 @@ var render = function() {
                 "b-tab",
                 { attrs: { "no-body": "", title: "РЕДАКЦИОННЫЙ СОВЕТ" } },
                 [
-                  _c("b-card-img", {
-                    attrs: {
-                      bottom: "",
-                      src: "https://picsum.photos/600/200/?image=25"
+                  _c("redaction-list", {
+                    attrs: { type: "sovet", users: _vm.users },
+                    model: {
+                      value: _vm.sovet,
+                      callback: function($$v) {
+                        _vm.sovet = $$v
+                      },
+                      expression: "sovet"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("b-card-footer", [_vm._v("Picture 2 footer")])
+                  })
                 ],
                 1
               ),
@@ -66071,14 +66092,16 @@ var render = function() {
                   }
                 },
                 [
-                  _c("b-card-img", {
-                    attrs: {
-                      bottom: "",
-                      src: "https://picsum.photos/600/200/?image=26"
+                  _c("redaction-list", {
+                    attrs: { type: "int-sovet", users: _vm.users },
+                    model: {
+                      value: _vm.int_sovet,
+                      callback: function($$v) {
+                        _vm.int_sovet = $$v
+                      },
+                      expression: "int_sovet"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("b-card-footer", [_vm._v("Picture 3 footer")])
+                  })
                 ],
                 1
               )
@@ -66087,6 +66110,30 @@ var render = function() {
           )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "ul",
+        _vm._l(_vm.redcols, function(item, index) {
+          return _c("li", { key: index }, [
+            _vm._v(
+              "\n\t\t\t" +
+                _vm._s(item.id) +
+                " - " +
+                _vm._s(item.position) +
+                " - " +
+                _vm._s(item.type) +
+                " - " +
+                _vm._s(item.post_ru) +
+                " - " +
+                _vm._s(item.post_en) +
+                " - " +
+                _vm._s(item.user_id) +
+                "\n\t\t"
+            )
+          ])
+        }),
+        0
       )
     ],
     1
@@ -66117,12 +66164,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("b-card-title", [
-        _vm._v("\n\t\tThis tab does not have the\n\t\t"),
-        _c("code", [_vm._v("no-body")]),
-        _vm._v(" prop set\n\t")
-      ]),
-      _vm._v(" "),
       _c("b-card-text", [
         _vm.value.length > 0
           ? _c(
@@ -66137,8 +66178,6 @@ var render = function() {
                   _c("tr", [
                     _c("th"),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Pos")]),
-                    _vm._v(" "),
                     _c("th", [_vm._v("Должность - RU")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("Должность - EN")]),
@@ -66152,7 +66191,7 @@ var render = function() {
                 _c(
                   "draggable",
                   {
-                    attrs: { tag: "tbody" },
+                    attrs: { tag: "tbody", handle: ".handle" },
                     model: {
                       value: _vm.redaction,
                       callback: function($$v) {
@@ -66161,8 +66200,8 @@ var render = function() {
                       expression: "redaction"
                     }
                   },
-                  _vm._l(_vm.redaction, function(item) {
-                    return _c("tr", { key: item.id }, [
+                  _vm._l(_vm.redaction, function(item, index) {
+                    return _c("tr", { key: index }, [
                       _c(
                         "td",
                         {
@@ -66180,8 +66219,6 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "fa fa-arrows-v fa-lg" })]
                       ),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.position))]),
                       _vm._v(" "),
                       _c("td", {}, [
                         _c("input", {
@@ -66281,7 +66318,7 @@ var render = function() {
                               )
                             },
                             click: function($event) {
-                              return _vm.$emit("deleteUser", item.id)
+                              return _vm.deleteRow(index)
                             }
                           }
                         })
@@ -66293,8 +66330,23 @@ var render = function() {
               ],
               1
             )
-          : _vm._e()
-      ])
+          : _c("p", [_vm._v("В данном разделе еще нет позиций")])
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-card-footer",
+        { staticClass: "pb-0 bg-white d-flex justify-content-end" },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-primary",
+              on: { click: _vm.addNew }
+            },
+            [_vm._v("\n\t\t\tДобавить новую позицию\n\t\t")]
+          )
+        ]
+      )
     ],
     1
   )
@@ -76148,7 +76200,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  {{if full_name}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <strong>\r\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\r\n    </strong>\r\n  </span>\r\n  {{/if}}\r\n  {{if degree}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\">\r\n      <i><br>{{:degree}}</i>\r\n    </span>\r\n  </span>\r\n  {{/if}}\r\n  \r\n  {{if jobs}}\r\n  {{for jobs}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\r\n  </span>\r\n  {{/for}}\r\n  {{/if}}\r\n  \r\n  {{if orcid}}\r\n  <span style=\"font-family: times new roman,times,serif;\">\r\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\r\n  </span>\r\n  {{/if}}\r\n</p>\r\n";
+module.exports = "<p>\n  {{if full_name}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <strong>\n      <span style=\"font-size: 18pt;\">{{:full_name}}</span>\n    </strong>\n  </span>\n  {{/if}}\n  {{if degree}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\">\n      <i><br>{{:degree}}</i>\n    </span>\n  </span>\n  {{/if}}\n  \n  {{if jobs}}\n  {{for jobs}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><i>,<br>{{:}}</i></span>\n  </span>\n  {{/for}}\n  {{/if}}\n  \n  {{if orcid}}\n  <span style=\"font-family: times new roman,times,serif;\">\n    <span style=\"font-size: 14pt;\"><br>ORCID: {{:orcid}} </span>\n  </span>\n  {{/if}}\n</p>\n";
 
 /***/ }),
 
@@ -77748,9 +77800,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\js\back.js */"./resources/js/back.js");
-__webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\back\back.scss */"./resources/sass/back/back.scss");
-module.exports = __webpack_require__(/*! c:\OSPanel\domains\idea.lv\resources\sass\front\style.scss */"./resources/sass/front/style.scss");
+__webpack_require__(/*! /home/cabox/workspace/resources/js/back.js */"./resources/js/back.js");
+__webpack_require__(/*! /home/cabox/workspace/resources/sass/back/back.scss */"./resources/sass/back/back.scss");
+module.exports = __webpack_require__(/*! /home/cabox/workspace/resources/sass/front/style.scss */"./resources/sass/front/style.scss");
 
 
 /***/ })
