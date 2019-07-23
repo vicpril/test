@@ -26,4 +26,20 @@ class Redcol extends Model
     public function user() {
         return $this->belongsTo('App\Models\User');
     }
+
+  
+    public function getPostLocAttribute() {
+				switch (app()->getLocale()) {
+          case 'ru': return ($this->post_ru) ?: ''; break;
+          case 'en': return ($this->post_en) ?: ''; break;
+				}
+    }
+
+//     public function getPostRuAttribute() {
+//         return ($this->post_ru) ?: '';
+//     }
+
+//     public function getPostEnAttribute() {
+//         return ($this->post_en) ?: '';
+//     }
 }
