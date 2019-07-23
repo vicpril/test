@@ -24,7 +24,7 @@ class RedcolsController extends Controller
      */
     public function index()
     {
-        $redcols = $this->repository->all();
+        $redcols = $this->repository->all()->sortBy('position');
         return RedcolListResource::collection($redcols);
     }
 
@@ -32,10 +32,11 @@ class RedcolsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
-        //
+    public function update(Request $request, Redcol $redcol) {
+        $result = $this->repository->update($request->except('_token', '_method'));
+        return response()->json($result);
     }
 }

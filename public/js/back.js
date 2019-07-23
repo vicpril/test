@@ -4197,6 +4197,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4361,7 +4370,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return fetchRedcols;
-    }()
+    }(),
+    update: function update() {
+      var _this3 = this;
+
+      axios.post("/api/redcols/update", this.redcols).then(function (resp) {
+        if (resp.data.status === "success") {
+          _this3.$notify({
+            group: "custom-template",
+            type: "alert-success",
+            text: resp.data.message,
+            duration: -1
+          }); // 						this.fetch();
+          // 						this.clearForm();
+
+        }
+      }).catch(function (error) {
+        _this3.errors = error.response.data.errors;
+
+        _this3.$notify({
+          group: "custom-template",
+          type: "alert-danger",
+          text: error.response.data.errors.title[0],
+          duration: -1
+        });
+      });
+    }
   }
 });
 
@@ -66039,6 +66073,22 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("div", { staticClass: "d-flex mb-3 form-inline" }, [
+        _c("h2", { staticClass: "mb-0 my-auto" }, [
+          _vm._v("Редколлегия и редсовет")
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary text-nowrap ml-auto",
+            attrs: { type: "button" },
+            on: { click: _vm.update }
+          },
+          [_vm._v("Сохранить изменения")]
+        )
+      ]),
+      _vm._v(" "),
       _c(
         "b-card",
         { attrs: { "no-body": "" } },
