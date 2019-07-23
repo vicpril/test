@@ -28,34 +28,15 @@ class RedcolsRepository extends Repository
         $this->model->destroy($compare);
       
         foreach($data as $item) {
-            $this->model->updateOrCreate(['id' => $item['id']], $item);
+						if ($item['user_id']) {
+            	$this->model->updateOrCreate(['id' => $item['id']], $item);
+						}
         }
 				
         return [
             'status' => 'success',
             'message' => 'Меню обновлено',
         ];
-    }
-
-    /*
-     *
-     *   Delete the page & meta from database 
-     *
-     */
-
-    public function deleteRedcol(Redcol $redcol)
-    {
-        $redcol->meta->each(function ($meta) {
-            $meta->delete();
-        });
-
-        if ($redcol->delete()) {
-            return ['status' => 'success',
-                'message' => 'Страница удалена'];
-        } else {
-            return ['status' => 'error',
-                'message' => 'Что-то пошло не так'];
-        }
     }
 
 }

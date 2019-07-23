@@ -4201,11 +4201,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -66160,30 +66155,6 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c(
-        "ul",
-        _vm._l(_vm.redcols, function(item, index) {
-          return _c("li", { key: index }, [
-            _vm._v(
-              "\n\t\t\t" +
-                _vm._s(item.id) +
-                " - " +
-                _vm._s(item.position) +
-                " - " +
-                _vm._s(item.type) +
-                " - " +
-                _vm._s(item.post_ru) +
-                " - " +
-                _vm._s(item.post_en) +
-                " - " +
-                _vm._s(item.user_id) +
-                "\n\t\t"
-            )
-          ])
-        }),
-        0
       )
     ],
     1

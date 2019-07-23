@@ -24,11 +24,6 @@
 				</b-tab>
 			</b-tabs>
 		</b-card>
-		<ul>
-			<li v-for="(item,index) in redcols" :key="index">
-				{{item.id}} - {{item.position}} - {{item.type}} - {{item.post_ru}} - {{item.post_en}} - {{item.user_id}}
-			</li>
-		</ul>
 	</div>
 </template>
 

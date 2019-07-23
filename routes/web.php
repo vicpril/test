@@ -79,7 +79,7 @@ Route::group(
             'parameters' => ['authors' => 'authorAlias'],
         ]);
 
-        // Route::name('redkollegiya')->get('/redkollegiya', function() { return 'redkollegiya' ;});
+        Route::name('redkollegiya')->get('/redkollegiya', 'AuthorsController@redcols');
         // Route::name('contacts')->get('/contacts', function() { return 'contacts' ;});
         // Route::name('authors')->get('/authors', function() { return 'authors' ;});
 

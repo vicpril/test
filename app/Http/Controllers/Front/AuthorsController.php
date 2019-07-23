@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Repositories\UsersRepository;
 use App\Repositories\ArticlesRepository;
+use App\Repositories\RedcolsRepository;
 
 use Config;
 
 class AuthorsController extends SiteController
 {
-    public function __construct(ArticlesRepository $a_rep, UsersRepository $u_rep) 
+    public function __construct(ArticlesRepository $a_rep, UsersRepository $u_rep, RedcolsRepository $rc_rep) 
 	{
 		parent::__construct(
             new \App\Repositories\MenusRepository(new \App\Models\Menu),
@@ -20,6 +21,8 @@ class AuthorsController extends SiteController
 			
 		$this->a_rep = $a_rep;
 		$this->u_rep = $u_rep;
+		$this->rc_rep = $rc_rep;
+
 		
 		$this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
 
@@ -68,6 +71,32 @@ class AuthorsController extends SiteController
 
         return $this->renderOutput();
     }
+	
+		
+		public function redcols() {
+				$this->setStatus();
+		
+        $this->prepareStolMenu();
+    
+        $this->template = 'front.redcols';
+    
+        $this->title = __("Редколлегия и редсовет");
+
+        $redcols = $this->rc_rep->all()->sortBy('position');
+				$redcols->loadMissing([
+					'user',
+					'user.meta'
+				]);
+			
+				$redcols = $redcols->mapToGroups(function ($item) {
+            return [$this->getRedcolName($item->type) => $item];
+        });
+
+        $this->vars = array_add($this->vars, 'redcols', $redcols);
+
+        return $this->renderOutput();
+		}
+	
 
     public function getAuthor($alias) {
     	$user = $this->u_rep->one($alias);
@@ -90,4 +119,13 @@ class AuthorsController extends SiteController
 
     	return $users;
     }
+	
+		private function getRedcolName($type){
+			switch ($type) {
+				case 'red': return __('Редакция'); break;
+				case 'sovet': return __('Редакционный совет'); break;
+				case 'int-sovet': return __('Международный редакционный совет'); break;
+				default: return $type;
+			}
+		}
 }
