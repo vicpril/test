@@ -21,6 +21,12 @@ class RedcolsRepository extends Repository
     *
     */
     public function update($data) {
+        $db_records = $this->all()->pluck('id')->toArray();
+        $new_records = array_column($data, 'id');
+        $compare = array_diff($db_records, $new_records);
+      
+        $this->model->destroy($compare);
+      
         foreach($data as $item) {
             $this->model->updateOrCreate(['id' => $item['id']], $item);
         }
