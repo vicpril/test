@@ -3,7 +3,7 @@
 		<b-card no-body>
 			<b-tabs card>
 				<b-tab title="РЕДАКЦИЯ">
-					<redaction-list :value="redaction" :users="users"></redaction-list>
+					<redaction-list v-model="redaction" :users="users"></redaction-list>
 				</b-tab>
 
 				<b-tab no-body title="РЕДАКЦИОННЫЙ СОВЕТ">
@@ -31,49 +31,84 @@ export default {
 	data() {
 		return {
 			redcols: [],
-			users:[]
+			users: []
 		};
 	},
 
 	computed: {
 		redaction: {
-					get() {
-						return this.redcols.filter($item => {
-							return $item.type == "red";
-						});
-
-					},
-				}
-// 		sovet() {
-// 			return this.redcols.filter($item => {
-// 				return $item.type == "sovet";
-// 			});
-// 		},
-// 		int_sovet() {
-// 			return this.redcols.filter($item => {
-// 				return $item.type == "int-sovet";
-// 			});
-// 		}
+			get() {
+				return this.redcols.filter($item => {
+					return $item.type == "red";
+				});
+			},
+			set(value) {
+				// value.forEach(item => {
+				// 	let index = this.redcols.find(el => {
+				// 		return el.id == item.id;
+				// 	});
+				// 	if (index !== -1) {
+				// 		this.redcols.splice(index, 1);
+				// 		this.redcols.push(item);
+				// 	}
+				// });
+				let red = this.redcols.filter($item => {
+					return $item.type == "red";
+				});
+				red.forEach(item => {
+					let index = this.redcols.findIndex(el => {
+						return el.id == item.id;
+					});
+					this.redcols.splice(index, 1);
+					this.redcols.push(item);
+				});
+				// value.forEach(item => {
+				// 	this.redcols.push(item);
+				// });
+			}
+		}
+		// 		sovet() {
+		// 			return this.redcols.filter($item => {
+		// 				return $item.type == "sovet";
+		// 			});
+		// 		},
+		// 		int_sovet() {
+		// 			return this.redcols.filter($item => {
+		// 				return $item.type == "int-sovet";
+		// 			});
+		// 		}
 	},
 
 	created() {
-		this.fetchRedcols();
-		this.fetchUsers();
+		this.fetchData();
 	},
 
 	methods: {
-		fetchRedcols() {
-			axios
+		async fetchData() {
+			try {
+				await this.fetchUsers();
+			} catch (err) {
+				console.error(err);
+			}
+			try {
+				await this.fetchRedcols();
+			} catch (err) {
+				console.error(err);
+			}
+		},
+
+		async fetchUsers() {
+			await axios.get("/api/userslist").then(({ data }) => {
+				this.users = data.data;
+			});
+		},
+		async fetchRedcols() {
+			await axios
 				.get("/api/redcols?sortBy=position&orderBy=asc")
 				.then(({ data }) => {
 					this.redcols = data.data;
 				});
-		},
-		fetchUsers() {
-			axios.get("/api/userslist").then(({ data }) => {
-				this.users = data.data;
-			});
-		},
+		}
 	}
 };
 </script>
