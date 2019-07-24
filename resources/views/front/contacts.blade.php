@@ -20,19 +20,31 @@
 				{{csrf_field()}}
 				<div class="form-group">
 					<label for="name">@lang('Ваше имя'):*</label>
-					<input type="text" class="form-control" id="name" name="name">
+					<input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name">
+					<div class="invalid-feedback">
+						{{$errors->first('name')}}
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="email">@lang('Адрес электронной почты'):*</label>
-					<input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
+					<input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" placeholder="name@example.com" name="email">
+					<div class="invalid-feedback">
+						{{$errors->first('email')}}
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="subject">@lang('Тема сообщения'):*</label>
-					<input type="subject" class="form-control" id="subject" name="subject">
+					<input type="subject" class="form-control {{ $errors->has('subject') ? 'is-invalid' : '' }}" id="subject" name="subject">
+					<div class="invalid-feedback">
+						{{$errors->first('subject')}}
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="content">@lang('Текст сообщения'):*</label>
-					<textarea class="form-control" id="content" rows="3" name="content"></textarea>
+					<textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" id="content" rows="3" name="content"></textarea>
+					<div class="invalid-feedback">
+						{{$errors->first('content')}}
+					</div>
 				</div>
 				
 				<button type="submit" class="btn btn-primary">@lang('Отправить')</button>
