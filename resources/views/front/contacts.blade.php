@@ -28,7 +28,7 @@
 				</div>
 				<div class="form-group">
 					<label for="subject">@lang('Тема сообщения'):*</label>
-					<input type="subject" class="form-control" id="subject" placeholder="name@example.com" name="subject">
+					<input type="subject" class="form-control" id="subject" name="subject">
 				</div>
 				<div class="form-group">
 					<label for="content">@lang('Текст сообщения'):*</label>
