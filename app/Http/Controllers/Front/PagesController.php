@@ -42,6 +42,7 @@ class PagesController extends SiteController
             case 'categories':
             case 'tags':
             case 'authors':
+						case 'contacts':
                 return redirect(url("/$page->template"));
                 break;
             
@@ -54,28 +55,27 @@ class PagesController extends SiteController
                 break;
         }
     }
-
  
 
-    private function show(Page $page) {
+//     private function show(Page $page) {
 
-        $this->show_top_menu = $page->show_top_menu;
-				$this->show_sidebar_menu = $page->show_sidebar_menu;
-				$this->show_review_menu = $page->show_review_menu;
+//         $this->show_top_menu = $page->show_top_menu;
+// 				$this->show_sidebar_menu = $page->show_sidebar_menu;
+// 				$this->show_review_menu = $page->show_review_menu;
 
-        // $content = $this->page->loc->content;
-    	// $content = view('front.index_content')->render();
-        // $this->vars = array_add($this->vars, 'content', $content);
-        $this->vars = array_add($this->vars, 'title', $page->loc->title);
-        $this->vars = array_add($this->vars, 'content', $page->loc->content);
+//         // $content = $this->page->loc->content;
+//     	// $content = view('front.index_content')->render();
+//         // $this->vars = array_add($this->vars, 'content', $content);
+//         $this->vars = array_add($this->vars, 'title', $page->loc->title);
+//         $this->vars = array_add($this->vars, 'content', $page->loc->content);
 
-        // $sidebar_menu = '';\
+//         // $sidebar_menu = '';\
 
-        // $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-        // $this->vars = array_add($this->vars, 'sidebar', $sidebar);
+//         // $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
+//         // $this->vars = array_add($this->vars, 'sidebar', $sidebar);
 
-    	return $this->renderOutput();
+//     	return $this->renderOutput();
 
-    }
+//     }
 
 }

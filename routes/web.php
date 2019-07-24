@@ -80,7 +80,9 @@ Route::group(
         ]);
 
         Route::name('redkollegiya')->get('/redkollegiya', 'AuthorsController@redcols');
-        // Route::name('contacts')->get('/contacts', function() { return 'contacts' ;});
+        Route::name('contacts')->get('/contacts', 'ContactsController@index');
+        Route::name('contacts.send')->post('/contacts', 'ContactsController@sendEmail');
+
         // Route::name('authors')->get('/authors', function() { return 'authors' ;});
 
         Route::name('club')->get('/diskussionnye-cluby', function() { return 'КРУГЛЫЕ СТОЛЫ' ;});

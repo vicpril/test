@@ -47,6 +47,18 @@
    "Наши авторы": "Our Authors",
     "Редакция":"Editorial staff",
     "Редакционный совет":"Editorial council",
-    "Международный редакционный совет":"International editorial board"
+    "Международный редакционный совет":"International editorial board",
+    "Сообщение отправлено":"The message has been sent",
+    "Вы можете отправить нам письмо прямо сейчас!":"You can contact us right now!",
+    "Вопросы и комментарии приветствуются":"Comments or questions are welcome",
+    "поля обязательные для заполнения":"indicates required field",
+    "Ваше имя":"Name",
+    "Адрес электронной почты":"Email",
+    "Тема сообщения":"Subject",
+    "Текст сообщения":"Message",
+    "Отправить":"Send"
+
+
+  
 
 }

@@ -257,5 +257,7 @@ return [
             'contacts' => 3,
         ],
     ],
+  
+    'adminEmail' => 'aidan88@mail.ru'
 
 ];
