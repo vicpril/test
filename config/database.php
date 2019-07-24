@@ -53,6 +53,19 @@ return [
             'strict' => false,
             'engine' => null,
         ],
+
+        'wordpress' => [ // for WordPress database (used by Corcel)
+            'driver'    => 'mysql',
+            'host'      => 'localhost',
+            'database'  => 'topmollru_ide',
+            'username'  => 'root',
+            'password'  => '',
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix'    => 'wp_',
+            'strict'    => false,
+            'engine'    => null,
+        ],
       
         'pgsql' => [
             'driver' => 'pgsql',

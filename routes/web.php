@@ -85,9 +85,10 @@ Route::group(
 
         Route::name('club')->get('/diskussionnye-cluby', function() { return 'КРУГЛЫЕ СТОЛЫ' ;});
 
+        Route::name('corsel')->get('spa', 'SpaController@index');
 
         Route::name('page')->get('{pageAlias}', 'PagesController@index');
-//            Route::name('page')->get('/{page}', 'SpaController@index')->where('page', '.*');
+
 
 
     });

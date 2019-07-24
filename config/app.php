@@ -182,7 +182,8 @@ return [
         App\Providers\Select2ServiceProvider::class,
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
       
-        App\Providers\ExportServiceProvider::class
+        App\Providers\ExportServiceProvider::class,
+        Corcel\Laravel\CorcelServiceProvider::class,
        
 
     ],
