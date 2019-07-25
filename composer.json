@@ -12,6 +12,7 @@
       "alexusmai/laravel-purifier": "^0.6.0",
       "anhskohbo/no-captcha": "^3.0",
       "barryvdh/laravel-elfinder": "^0.4.2",
+      "corcel/acf": "^1.1",
       "elforastero/transliterate": "^1.1",
       "fideloper/proxy": "^4.0",
       "jgrossi/corcel": "^2.8",
