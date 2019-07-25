@@ -17,9 +17,8 @@ class Post extends cPost
         }
       
         $d_names = $this->meta->where('meta_key', 'coauthor')
-                              ->map(function($meta){
-                                 return $meta->meta_value;
-                              })->toArray();
+                              ->pluck('meta_value')
+                              ->toArray();
         $users = wpUser::select();
       
         foreach($d_names as $d_name) {
