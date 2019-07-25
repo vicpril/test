@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 
 use Corcel\Model\Post as Post;
+use Corcel\Model\User as User;
+
 
 class SpaController extends SiteController
 {
@@ -13,23 +15,36 @@ class SpaController extends SiteController
     public function index() 
     {
       // $posts = Post::newest()->get();
-      $post = Post::find(8706);
-      // $post = Post::find(8773);
-
+//       $post = Post::find(8707);
+      $post = Post::where('post_title', 'Нейропсихологические методы в пенитенциарной системе в аспекте нейроэтики')->first();
+  
 
         // dump($posts);
         dump($post);
-        dump($post->meta('File Upload'))->first();
+        dump($post->meta->where('meta_key', 'coauthor'));
 
-        dump($post->title_en);
-        dump($post->FileUpload);
+     // USER 
+//       $user = User::where('display_name', $post->coauthor)->first();
+      
+//       dump($user);
+      
+//         foreach( $user->meta as $meta) {
+//           dump($meta->meta_key . ' -> ' . $meta->meta_value);
+//         }
+      
+          
+      //Main FileUpload    
+//       $fileId = $post->meta->where("meta_key", "File Upload")->first()->meta_value;
+//         dump($post->find($fileId)->guid);
+//         dump($post->find($fileId)->meta->first()->meta_value);
+
+//         dump($post->title_en);
 
 
         foreach ($post->meta as $meta) {
           echo $meta->meta_key . " -> " . $meta->meta_value . "<br>";
         }
 
-        dump($post->acf->meta);
 
         // dump( $post->title);
         // dump( $post->slug);
