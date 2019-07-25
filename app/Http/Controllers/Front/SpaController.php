@@ -34,9 +34,12 @@ class SpaController extends SiteController
       
 //       dump($user);
       
-//         foreach( $user->meta as $meta) {
-//           dump($meta->meta_key . ' -> ' . $meta->meta_value);
-//         }
+        foreach( $post->users as $user) {
+          foreach ($user->meta as $meta) {
+          echo $meta->meta_key . " -> " . $meta->meta_value . "<br>";
+        }
+
+        }
       
           
       //Main FileUpload    
@@ -47,9 +50,9 @@ class SpaController extends SiteController
 //         dump($post->title_en);
 
 
-        foreach ($post->meta as $meta) {
-          echo $meta->meta_key . " -> " . $meta->meta_value . "<br>";
-        }
+//         foreach ($post->meta as $meta) {
+//           echo $meta->meta_key . " -> " . $meta->meta_value . "<br>";
+//         }
 
 
         // dump( $post->title);

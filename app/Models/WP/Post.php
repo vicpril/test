@@ -15,16 +15,25 @@ class Post extends cPost
         if (!$this->coauthor) {
             return null;
         }
-        $d_names = $this->meta->where('meta_key', 'coauthor');
- dump($d_names->map(function($meta){
-   return $meta->meta_value;
- }));
+      
+        $d_names = $this->meta->where('meta_key', 'coauthor')
+                              ->map(function($meta){
+                                 return $meta->meta_value;
+                              })->toArray();
         $users = wpUser::select();
+      
         foreach($d_names as $d_name) {
-            $users->orWhere('display_name', $d_name->meta_value);
+            $users->orWhere('display_name', $d_name);
         }
-        return $users->get();
+      
+        $users = $users->get();
+        $users = $users->sortBy(function($user) use ($d_names){
+            return array_search($user->display_name, $d_names);
+        })->values();
+      
+        return $users;
     }
+  
   
     public function getFileUploadAttribute() {
         $meta_id = $this->meta->where("meta_key", "File Upload")->first()->meta_value;
