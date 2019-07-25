@@ -18,7 +18,7 @@ class SpaController extends SiteController
     {
       // $posts = Post::newest()->get();
 //       $post = Post::find(8707);
-      $post = wpPost::where('post_title', 'Нейропсихологические методы в пенитенциарной системе в аспекте нейроэтики')->first();
+      $post = wpPost::where('post_title', 'Современный подход к самоменеджменту: инверсивный анализ')->first();
   
       dump($post);
       
@@ -35,9 +35,13 @@ class SpaController extends SiteController
 //       dump($user);
       
         foreach( $post->users as $user) {
-          foreach ($user->meta as $meta) {
-          echo $meta->meta_key . " -> " . $meta->meta_value . "<br>";
-        }
+          dump($user->attr('us_name_en'));
+          
+            foreach ($user->meta as $meta) {
+              echo $meta->meta_key . " -> " . $meta->meta_value . "<br>";
+              echo $meta->meta_key . "<br>";
+
+            }
 
         }
       
