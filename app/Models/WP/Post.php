@@ -16,7 +16,9 @@ class Post extends cPost
             return null;
         }
         $d_names = $this->meta->where('meta_key', 'coauthor');
-     dump($d_names);
+ dump($d_names->map(function($meta){
+   return $meta->meta_value;
+ }));
         $users = wpUser::select();
         foreach($d_names as $d_name) {
             $users->orWhere('display_name', $d_name->meta_value);
