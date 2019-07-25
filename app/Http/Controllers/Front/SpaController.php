@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Corcel\Model\Post as Post;
 use Corcel\Model\User as User;
 
+use App\Models\WP\Post as wpPost;
+
 
 class SpaController extends SiteController
 {
@@ -16,12 +18,16 @@ class SpaController extends SiteController
     {
       // $posts = Post::newest()->get();
 //       $post = Post::find(8707);
-      $post = Post::where('post_title', 'Нейропсихологические методы в пенитенциарной системе в аспекте нейроэтики')->first();
+      $post = wpPost::where('post_title', 'Нейропсихологические методы в пенитенциарной системе в аспекте нейроэтики')->first();
   
+      dump($post);
+      
+      dump($post->users);
+      dump($post->fileUpload);
+
 
         // dump($posts);
-        dump($post);
-        dump($post->meta->where('meta_key', 'coauthor'));
+//         dump($post->meta->where('meta_key', 'coauthor'));
 
      // USER 
 //       $user = User::where('display_name', $post->coauthor)->first();
