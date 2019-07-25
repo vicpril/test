@@ -184,6 +184,7 @@ return [
       
         App\Providers\ExportServiceProvider::class,
         Corcel\Laravel\CorcelServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
        
 
     ],
@@ -237,6 +238,7 @@ return [
 
         'Transliterate' => ElForastero\Transliterate\TransliterationFacade::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
 
     ],
 

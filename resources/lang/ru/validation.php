@@ -106,6 +106,10 @@ return [
         'meta_keywords' => [
             'regex' => "Keywords, separated by commas (no spaces), should have a maximum of 50 characters.",
         ],
+        'g-recaptcha-response' => [
+            'required' => 'Please verify that you are not a robot.',
+            'captcha' => 'Captcha error! try again later or contact site admin.',
+        ],
     ],
 
     /*
