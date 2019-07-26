@@ -35,7 +35,7 @@ class SpaController extends SiteController
       // TAXONOMIES
       $tax_tr = Taxonomy::where('taxonomy', 'term_translations')
                       // ->where('term_id', 911)
-                      ->take(50)
+                      // ->take(50)
                       ->get();
       $tax_tr = $tax_tr->map(function($item){
           return (unserialize($item->description)) ?: false;
@@ -57,19 +57,19 @@ class SpaController extends SiteController
           });
           return $cat;
       })->reject(function($cat){
-          return (isset($cat->ru) && $cat->ru == false) || (isset($cat->en) && $cat->en == false);
-      })->all();
+          return (isset($cat['ru']) && $cat['ru'] == false) || (isset($cat['en']) && $cat['en'] == false);
+      });
 
 
-      // $tax_tr = $tax_tr->map(function($cat){
-      //     return count($cat);
-      // });
+      $tax_tr = $tax_tr->map(function($cat){
+          return count($cat);
+      });
                       
 
       // dump($tax_ru);
       
 
-      var_dump($tax_tr);                  
+      var_dump($tax_tr->sum());                  
 
       // $tag = $post->taxonomies()->where('taxonomy', 'post_tag')->first()->name;
       // $cat = $post->taxonomies()->where('taxonomy', 'category')->first()->name;
