@@ -18,6 +18,7 @@ class CreateTagsTable extends Migration
             $table->string('title_ru');
             $table->string('title_en');
             $table->string('alias')->unique();
+            $table->integer('term_id')->nullable()->default(null); //for database migtration 'ru' term_id
 
             $table->timestamps();
             $table->dateTime('used_at')->nullable();

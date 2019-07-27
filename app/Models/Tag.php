@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
    	protected $fillable = [
-			'title_ru', 'title_en', 'alias'
+			'title_ru', 'title_en', 'alias', 'term_id'
 		]; 
 		
 		// thouch culumn `used_at`

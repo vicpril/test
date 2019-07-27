@@ -49,43 +49,6 @@ class DatabaseSeeder extends Seeder
         	MenuSeeder::class,
     ]);
 
-//     	DB::table('menus')->insert([
-//     		'title_ru' => 'О журнале',
-//     		'title_en' => 'About',
-//     		'path' => '/',
-//     	]);
-//     	DB::table('menus')->insert([
-//     		'title_ru' => 'Свежий номер',
-//     		'title_en' => 'New Issue',
-//     		'path' => '/articles',
-//     	]);
-//     	DB::table('menus')->insert([
-//     		'title_ru' => 'Архив',
-//     		'title_en' => 'Archive',
-//     		'path' => '/archive',
-//     	]);
-//     	DB::table('menus')->insert([
-//     		'title_ru' => 'Редколлегия и Редсовет',
-//     		'title_en' => 'Editorial board',
-//     		'path' => '#',
-//     	]);
-//     	DB::table('menus')->insert([
-//     		'title_ru' => 'Подписка и покупка',
-    		
-//     		'path' => '#',
-//     	]);
-//     	DB::table('menus')->insert([
-//     		'title_ru' => 'Как подать статью',
-    		
-//     		'path' => '#',
-//     	]);
-//     	DB::table('menus')->insert([
-//     		'title_ru' => 'Контакты',
-//     		'title_en' => 'Contacts',
-//     		'path' => '/contacts',
-//     	]);
-
-
 
 	// /**************************
 	//  *			Add Users
@@ -119,14 +82,19 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        factory(User::class, USERS_COUNT)->create();
+        // factory(User::class, USERS_COUNT)->create();
         sleep(1);
 
-        $admin->meta()->save(MetaUser::where('id', 1)->first()->replicate());
-        $admin->meta()->save(MetaUser::where('id', 2)->first()->replicate());
-        $redac->meta()->save(MetaUser::where('id', 3)->first()->replicate());
-        $redac->meta()->save(MetaUser::where('id', 4)->first()->replicate());
+        $admin->meta()->save(MetaUser::make(['lang'=>'ru', 'full_name' => "Администратор"]));
+        $admin->meta()->save(MetaUser::make(['lang'=>'en', 'full_name' => "Administrator"]));
+        // $admin->meta()->save(MetaUser::where('id', 1)->first()->replicate());
+        // $admin->meta()->save(MetaUser::where('id', 2)->first()->replicate());
+        $redac->meta()->save(MetaUser::make(['lang'=>'ru', 'full_name' => "Редактор"]));
+        $redac->meta()->save(MetaUser::make(['lang'=>'en', 'full_name' => "Editor"]));
+        // $redac->meta()->save(MetaUser::where('id', 3)->first()->replicate());
+        // $redac->meta()->save(MetaUser::where('id', 4)->first()->replicate());
 
+		return;
 
 	/*************************
 	 *			Add Jobs

@@ -2,145 +2,51 @@
 
 namespace App\Http\Controllers\Front;
 
-use Illuminate\Http\Request;
-
-use Corcel\Model\Post as Post;
-use Corcel\Model\User as User;
-use Corcel\Model\Taxonomy as Taxonomy;
-
-
-use App\Models\WP\Post as wpPost;
-
+use App\Models\Tag as Tag;
+use App\Models\Category as Category;
+use Corcel\Model\Post as cPost;
+use Corcel\Model\Taxonomy as cTaxonomy;
 
 class SpaController extends SiteController
 {
     //
-  
-    public function index() 
+
+    public function index()
     {
-      // $posts = Post::where('post_type', 'post')
-      //               ->status('publish')
-      //               ->hasMeta('_edit_last')
-      //               ->newest()
-      //               ->get();
+        // $posts = cPost::where('post_type', 'post')
+        //               ->status('publish')
+        //               ->hasMeta('_edit_last')
+        //               ->newest()
+        //               ->get();
 
-      $post = Post::find(8719);
-      // $post = wpPost::where('post_title', 'Современный подход к самоменеджменту: инверсивный анализ')->first();
-  
-      // dump(count($posts));
-      // dump($posts);
+        $post = cPost::find(6168);
+        // $post = wpPost::where('post_title', 'Современный подход к самоменеджменту: инверсивный анализ')->first();
 
-      dump($post);
-      
-      /*
-      *  TAXONOMIES
-      *  Categories
-      */ 
-//       $tax_tr = Taxonomy::where('taxonomy', 'term_translations')
-//                       // ->where('term_id', 911)
-//                       // ->take(50)
-//                       ->get();
-//       $tax_tr = $tax_tr->map(function($item){
-//           return (unserialize($item->description)) ?: false;
-//       });
+        // dump(count($posts));
+        // dump($posts);
 
-//       // $tax_ru = Taxonomy::where('taxonomy', 'category')
-//       //                 ->where('term_id', 22)
-//       //                 ->take(15)
-//       //                 ->get()->first();
-      
-//       $tax_tr = $tax_tr->map(function($cat){
-//           $cat = collect($cat);
-//           $cat = $cat->map(function($tr_id){
-//               $tax = Taxonomy::where('taxonomy', 'category')
-//                           ->where('term_id', $tr_id)
-//                           ->first();
+        dump($post);
 
-//               return (is_object($tax))? $tax->name : false;
-//           });
-//           return $cat;
-//       })->reject(function($cat){
-//           return (isset($cat['ru']) && $cat['ru'] == false) || (isset($cat['en']) && $cat['en'] == false);
-//       });
+        $this->importTags();
+        $this->importCategories($post);
 
-
-//       $tax_tr = $tax_tr->map(function($cat){
-//           return count($cat);
-//       });
-                      
-
-//       // dump($tax_ru);
-      
-
-//       var_dump($tax_tr->sum());                  
-
-      // $tag = $post->taxonomies()->where('taxonomy', 'post_tag')->first()->name;
-      // $cat = $post->taxonomies()->where('taxonomy', 'category')->first()->name;
-      
-      
-      /*
-      *  TAXONOMIES
-      *  TAGS
-      */ 
-      
-      $tax_tr = Taxonomy::where('taxonomy', 'term_translations')
-                      // ->where('term_id', 911)
-                      // ->take(50)
-                      ->get();
-      $tax_tr = $tax_tr->map(function($item){
-          return (unserialize($item->description)) ?: false;
-      });
-
-      // $tax_ru = Taxonomy::where('taxonomy', 'category')
-      //                 ->where('term_id', 22)
-      //                 ->take(15)
-      //                 ->get()->first();
-      
-      $tax_tr = $tax_tr->map(function($tag){
-          $tag = collect($tag);
-          $tag = $tag->map(function($tr_id){
-              $tax = Taxonomy::where('taxonomy', 'post_tag')
-                          ->where('term_id', $tr_id)
-                          ->first();
-
-              return (is_object($tax))? $tax->name : false;
-          });
-          return $tag;
-      })
-        ->reject(function($tag){
-          return (isset($tag['ru']) && $tag['ru'] == false) || (isset($tag['en']) && $tag['en'] == false);
-      })
-        ;
-
-
-//       $tax_tr = $tax_tr->map(function($tag){
-//           return count($tag);
-//       });
-      
-//       // dump($tax_ru);
-      
-
-      dump($tax_tr); 
-                      
-      
-      // dump($post->fileUpload);
+        // dump($post->fileUpload);
 
         // foreach ($post->meta as $meta) {
         //   echo $meta->meta_key . " -> " . $meta->meta_value . "<br>";
         // }
 
-
         // dump($posts);
-//         dump($post->meta->where('meta_key', 'coauthor'));
+        //         dump($post->meta->where('meta_key', 'coauthor'));
 
-     // USER 
-//       $user = User::where('display_name', $post->coauthor)->first();
-      
+        // USER
+        //       $user = User::where('display_name', $post->coauthor)->first();
+
 //       dump($user);
-      
+
         // foreach( $post->users as $user) {
         //   dump($user->attr('us_name_en'));
-          
+
         //     foreach ($user->meta as $meta) {
         //       echo $meta->meta_key . " -> " . $meta->meta_value . "<br>";
         //       echo $meta->meta_key . "<br>";
@@ -148,41 +54,146 @@ class SpaController extends SiteController
         //     }
 
         // }
-      
-          
-      //Main FileUpload    
-//       $fileId = $post->meta->where("meta_key", "File Upload")->first()->meta_value;
-//         dump($post->find($fileId)->guid);
-//         dump($post->find($fileId)->meta->first()->meta_value);
+
+        //Main FileUpload
+        //       $fileId = $post->meta->where("meta_key", "File Upload")->first()->meta_value;
+        //         dump($post->find($fileId)->guid);
+        //         dump($post->find($fileId)->meta->first()->meta_value);
 
 //         dump($post->title_en);
 
+        return 'hello';
 
+        return view('spa');
+    }
 
+    public function importCategories($post)
+    {
+        /*
+         *  TAXONOMIES
+         *  Categories
+         */
+        $tax_tr = cTaxonomy::where('taxonomy', 'term_translations')
+        // ->where('term_id', 911)
+        // ->take(50)
+            ->get();
+        $tax_tr = $tax_tr->map(function ($item) {
+            return (unserialize($item->description)) ?: false;
+        });
 
+        $tax_ru = cTaxonomy::where('taxonomy', 'category')
+                        ->where('term_id', 22)
+                        ->take(15)
+                        ->get()->first();
 
-        // dump( $post->title);
-        // dump( $post->slug);
-        // dump( $post->content);
-        // dump( $post->type);
-        // dump( $post->mime_type);
-        // dump( $post->url);
-        // dump( $post->author_id);
-        // dump( $post->parent_id);
-        // dump( $post->created_at);
-        // dump( $post->updated_at);
-        // dump( $post->excerpt);
-        // dump( $post->status);
-        // dump( $post->image);
-        // dump( $post->terms);
-        // dump( $post->main_category);
-        // dump( $post->keywords);
-        // dump( $post->keywords_str);
+        $tax_tr = $tax_tr->map(function ($cat) {
+            $cat = collect($cat);
+            $cat = $cat->map(function ($tr_id) {
+                $tax = cTaxonomy::where('taxonomy', 'category')
+                    ->where('term_id', $tr_id)
+                    ->first();
 
-        // dump($post->taxonomies);
+                return (is_object($tax)) ? [
+                    'title' => $tax->name,
+                    'term_id' => $tax->term_id,
+                    'slug' => $tax->slug,
+                ] : false;
+            });
+            return $cat;
+        })->reject(function ($cat) {
+            return (isset($cat['ru']) && $cat['ru'] == false) || (isset($cat['en']) && $cat['en'] == false);
+        })
+        ->each(function ($tag) {
+            $tag['term_id'] = (isset($tag['ru'])) ? $tag['ru']['term_id'] : $tag['en']['term_id'];
+            $tag['alias'] = (isset($tag['ru'])) ? $tag['ru']['slug']  : $tag['en']['slug'];;
+            $tag['ru'] = (isset($tag['ru'])) ? $tag['ru']['title'] : '';
+            $tag['en'] = (isset($tag['en'])) ?$tag['en']['title'] : '';
+            // $tag = collect($tag);
+        })
+        ;
 
-      return'hello';
+        
+        // dump($tax_tr->where('term_id', 774));
 
-      return view('spa');
+        /*
+         *       Write Tags to database
+         */
+
+        $tax_tr->each(function ($tag) {
+            Category::create([
+                'title_ru' => $tag['ru'],
+                'title_en' => $tag['en'],
+                'alias' => $tag['alias'],
+                'term_id' => $tag['term_id'],
+            ]);
+        });
+        
+        // $tax_tr = $tax_tr->map(function ($cat) {
+        //     return count($cat);
+        // });
+        // var_dump($tax_tr->sum());
+
+        // $tag = $post->taxonomies()->where('taxonomy', 'post_tag')->get();
+        // $cat = $post->taxonomies()->where('taxonomy', 'category')->get();
+
+        // dump($tag, $cat);
+
+    }
+
+    public function importTags()
+    {
+        /*
+         *  TAXONOMIES
+         *  TAGS
+         */
+
+        $tax_tr = cTaxonomy::where('taxonomy', 'term_translations')
+        // ->where('term_id', 911)
+        // ->take(50)
+            ->get();
+        $tax_tr = $tax_tr->map(function ($item) {
+            return (unserialize($item->description)) ?: false;
+        });
+
+        $tax_tr = $tax_tr->map(function ($tag) {
+            $tag = collect($tag);
+            $tag = $tag->map(function ($tr_id) {
+                $tax = cTaxonomy::where('taxonomy', 'post_tag')
+                    ->where('term_id', $tr_id)
+                    ->first();
+                return (is_object($tax)) ? [
+                    'title' => $tax->name,
+                    'term_id' => $tax->term_id,
+                    'slug' => $tax->slug,
+                ] : false;
+            });
+            return $tag;
+        })
+            ->reject(function ($tag) {
+                return (isset($tag['ru']) && $tag['ru'] == false) || (isset($tag['en']) && $tag['en'] == false);
+            })
+            ->each(function ($tag) {
+                $tag['term_id'] = $tag['ru']['term_id'];
+                $tag['alias'] = $tag['ru']['slug'];
+                $tag['ru'] = $tag['ru']['title'];
+                $tag['en'] = $tag['en']['title'];
+                // $tag = collect($tag);
+            })
+        ;
+
+        dump($tax_tr);
+
+        /*
+         *       Write Tags to database
+         */
+
+        $tax_tr->each(function ($tag) {
+            Tag::create([
+                'title_ru' => $tag['ru'],
+                'title_en' => $tag['en'],
+                'alias' => $tag['alias'],
+                'term_id' => $tag['term_id'],
+            ]);
+        });
     }
 }

@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('title_en');
             $table->string('alias')->unique();
             $table->integer('parent_id')->default(0);
+            $table->integer('term_id')->nullable()->default(null); //for database migtration 'ru' term_id
 
             $table->timestamps();
             $table->dateTime('used_at')->nullable();

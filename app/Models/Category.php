@@ -8,7 +8,7 @@ class Category extends Model
 {
 		
 		protected $fillable = [
-			'title_ru', 'title_en', 'alias', 'parent_id'
+			'title_ru', 'title_en', 'alias', 'parent_id', 'term_id'
 		]; 
 	
 		/**
