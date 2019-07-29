@@ -10,9 +10,11 @@
 	</div>
 @endsection
 
-@section('subtitle')
-		{!! $subtitle !!}
-@endsection
+@isset($subtitle)
+	@section('subtitle')
+			{!! $subtitle !!}
+	@endsection
+@endisset
 
 @section('content')
 	@admin
@@ -28,7 +30,8 @@
     <!-- END LABEL -->
     @endadmin
 
-	<span class="text-dark"><strong>@lang('Авторы'):</strong></span>
+	@if(count($article->users) > 0)
+	<span class="text-dark"><strong>@choice('article.author', count($article->users)):</strong></span>
 	<ul class="authors mb-3 list-unstyled list-group list-group-horizontal">
 			@foreach($article->users as $user)
 			<li>
@@ -38,6 +41,7 @@
 			</li>
 			@endforeach
 	</ul>
+	@endif
 
   @if($article->doi)
 		<div class="article-doi mb-3">
