@@ -34,6 +34,13 @@ class Issue extends Model
     {
         return route('issues.edit', $this->id);
     }
+
+    public function getLocTitleAttribute() {
+        switch (app()->getLocale()) {
+            case 'ru': return $this->file_title_ru; break;
+            case 'en': return $this->file_title_en; break;
+        }
+    }
   
     /*
     *   Scopes

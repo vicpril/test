@@ -11,6 +11,14 @@
 @section('content')
     @if($issue)   
 
+            @if($issue->locTitle)
+            <h3 class="category-title mb-4">
+                <a href="{{ Storage::url($issue->locTitle) }}">@lang('Обложка и Содержание тома')</a>
+            </h3>
+
+
+            @endif
+
 			@foreach ($issue->articles as $article)
 					@if( $loop->first || $article->categories[0]->loc !== $issue->articles[$loop->index - 1]->categories[0]->loc ) 
 							<h3 class="category-title mb-4">
