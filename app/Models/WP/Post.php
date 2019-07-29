@@ -11,6 +11,16 @@ class Post extends cPost
 {
     protected $connection = 'wordpress';
 
+    public function attr($key) {
+        $attr = $this->meta->where('meta_key', $key)->pluck('meta_value')->toArray();
+        // dump($attr);
+        switch(count($attr)) {
+                    case 0: return null; break;
+                    case 1: return $attr[0]; break;
+                    default: return $attr; break;
+                };
+    }
+
     public function getUsersAttribute() {
         if (!$this->coauthor) {
             return null;
@@ -35,8 +45,17 @@ class Post extends cPost
   
   
     public function getFileUploadAttribute() {
-        $meta_id = $this->meta->where("meta_key", "File Upload")->first()->meta_value;
-        return $this->find($meta_id)->meta->first()->meta_value;
+        $meta_file = $this->meta->where("meta_key", "File Upload")->first();
+        return ($meta_file) ? $this->find($meta_file->meta_value)->meta->first()->meta_value : null;
+    }
+    public function getFileTitleRuAttribute() {
+        $meta_file = $this->meta->where("meta_key", "file-title-rus")->first();
+        return ($meta_file) ? $this->find($meta_file->meta_value)->meta->first()->meta_value : null;
+    }
+    public function getFileTitleEnAttribute() {
+        $meta_file = $this->meta->where("meta_key", "file-title-en")->first();
+        // return $meta_file;
+        return ($this->find($meta_file->meta_value)) ? $this->find($meta_file->meta_value)->meta->first()->meta_value : null;
     }
   
     

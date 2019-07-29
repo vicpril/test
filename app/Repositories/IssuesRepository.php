@@ -37,11 +37,11 @@ class IssuesRepository extends Repository
 //         $result
       
         $result = ($status) ? $this->model->withStatus($status) : $this->model;
-// dd($result);
         $result = $result->orderBy('year', 'desc');
         $result = $result->orderBy('no', 'desc');
         $result = $result->orderBy('part', 'asc');
-
+        // dd($result->get());
+        
         return $result->get();
     }
 

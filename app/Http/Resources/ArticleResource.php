@@ -36,13 +36,13 @@ class ArticleResource extends JsonResource
             "applications" => $this->applications,
             "finance" => $this->finance,
 
-            "users" => $this->users->map(function ($user) {
+            "users" => ($this->users) ? $this->users->map(function ($user) {
                 return $user->id;
 //               return [
                 //                     'id' => $user->id,
                 //                     'name' => $user->ru->short_name,
                 //                 ];
-            }),
+            }) : [],
             "tags" => $this->tags->map(function ($tag) {
                 return $tag->id;
 //                 return [
@@ -59,7 +59,7 @@ class ArticleResource extends JsonResource
             //             //                   'title_ru' => $category->title_ru
             //             //                 ];
             //                         }),
-            "title_en" => $this->en->title,
+            "title_en" => (isset($this->en->title)) ? $this->en->title : '',
             "title_ru" => $this->ru->title,
             "text_ru" => $this->ru->text,
             "text_en" => $this->en->text,

@@ -29,11 +29,15 @@
             </li>
             @endforeach
          </ul>
+         @if($article->doi)
          <div class="doi py-1">
             <span class="text-dark"><strong>DOI: </strong></span>
             {{ $article->doi }}
          </div>
+         @endif
+
          <div class="links my-2 d-flex">
+            @if($article->udk || $article->loc->annotation || $article->loc->keywords)
             <a
                class=""
                data-toggle="collapse"
@@ -46,6 +50,7 @@
                ></i>
                @lang('Аннотация')
             </a>
+            @endif
 
             <ul
                class="ml-auto list-unstyled list-group list-group-horizontal"
@@ -60,20 +65,24 @@
             </ul>
          </div>
          <div class="collapse annotation" id="annotation-{{ $article->id }}">
+         @if($article->udk)
             <div class="article-section article-udk">
                <span><strong>@lang('УДК'): </strong></span>{{ $article->udk }}
             </div>
-
+         @endif
+         @if($article->loc->annotation)
             <div class="article-section article-annotation">
                <span><strong>@lang('Аннотация'): </strong></span>
                <p class="mb-0">
                   {!! $article->loc->annotation !!}
                </p>
             </div>
-
+         @endif
+         @if($article->loc->keywords)
             <div class="article-section article-keywords">
                <span><strong>@lang('Ключевые слова'): </strong></span>
                {{ $article->loc->keywords }}
             </div>
+         @endif
          </div>
       </article>

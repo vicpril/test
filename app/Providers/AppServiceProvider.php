@@ -43,9 +43,14 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo ($expression)->format('d.m.Y'); ?>";
         });
       
+        Blade::directive('sentenceCase', function($expression) {
+            return  ucfirst($expression);
+        });
+
         Blade::if('admin', function () {
             return !auth()->guest() && auth()->user()->role === 'admin';
         });
+
 
 //         view()->composer('back/layout', HeaderComposer::class);
 

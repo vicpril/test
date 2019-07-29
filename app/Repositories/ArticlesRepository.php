@@ -48,7 +48,7 @@ class ArticlesRepository extends Repository
             ->paginate($nbrPages);
     }
 
-    public function getArticles($onlyPublished, $stol = false, $order = 'date_review' ) {
+    public function getArticles($onlyPublished, $stol = false, $sortBy = 'date_arrival', $orderBy = 'desc' ) {
         $result = $this->model->with('meta', 'status');
 
         if ($stol) {
@@ -62,8 +62,13 @@ class ArticlesRepository extends Repository
                 return $articles->status->type == true;
             });
         }
+        if ($orderBy === 'desc') {
+            $result = $result->sortByDesc($sortBy);
+        } else {
+            $result = $result->sortBy($sortBy);
+        }
         
-        $result = $result->sortBy($order);
+        
 
         return $result;
     }
@@ -181,8 +186,15 @@ class ArticlesRepository extends Repository
      */
     public function create($data)
     {
+        // dd($data);
         $alias = Transliterate::make($data['title_ru'], ['type' => 'url', 'lowercase' => true]);
         $alias = $this->getUnique($alias, 'articles', 'alias');
+
+        //for import from WP
+        // $alias = $data['alias'];
+
+        
+
         $article = $this->model->make([
             'alias' => $alias,
             'doi' => $data['doi'],
@@ -195,7 +207,22 @@ class ArticlesRepository extends Repository
             'file_audio' => $data['file_audio'],
         ]);
 
-        $article->save();
+        $issue = Issue::firstOrCreate([
+            'year' => $data['year'],
+            'no' => $data['no'],
+            'part' => $data['part'],
+        ], [
+            'year' => $data['year'],
+            'tom' => $data['tom'],
+            'no' => $data['no'],
+            'full_no' => $data['full_no'],
+            'part' => $data['part'],
+        ]);
+        $article->position = ($data['position']) ?: $issue->articles()->count() + 1;
+        // $article->position = $issue->articles()->count() + 1;
+        $issue->articles()->save($article);
+
+        // $article->save();
 
         $article->meta()->create([
             'lang' => 'ru',
@@ -224,26 +251,28 @@ class ArticlesRepository extends Repository
         }
 
         $article->users()->detach();
-        foreach ($data['users'] as $user_id) {
-            $article->users()->attach($user_id);
+        if ($data['users']) {
+            foreach ($data['users'] as $user_id) {
+                $article->users()->attach($user_id);
+            }
         }
-
+            
         $article->tags()->sync($data['tags']);
         $article->categories()->sync($data['categories']);
 
-        $issue = Issue::firstOrCreate([
-            'year' => $data['year'],
-            'no' => $data['no'],
-            'part' => $data['part'],
-        ], [
-            'year' => $data['year'],
-            'tom' => $data['tom'],
-            'no' => $data['no'],
-            'full_no' => $data['full_no'],
-            'part' => $data['part'],
-        ]);
-        $article->position = $issue->articles()->count() + 1;
-        $issue->articles()->save($article);
+        // $issue = Issue::firstOrCreate([
+        //     'year' => $data['year'],
+        //     'no' => $data['no'],
+        //     'part' => $data['part'],
+        // ], [
+        //     'year' => $data['year'],
+        //     'tom' => $data['tom'],
+        //     'no' => $data['no'],
+        //     'full_no' => $data['full_no'],
+        //     'part' => $data['part'],
+        // ]);
+        // $article->position = $issue->articles()->count() + 1;
+        // $issue->articles()->save($article);
 
         return [
             'status' => 'success',
@@ -294,15 +323,20 @@ class ArticlesRepository extends Repository
         } else {
             $article->status()->associate(2);
         }
-
-        if (!arraysStrickEquil($article->users_id(), $data['users'])) {
-            $article->users()->detach();
-            foreach ($data['users'] as $user_id) {
-                $article->users()->attach($user_id);
+        
+        $article->users()->detach();
+        if (isset($data['users'])) {
+            
+            if (!arraysStrickEquil($article->users_id(), $data['users'])) {
+                foreach ($data['users'] as $user_id) {
+                    $article->users()->attach($user_id);
+                }
             }
         }
 
-        $article->tags()->sync($data['tags']);
+        if (isset($data['tags'])) {
+            $article->tags()->sync($data['tags']);
+        }
         $article->categories()->sync($data['categories']);
 
         $issue = Issue::firstOrCreate([

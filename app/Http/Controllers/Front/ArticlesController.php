@@ -127,8 +127,9 @@ class ArticlesController extends SiteController
 
           $this->title = __('Архив');
       
-          $issues = ($this->status) ? $this->i_rep->allByStatus($this->status) : $this->i_rep->all();
-      
+        //   $issues = ($this->status) ? $this->i_rep->allByStatus($this->status) : $this->i_rep->all();
+          $issues = $this->i_rep->allByStatus($this->status) ;
+    //   dump($issues);
           $years = $issues
                     ->mapToGroups(function($issue) {
                         return [ $issue->full_no => $issue];
@@ -136,7 +137,8 @@ class ArticlesController extends SiteController
                     ->mapToGroups(function($full_no) {
                         return [ $full_no[0]->year => $full_no];
                     })
-                    ->sort();
+                    // ->sort()
+                    ;
             
           $this->vars = array_add($this->vars, 'years', $years);
       

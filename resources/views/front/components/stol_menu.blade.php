@@ -8,7 +8,7 @@
                     @foreach($stol_menu as $article)
                     <li>
                         <span class="date text-secondary">{{ 
-                            \Carbon\Carbon::parse($article->date_review)
+                            \Carbon\Carbon::parse($article->date_arrival)
                                             ->formatLocalized('%d %B %Y')
                         }}</span>
                     </li>

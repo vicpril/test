@@ -21,15 +21,15 @@ class ArticleListResource extends JsonResource
 //           "alias" => $this->alias,
 //           'email' => $this->email,
           'title_ru' =>     $this->ru->title,
-          'title_en' =>     $this->en->title,
+          'title_en' =>     (isset($this->en->title)) ? $this->en->title : '',
           'editLink' =>     $this->editLink,
-          'users' =>        $this->users->map(function($user) {
+          'users' =>        ($this->users) ? $this->users->map(function($user) {
                                   return [
                                           'editLink' => $user->editLink,
                                           "short_name_ru" =>  $user->ru->short_name,
                                           "short_name_en" =>  $user->en->short_name,
                                         ];
-                                }),
+                                }) : [],
           'categories' =>   $this->categories->map(function($cat) {
                                   return $cat->title_ru;
                             }),

@@ -18,7 +18,7 @@
 										name="full_name"
 										placeholder="Ф.И.О."
 										v-model="user.full_name"
-									>
+									/>
 									<div
 										class="invalid-feedback"
 										v-for="(error, key) in errors['full_name']"
@@ -43,7 +43,7 @@
 										name="email"
 										placeholder="Email"
 										v-model="user.email"
-									>
+									/>
 									<div class="invalid-feedback" v-for="(error, key) in errors['email']" :key="key">{{error}}</div>
 								</div>
 							</div>
@@ -56,7 +56,7 @@
 										:class="checkError('alias')"
 										name="alias"
 										v-model="user.alias"
-									>
+									/>
 									<div class="invalid-feedback" v-for="(error, key) in errors['alias']" :key="key">{{error}}</div>
 								</div>
 							</div>
@@ -72,7 +72,7 @@
 										:class="checkError('last_name_ru')"
 										name="last_name_ru"
 										v-model="user.last_name_ru"
-									>
+									/>
 									<div
 										class="invalid-feedback"
 										v-for="(error, key) in errors['last_name_ru']"
@@ -89,7 +89,7 @@
 										:class="checkError('first_name_ru')"
 										name="first_name_ru"
 										v-model="user.first_name_ru"
-									>
+									/>
 									<div
 										class="invalid-feedback"
 										v-for="(error, key) in errors['first_name_ru']"
@@ -100,13 +100,13 @@
 							<div class="col-3 px-1">
 								<div class="form-group">
 									<label for="patronymic_ru">Отчество</label>
-									<input type="text" class="form-control" name="patronymic_ru" v-model="user.patronymic_ru">
+									<input type="text" class="form-control" name="patronymic_ru" v-model="user.patronymic_ru" />
 								</div>
 							</div>
 							<div class="col-2 pl-1">
 								<div class="form-group">
 									<label for="initials_ru">Инициалы</label>
-									<input type="text" class="form-control" name="initials_ru" v-model="user.initials_ru">
+									<input type="text" class="form-control" name="initials_ru" v-model="user.initials_ru" />
 								</div>
 							</div>
 						</div>
@@ -120,7 +120,7 @@
 										:class="checkError('short_name_ru')"
 										name="short_name_ru"
 										v-model="user.short_name_ru"
-									>
+									/>
 									<div
 										class="invalid-feedback"
 										v-for="(error, key) in errors['short_name_ru']"
@@ -141,7 +141,7 @@
 										:class="checkError('last_name_en')"
 										name="last_name_en"
 										v-model="user.last_name_en"
-									>
+									/>
 									<div
 										class="invalid-feedback"
 										v-for="(error, key) in errors['last_name_en']"
@@ -158,7 +158,7 @@
 										:class="checkError('first_name_en')"
 										name="first_name_en"
 										v-model="user.first_name_en"
-									>
+									/>
 									<div
 										class="invalid-feedback"
 										v-for="(error, key) in errors['first_name_en']"
@@ -169,13 +169,13 @@
 							<div class="col-3 px-1">
 								<div class="form-group">
 									<label for="patronymic_en">Middle Name</label>
-									<input type="text" class="form-control" name="patronymic_en" v-model="user.patronymic_en">
+									<input type="text" class="form-control" name="patronymic_en" v-model="user.patronymic_en" />
 								</div>
 							</div>
 							<div class="col-2 pl-1">
 								<div class="form-group">
 									<label for="initials_en">Initials</label>
-									<input type="text" class="form-control" name="initials_en" v-model="user.initials_en">
+									<input type="text" class="form-control" name="initials_en" v-model="user.initials_en" />
 								</div>
 							</div>
 						</div>
@@ -189,7 +189,7 @@
 										:class="checkError('short_name_en')"
 										name="short_name_en"
 										v-model="user.short_name_en"
-									>
+									/>
 									<div
 										class="invalid-feedback"
 										v-for="(error, key) in errors['short_name_en']"
@@ -203,7 +203,7 @@
 							<div class="col-md-7 pr-1">
 								<div class="form-group">
 									<label class="h6 mt-2">ORCID</label>
-									<input type="text" class="form-control" name="orcid" v-model="user.orcid">
+									<input type="text" class="form-control" name="orcid" v-model="user.orcid" />
 								</div>
 							</div>
 						</div>
@@ -220,13 +220,13 @@
 							<div class="col-md pr-md-1">
 								<div class="form-group">
 									<label for="degree_ru">На русском</label>
-									<input type="text" class="form-control" name="degree_ru" v-model="user.degree_ru">
+									<input type="text" class="form-control" name="degree_ru" v-model="user.degree_ru" />
 								</div>
 							</div>
 							<div class="col-md pl-md-1">
 								<div class="form-group">
 									<label for="degree_en">На английском</label>
-									<input type="text" class="form-control" name="degree_en" v-model="user.degree_en">
+									<input type="text" class="form-control" name="degree_en" v-model="user.degree_en" />
 								</div>
 							</div>
 						</div>
@@ -243,13 +243,18 @@
 									</thead>
 									<draggable tag="tbody" handle=".handle" :list="jobs">
 										<tr class v-for="(job, index) in jobs" :key="index">
-											<td class="handle">
-												<i class="fa fa-align-justify"></i>
+											<td
+												class="handle text-secondary my-auto px-2"
+												@mouseover="$event.target.classList.add('text-warning')"
+												@mouseout="$event.target.classList.remove('text-warning')"
+											>
+												<i class="fa fa-arrows-v fa-lg"></i>
 											</td>
 											<td class="p-1">
 												<textarea
 													type="text"
 													class="form-control"
+													rows="4"
 													name="jobs_ru[]"
 													v-model="job.ru"
 													@input="saveJobsIntoUser"
@@ -259,6 +264,7 @@
 												<textarea
 													type="text"
 													class="form-control"
+													rows="4"
 													name="jobs_en[]"
 													v-model="job.en"
 													@input="saveJobsIntoUser"
@@ -331,7 +337,7 @@
 						<h5 class="h5 mb-0">Сохранить изменения</h5>
 					</div>
 					<div class="card-body">
-						<input class="btn btn-primary btn-round btn-block" type="submit" value="Сохранить">
+						<input class="btn btn-primary btn-round btn-block" type="submit" value="Сохранить" />
 					</div>
 				</div>
 
@@ -355,7 +361,7 @@
 							name="avatar"
 							v-model="user.avatar"
 							hidden
-						>
+						/>
 					</div>
 					<div class="card-footer">
 						<button

@@ -13,9 +13,21 @@ class User extends cUser
   
     public function attr($key) {
         $attr = $this->meta->where('meta_key', $key)->pluck('meta_value')->toArray();
-        return (count($attr) > 1)? $attr : $attr[0];
+        // dump($attr);
+        switch(count($attr)) {
+                    case 0: return null; break;
+                    case 1: return $attr[0]; break;
+                    default: return $attr; break;
+                };
+        
+        
     }
-  
+
+    public function getRoleAttribute() {
+        $roles = array_keys(unserialize($this->meta->wp_capabilities));
+        return (count($roles) > 1) ? $roles : $roles[0];
+    }
+
 //     nickname
 //     first_name
 //     last_name

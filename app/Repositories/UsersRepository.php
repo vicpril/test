@@ -161,6 +161,7 @@ class UsersRepository extends Repository
      */
     public function create($data)
     {
+        // dump($data);
         $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
         $alias = $this->getUnique($alias, 'users', 'alias');
         $user = $this->model->make([
@@ -217,6 +218,7 @@ class UsersRepository extends Repository
      */
     public function update(User $user, $data)
     {
+        // dd($data);
 //         $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
         $user->update([
 //             'alias' => $alias,
