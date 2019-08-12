@@ -1,2 +1,8 @@
 *
 !.gitignore
+!/uploads/userphoto/
+!/uploads/userphoto/*
+!/uploads/2019/07/
+!/uploads/2019/07/*
+!/uploads/2019/06/
+!/uploads/2019/06/*
