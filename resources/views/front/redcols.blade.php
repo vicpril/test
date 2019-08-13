@@ -5,40 +5,38 @@
 @endsection
 
 @section('content')
-	@foreach($redcols as $name => $users)
+		<div class="mb-2">
+			<h4> @lang('Редакция')</h4>
+			<ul class="list-unstyled">
+				@foreach($redcols['red'] as $row)
+					@component('front.redcols_item', ['row'=>$row])
+					@endcomponent
+				@endforeach
+			</ul>
+		</div>
 
 		<div class="mb-2">
-			<h4>{{ $name }}</h4>
+			<h4> @lang('Редакционный совет')</h4>
 			<ul class="list-unstyled">
-				@foreach($users as $row)
-					<li>
-						<div>
-					@if($row->postLoc)
-						<i>{{$row->postLoc}}:</i><br>
-					@endif
-						<a href="{{route('authors.show', ['alias'=>$row->user->alias])}}">
-							@if(Config::get('app.locale') == 'ru')
-								{{$row->user->loc->full_name}}
-							@else
-								{{$row->user->loc->short_name}}
-							@endif
-						</a>	
-						@isset($row->user->loc->degree)
-						, {{ $row->user->loc->degree }}
-						@endif
-						@if(count($row->user->loc->jobs) > 0)
-							@foreach($row->user->loc->jobs as $job)
-								, {{ $job }}
-							@endforeach
-						@endif
-						</div>
-					</li>
+				@foreach($redcols['sovet'] as $row)
+					@component('front.redcols_item', ['row'=>$row])
+					@endcomponent
 				@endforeach
-			
 			</ul>
-			
 		</div>
-	@endforeach
+		
+		<div class="mb-2">
+			<h4> @lang('Международный редакционный совет')</h4>
+			<ul class="list-unstyled">
+				@foreach($redcols['int-sovet'] as $row)
+					@component('front.redcols_item', ['row'=>$row])
+					@endcomponent
+				@endforeach
+			</ul>
+		</div>
+
+
+
 @endsection
 
 @section('contentFooter')

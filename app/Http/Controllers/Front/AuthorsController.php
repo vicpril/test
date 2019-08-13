@@ -86,11 +86,15 @@ class AuthorsController extends SiteController
 				$redcols->loadMissing([
 					'user',
 					'user.meta'
-				]);
+                ]);
+                
+                // dd($redcols);
 			
-				$redcols = $redcols->mapToGroups(function ($item) {
-            return [$this->getRedcolName($item->type) => $item];
+		$redcols = $redcols->mapToGroups(function ($item) {
+            return [$item->type => $item];
         });
+
+        
 
         $this->vars = array_add($this->vars, 'redcols', $redcols);
 
