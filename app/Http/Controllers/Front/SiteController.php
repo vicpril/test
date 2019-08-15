@@ -115,11 +115,11 @@ class SiteController extends Controller
         };
       
 
-        if (auth()->check()) {
-            dump(auth()->user()->loc->full_name . ' - '. auth()->user()->role);
-            dump(auth()->user()->loc->short_name . ' - '. auth()->user()->role);
+        // if (auth()->check()) {
+        //     dump(auth()->user()->loc->full_name . ' - '. auth()->user()->role);
+        //     dump(auth()->user()->loc->short_name . ' - '. auth()->user()->role);
 
-        }
+        // }
 
     	return view($this->template)->with($this->vars);
     }
