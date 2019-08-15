@@ -1,0 +1,5 @@
+@import "~flag-icon-css/sass/variables";
+@import "~flag-icon-css/sass/flag-icon-base";
+// @import "~flag-icon-css/sass/flag-icon-list";
+@include flag-icon(ru);
+@include flag-icon(us);

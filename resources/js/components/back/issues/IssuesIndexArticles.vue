@@ -4,7 +4,13 @@
 			<h5 class="mr-1 my-auto">Список статей выпуска</h5>
 			<a
 				class="btn btn-outline-primary btn-round my-0 ml-auto"
-				href="/admin/articles/create"
+				:href="
+					'/admin/articles/create' + 
+					'?year=' + issue.year +
+					'&no=' + issue.no +
+					'&full-no=' + issue.full_no +
+					'&part=' + issue.part
+				"
 			>Добавить новую статью</a>
 		</div>
 		<div class="card-body">
@@ -76,7 +82,7 @@
 										class="switch-input"
 										v-model="article.status"
 										@click="statusChange(index, !article.status)"
-									>
+									/>
 									<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 								</label>
 							</td>
@@ -118,6 +124,13 @@ export default {
 			type: Array,
 			default: () => {
 				[];
+			}
+		},
+		issue: {
+			type: Object,
+			default: () => {
+				{
+				}
 			}
 		}
 	},

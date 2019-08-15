@@ -40,6 +40,20 @@
 				@if(count($errors) > 0)
 					:errors="{{$errors}}"
 				@endif
+
+				@if(Request::input('year'))
+					:set-year="{{ Request::input('year') }}"
+				@endif
+				@if(Request::input('no'))
+					:set-no="{{ Request::input('no') }}"
+				@endif
+				@if(Request::input('full-no'))
+					:set-full-no="{{ Request::input('full-no') }}"
+				@endif
+				@if(Request::input('part'))
+					:set-part="{{ Request::input('part') }}"
+				@endif
+
 				></article-profile>
     </form>
 </div>

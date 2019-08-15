@@ -770,6 +770,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -800,6 +802,22 @@ __webpack_require__.r(__webpack_exports__);
     id: {
       type: Number,
       default: 0
+    },
+    setYear: {
+      type: Number,
+      default: new Date().getFullYear()
+    },
+    setNo: {
+      type: Number,
+      default: 1
+    },
+    setFullNo: {
+      type: Number,
+      default: 0
+    },
+    setPart: {
+      type: Number,
+      default: 1
     }
   },
   data: function data() {
@@ -810,7 +828,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       datePickerOptions: {
         format: "YYYY-MM-DD",
-        locale: 'ru'
+        locale: "ru"
       },
       noArray: [1, 2, 3, 4, 5],
       partArray: [1, 2],
@@ -822,11 +840,11 @@ __webpack_require__.r(__webpack_exports__);
         updated_at: "",
         date_arrived: "",
         date_review: "",
-        year: new Date().getFullYear(),
+        year: this.setYear,
         tom: "",
-        no: 1,
-        full_no: "",
-        part: "",
+        no: this.setNo,
+        full_no: this.setFullNo,
+        part: this.setPart,
         doi: "",
         udk: "",
         stol: false,
@@ -866,13 +884,13 @@ __webpack_require__.r(__webpack_exports__);
     // fetching article
     if (!this.isEmptyObject(this.old)) {
       this.article = this.old;
-      this.article.users = typeof this.old.users !== 'undefined' ? Object.values(this.old.users).map(function (x) {
+      this.article.users = typeof this.old.users !== "undefined" ? Object.values(this.old.users).map(function (x) {
         return parseInt(x);
       }) : [];
-      this.article.tags = typeof this.old.tags !== 'undefined' ? Object.values(this.old.tags).map(function (x) {
+      this.article.tags = typeof this.old.tags !== "undefined" ? Object.values(this.old.tags).map(function (x) {
         return parseInt(x);
       }) : [];
-      this.article.categories = typeof this.old.categories !== 'undefined' ? parseInt(this.old.categories) : null;
+      this.article.categories = typeof this.old.categories !== "undefined" ? parseInt(this.old.categories) : null;
     } else if (this.id !== 0) {
       this.fetchArticle(this.id);
     }
@@ -905,7 +923,7 @@ __webpack_require__.r(__webpack_exports__);
         document.getElementById("form").submit();
       }
     },
-    setFullNo: function setFullNo() {
+    autoFullNo: function autoFullNo() {
       this.article.full_no = (this.article.year - 2009 - 1) * 4 + 2 + this.article.no;
     },
     checkError: function checkError(error) {
@@ -2666,6 +2684,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2682,6 +2706,12 @@ __webpack_require__.r(__webpack_exports__);
       type: Array,
       default: function _default() {
         [];
+      }
+    },
+    issue: {
+      type: Object,
+      default: function _default() {
+        {}
       }
     }
   },
@@ -28826,7 +28856,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* ADMIN right sidebar */\n.right-sidebar {\r\n\tflex: 0 0 320px;\n}\n#title_ru {\r\n\tfont-size: 20px;\r\n\theight: calc(1.7em + 1px);\r\n\tpadding: 3px 8px 3px 8px;\n}\r\n", ""]);
 
 // exports
 
@@ -28921,7 +28951,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* tablestyle */\ntable {\r\n\twidth: 100%;\n}\ntable tr td {\r\n\tvertical-align: middle !important;\n}\ntd.trunc {\r\n\tmax-width: 0;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\n}\ntd.title {\r\n\twidth: 30%;\n}\r\n\r\n/* checkbox color */\ntable .custom-control-input:checked ~ .custom-control-label::before {\r\n\tcolor: #fff;\r\n\tborder-color: var(--success);\r\n\tbackground-color: var(--success);\n}\ntable\r\n\t.custom-checkbox\r\n\t.custom-control-input:indeterminate\r\n\t~ .custom-control-label::before {\r\n\tborder-color: var(--secondary);\r\n\tbackground-color: var(--secondary);\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* tablestyle */\ntable {\r\n\twidth: 100%;\n}\ntable tr td {\r\n\tvertical-align: middle !important;\n}\ntd.trunc {\r\n\tmax-width: 0;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\n}\ntd.title {\r\n\twidth: 30%;\n}\r\n\r\n/* checkbox color */\ntable .custom-control-input:checked ~ .custom-control-label::before {\r\n\tcolor: #fff;\r\n\tborder-color: var(--success);\r\n\tbackground-color: var(--success);\n}\ntable\r\n\t.custom-checkbox\r\n\t.custom-control-input:indeterminate\r\n\t~ .custom-control-label::before {\r\n\tborder-color: var(--secondary);\r\n\tbackground-color: var(--secondary);\n}\r\n", ""]);
 
 // exports
 
@@ -61006,7 +61036,7 @@ var render = function() {
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return _vm.setFullNo($event)
+                          return _vm.autoFullNo($event)
                         }
                       }
                     },
@@ -63373,7 +63403,10 @@ var render = function() {
                 { staticClass: "col-md" },
                 [
                   _c("issues-index-articles", {
-                    attrs: { export: _vm.exportArticles },
+                    attrs: {
+                      export: _vm.exportArticles,
+                      issue: _vm.currentIssue
+                    },
                     on: {
                       "update:export": function($event) {
                         _vm.exportArticles = $event
@@ -63463,7 +63496,31 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "card-header d-flex" }, [
+      _c("h5", { staticClass: "mr-1 my-auto" }, [
+        _vm._v("Список статей выпуска")
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-outline-primary btn-round my-0 ml-auto",
+          attrs: {
+            href:
+              "/admin/articles/create" +
+              "?year=" +
+              _vm.issue.year +
+              "&no=" +
+              _vm.issue.no +
+              "&full-no=" +
+              _vm.issue.full_no +
+              "&part=" +
+              _vm.issue.part
+          }
+        },
+        [_vm._v("Добавить новую статью")]
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _vm.value.length > 0
@@ -63729,27 +63786,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header d-flex" }, [
-      _c("h5", { staticClass: "mr-1 my-auto" }, [
-        _vm._v("Список статей выпуска")
-      ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-outline-primary btn-round my-0 ml-auto",
-          attrs: { href: "/admin/articles/create" }
-        },
-        [_vm._v("Добавить новую статью")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

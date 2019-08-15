@@ -10,23 +10,25 @@
 					<div class="card-body">
 						<div class="form-group">
 							<label>На русском</label>
-							<input id="title_ru" name="title_ru" class="form-control" v-model="article.title_ru"
-										 :class="{'is-invalid' : errors.hasOwnProperty('title_ru')}">
-							<div
-										class="invalid-feedback"
-										v-for="(error, key) in errors['title_ru']"
-										:key="key"
-									>{{error}}</div>
+							<input
+								id="title_ru"
+								name="title_ru"
+								class="form-control"
+								v-model="article.title_ru"
+								:class="{'is-invalid' : errors.hasOwnProperty('title_ru')}"
+							/>
+							<div class="invalid-feedback" v-for="(error, key) in errors['title_ru']" :key="key">{{error}}</div>
 						</div>
 						<div class="form-group">
 							<label>На английском</label>
-							<input type="text" name="title_en" class="form-control" v-model="article.title_en"
-										 :class="{'is-invalid' : errors.hasOwnProperty('title_en')}">
-							<div
-										class="invalid-feedback"
-										v-for="(error, key) in errors['title_en']"
-										:key="key"
-									>{{error}}</div>
+							<input
+								type="text"
+								name="title_en"
+								class="form-control"
+								v-model="article.title_en"
+								:class="{'is-invalid' : errors.hasOwnProperty('title_en')}"
+							/>
+							<div class="invalid-feedback" v-for="(error, key) in errors['title_en']" :key="key">{{error}}</div>
 						</div>
 						<div class="form-group mb-0">
 							<label>Ссылка на сайте:</label>
@@ -70,28 +72,28 @@
 					<div class="card-body">
 						<div class="d-flex">
 							<label for="udc" class="form-title h6 mr-2 my-auto">UDK:</label>
-							<input type="text" class="form-control align-self-center" name="udk" v-model="article.udk">
+							<input type="text" class="form-control align-self-center" name="udk" v-model="article.udk" />
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- Annotation - RU -->
 					<div class="card-body">
 						<div class="form-group mb-0">
 							<label class="h6">Аннотация на русском</label>
-							<vue-ckeditor class name="annotation_ru" id="annotation_ru" v-model="article.annotation_ru"/>
+							<vue-ckeditor class name="annotation_ru" id="annotation_ru" v-model="article.annotation_ru" />
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- DOI -->
 					<div class="card-body">
 						<div class="d-flex">
 							<label for="doi" class="form-title h6 mr-2 my-auto">DOI:</label>
-							<input type="text" class="form-control align-self-center" name="doi" v-model="article.doi">
+							<input type="text" class="form-control align-self-center" name="doi" v-model="article.doi" />
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- Keywords - RU -->
 					<div class="card-body">
@@ -105,7 +107,7 @@
 							></textarea>
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- Date arrival & review -->
 					<div class="card-body">
@@ -120,25 +122,25 @@
 							</div>
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- Applications -->
 					<div class="card-body">
 						<div class="form-group mb-0">
 							<label class="h6">Дополнения</label>
-							<vue-ckeditor class name="applications" id="applications" v-model="article.applications"/>
+							<vue-ckeditor class name="applications" id="applications" v-model="article.applications" />
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- Annotation - EN -->
 					<div class="card-body">
 						<div class="form-group mb-0">
 							<label class="h6">Аннотация на английском</label>
-							<vue-ckeditor class name="annotation_en" id="annotation_en" v-model="article.annotation_en"/>
+							<vue-ckeditor class name="annotation_en" id="annotation_en" v-model="article.annotation_en" />
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- Keywords - EN -->
 					<div class="card-body">
@@ -152,7 +154,7 @@
 							></textarea>
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- Finance -->
 					<div class="card-body">
@@ -161,7 +163,7 @@
 							<textarea class="form-control" name="finance" id="finance" v-model="article.finance"></textarea>
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- Bibliography - EN -->
 					<div class="card-body">
@@ -175,7 +177,7 @@
 							/>
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 
 					<!-- Bibliography - EN -->
 					<div class="card-body">
@@ -189,7 +191,7 @@
 							/>
 						</div>
 					</div>
-					<hr class="my-0">
+					<hr class="my-0" />
 				</div>
 
 				<!-- END ADDITIONALS FIELDS -->
@@ -219,10 +221,10 @@
 									class="switch-input"
 									v-model="article.status"
 									@click="article.status = !article.status"
-								>
+								/>
 								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 							</label>
-							<input type="text" name="status" :value="article.status" hidden>
+							<input type="text" name="status" :value="article.status" hidden />
 						</div>
 						<div class="form-group mb-0" v-if="article.updated_at">
 							<span class="text-muted">
@@ -241,7 +243,7 @@
 							class="btn btn-primary btn-round float-right"
 							type="submit"
 							:value="newArticle ? 'Опубликовать' : 'Обновить' "
-						>
+						/>
 					</div>
 				</div>
 				<!-- END ISSUE -->
@@ -256,10 +258,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Год</span>
 							</div>
-							<input type="number" name="year" min="2009" class="form-control" v-model="article.year">
+							<input type="number" name="year" min="2009" class="form-control" v-model="article.year" />
 							<div class="input-group-append">
 								<span class="input-group-text">Том {{ tom }}</span>
-								<input type="number" name="tom" :value="tom" hidden>
+								<input type="number" name="tom" :value="tom" hidden />
 							</div>
 						</div>
 						<div class="input-group mb-2">
@@ -274,9 +276,9 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Полный номер</span>
 							</div>
-							<input type="number" name="full_no" min="1" class="form-control" v-model="article.full_no">
+							<input type="number" name="full_no" min="1" class="form-control" v-model="article.full_no" />
 							<div class="input-group-append">
-								<button type="button" class="btn btn-outline-info" @click.prevent="setFullNo">Авто</button>
+								<button type="button" class="btn btn-outline-info" @click.prevent="autoFullNo">Авто</button>
 							</div>
 						</div>
 						<div class="input-group mb-2">
@@ -298,10 +300,10 @@
 									class="switch-input"
 									v-model="article.stol"
 									@click="article.stol = !article.stol"
-								>
+								/>
 								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 							</label>
-							<input type="text" name="stol" :value="article.stol" hidden>
+							<input type="text" name="stol" :value="article.stol" hidden />
 						</div>
 					</div>
 				</div>
@@ -346,26 +348,43 @@ export default {
 			type: Object,
 			default: () => ({})
 		},
-		
+
 		id: {
 			type: Number,
 			default: 0
+		},
+
+		setYear: {
+			type: Number,
+			default: new Date().getFullYear()
+		},
+		setNo: {
+			type: Number,
+			default: 1
+		},
+		setFullNo: {
+			type: Number,
+			default: 0
+		},
+		setPart: {
+			type: Number,
+			default: 1
 		}
 	},
 
 	data: function() {
 		return {
 			offset: { top: 100, bottom: 0 },
-			
+
 			datePickerOptions: {
 				format: "YYYY-MM-DD",
-				locale: 'ru',
+				locale: "ru"
 			},
-			
+
 			noArray: [1, 2, 3, 4, 5],
-			
+
 			partArray: [1, 2],
-			
+
 			article: {
 				id: "",
 				link: "",
@@ -374,11 +393,11 @@ export default {
 				updated_at: "",
 				date_arrived: "",
 				date_review: "",
-				year: new Date().getFullYear(),
+				year: this.setYear,
 				tom: "",
-				no: 1,
-				full_no: "",
-				part: "",
+				no: this.setNo,
+				full_no: this.setFullNo,
+				part: this.setPart,
 				doi: "",
 				udk: "",
 				stol: false,
@@ -411,20 +430,29 @@ export default {
 		newArticle() {
 			return this.article.id ? false : true;
 		},
-		
+
 		tom() {
 			this.article.tom = this.article.year - 2009 + 1;
 			return this.article.tom;
 		}
 	},
-	
-	created(){
+
+	created() {
 		// fetching article
 		if (!this.isEmptyObject(this.old)) {
 			this.article = this.old;
-			this.article.users = (typeof this.old.users !== 'undefined')? Object.values(this.old.users).map( x => parseInt(x) ) : [];
-			this.article.tags = (typeof this.old.tags !== 'undefined')? Object.values(this.old.tags).map( x => parseInt(x) ) : [];
-			this.article.categories = (typeof this.old.categories !== 'undefined')?  parseInt(this.old.categories) : null;
+			this.article.users =
+				typeof this.old.users !== "undefined"
+					? Object.values(this.old.users).map(x => parseInt(x))
+					: [];
+			this.article.tags =
+				typeof this.old.tags !== "undefined"
+					? Object.values(this.old.tags).map(x => parseInt(x))
+					: [];
+			this.article.categories =
+				typeof this.old.categories !== "undefined"
+					? parseInt(this.old.categories)
+					: null;
 		} else if (this.id !== 0) {
 			this.fetchArticle(this.id);
 		}
@@ -464,7 +492,7 @@ export default {
 			}
 		},
 
-		setFullNo() {
+		autoFullNo() {
 			this.article.full_no =
 				(this.article.year - 2009 - 1) * 4 + 2 + this.article.no;
 		},

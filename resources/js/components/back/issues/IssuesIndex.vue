@@ -112,7 +112,7 @@
 			<!-- ISSUE ARTICLES -->
 			<div class="row">
 				<div class="col-md">
-					<issues-index-articles v-model="currentIssue.articles" :export.sync="exportArticles"></issues-index-articles>
+					<issues-index-articles v-model="currentIssue.articles" :export.sync="exportArticles" :issue="currentIssue"></issues-index-articles>
 				</div>
 			</div>
 			<!-- end ISSUE ARTICLES -->
