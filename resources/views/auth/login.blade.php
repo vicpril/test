@@ -1,6 +1,45 @@
-@extends('layouts.app')
+@extends('auth.layout')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+<div class="card p-4">
+  <div class="card-body">
+    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+      @csrf
+      <h1>Login</h1>
+      <p class="text-muted">Sign In to your account</p>
+      <div role="group" class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="icon-user"></i>
+          </div>
+        </div>
+        <input id="email" name="email" type="text" placeholder="Username or Email" autocomplete="username email" class="form-control form-control">
+      </div>
+      <div role="group" class="input-group mb-4">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="icon-lock"></i>
+          </div>
+        </div>
+        <input id="password" type="password" placeholder="Password" autocomplete="current-password" class="form-control form-control" name="password">
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <button type="submit" class="btn px-4 btn-primary">Login</button>
+        </div>
+        <div class="text-right col-6">
+          <button type="button" class="btn px-0 btn-link">Forgot password?</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+      </div></div></div>
+{{--
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -12,10 +51,10 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address or Login') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -68,4 +107,6 @@
         </div>
     </div>
 </div>
+
+--}}
 @endsection

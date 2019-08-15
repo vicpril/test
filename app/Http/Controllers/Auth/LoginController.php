@@ -42,8 +42,8 @@ class LoginController extends Controller
     *   Custom loginForm
     */
     public function showLoginForm() {
-        if (view()->exists(env('THEME').'.login')) {
-            return view(env('THEME').'.login')->with('title', 'Вход на сайт');
+        if (view()->exists('auth.login')) {
+            return view('auth.login')->with('title', 'Вход на сайт');
         }
         abort(404);
     }
