@@ -16,42 +16,53 @@
 </head>
 
 <body>
-   <div class="primary-overlay">
+<!--    <div class="primary-overlay"> -->
 
   
-   <header class=" blog-header py-3 bg-primary">
+   <header class=" blog-header py-0">
       <div class="container">
-         <div class="row mx-0 justify-content-between align-items-center ">
-            <a class="text-white" href="#">
-               <img class="d-none d-md-block" src="img/logo.svg" alt="" />
-               <img class="d-md-none" src="img/mobile-logo.svg" alt="" />
-            </a>
+        <div class="header-image">
+         <div class="primary-overlay">
+           
+           <div class="row mx-0 h-100 py-3 justify-content-between align-items-start ">
+             <div class="logo-title">
+                <h1 class="main-title" >Идеи и Идеалы</h1>
+                <h4 class="second-title">Научный журнал</h4>
+             </div>
+<!--               <a class="text-white" href="#">
+                 <img class="d-none d-md-block" src="img/logo.svg" alt="" />
+                 <img class="d-md-none" src="img/mobile-logo.svg" alt="" />
+              </a> -->
 
-            <div class=" dropdown form-inline">
-               <span class="text-white">@lang('Язык сайта'): </span>
-               <a class="nav-link dropdown-toggle text-white " href="#" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
+              <div class=" dropdown form-inline bg-white px-3 border rounded">
+                 <span class="">@lang('Язык сайта'): </span>
+                 <a class="nav-link dropdown-toggle " href="#" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
 
-                  @if( Config::get('app.locale') == "ru" )
-                  <i class="flag-icon flag-icon-ru mr-1"></i>Русский
-                  @else
-                  <i class="flag-icon flag-icon-us mr-1"></i>English
-                  @endif
-               </a>
-               <div class="dropdown-menu">
-                  @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                  <a rel="alternate" class="dropdown-item" hreflang="{{ $localeCode }}"
-                     href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                     <i class="flag-icon flag-icon-{{ $properties['flag'] }} mr-1"></i>@lang($properties['title'])
-                  </a>
+                    @if( Config::get('app.locale') == "ru" )
+                   <i class="flag-icon flag-icon-ru mr-1"></i>Русский
+                    @else
+                    <i class="flag-icon flag-icon-us mr-1"></i>English
+                    @endif
+                 </a>
+                 <div class="dropdown-menu">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <a rel="alternate" class="dropdown-item" hreflang="{{ $localeCode }}"
+                       href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                       <i class="flag-icon flag-icon-{{ $properties['flag'] }} mr-1"></i>@lang($properties['title'])
+                    </a>
 
-                  @if(!$loop->last)
-                  <div class="dropdown-divider"></div>
-                  @endif
-                  @endforeach
-               </div>
-            </div>
+                    @if(!$loop->last)
+                    <div class="dropdown-divider"></div>
+                    @endif
+                    @endforeach
+                 </div>
+              </div>
+           </div>
+        
          </div>
+        </div>
+
       </div>
    </header>
 
@@ -138,7 +149,7 @@
       <!-- /.row -->
    </main>
    <!-- /.container -->
-   </div>
+<!--    </div> -->
 
    <footer class="py-3 d-flex justify-content-center">
       <small class="text-white">@lang('Разработал') <a href="#" class="desiner">@lang('Виктор Прилепин')</a></small>
