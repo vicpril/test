@@ -16,6 +16,9 @@
 </head>
 
 <body>
+   <div class="primary-overlay">
+
+  
    <header class=" blog-header py-3 bg-primary">
       <div class="container">
          <div class="row mx-0 justify-content-between align-items-center ">
@@ -135,6 +138,7 @@
       <!-- /.row -->
    </main>
    <!-- /.container -->
+   </div>
 
    <footer class="py-3 d-flex justify-content-center">
       <small class="text-white">@lang('Разработал') <a href="#" class="desiner">@lang('Виктор Прилепин')</a></small>

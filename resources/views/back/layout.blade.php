@@ -29,8 +29,8 @@
       class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show"
 
    >
-      <!-- Navbar -->
-      @yield('navbar')
+   <!-- Navbar -->
+   @yield('navbar')
       <!-- End Navbar -->
 
       <div class="app-body" id="app">
@@ -39,14 +39,15 @@
             @yield('sidebar')
             <!-- end sidebar -->
          </div>
-					<!-- Notification -->
+         <!-- Notification -->
 							<alert
-					@if(Session::get('message'))
-								 :message="{{ json_encode(Session::get('message'), JSON_FORCE_OBJECT) }}"
-					@endif
-               ></alert>
-
-         <main class="main">
+                     @if(Session::get('message'))
+                     :message="{{ json_encode(Session::get('message'), JSON_FORCE_OBJECT) }}"
+                     @endif
+                     ></alert>
+                     
+                     <main class="main">
+                        <div class="primary-overlay">
 
             <!-- Content-->
             <!-- <div class="content mt-4"> -->
@@ -85,6 +86,7 @@
                   </div>
                </div>
             <!-- </div> -->
+         </div>
          </main>
          <scroll-up-button></scroll-up-button>
       </div>

@@ -4188,6 +4188,21 @@ label.form-title,
   padding: 0 15px;
 }
 
+body {
+  background-image: url("/images/fon.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+body .primary-overlay {
+  background: linear-gradient(rgba(234, 234, 234, 0.8), 20%, #eaeaea);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .v-select {
   position: relative;
   font-family: inherit;

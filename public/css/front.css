@@ -143,7 +143,18 @@ ul.list-stol > a {
 }
 
 body {
-  background-color: #e8e6df !important;
+  background-color: #eaeaea !important;
+  background-image: url("/images/fon.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+body .primary-overlay {
+  background: linear-gradient(rgba(234, 234, 234, 0.7), 40%, #eaeaea);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 .bd-placeholder-img {
