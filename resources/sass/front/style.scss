@@ -147,7 +147,7 @@ ul.list-stol > a {
 }
 
 .page-header-section {
-   padding-top: 20px;
+   padding-top: 10px;
    padding-bottom: 12px;
    margin-bottom: 20px;
    border-bottom: $gray-900 8px solid;
@@ -195,47 +195,64 @@ ul.list-stol > a {
    cursor: pointer;
 }
 
-.blog-header {
-   height: 150px;
-//    background-color: #e8e6df !important;
-  background: linear-gradient(0.25turn, #3f87a6 50%,  #f69d3c 50%);
-  
-  .header-image{
-     background-image: url("/images/fon.jpg");
-     background-repeat: no-repeat;
-     background-position: center, center;
-     background-size: auto 700px;
-    
-  }
-   .primary-overlay {
-     background: linear-gradient(0.25turn, #3f87a6, rgba(235, 248, 225, 0.5), #f69d3c);
-//       position: absolute;
-//       top: 0;
-//       left: 0;
-      width: 100%;
-      height: 150px;
-   }
-  
-  .logo-title {
-    color: #fff;
-    @media screen and (max-width: 767px) {
-        text-align: center;
-    }
-    .main-title {
-        @media screen and (min-width: 768px) {
-            font-size: 3rem;
-        }
+$headerHeight: 130px;
+$headerLeftColor: #3f87a6;
+$headerRightColor: #f69d3c;
 
-        @media screen and (max-width: 767px) {
+.blog-header {
+   height: $headerHeight;
+   //    background-color: #e8e6df !important;
+   background: linear-gradient(
+      0.25turn,
+      $headerLeftColor 50%,
+      $headerRightColor 50%
+   );
+
+   .header-image {
+      background-image: url("/images/fon-crop.jpg");
+      background-repeat: no-repeat;
+      background-position: top, center;
+      background-size: auto 100%;
+   }
+   .primary-overlay {
+      background: linear-gradient(
+         0.25turn,
+         $headerLeftColor,
+         rgba(235, 248, 225, 0.5),
+         $headerRightColor
+      );
+      //       position: absolute;
+      //       top: 0;
+      //       left: 0;
+      width: 100%;
+      height: $headerHeight;
+   }
+
+   .logo-title {
+      color: #fff;
+      @media screen and (max-width: 720px) {
+         text-align: center;
+      }
+      .main-title {
+         @media screen and (min-width: 719px) {
+            font-size: 3rem;
+         }
+
+         @media screen and (max-width: 720px) {
+            font-size: 1.8rem;
+         }
+      }
+
+      .second-title {
+         @media screen and (min-width: 719px) {
             font-size: 1.5rem;
-        }
-    }
-    
-    .second-title {
-      
-    }
-  }
-  
+         }
+
+         @media screen and (max-width: 720px) {
+            font-size: 1.2rem;
+         }
+      }
+   }
 }
 
 body {
