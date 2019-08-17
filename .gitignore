@@ -1,13 +1,7 @@
 /node_modules
 /public/hot
-/public/storage
-/storage/*.key
-# !storage/app/public/uploads/userphoto/
-# !storage/app/public/uploads/userphoto/*
-# !storage/app/public/uploads/2019/07/
-# !storage/app/public/uploads/2019/07/*
-# !storage/app/public/uploads/2019/06/
-# !storage/app/public/uploads/2019/06/*
+# /public/storage
+# /storage/*.key
 /vendor
 /.idea
 /.vagrant
