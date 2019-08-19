@@ -48,10 +48,10 @@
 
    <!-- <script src="js/main.js"></script> -->
 
-   <script src="{{ url('js/manifest.js') }}"></script>
-   <script src="{{ url('js/vendor.js') }}"></script>
+   <script src="{{ asset('js/manifest.js') }}"></script>
+   <script src="{{ asset('js/vendor.js') }}"></script>
    @stack('lib')
-   <script src="{{ url('js/back.js') }}"></script>
+   <script src="{{ asset('js/back.js') }}"></script>
    @stack('js')
 
 
