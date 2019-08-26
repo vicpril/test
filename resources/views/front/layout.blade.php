@@ -97,7 +97,7 @@
       <main role="main" class="container">
          <div class="row">
             <div class="col-md-9 blog-main mb-3">
-               <div class="card ">
+               <div class="card shadow">
                   @hasSection('subtitle')
                   <div class="card-header ">
                      @yield('breadcrumbs')
@@ -121,7 +121,7 @@
             <aside class="col-md-3 blog-sidebar">
                @yield('stol_menu') @yield('review_menu') @yield('sidebar_menu')
 
-               <div class="card mb-3">
+               <div class="card shadow mb-3">
                   <div class="card-body">
                      <div class="mb-3">
                         <a

@@ -1,5 +1,5 @@
 @if(count($menu->roots()) > 0)
-<div class="card mb-3">
+<div class="card shadow mb-3">
     <div class="card-header">
       <h5 class="font-italic mb-0">@lang('Информация для авторов')</h5>
     </div>
