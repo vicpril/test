@@ -32,15 +32,15 @@
 
 	@if(count($article->users) > 0)
 	<span class="text-dark"><strong>@choice('article.author', count($article->users)):</strong></span>
-	<ul class="authors mb-3 list-unstyled list-group list-group-horizontal">
+		<div>
+		
 			@foreach($article->users as $user)
-			<li>
 				<strong>
-				 <a class="author-name" href="{{ route('authors.show', $user->alias) }}">{{$user->loc->short_name}}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
+				 <a class="author-name" href="{{ route('authors.show', $user->alias) }}">{{$user->loc->short_name}}</a>@if(!$loop->last)<span>, </span>@endif
 				</strong>
-			</li>
 			@endforeach
-	</ul>
+
+		</div>
 	@endif
 
   @if($article->doi)
