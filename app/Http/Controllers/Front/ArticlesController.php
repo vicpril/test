@@ -145,6 +145,37 @@ class ArticlesController extends SiteController
           return $this->renderOutput();
     }
   
+    /*
+    *
+    *   Круглые столы
+    *
+    */
+    public function club (Request $request) 
+    {
+
+        $this->setStatus();
+
+        $this->prepareStolMenu();
+
+        $this->template = 'front.club';
+
+        $this->title = __('Круглые столы');
+      
+        $request->request->add([
+          'paginate' => '10',
+          'status' => $this->status,
+//           'where' => ['stol', true],
+          'relation' => ['stol' => true],  // for searching only with articles.stol = true
+          'sortBy' => 'issue',
+          'orderBy' => 'desc'
+        ]);
+        $articles = $this->a_rep->getArticlesList($request);
+      
+
+        $this->vars = array_add($this->vars, 'articles', $articles);
+
+        return $this->renderOutput();
+    }
   
     /*
     *   Search articles

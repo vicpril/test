@@ -16,19 +16,15 @@
          <h5 class="">
             <a class="article-title" href="{{ route('article', $article->alias) }}">{{ $article->loc->title }}</a>
          </h5>
-         <ul
-            class="authors mb-2 list-unstyled list-group list-group-horizontal"
-         >
+    
             @foreach($article->users as $user)
-            <li>
                @if( Config::get('app.locale') == 'ru' )
                   <a class="author-name" href="{{ route('authors.show', $user->alias) }}">{{$user->loc->short_name}}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
                @else
                   <a class="author-name" href="{{ route('authors.show', $user->alias) }}">{{ $user->en->last_name }} {{ $user->en->first_name }}</a>@if(!$loop->last)<span>,&ensp;</span>@endif
                @endif
-            </li>
             @endforeach
-         </ul>
+    
          @if($article->doi)
          <div class="doi py-1">
             <span class="text-dark"><strong>DOI: </strong></span>

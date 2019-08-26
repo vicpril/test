@@ -30,8 +30,8 @@
                      class="d-sm-flex mx-0 h-100 py-3 justify-content-between align-items-start "
                   >
                      <div class="logo-title">
-                        <h1 class="main-title">Идеи и Идеалы</h1>
-                        <h4 class="second-title">Научный журнал</h4>
+                        <h1 class="main-title">@lang('Идеи и Идеалы')</h1>
+                        <h4 class="second-title">@lang('Научный журнал')</h4>
                      </div>
 
                      <div

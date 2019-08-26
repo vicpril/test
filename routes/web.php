@@ -85,7 +85,7 @@ Route::group(
 
         // Route::name('authors')->get('/authors', function() { return 'authors' ;});
 
-        Route::name('club')->get('/diskussionnye-cluby', function() { return 'КРУГЛЫЕ СТОЛЫ' ;});
+        Route::name('club')->get('/diskussionnye-cluby', 'ArticlesController@club');
 
         Route::name('corsel')->get('spa', 'SpaController@index');
 

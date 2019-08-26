@@ -1,6 +1,7 @@
 {
    "Журнал": "Idea and Ideals Volume",
    "Идеи и Идеалы": "Idea and Ideals",
+   "Научный журнал": "Science Magazine",
    "Язык сайта": "Language",
    "Русский": "Russian",
    "Английский": "English",
@@ -57,5 +58,6 @@
    "Адрес электронной почты": "Email",
    "Тема сообщения": "Subject",
    "Текст сообщения": "Message",
-   "Отправить": "Send"
+   "Отправить": "Send",
+   "Круглые столы": "Round tables"
 }
