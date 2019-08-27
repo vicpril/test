@@ -4,7 +4,7 @@
 			<div class="col-md-5">
 				<div class="card">
 					<div class="card-header">
-						<h5 v-if="currentTag.id" class="h5 mb-0">Метка №{{ currentTag.id }}</h5>
+						<h5 v-if="currentTag.id" class="h5 mb-0">Редактировать метку</h5>
 						<h5 v-else class="h5 mb-0">Новая метка</h5>
 					</div>
 					<div class="card-body">
@@ -250,7 +250,7 @@ export default {
 		}
 	},
 
-	created() {
+	mounted() {
 		this.fetch();
 	},
 

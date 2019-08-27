@@ -42,8 +42,8 @@ Route::prefix('admin')->namespace('Back')->group(function () {
         Route::post('export/{action}', 'ExportController@index')->name('export')->where('action', 'article|authors|content|emails|rinc');
 
         // template's examples
-        Route::get('icons', function () {return view(env('THEME_BACK') . '.examples.icons')->render();});
-        Route::get('test', 'AdminController@test')->name('ckeditor-test');
+//         Route::get('icons', function () {return view(env('THEME_BACK') . '.examples.icons')->render();});
+//         Route::get('test', 'AdminController@test')->name('ckeditor-test');
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {

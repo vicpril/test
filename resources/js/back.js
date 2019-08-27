@@ -3,9 +3,6 @@
 // bootstrap
 require("./bootstrap");
 
-// bootstrap-vue
-// .... may be later
-
 // core @coreui
 require("./coreui/index.js");
 
