@@ -73,22 +73,25 @@ class ArticlesController extends SiteController
 //             return $this->redirectOnLastIssue();
 //         }
 
-        $this->prepareStolMenu();
+//         $this->prepareStolMenu();
 
-        $issue = $this->getIssue($request, $this->onlyPublished);
-        $issue = $this->getIssue($request, $this->status);
-        if (!$issue) { return $this->redirectOnLastIssue(); }
+//         $issue = $this->getIssue($request, $this->onlyPublished);
+//         $issue = $this->getIssue($request, $this->status);
+//         if (!$issue) { return $this->redirectOnLastIssue(); }
 
-        $nextIssue = $this->i_rep->getNextIssue($issue, $this->status);
-        $prevIssue = $this->i_rep->getPrevIssue($issue, $this->status);
+//         $nextIssue = $this->i_rep->getNextIssue($issue, $this->status);
+//         $prevIssue = $this->i_rep->getPrevIssue($issue, $this->status);
 
-        $this->title = view('front.index')->with('issue', null)->render();
+//         $this->title = view('front.index')->with('issue', null)->render();
+        $this->template = 'front.index';
 
         $this->subtitle = __('Извините, в этом выпуске записей еще нет.');
 
-        $this->vars = array_add($this->vars, 'issue', $issue);
-        $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);
-        $this->vars = array_add($this->vars, 'prevIssue', $prevIssue);
+//         $this->vars = array_add($this->vars, 'issue', $issue);
+//         $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);
+//         $this->vars = array_add($this->vars, 'prevIssue', $prevIssue);
+      
+      
 
         return $this->renderOutput();
     }
