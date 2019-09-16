@@ -82,7 +82,7 @@ class ArticlesController extends SiteController
 //         $nextIssue = $this->i_rep->getNextIssue($issue, $this->status);
 //         $prevIssue = $this->i_rep->getPrevIssue($issue, $this->status);
 
-//         $this->title = view('front.index')->render();
+        $this->title = view('front.index')->with('issue', null)->render();
 
         $this->subtitle = __('Извините, в этом выпуске записей еще нет.');
 
