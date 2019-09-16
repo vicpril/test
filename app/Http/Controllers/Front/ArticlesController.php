@@ -58,6 +58,40 @@ class ArticlesController extends SiteController
 
         return $this->renderOutput();
     }
+  
+      /*
+     *
+     *  Render empty Issue
+     *
+     */
+    public function emptyIssue(Request $request)
+    {
+
+        $this->setStatus();
+      
+//         if (!$request->year || !$request->no || !$request->part) {
+//             return $this->redirectOnLastIssue();
+//         }
+
+        $this->prepareStolMenu();
+
+//         $issue = $this->getIssue($request, $this->onlyPublished);
+//         $issue = $this->getIssue($request, $this->status);
+//         if (!$issue) { return $this->redirectOnLastIssue(); }
+
+//         $nextIssue = $this->i_rep->getNextIssue($issue, $this->status);
+//         $prevIssue = $this->i_rep->getPrevIssue($issue, $this->status);
+
+        $this->title = view('front.articles_title')->with('issue', $issue)->render();
+
+        $this->subtitle = __('Извините, в этом выпуске записей еще нет.');
+
+//         $this->vars = array_add($this->vars, 'issue', $issue);
+//         $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);
+//         $this->vars = array_add($this->vars, 'prevIssue', $prevIssue);
+
+        return $this->renderOutput();
+    }
 
 
 
@@ -229,7 +263,7 @@ class ArticlesController extends SiteController
                 'part' => $issue->part,
             ]);
         } else {
-            return die('Записей нет');
+            return $this->emptyIssue();
         }
     }
 
