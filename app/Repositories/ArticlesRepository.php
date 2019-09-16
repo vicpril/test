@@ -218,7 +218,7 @@ class ArticlesRepository extends Repository
             'full_no' => $data['full_no'],
             'part' => $data['part'],
         ]);
-        $article->position = ($data['position']) ?: $issue->articles()->count() + 1;
+        $article->position = (isset($data['position'])) ?: $issue->articles()->count() + 1;
         // $article->position = $issue->articles()->count() + 1;
         $issue->articles()->save($article);
 
