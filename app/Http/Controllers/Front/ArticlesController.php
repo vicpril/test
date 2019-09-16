@@ -222,7 +222,7 @@ class ArticlesController extends SiteController
 
         $issue = $this->i_rep->oneLastByStatus($this->status);
 
-        if ($issue->articles) {
+        if ($issue->articles->count() > 0) {
             return redirect()->route('articles', [
                 'year' => $issue->year,
                 'no' => $issue->no,
