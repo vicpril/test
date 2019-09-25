@@ -19,16 +19,22 @@
 
             @endif
 
-			@foreach ($issue->articles as $article)
-					@if( $loop->first || $article->categories[0]->loc !== $issue->articles[$loop->index - 1]->categories[0]->loc ) 
-							<h3 class="category-title mb-4">
-									@include('front.components.categories_link', ['categories' => $article->categories])
-								</h3>
-					@endif
+				@if(count($issue->articles) > 0 )
 
-					@component('front.articles_preview', ['article'=>$article])@endcomponent
-        
-			@endforeach
+						@foreach ($issue->articles as $article)
+								@if( $loop->first || $article->categories[0]->loc !== $issue->articles[$loop->index - 1]->categories[0]->loc ) 
+										<h3 class="category-title mb-4">
+												@include('front.components.categories_link', ['categories' => $article->categories])
+											</h3>
+								@endif
+
+								@component('front.articles_preview', ['article'=>$article])@endcomponent
+
+						@endforeach
+
+				@else
+						<p>@lang('Извините, в этом выпуске еще нет записей.')</p>
+				@endif
 
 				{{--
 				<!-- 	По предварительной разметке -->

@@ -180,7 +180,7 @@
       <!-- /.container -->
       <!--    </div> -->
 
-      <footer class="py-3 d-flex justify-content-center">
+      <footer class="py-3 d-flex justify-content-center ">
          <small class="text-white"
             >@lang('Разработал')
             <a href="#" class="desiner">@lang('Виктор Прилепин')</a></small

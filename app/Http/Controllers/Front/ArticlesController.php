@@ -83,7 +83,7 @@ class ArticlesController extends SiteController
 //         $prevIssue = $this->i_rep->getPrevIssue($issue, $this->status);
 
 //         $this->title = view('front.index')->with('issue', null)->render();
-        $this->template = 'front.index';
+//         $this->template = 'front.index';
 
         $this->subtitle = __('Извините, в этом выпуске записей еще нет.');
 
@@ -259,15 +259,15 @@ class ArticlesController extends SiteController
 
         $issue = $this->i_rep->oneLastByStatus($this->status);
 
-        if ($issue->articles->count() > 0) {
+//         if ($issue->articles->count() > 0) {
             return redirect()->route('articles', [
                 'year' => $issue->year,
                 'no' => $issue->no,
                 'part' => $issue->part,
             ]);
-        } else {
-            return $this->emptyIssue();
-        }
+//         } else {
+//             return $this->emptyIssue();
+//         }
     }
 
     /*
@@ -280,11 +280,11 @@ class ArticlesController extends SiteController
 
         if ($issue) {
             $issue = ($this->onlyPublished) ? $issue->published(): $issue;
-            if (count($issue->articles) > 0) {
+//             if (count($issue->articles) > 0) {
 //                 $issue = $this->i_rep->getIssuesByArticleStatus($articleStatus, $issue);
 //                 $issue = $this->i_rep->prepareIssue($issue);
-                return $issue;
-            }
+            return $issue;
+//             }
         }
 
         return null;
