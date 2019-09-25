@@ -16,7 +16,7 @@
 					>
 						<div slot="no-options">Рубрик по запросу не найдено.</div>
 					</v-select>
-					<input type="text" name="categories" :value="value" hidden>
+					<input v-if="valueObject.title_ru" type="text" name="categories" :value="value" hidden>
 					<b-button
 						v-b-tooltip.hover
 						v-b-modal.addNewCategory
@@ -28,6 +28,7 @@
 						<i class="fa fa-plus"></i>
 					</b-button>
 				</div>
+				<div class="text-danger" v-for="(error, key) in errors['categories']" :key="key">{{error}}</div>
 			</div>
 		</div>
 
@@ -63,7 +64,7 @@ export default {
 		vSelect
 	},
 	
-	props: ["value"],
+	props: ["value", "errors"],
 
 	data: function() {
 		return {

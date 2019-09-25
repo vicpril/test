@@ -43,7 +43,8 @@
 				<!-- END AUTHORS -->
 
 				<!-- CATEGORIES	 -->
-				<article-profile-categories v-model="article.categories"></article-profile-categories>
+				<article-profile-categories v-model="article.categories" :errors="errors"></article-profile-categories>
+
 				<!-- END CATEGORIES	 -->
 
 				<!-- TEXT -->

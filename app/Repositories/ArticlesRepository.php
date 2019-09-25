@@ -251,13 +251,18 @@ class ArticlesRepository extends Repository
         }
 
         $article->users()->detach();
-        if ($data['users']) {
+        if (isset($data['users'])) {
             foreach ($data['users'] as $user_id) {
                 $article->users()->attach($user_id);
             }
         }
-            
-        $article->tags()->sync($data['tags']);
+      
+        if(isset($data['tags'])) {
+            $article->tags()->sync($data['tags']);
+        } else {
+            $article->tags()->sync([]);
+        }
+        
         $article->categories()->sync($data['categories']);
 
         // $issue = Issue::firstOrCreate([
@@ -336,6 +341,8 @@ class ArticlesRepository extends Repository
 
         if (isset($data['tags'])) {
             $article->tags()->sync($data['tags']);
+        } else {
+            $article->tags()->sync([]);
         }
         $article->categories()->sync($data['categories']);
 
