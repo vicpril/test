@@ -42,7 +42,7 @@ class SiteController extends Controller
     // шаблон (макет) отображения
     protected $template;
     // переменные для шаблона
-    protected $vars = array();
+    public $vars = array();
 		// отображение статей по статусу
 		protected $onlyPublished = true;
     protected $status = 'public';
@@ -58,9 +58,12 @@ class SiteController extends Controller
     	$this->t_rep = $t_rep;
 
     }
-
-    protected function renderOutput() {
-        // TOP MENU
+	
+		/*
+		*		Prepare variable for exception template
+		*/
+		public function preparePage() {
+				// TOP MENU
         if($this->show_top_menu) {
             $menu_top = $this->m_rep->getMenu('top', app()->getLocale());
             $menu = view('front.components.navigation')->with('menu', $menu_top)->render();
@@ -101,12 +104,16 @@ class SiteController extends Controller
 				}
 			
         $this->vars = array_add($this->vars, 'tags', $tags);
+		}
+
+    protected function renderOutput() {
+        $this->preparePage();
 				
-		//CONTENT
-        $this->vars = array_add($this->vars, 'title', $this->title);
-        if($this->subtitle) { 
-			$this->vars = array_add($this->vars, 'subtitle', $this->subtitle);
-		};
+				//CONTENT
+				$this->vars = array_add($this->vars, 'title', $this->title);
+						if($this->subtitle) { 
+					$this->vars = array_add($this->vars, 'subtitle', $this->subtitle);
+				};
 			
         $this->vars = array_add($this->vars, 'content', $this->content);
 			

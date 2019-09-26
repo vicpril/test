@@ -20,5 +20,9 @@
 	{!! $content !!}
 @endsection
 
+@section('tag_menu')
+	@include('front.components.tag_menu')
+@endsection
+
 @section('scripts')
 @endsection
