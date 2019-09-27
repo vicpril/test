@@ -10,8 +10,9 @@
 					class="flex-grow-1"
 					multiple
 					:options="users"
+					:reduce="users => users.id"
 					label="name"
-					:value="valueObject"
+					:value="value"
 					@input="input"
 				>
 					<div slot="no-options">
@@ -63,18 +64,11 @@ export default {
 	},
 
 	computed: {
-		valueObject() {
-			return this.value.map(id => {
-				return {
-					id: id,
-					name: this.users.filter(x => x.id === id).map(x => x.name)[0]
-				};
-			});
-		}
+		
 	},
 
-	created() {
-		this.fetchUsers();
+	async created() {
+		await this.fetchUsers();
 	},
 
 	methods: {
@@ -85,9 +79,7 @@ export default {
 		},
 
 		input(val) {
-			val = val.map(val => {
-				return val.id;
-			});
+
 			this.$emit("input", val);
 		}
 	}

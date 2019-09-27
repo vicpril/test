@@ -43,7 +43,9 @@
 				<!-- END AUTHORS -->
 
 				<!-- CATEGORIES	 -->
-				<article-profile-categories v-model="article.categories" :errors="errors"></article-profile-categories>
+<!-- 				<article-profile-categories v-model="article.categories"></article-profile-categories> -->
+				<article-profile-categories :value="article.categories" @input="updateCategories" :errors="errors"></article-profile-categories>
+
 
 				<!-- END CATEGORIES	 -->
 
@@ -405,7 +407,7 @@ export default {
 				finance: "",
 				users: [],
 				tags: [],
-				categories: [],
+				categories: "",
 				title_en: "",
 				title_ru: "",
 				text_ru: "",
@@ -502,6 +504,10 @@ export default {
 			if (this.errors.hasOwnProperty(error)) {
 				return "is-invalid";
 			}
+		},
+		
+		updateCategories(value) {
+			this.article.categories = value
 		}
 	}
 };

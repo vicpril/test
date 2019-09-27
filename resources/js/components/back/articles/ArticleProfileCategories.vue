@@ -10,13 +10,14 @@
 						id="categories"
 						class="flex-grow-1"
 						:options="categories"
+						:reduce="categories => categories.id"
 						label="title_ru"
-						:value="valueObject"
+						:value="value"
 						@input="input"
 					>
 						<div slot="no-options">Рубрик по запросу не найдено.</div>
 					</v-select>
-					<input v-if="valueObject.title_ru" type="text" name="categories" :value="value" hidden>
+					<input v-if="value" type="text" name="categories" :value="value" hidden>
 					<b-button
 						v-b-tooltip.hover
 						v-b-modal.addNewCategory
@@ -28,7 +29,8 @@
 						<i class="fa fa-plus"></i>
 					</b-button>
 				</div>
-				<div class="text-danger" v-for="(error, key) in errors['categories']" :key="key">{{error}}</div>
+								<div class="text-danger" v-for="(error, key) in errors['categories']" :key="key">{{error}}</div>
+
 			</div>
 		</div>
 
@@ -77,18 +79,11 @@ export default {
 	},
 
 	computed: {
-		valueObject() {
-			return {
-				id: this.value,
-				title_ru: this.categories
-					.filter(x => x.id === this.value)
-					.map(x => x.title_ru)[0]
-			};
-		}
+
 	},
 
-	created() {
-		this.fetchCategories();
+	async created() {
+		await this.fetchCategories();
 	},
 
 	methods: {
@@ -105,8 +100,8 @@ export default {
 				});
 		},
 
-		input(obj) {
-			this.$emit("input", obj.id);
+		input(value) {
+			this.$emit("input", value);
 		},
 
 		handleSaveCategory(bvModalEvt) {
@@ -133,7 +128,7 @@ export default {
 						this.fetchCategories();
 						this.clearForm();
 						// this.$emit("input", resp.data.object);
-						this.input(resp.data.object);
+						this.input(resp.data.object.id);
 					}
 				})
 				.catch(error => {

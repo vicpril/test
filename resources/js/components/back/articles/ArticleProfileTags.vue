@@ -11,8 +11,9 @@
 						class="flex-grow-1"
 						multiple
 						:options="tags"
+						:reduce="tags => tags.id"
 						label="title_ru"
-						:value="valueObject"
+						:value="value"
 						@input="input"
 					>
 						<div slot="no-options">Меток по запросу не найдено.</div>
@@ -88,16 +89,7 @@ export default {
 	},
 
 	computed: {
-		valueObject() {
-			return this.value.map(id => {
-				return {
-					id: id,
-					title_ru: this.tags
-						.filter(x => x.id === id)
-						.map(x => x.title_ru)[0]
-				};
-			});
-		}
+
 	},
 
 	created() {
@@ -119,9 +111,7 @@ export default {
 		},
 
 		input(val) {
-			val = val.map(val => {
-				return val.id;
-			});
+
 			this.$emit("input", val);
 		},
 

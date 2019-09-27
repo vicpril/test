@@ -27,7 +27,7 @@ export default {
 				group: "custom-template",
 				text: this.message.message,
 				type: "alert-" + this.message.status,
-				duration: -1
+				duration: 6000
 			});
 		}
 	}
