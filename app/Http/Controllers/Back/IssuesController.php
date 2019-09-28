@@ -33,8 +33,11 @@ class IssuesController extends AdminController
 
         $this->subtitle = "Выпуски";
 
-        $lastIssueId = Issue::orderBy('id', 'desc')->first()->id;
-      
+        $lastIssueId = Issue::orderBy('year', 'desc')
+            ->orderBy('no', 'desc')
+            ->orderBy('part', 'asc')
+            ->first()->id;
+
         return redirect()->route('issues.edit', $lastIssueId)->with(['message' => request()->session()->get('message')]);
     }
 
@@ -49,8 +52,8 @@ class IssuesController extends AdminController
         $result = $this->repository->create($request->except('_token', '_method'));
 
         if (is_array($result) && !empty($result['error'])) {
-                return back()->with($result);
-            }
+            return back()->with($result);
+        }
 
         return redirect(route('issues.edit', $result["issueId"]))->with(['message' => $result]);
 
@@ -78,7 +81,6 @@ class IssuesController extends AdminController
      *
      */
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -86,13 +88,13 @@ class IssuesController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function destroy(Issue $issue)
-        {
-            $result = $this->repository->deleteIssue($issue);
+    {
+        $result = $this->repository->deleteIssue($issue);
 
-            if (is_array($result) && !empty($result['error'])) {
-                    return back()->with($result);
-                }
+        if (is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
 
-            return redirect(route('issues.index'))->with(['message' => $result]);
+        return redirect(route('issues.index'))->with(['message' => $result]);
     }
 }
