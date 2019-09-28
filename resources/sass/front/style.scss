@@ -70,7 +70,6 @@ ul.pagination {
    margin-bottom: 0rem !important;
 }
 
-
 a.desiner {
    color: $white;
    &:hover {
@@ -251,34 +250,36 @@ $headerRightColor: #f69d3c;
          }
       }
    }
-  .logo-link:hover {
-    text-decoration: none;
-  }
+   .logo-link:hover {
+      text-decoration: none;
+   }
 }
 
-html, body {
+html,
+body {
    height: 100% !important;
 }
 
 body {
-   background-color: #e8e6df !important;
+   // background-color: #e8e6df !important;
+   background-color: #fdfdfd !important;
    display: flex;
    flex-direction: column;
-  
+   background-image: url("/images/cup-of-coffee.jpg");
+   background-size: 500px !important;
+   background-repeat: no-repeat;
+   background-position-x: right;
+   background-position-y: bottom;
+   background-attachment: fixed;
 }
 main {
-
-  flex: 1 0 auto;
-
+   flex: 1 0 auto;
 }
 
 footer {
    background: $gray-800;
    flex-shrink: 0;
 }
-
-
-
 
 .bd-placeholder-img {
    font-size: 1.125rem;
