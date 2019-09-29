@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\Issue;
 use DB;
 use Transliterate;
@@ -48,7 +49,8 @@ class ArticlesRepository extends Repository
             ->paginate($nbrPages);
     }
 
-    public function getArticles($onlyPublished, $stol = false, $sortBy = 'date_arrival', $orderBy = 'desc' ) {
+    public function getArticles($onlyPublished, $stol = false, $sortBy = 'date_arrival', $orderBy = 'desc')
+    {
         $result = $this->model->with('meta', 'status');
 
         if ($stol) {
@@ -56,9 +58,9 @@ class ArticlesRepository extends Repository
         }
 
         $result = $result->get();
-        
+
         if ($onlyPublished) {
-            $result = $result->filter(function($articles) {
+            $result = $result->filter(function ($articles) {
                 return $articles->status->type == true;
             });
         }
@@ -67,13 +69,10 @@ class ArticlesRepository extends Repository
         } else {
             $result = $result->sortBy($sortBy);
         }
-        
-        
 
         return $result;
     }
-  
-    
+
     /*
      *
      *    Get articles with conditions
@@ -113,7 +112,7 @@ class ArticlesRepository extends Repository
 
     }
 
-    private function getSortedIdArray($search = '', $sortBy = 'title', $orderBy = 'asc', $status = false, Array $relations = [])
+    private function getSortedIdArray($search = '', $sortBy = 'title', $orderBy = 'asc', $status = false, array $relations = [])
     {
         switch ($sortBy) {
             case 'title':$sortBy = ['meta_articles.title'];
@@ -139,16 +138,16 @@ class ArticlesRepository extends Repository
             ->leftjoin('categories', 'categories.id', '=', 'article_category.category_id')
             ->leftjoin('article_tag', 'articles.id', '=', 'article_tag.article_id')
             ->leftjoin('tags', 'tags.id', '=', 'article_tag.tag_id');
-          if ($relations) {
-              foreach ($relations as $relation => $value) {
+        if ($relations) {
+            foreach ($relations as $relation => $value) {
                 $query->where($relation, $value);
-              }
-           }
+            }
+        }
 
-          if ($status) {
-               $query->where("status.title_en", $status);
-           }  
-      
+        if ($status) {
+            $query->where("status.title_en", $status);
+        }
+
 /*        search in:
  *                title
  *                issue: year, tom, no, part
@@ -157,7 +156,7 @@ class ArticlesRepository extends Repository
  *                                categories: title_ru,
  *                                tags: title_ru,
  */
-          if ($search) {
+        if ($search) {
             $query->where(function ($query) use ($search) {
                 $query->where('meta_articles.title', 'like', "%" . $search . "%")
                     ->orWhere('status.title_ru', 'like', "%" . $search . "%")
@@ -169,7 +168,7 @@ class ArticlesRepository extends Repository
                     ->orWhere('categories.title_ru', 'like', "%" . $search . "%")
                     ->orWhere('tags.title_ru', 'like', "%" . $search . "%");
             });
-          }
+        }
 
         foreach ($sortBy as $sort) {
             $query = $query->orderBy($sort, $orderBy);
@@ -192,8 +191,6 @@ class ArticlesRepository extends Repository
 
         //for import from WP
         // $alias = $data['alias'];
-
-        
 
         $article = $this->model->make([
             'alias' => $alias,
@@ -218,7 +215,7 @@ class ArticlesRepository extends Repository
             'full_no' => $data['full_no'],
             'part' => $data['part'],
         ]);
-        $article->position = (isset($data['position'])) ?: $issue->articles()->count() + 1;
+        $article->position = (isset($data['position'])) ? $data['position'] : $issue->articles()->count() + 1;
         // $article->position = $issue->articles()->count() + 1;
         $issue->articles()->save($article);
 
@@ -256,14 +253,15 @@ class ArticlesRepository extends Repository
                 $article->users()->attach($user_id);
             }
         }
-      
-        if(isset($data['tags'])) {
+
+        if (isset($data['tags'])) {
             $article->tags()->sync($data['tags']);
         } else {
             $article->tags()->sync([]);
         }
-        
+
         $article->categories()->sync($data['categories']);
+        Category::find($data['categories'])->touchUsed();
 
         // $issue = Issue::firstOrCreate([
         //     'year' => $data['year'],
@@ -328,10 +326,10 @@ class ArticlesRepository extends Repository
         } else {
             $article->status()->associate(2);
         }
-        
+
         $article->users()->detach();
         if (isset($data['users'])) {
-            
+
             if (!arraysStrickEquil($article->users_id(), $data['users'])) {
                 foreach ($data['users'] as $user_id) {
                     $article->users()->attach($user_id);
@@ -345,6 +343,7 @@ class ArticlesRepository extends Repository
             $article->tags()->sync([]);
         }
         $article->categories()->sync($data['categories']);
+        Category::find($data['categories'])->touchUsed();
 
         $issue = Issue::firstOrCreate([
             'year' => $data['year'],
@@ -366,10 +365,9 @@ class ArticlesRepository extends Repository
         ];
     }
 
-
     /*
      *
-     *   Delete the article & meta from database 
+     *   Delete the article & meta from database
      *
      */
     public function deleteArticle(Article $article)

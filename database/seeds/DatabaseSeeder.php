@@ -25,6 +25,16 @@ class DatabaseSeeder extends Seeder
 	 */
 	public function run()
 	{
+		//path to sql file
+		$sql = database_path('seeds/seeder.sql');
+
+		//collect contents and pass to DB::unprepared
+		DB::unprepared(file_get_contents($sql));
+
+		$this->command->info('Beginning information seeded!');
+
+		return;
+
 		$faker = Faker::create('ru_RU');
 		
 	/**************************
