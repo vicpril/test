@@ -75,6 +75,10 @@ Vue.component(
    require("./components/back/redcols/RedcolsList.vue").default
 );
 Vue.component(
+   "backup-list",
+   require("./components/back/backup/BackupList.vue").default
+);
+Vue.component(
    "page-profile",
    require("./components/back/pages/PageProfile.vue").default
 );

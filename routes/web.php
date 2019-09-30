@@ -36,6 +36,9 @@ Route::prefix('admin')->namespace('Back')->group(function () {
         //pages and menus
         Route::resource('pages', 'PagesController')->except(['show']);
         Route::resource('menus', 'MenusController')->only(['index']);
+      
+        //backup
+        Route::get('backup', 'BackupController')->name('backup');
 
 
         // export

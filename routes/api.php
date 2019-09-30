@@ -46,3 +46,7 @@ Route::apiResource('menus', 'Api\MenusController')->only('index');
 Route::post('redcols/update', 'Api\RedcolsController@update')->middleware('auth:api');
 Route::apiResource('redcols', 'Api\RedcolsController')->only('index');
 
+Route::apiResource('backup', 'Api\BackupController')->except('index', 'show','update')->middleware('auth:api');
+Route::apiResource('backup', 'Api\BackupController')->only('index');
+
+

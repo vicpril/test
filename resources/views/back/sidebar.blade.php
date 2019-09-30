@@ -45,6 +45,11 @@
             <i class="nav-icon icon-folder-alt"></i> Медиафайлы</a
          >
       </li>
+     <li class="nav-item">
+         <a class="nav-link" href="{{ route('backup') }}">
+            <i class="nav-icon icon-note"></i> Back UP</a
+         >
+      </li>
      {{-- 
      <li class="nav-item">
          <a class="nav-link text-warning" href="{{ route('ckeditor-test') }}">
