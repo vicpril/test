@@ -30,7 +30,7 @@
 							/>
 							<div class="invalid-feedback" v-for="(error, key) in errors['title_en']" :key="key">{{error}}</div>
 						</div>
-						<div class="form-group mb-0">
+						<div class="form-group mb-0" v-if="article.link">
 							<label>Ссылка на сайте:</label>
 							<a :href="article.link" class="ml-1" target="_blank">{{ article.link }}</a>
 						</div>
@@ -227,7 +227,7 @@
 								/>
 								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 							</label>
-							<input type="text" name="status" :value="article.status" hidden />
+							<input type="text" name="status" :value="article.status" />
 						</div>
 						<div class="form-group mb-0" v-if="article.updated_at">
 							<span class="text-muted">
@@ -238,14 +238,20 @@
 					</div>
 					<div class="card-footer">
 						<button
+							class="btn btn-secondary float-left sticky-top"
+							v-if="!article.id"
+							type="submit"
+						>Сохранить</button>
+						<button
 							class="btn btn-link text-danger float-left sticky-top"
-							v-show="article.id"
+							v-if="article.id"
 							@click.prevent="deleteArticle"
 						>Удалить</button>
 						<input
 							class="btn btn-primary btn-round float-right"
 							type="submit"
 							:value="newArticle ? 'Опубликовать' : 'Обновить' "
+							@click.prevent="publish"
 						/>
 					</div>
 				</div>
@@ -508,6 +514,19 @@ export default {
 		
 		updateCategories(value) {
 			this.article.categories = value
+		},
+		
+		publish() {
+			if (this.newArticle) {
+				this.article.status = true;
+				setTimeout(function() {
+					document.getElementById('form').submit();
+				}, 500);  // 0.5 seconds
+			} else {
+			
+			document.getElementById('form').submit();
+			}
+			
 		}
 	}
 };

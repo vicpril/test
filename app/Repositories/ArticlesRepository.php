@@ -185,7 +185,8 @@ class ArticlesRepository extends Repository
      */
     public function create($data)
     {
-        // dd($data);
+//         dump($data);
+      
         $alias = Transliterate::make($data['title_ru'], ['type' => 'url', 'lowercase' => true]);
         $alias = $this->getUnique($alias, 'articles', 'alias');
 
@@ -240,12 +241,14 @@ class ArticlesRepository extends Repository
             'file' => $data['file_en'],
             'bibliography' => $data['bibliography_en'],
         ]);
-
+        
+        // STATUS
         if (filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
             $article->status()->associate(1);
         } else {
             $article->status()->associate(2);
         }
+        $article->save();
 
         $article->users()->detach();
         if (isset($data['users'])) {
@@ -321,11 +324,13 @@ class ArticlesRepository extends Repository
             'bibliography' => $data['bibliography_en'],
         ]);
 
+        // STATUS
         if (filter_var($data['status'], FILTER_VALIDATE_BOOLEAN)) {
             $article->status()->associate(1);
         } else {
             $article->status()->associate(2);
         }
+        $article->save();
 
         $article->users()->detach();
         if (isset($data['users'])) {
