@@ -39,6 +39,7 @@ Route::prefix('admin')->namespace('Back')->group(function () {
       
         //backup
         Route::get('backup', 'BackupController')->name('backup');
+        Route::get('backup/download/{title}', 'BackupController@download')->name('backup_download');
 
 
         // export

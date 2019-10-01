@@ -227,7 +227,7 @@
 								/>
 								<span data-checked="✓" data-unchecked="✕" class="switch-slider"></span>
 							</label>
-							<input type="text" name="status" :value="article.status" />
+							<input type="text" name="status" :value="article.status" hidden/>
 						</div>
 						<div class="form-group mb-0" v-if="article.updated_at">
 							<span class="text-muted">
@@ -237,11 +237,7 @@
 						</div>
 					</div>
 					<div class="card-footer">
-						<button
-							class="btn btn-secondary float-left sticky-top"
-							v-if="!article.id"
-							type="submit"
-						>Сохранить</button>
+						
 						<button
 							class="btn btn-link text-danger float-left sticky-top"
 							v-if="article.id"
@@ -250,8 +246,7 @@
 						<input
 							class="btn btn-primary btn-round float-right"
 							type="submit"
-							:value="newArticle ? 'Опубликовать' : 'Обновить' "
-							@click.prevent="publish"
+							:value="newArticle ? 'Сохранить' : 'Обновить' "
 						/>
 					</div>
 				</div>
@@ -515,19 +510,7 @@ export default {
 		updateCategories(value) {
 			this.article.categories = value
 		},
-		
-		publish() {
-			if (this.newArticle) {
-				this.article.status = true;
-				setTimeout(function() {
-					document.getElementById('form').submit();
-				}, 500);  // 0.5 seconds
-			} else {
-			
-			document.getElementById('form').submit();
-			}
-			
-		}
+
 	}
 };
 </script>

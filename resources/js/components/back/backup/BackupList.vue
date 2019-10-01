@@ -36,29 +36,36 @@
 						<tr>
 							<th>Фаил</th>
 							<th>Дата создания</th>
+							<th>Размер</th>
 							<th class="link-column"></th>
 							<th class="link-column"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(dump, index) in dumps" :key="index">
+						<tr v-for="(dump, index) in dumpsSorted" :key="index">
 							<td>
 								{{dump.title}}
 							</td>
 							<td>
 								{{dump.created_at}}
 							</td>
+							<td>
+								{{dump.size | prettyBytes}}
+							</td>
 
 							<td class="text-secondary">
-								<i
-									class="fa fa-download"
-									@mouseover="$event.target.classList.add('text-success')"
-									@mouseout="$event.target.classList.remove('text-success')"
-									@click.stop="downloadDump(index)"
-								></i>
+								<a :href="dump.download_link" title='Загрузить рузервную копию на компьютер'>
+									<i
+										class="fa fa-download text-secondary"
+										@mouseover="$event.target.classList.add('text-success')"
+										@mouseout="$event.target.classList.remove('text-success')"
+									></i>
+								</a>		
+								
 							</td>
 							<td class="text-secondary">
 								<i
+									title="Удалить"
 									class="fa fa-close"
 									@mouseover="$event.target.classList.add('text-danger')"
 									@mouseout="$event.target.classList.remove('text-danger')"
@@ -116,6 +123,18 @@ export default {
 
 	computed: {
 
+		dumpsSorted() {
+			function compare(a, b) {
+				if (a.created_at < b.created_at)
+					return 1;
+				if (a.created_at > b.created_at)
+					return -1;
+				return 0;
+			}
+
+			return this.dumps.sort(compare);
+		},
+		
 		pagination() {
 			return {
 				pageCount: 1,
@@ -133,6 +152,7 @@ export default {
 				return "desc";
 			}
 		}
+		
 	},
 
 	created() {
@@ -153,50 +173,65 @@ export default {
 	methods: {
 		fetch(page = 1) {
 			axios
-				.get("/api/backup", {
-// 					params: {
-// 						paginate: this.paginateSelect,
-// 						page: page,
-// 						sortBy: this.sortBy,
-// 						orderBy: this.orderBy,
-// 						search: this.search
-// 					}
-				})
-				.then(({ data }) => {
-					this.dumps = data;
-					this.pagination.pageCount = data.meta.last_page;
-					this.pagination.currentPage = data.meta.current_page;
-					this.pagination.from = data.meta.from;
-					this.pagination.to = data.meta.to;
-					this.pagination.total = data.meta.total;
+				.get("/api/backup")
+				.then( resp  => {
+					this.dumps = resp.data.data;
+					this.pagination.pageCount = resp.meta.last_page;
+					this.pagination.currentPage = resp.meta.current_page;
+					this.pagination.from = resp.meta.from;
+					this.pagination.to = resp.meta.to;
+					this.pagination.total = resp.meta.total;
 				});
 		},
 		
 		createDump() {
-		
-		},
-		
-		downloadDump(index) {
-			
+			if( confirm("Создать резервную копию базы данных?")) {
+				
+				axios.get("/api/backup/dump")
+				.then(( resp ) => {
+					this.fetch();
+					this.$notify({
+									group: "custom-template",
+									type: "alert-success",
+									text: resp.data.message,
+									duration: 6000
+								});
+				})
+				.catch(err => {
+					this.$notify({
+									group: "custom-template",
+									type: "alert-danger",
+									text: err.data.message,
+									duration: -1
+								});
+				})
+			}
 		},
 
 		deleteDump(index) {
 			if (
-				confirm('Удалить резервую копию "' + this.dumps[index].title + '"?')
+				confirm('Удалить резервую копию "' + this.dumpsSorted[index].title + '"?')
 			) {
 				axios
-					.delete("/api/backup/" + this.dumps[index].id)
-					.then(resp => {
-						if (resp.data.status === "success") {
-							this.fetch();
-							this.$notify({
-								group: "custom-template",
-								type: "alert-success",
-								text: resp.data.message,
-								duration: 8000
-							});
-						}
-					});
+					.delete("/api/backup/" + this.dumpsSorted[index].title)
+					.then(( resp ) => {
+						this.fetch();
+						this.$notify({
+										group: "custom-template",
+										type: "alert-success",
+										text: resp.data.message,
+										duration: 6000
+									});
+					})
+					.catch(err => {
+						this.fetch();
+						this.$notify({
+										group: "custom-template",
+										type: "alert-danger",
+										text: err.data.message,
+										duration: -1
+									});
+					})
 			}
 		},
 
@@ -219,7 +254,8 @@ export default {
 
 	components: {
 		Paginate
-	}
+	},
+	
 };
 </script>
 

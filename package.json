@@ -30,7 +30,6 @@
    "dependencies": {
       "@coreui/coreui": "^2.1.12",
       "bootstrap-vue": "^2.0.2",
-      "bulma": "^0.7.5",
       "ckeditor": "^4.12.1",
       "flag-icon-css": "^3.4.0",
       "font-awesome": "^4.7.0",

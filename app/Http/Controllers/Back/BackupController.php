@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Back\AdminController;
 
 class BackupController extends AdminController
@@ -26,5 +27,10 @@ class BackupController extends AdminController
         $this->template = 'back.backup.index';
 
         return $this->renderOutput();
+    }
+  
+    public function download($title)
+    {
+      return Storage::disk('backup')->download($title);
     }
 }
