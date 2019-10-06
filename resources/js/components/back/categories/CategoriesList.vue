@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header">
 						<h5 v-if="currentCat.id" class="h5 mb-0">Редактировать рубрику</h5>
@@ -15,7 +15,7 @@
 								class="form-control mr-2"
 								:class="checkError('title_ru')"
 								v-model="currentCat.title_ru"
-							>
+							/>
 							<div class="invalid-feedback" v-for="(error, key) in errors['title_ru']" :key="key">{{error}}</div>
 						</div>
 						<div class="form-group">
@@ -25,10 +25,10 @@
 								class="form-control mr-2"
 								:class="checkError('title_en')"
 								v-model="currentCat.title_en"
-							>
+							/>
 							<div class="invalid-feedback" v-for="(error, key) in errors['title_en']" :key="key">{{error}}</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" v-if="false">
 							<label class="h6">Родительская рубрика</label>
 							<select class="form-control" :class="checkError('parent_id')" v-model="currentCat.parent_id">
 								<option value="0">Нет</option>
@@ -47,28 +47,34 @@
 						</div>
 					</div>
 					<div class="card-footer">
-						<button
-							type="button"
-							class="btn btn-outline-primary float-left"
-							@click.prevent="clearForm"
-						>Очистить форму</button>
-						<button
-							v-if="currentCat.id"
-							type="button"
-							class="btn btn-primary float-right"
-							@click.prevent="update(currentCat.id)"
-						>Обновить</button>
-						<button
-							v-else
-							type="button"
-							class="btn btn-primary float-right"
-							@click.prevent="save"
-						>Добавить новую рубрику</button>
+						<div class="row d-flex align-items-center">
+							<div class="col">
+								<button
+									type="button"
+									class="btn btn-outline-primary float-left"
+									@click.prevent="clearForm"
+								>Очистить форму</button>
+							</div>
+							<div class="col">
+								<button
+									v-if="currentCat.id"
+									type="button"
+									class="btn btn-primary float-right"
+									@click.prevent="update(currentCat.id)"
+								>Обновить</button>
+								<button
+									v-if="!currentCat.id"
+									type="button"
+									class="btn btn-primary float-right"
+									@click.prevent="save"
+								>Добавить новую рубрику</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-md-7">
+			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
 						<h5 class="h5 mb-0">Список рубрик</h5>
@@ -94,7 +100,7 @@
 								<div class="form-inline float-right">
 									<label>
 										Поиск:
-										<input type="search" class="form-control form-control-sm ml-1" v-model="search">
+										<input type="search" class="form-control form-control-sm ml-1" v-model="search" />
 									</label>
 								</div>
 							</div>
@@ -114,8 +120,9 @@
 										:class="showOrder('title_en')"
 										@click="setOrder('title_en')"
 									>Название - eng</th>
-									<th>Род.</th>
-									<th class="sorting" :class="showOrder('articles')" @click="setOrder('articles')">Статьи</th>
+									<th v-if="false">Род.</th>
+									<th class="sorting" :class="showOrder('used_at')" @click="setOrder('used_at')">Дата</th>
+									<th class="sorting" :class="showOrder('articles')" @click="setOrder('articles')">Ст.</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -126,7 +133,8 @@
 										<a href @click.prevent="showCategory(index)">{{ cat.title_ru }}</a>
 									</td>
 									<td>{{ cat.title_en }}</td>
-									<td>{{ cat.parent_id }}</td>
+									<td v-if="false">{{ cat.parent_id }}</td>
+									<td>{{ cat.used_at }}</td>
 									<td>{{ cat.articles }}</td>
 									<td class="text-secondary">
 										<i
@@ -173,7 +181,7 @@
 
 <script>
 import Paginate from "vuejs-paginate";
-	
+
 export default {
 	components: {
 		Paginate
@@ -182,22 +190,22 @@ export default {
 	data() {
 		return {
 			categories: [],
-			
+
 			currentCat: {
 				id: "",
 				title_ru: "",
 				title_en: "",
 				parent_id: 0
 			},
-			
+
 			paginateOptions: [5, 10, 25, 50, 100],
-			
+
 			paginateSelect: 10,
 
 			search: "",
-			
+
 			sortBy: "title_ru",
-			
+
 			orderByAsc: true,
 
 			page: 1

@@ -17,7 +17,7 @@
 					>
 						<div slot="no-options">Рубрик по запросу не найдено.</div>
 					</v-select>
-					<input v-if="value" type="text" name="categories" :value="value" hidden>
+					<input type="text" name="categories" :value="value" hidden />
 					<b-button
 						v-b-tooltip.hover
 						v-b-modal.addNewCategory
@@ -29,8 +29,7 @@
 						<i class="fa fa-plus"></i>
 					</b-button>
 				</div>
-								<div class="text-danger" v-for="(error, key) in errors['categories']" :key="key">{{error}}</div>
-
+				<div class="text-danger" v-for="(error, key) in errors['categories']" :key="key">{{error}}</div>
 			</div>
 		</div>
 
@@ -47,11 +46,11 @@
 			<form @submit.stop.prevent="saveNewCategory">
 				<div class="form-group">
 					<label for="title_ru">Название на русском</label>
-					<input type="text" class="form-control" v-model="newCategory.title_ru">
+					<input type="text" class="form-control" v-model="newCategory.title_ru" />
 				</div>
 				<div class="form-group">
 					<label for="title_en">Название на английском</label>
-					<input type="text" class="form-control" v-model="newCategory.title_en">
+					<input type="text" class="form-control" v-model="newCategory.title_en" />
 				</div>
 			</form>
 		</b-modal>
@@ -65,7 +64,7 @@ export default {
 	components: {
 		vSelect
 	},
-	
+
 	props: ["value", "errors"],
 
 	data: function() {
@@ -78,9 +77,7 @@ export default {
 		};
 	},
 
-	computed: {
-
-	},
+	computed: {},
 
 	async created() {
 		await this.fetchCategories();

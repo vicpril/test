@@ -42,10 +42,10 @@
 									min="2009"
 									class="form-control"
 									v-model="currentIssue.year"
-								>
+								/>
 								<div class="input-group-append">
-									<span class="input-group-text">Том {{ currentIssue.tom }}</span>
-									<input type="number" name="tom" v-model="currentIssue.tom" hidden>
+									<span class="input-group-text">Том {{ autoTom }}</span>
+									<input type="number" name="tom" v-model="currentIssue.tom" hidden />
 								</div>
 							</div>
 							<div class="input-group mb-2">
@@ -66,7 +66,7 @@
 									min="1"
 									class="form-control"
 									v-model="currentIssue.full_no"
-								>
+								/>
 								<div class="input-group-append">
 									<button type="button" class="btn btn-outline-info" @click.prevent="setFullNo">Авто</button>
 								</div>
@@ -101,10 +101,7 @@
 
 				<!-- EXPORT ARTICLES -->
 				<div class="col-md-4">
-					<issues-index-export 
-									:articles="exportArticles"
-									:issue="currentIssue.id"						 
-					></issues-index-export>
+					<issues-index-export :articles="exportArticles" :issue="currentIssue.id"></issues-index-export>
 				</div>
 				<!-- end EXPORT ARTICLES -->
 			</div>
@@ -112,7 +109,11 @@
 			<!-- ISSUE ARTICLES -->
 			<div class="row">
 				<div class="col-md">
-					<issues-index-articles v-model="currentIssue.articles" :export.sync="exportArticles" :issue="currentIssue"></issues-index-articles>
+					<issues-index-articles
+						v-model="currentIssue.articles"
+						:export.sync="exportArticles"
+						:issue="currentIssue"
+					></issues-index-articles>
 				</div>
 			</div>
 			<!-- end ISSUE ARTICLES -->
@@ -172,6 +173,12 @@ export default {
 
 			exportArticles: []
 		};
+	},
+
+	computed: {
+		autoTom() {
+			return this.currentIssue.year - 2009 + 1;
+		}
 	},
 
 	created() {

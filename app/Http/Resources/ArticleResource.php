@@ -50,7 +50,7 @@ class ArticleResource extends JsonResource
                 //                     'title_ru' => $tag->title_ru,
                 //                 ];
             }),
-            "categories" => $this->categories[0]->id,
+            "categories" => (count($this->categories) > 0) ? $this->categories[0]->id : null,
 
 //             "categories" => $this->categories->map(function ($category) {
             //                             return $category->id;
