@@ -36,9 +36,11 @@
             <div class="dropdown-header text-center">
                <strong>Материал</strong>
             </div>
+            {{--
             <a class="dropdown-item text-danger" href="#">
                <i class="fa fa-book"></i> Выпуск</a
             >
+            --}}
             <a class="dropdown-item" href="{{ route('articles.create') }}">
                <i class="fa fa-file"></i> Статью</a
             >
@@ -51,9 +53,11 @@
             <div class="dropdown-header text-center">
                <strong>Авторы</strong>
             </div>
+            {{--
             <a class="dropdown-item text-danger" href="#">
                <i class="fa fa-building"></i> Место работы</a
             >
+             --}}
             <a class="dropdown-item" href="{{ route('users.create') }}">
                <i class="fa fa-address-book"></i> Автора</a
             >

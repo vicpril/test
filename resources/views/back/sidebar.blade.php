@@ -17,9 +17,12 @@
       </li>
       <li class="nav-title">Авторы</li>
       <li class="nav-item">
+
+      {{--
          <a class="nav-link text-danger" href="colors.html">
             <i class="nav-icon icon-home"></i> Организации</a
          >
+      --}}
          <a class="nav-link" href="{{ route('users.index') }}">
             <i class="nav-icon icon-people"></i> Авторы</a
          >
@@ -50,7 +53,7 @@
             <i class="nav-icon icon-note"></i> Back UP</a
          >
       </li>
-     {{-- 
+     {{--
      <li class="nav-item">
          <a class="nav-link text-warning" href="{{ route('ckeditor-test') }}">
             <i class="nav-icon icon-folder-alt"></i> Test</a
@@ -65,5 +68,3 @@
    </ul>
 </nav>
 <button class="sidebar-minimizer brand-minimizer" type="button"></button>
-
-

@@ -25,22 +25,18 @@
 							class="form-control form-control-sm ml-1"
 							v-model="search"
 							@blur="fetch"
-						>
+						/>
 					</label>
 				</div>
 			</div>
 		</div>
-		<table
-			class="table table-striped table-responsive-md"
-			style="width:100%"
-			id
-		>
+		<table class="table table-striped table-responsive-md" style="width:100%" id>
 			<thead class="text-black">
 				<tr>
 					<th class="sorting" :class="showOrder('full_name')" @click="setOrder('full_name')">Автор</th>
 					<th>Eng</th>
 					<th class="sorting" :class="showOrder('email')" @click="setOrder('email')">E-mail</th>
-					<th>Роль</th>
+					<th v-if="false">Роль</th>
 					<th
 						class="sorting"
 						:class="showOrder('articles_count')"
@@ -57,7 +53,7 @@
 					</td>
 					<td>{{ user.short_name_en }}</td>
 					<td>{{ user.email }}</td>
-					<td>{{ user.role }}</td>
+					<td v-if="false">{{ user.role }}</td>
 					<td>{{ user.articles }}</td>
 					<td>{{ user.updated_at }}</td>
 					<td class="text-secondary">
@@ -143,16 +139,16 @@ export default {
 	created() {
 		this.fetch();
 	},
-	
+
 	mounted() {
 		if (this.$route.query.userdeleted) {
 			this.$notify({
-							group: "custom-template",
-							type: "alert-success",
-							text: "Пользователь удален",
-							duration: -1
-						});
-		};
+				group: "custom-template",
+				type: "alert-success",
+				text: "Пользователь удален",
+				duration: -1
+			});
+		}
 	},
 
 	methods: {
