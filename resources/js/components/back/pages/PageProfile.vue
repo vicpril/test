@@ -197,14 +197,14 @@
 								id="show_sidebar_menu"
 								v-model="page.show_sidebar_menu"
 								name="show_sidebar_menu"
-							>Боковое меню (вертикальное)</b-form-checkbox>
+							>Вертикальное меню (О нас)</b-form-checkbox>
 						</div>
 						<div class="form-group">
 							<b-form-checkbox
 								id="show_review_menu"
 								v-model="page.show_review_menu"
 								name="show_review_menu"
-							>Перечень документов для подачи статьи (вертикальное)</b-form-checkbox>
+							>Вертикальное меню (Информация для авторов)</b-form-checkbox>
 						</div>
 					</div>
 				</div>
@@ -252,7 +252,10 @@ export default {
 				title_en: "",
 				title_ru: "",
 				content_ru: "",
-				content_en: ""
+				content_en: "",
+				show_top_menu: true,
+				show_sidebar_menu: false,
+				show_top_menu: false
 			},
 
 			templates: [

@@ -3,28 +3,29 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Page;
-use Illuminate\Http\Request;
 
 class PagesController extends SiteController
 {
     protected $page;
 
-		public function __construct(Page $page) {
+    public function __construct(Page $page)
+    {
         parent::__construct(
             new \App\Repositories\MenusRepository(new \App\Models\Menu),
             new \App\Repositories\TagsRepository(new \App\Models\Tag)
         );
 
-				$this->template = 'front.index';
+        $this->template = 'front.index';
     }
-    
-    
-    public function index (Page $page) {
-//         dd($page);
+
+    public function index(Page $page)
+    {
+
+        abort_if($page->status->title_en === 'private', 404);
+
         switch ($page->template) {
             case 'common':
-                if($page->loc->on){
-                    // return $this->show($page);
+                if ($page->loc->on) {
                     $this->setMenu($page);
                     $this->title = $page->loc->title;
                     $this->content = $page->loc->content;
@@ -38,44 +39,21 @@ class PagesController extends SiteController
                 break;
             case 'articles':
             case 'article':
-						case 'archive':
+            case 'archive':
             case 'categories':
             case 'tags':
             case 'authors':
-						case 'contacts':
+            case 'contacts':
                 return redirect(url("/$page->template"));
                 break;
-            
+
             default:
-                // return redirect(url("/$page->template"));
-                    $this->setMenu($page);
-                    $this->title = $page->loc->title;
-                    $this->content = view("front.templates.{$page->template}_content")->render();
-                    return $this->renderOutput();
+                $this->setMenu($page);
+                $this->title = $page->loc->title;
+                $this->content = view("front.templates.{$page->template}_content")->render();
+                return $this->renderOutput();
                 break;
         }
     }
- 
-
-//     private function show(Page $page) {
-
-//         $this->show_top_menu = $page->show_top_menu;
-// 				$this->show_sidebar_menu = $page->show_sidebar_menu;
-// 				$this->show_review_menu = $page->show_review_menu;
-
-//         // $content = $this->page->loc->content;
-//     	// $content = view('front.index_content')->render();
-//         // $this->vars = array_add($this->vars, 'content', $content);
-//         $this->vars = array_add($this->vars, 'title', $page->loc->title);
-//         $this->vars = array_add($this->vars, 'content', $page->loc->content);
-
-//         // $sidebar_menu = '';\
-
-//         // $sidebar = view('front.sidebar')->with('sidebar_menu', $sidebar_menu)->render();
-//         // $this->vars = array_add($this->vars, 'sidebar', $sidebar);
-
-//     	return $this->renderOutput();
-
-//     }
 
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Article;
-use Illuminate\Http\Request;
-use App\Repositories\IssuesRepository;
 use App\Repositories\ArticlesRepository;
+use App\Repositories\IssuesRepository;
+use Illuminate\Http\Request;
 
 class ArticlesController extends SiteController
 {
@@ -34,7 +34,7 @@ class ArticlesController extends SiteController
     {
 
         $this->setStatus();
-      
+
         if (!$request->year || !$request->no || !$request->part) {
             return $this->redirectOnLastIssue();
         }
@@ -43,7 +43,7 @@ class ArticlesController extends SiteController
 
 //         $issue = $this->getIssue($request, $this->onlyPublished);
         $issue = $this->getIssue($request, $this->status);
-        if (!$issue) { return $this->redirectOnLastIssue(); }
+        if (!$issue) {return $this->redirectOnLastIssue();}
 
         $nextIssue = $this->i_rep->getNextIssue($issue, $this->status);
         $prevIssue = $this->i_rep->getPrevIssue($issue, $this->status);
@@ -58,8 +58,8 @@ class ArticlesController extends SiteController
 
         return $this->renderOutput();
     }
-  
-      /*
+
+    /*
      *
      *  Render empty Issue
      *
@@ -68,35 +68,11 @@ class ArticlesController extends SiteController
     {
 
         $this->setStatus();
-      
-//         if (!$request->year || !$request->no || !$request->part) {
-//             return $this->redirectOnLastIssue();
-//         }
-
-//         $this->prepareStolMenu();
-
-//         $issue = $this->getIssue($request, $this->onlyPublished);
-//         $issue = $this->getIssue($request, $this->status);
-//         if (!$issue) { return $this->redirectOnLastIssue(); }
-
-//         $nextIssue = $this->i_rep->getNextIssue($issue, $this->status);
-//         $prevIssue = $this->i_rep->getPrevIssue($issue, $this->status);
-
-//         $this->title = view('front.index')->with('issue', null)->render();
-//         $this->template = 'front.index';
 
         $this->subtitle = __('Извините, в этом выпуске записей еще нет.');
 
-//         $this->vars = array_add($this->vars, 'issue', $issue);
-//         $this->vars = array_add($this->vars, 'nextIssue', $nextIssue);
-//         $this->vars = array_add($this->vars, 'prevIssue', $prevIssue);
-      
-      
-
         return $this->renderOutput();
     }
-
-
 
     /*
      *
@@ -120,74 +96,72 @@ class ArticlesController extends SiteController
         $this->subtitle = $article->loc->title;
 
         $this->vars = array_add($this->vars, 'article', $article);
-      
+
         /* Previous + Next Articles */
 
-            $issue = $article->issue;
-            $issue->loadMissing([
+        $issue = $article->issue;
+        $issue->loadMissing([
             'articles',
             'articles.status',
-            'articles.meta'
-            ]);
-            $issue = ($this->onlyPublished) ? $issue->published() : $issue ;
+            'articles.meta',
+        ]);
+        $issue = ($this->onlyPublished) ? $issue->published() : $issue;
 
-            $index = $issue->articles->search(function($item) use ($article){
-                return $item->alias == $article->alias;
-            });  
+        $index = $issue->articles->search(function ($item) use ($article) {
+            return $item->alias == $article->alias;
+        });
 
-            $prevArticle = ($index > 0)
-                        ? $issue->articles[$index - 1]
-                        : false;
-            $this->vars = array_add($this->vars, 'prevArticle', $prevArticle);
+        $prevArticle = ($index > 0)
+        ? $issue->articles[$index - 1]
+        : false;
+        $this->vars = array_add($this->vars, 'prevArticle', $prevArticle);
 
-            $nextArticle = ($index < count($issue->articles) - 1 )
-                        ? $issue->articles[$index + 1]
-                        : false;
-            $this->vars = array_add($this->vars, 'nextArticle', $nextArticle);
+        $nextArticle = ($index < count($issue->articles) - 1)
+        ? $issue->articles[$index + 1]
+        : false;
+        $this->vars = array_add($this->vars, 'nextArticle', $nextArticle);
 
         return $this->renderOutput();
     }
-  
-    
+
     /*
-    *
-    *   Render Archive
-    *
-    */
-    public function archive() 
+     *
+     *   Render Archive
+     *
+     */
+    public function archive()
     {
-          $this->setStatus();
+        $this->setStatus();
 
-          $this->prepareStolMenu();
+        $this->prepareStolMenu();
 
-          $this->template = 'front.archive';
+        $this->template = 'front.archive';
 
-          $this->title = __('Архив');
-      
+        $this->title = __('Архив');
+
         //   $issues = ($this->status) ? $this->i_rep->allByStatus($this->status) : $this->i_rep->all();
-          $issues = $this->i_rep->allByStatus($this->status) ;
-    //   dump($issues);
-          $years = $issues
-                    ->mapToGroups(function($issue) {
-                        return [ $issue->full_no => $issue];
-                    })
-                    ->mapToGroups(function($full_no) {
-                        return [ $full_no[0]->year => $full_no];
-                    })
-                    // ->sort()
-                    ;
-            
-          $this->vars = array_add($this->vars, 'years', $years);
-      
-          return $this->renderOutput();
+        $issues = $this->i_rep->allByStatus($this->status);
+        $years = $issues
+            ->mapToGroups(function ($issue) {
+                return [$issue->full_no => $issue];
+            })
+            ->mapToGroups(function ($full_no) {
+                return [$full_no[0]->year => $full_no];
+            })
+            // ->sort()
+        ;
+
+        $this->vars = array_add($this->vars, 'years', $years);
+
+        return $this->renderOutput();
     }
-  
+
     /*
-    *
-    *   Круглые столы
-    *
-    */
-    public function club (Request $request) 
+     *
+     *   Круглые столы
+     *
+     */
+    public function club(Request $request)
     {
 
         $this->setStatus();
@@ -197,26 +171,25 @@ class ArticlesController extends SiteController
         $this->template = 'front.club';
 
         $this->title = __('Круглые столы');
-      
+
         $request->request->add([
-          'paginate' => '10',
-          'status' => $this->status,
+            'paginate' => '10',
+            'status' => $this->status,
 //           'where' => ['stol', true],
-          'relation' => ['stol' => true],  // for searching only with articles.stol = true
-          'sortBy' => 'issue',
-          'orderBy' => 'desc'
+            'relation' => ['stol' => true], // for searching only with articles.stol = true
+            'sortBy' => 'issue',
+            'orderBy' => 'desc',
         ]);
         $articles = $this->a_rep->getArticlesList($request);
-      
 
         $this->vars = array_add($this->vars, 'articles', $articles);
 
         return $this->renderOutput();
     }
-  
+
     /*
-    *   Search articles
-    */
+     *   Search articles
+     */
     public function search(Request $request)
     {
         $this->setStatus();
@@ -230,7 +203,7 @@ class ArticlesController extends SiteController
             'status' => $this->status,
             'relation' => [],
             'sortBy' => 'issue',
-            'orderBy' => 'desc'
+            'orderBy' => 'desc',
         ]);
         $articles = $this->a_rep->getArticlesList($request);
 
@@ -238,16 +211,15 @@ class ArticlesController extends SiteController
         $articles->appends(['search' => $request->input('search')]);
 
         $this->vars = array_add($this->vars, 'articles', $articles);
-      
-        $this->title = __('Поиск:'). ' "'.$request->input('search').'"';
 
-        $this->subtitle = (count($articles) > 0 )
-           ? trans_choice('search.found', $articles->total(), ['s' => $request->input('search'), 'a' => $articles->total()])
-           : __('search.noarticles');
-      
+        $this->title = __('Поиск:') . ' "' . $request->input('search') . '"';
+
+        $this->subtitle = (count($articles) > 0)
+        ? trans_choice('search.found', $articles->total(), ['s' => $request->input('search'), 'a' => $articles->total()])
+        : __('search.noarticles');
+
         return $this->renderOutput();
     }
-  
 
     /*
      *
@@ -259,15 +231,11 @@ class ArticlesController extends SiteController
 
         $issue = $this->i_rep->oneLastByStatus($this->status);
 
-//         if ($issue->articles->count() > 0) {
-            return redirect()->route('articles', [
-                'year' => $issue->year,
-                'no' => $issue->no,
-                'part' => $issue->part,
-            ]);
-//         } else {
-//             return $this->emptyIssue();
-//         }
+        return redirect()->route('articles', [
+            'year' => $issue->year,
+            'no' => $issue->no,
+            'part' => $issue->part,
+        ]);
     }
 
     /*
@@ -279,16 +247,10 @@ class ArticlesController extends SiteController
         $issue = $this->i_rep->getIssueByRequest($request->all());
 
         if ($issue) {
-            $issue = ($this->onlyPublished) ? $issue->published(): $issue;
-//             if (count($issue->articles) > 0) {
-//                 $issue = $this->i_rep->getIssuesByArticleStatus($articleStatus, $issue);
-//                 $issue = $this->i_rep->prepareIssue($issue);
-            return $issue;
-//             }
+            return ($this->onlyPublished) ? $issue->published() : $issue;
         }
 
         return null;
     }
-
 
 }
