@@ -149,7 +149,7 @@ class PagesRepository extends Repository
         } else {
             $page->status()->associate(2);
         }
-
+        $page->save();
 
         return [
             'status' => 'success',
@@ -192,6 +192,8 @@ class PagesRepository extends Repository
         } else {
             $page->status()->associate(2);
         }
+        $page->save();
+
 
         $page->touch();
 
