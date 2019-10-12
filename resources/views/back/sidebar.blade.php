@@ -50,7 +50,7 @@
       </li>
      <li class="nav-item">
          <a class="nav-link" href="{{ route('backup') }}">
-            <i class="nav-icon icon-note"></i> Back UP</a
+            <i class="nav-icon icon-note"></i> BackUP</a
          >
       </li>
      {{--
