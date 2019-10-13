@@ -2,11 +2,10 @@
 
 namespace App\Mail;
 
+use App\Http\Requests\EmailRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use App\Http\Requests\EmailRequest;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ContactMail extends Mailable
 {
@@ -30,8 +29,8 @@ class ContactMail extends Mailable
     public function build()
     {
         return $this->from($this->email->email, $this->email->name)
-                    ->to(config('app.adminEmail'))
-                    ->subject($this->email->subject)
-                    ->view('email.contactmail')->with('email', $this->email);
+            ->to(config('settings.adminEmail'))
+            ->subject($this->email->subject)
+            ->view('email.contactmail')->with('email', $this->email);
     }
 }

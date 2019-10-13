@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Back;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
 class MenusController extends AdminController
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +15,7 @@ class MenusController extends AdminController
         $this->subtitle = "Меню";
 
         $this->template = 'back.menus.index';
-      
+
         return $this->renderOutput();
     }
 }

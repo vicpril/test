@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Repositories\MenusRepository;
 use App\Repositories\TagsRepository;
-
-use Menu;
-use App\Models\Page;
-
 
 class SiteController extends Controller
 {
@@ -36,55 +32,52 @@ class SiteController extends Controller
     protected $content = '';
     protected $content_footer = '';
 
-
-
-
     // шаблон (макет) отображения
     protected $template;
     // переменные для шаблона
     public $vars = array();
-		// отображение статей по статусу
-		protected $onlyPublished = true;
+    // отображение статей по статусу
+    protected $onlyPublished = true;
     protected $status = 'public';
     //указание на отображение меню
     protected $show_top_menu = true;
     protected $show_sidebar_menu = false;
     protected $show_review_menu = false;
     protected $show_stol_menu = false;
-    
 
-    public function __construct(MenusRepository $m_rep, TagsRepository $t_rep) {
-    	$this->m_rep = $m_rep;
-    	$this->t_rep = $t_rep;
+    public function __construct(MenusRepository $m_rep, TagsRepository $t_rep)
+    {
+        $this->m_rep = $m_rep;
+        $this->t_rep = $t_rep;
 
     }
-	
-		/*
-		*		Prepare variable for exception template
-		*/
-		public function preparePage() {
-				// TOP MENU
-        if($this->show_top_menu) {
+
+    /*
+     *        Prepare variable for exception template
+     */
+    public function preparePage()
+    {
+        // TOP MENU
+        if ($this->show_top_menu) {
             $menu_top = $this->m_rep->getMenu('top', app()->getLocale());
             $menu = view('front.components.navigation')->with('menu', $menu_top)->render();
             $this->vars = array_add($this->vars, 'navigation', $menu);
         } else {
             $this->vars = array_add($this->vars, 'navigation', "");
         }
-      
+
         // SIDEBAR MENU
-        if($this->show_sidebar_menu) {
+        if ($this->show_sidebar_menu) {
             $menu_sidebar = $this->m_rep->getMenu('sidebar', app()->getLocale());
             $menu = view('front.components.sidebar_menu')->with('menu', $menu_sidebar)->render();
             $this->vars = array_add($this->vars, 'sidebar_menu', $menu);
         } else {
             $this->vars = array_add($this->vars, 'sidebar_menu', "");
         }
-        
+
         // REVIEW MENU
-        if($this->show_review_menu) {
+        if ($this->show_review_menu) {
             $menu_review = $this->m_rep->getMenu('review', app()->getLocale());
-            // dd($menu_review->roots());
             $menu = view('front.components.review_menu')->with('menu', $menu_review)->render();
             $this->vars = array_add($this->vars, 'review_menu', $menu);
         } else {
@@ -93,53 +86,48 @@ class SiteController extends Controller
 
         //TAGS
         $tags = $this->t_rep->all()
-								->loadMissing('articles')
-								->sortBy("title_".app()->getLocale());
-			
-				if($this->onlyPublished) {
-						$tags->loadMissing(['articles', 'articles.status']);
-						foreach($tags as $tag) {
-								$tag->published();
-						}
-				}
-			
+            ->loadMissing('articles')
+            ->sortBy("title_" . app()->getLocale());
+
+        if ($this->onlyPublished) {
+            $tags->loadMissing(['articles', 'articles.status']);
+            foreach ($tags as $tag) {
+                $tag->published();
+            }
+        }
+
         $this->vars = array_add($this->vars, 'tags', $tags);
-		}
-
-    protected function renderOutput() {
-        $this->preparePage();
-				
-				//CONTENT
-				$this->vars = array_add($this->vars, 'title', $this->title);
-						if($this->subtitle) { 
-					$this->vars = array_add($this->vars, 'subtitle', $this->subtitle);
-				};
-			
-        $this->vars = array_add($this->vars, 'content', $this->content);
-			
-        if($this->content_footer) { 
-                $this->vars = array_add($this->vars, 'contentFooter', $this->content_footer);
-        };
-      
-
-        // if (auth()->check()) {
-        //     dump(auth()->user()->loc->full_name . ' - '. auth()->user()->role);
-        //     dump(auth()->user()->loc->short_name . ' - '. auth()->user()->role);
-
-        // }
-
-    	return view($this->template)->with($this->vars);
     }
 
-    protected function setMenu(Page $page) {
+    protected function renderOutput()
+    {
+        $this->preparePage();
+
+        //CONTENT
+        $this->vars = array_add($this->vars, 'title', $this->title);
+        if ($this->subtitle) {
+            $this->vars = array_add($this->vars, 'subtitle', $this->subtitle);
+        };
+
+        $this->vars = array_add($this->vars, 'content', $this->content);
+
+        if ($this->content_footer) {
+            $this->vars = array_add($this->vars, 'contentFooter', $this->content_footer);
+        };
+
+        return view($this->template)->with($this->vars);
+    }
+
+    protected function setMenu(Page $page)
+    {
 
         $this->show_top_menu = $page->show_top_menu;
-				$this->show_sidebar_menu = $page->show_sidebar_menu;
+        $this->show_sidebar_menu = $page->show_sidebar_menu;
         $this->show_review_menu = $page->show_review_menu;
-    
+
     }
-	
-	  protected function setStatus()
+
+    protected function setStatus()
     {
         if (!auth()->guest() && auth()->user()->role == 'admin') {
             $this->onlyPublished = false;
@@ -149,8 +137,8 @@ class SiteController extends Controller
             $this->status = 'public';
         };
     }
-	
-	  protected function prepareStolMenu()
+
+    protected function prepareStolMenu()
     {
 
         if ($this->show_stol_menu) {

@@ -38,27 +38,12 @@ class ArticleResource extends JsonResource
 
             "users" => ($this->users) ? $this->users->map(function ($user) {
                 return $user->id;
-//               return [
-                //                     'id' => $user->id,
-                //                     'name' => $user->ru->short_name,
-                //                 ];
             }) : [],
             "tags" => $this->tags->map(function ($tag) {
                 return $tag->id;
-//                 return [
-                //                     'id' => $tag->id,
-                //                     'title_ru' => $tag->title_ru,
-                //                 ];
             }),
             "categories" => (count($this->categories) > 0) ? $this->categories[0]->id : null,
 
-//             "categories" => $this->categories->map(function ($category) {
-            //                             return $category->id;
-            //             //                 return [
-            //             //                   'id' => $category->id,
-            //             //                   'title_ru' => $category->title_ru
-            //             //                 ];
-            //                         }),
             "title_en" => (isset($this->en->title)) ? $this->en->title : '',
             "title_ru" => $this->ru->title,
             "text_ru" => $this->ru->text,
@@ -69,11 +54,10 @@ class ArticleResource extends JsonResource
             "keywords_en" => $this->en->keywords,
             "file_ru" => $this->ru->file,
             "file_en" => $this->en->file,
-            "file_audio" => null,
+            "file_audio" => $this->file_audio,
             "bibliography_ru" => $this->ru->bibliography,
             "bibliography_en" => $this->en->bibliography,
 
-//             "file_audio" => $this->file_audio,
         ];
     }
 }

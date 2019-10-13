@@ -11,27 +11,6 @@ let mix = require("laravel-mix");
  |
  */
 
-// mix.js('resources/js/app.js', 'public/js')
-//    .sass('resources/sass/app.scss', 'public/css');
-
-// NOW-UI-DASHBOARD
-// mix
-//   .js('resources/js/now-ui-dashboard.back.js', 'public/js/now-ui-back.js')
-//   .sass('resources/sass/now-ui-dashboard.scss', 'public/css/now-ui-back.css');
-
-// mix
-//   .js('resources/js/now-ui-dashboard.back.js', 'public/js/')
-//   .extract(['lodash', 'bootstrap', 'popper.js', 'axios', 'jquery', 'vue'])
-//   .sass('resources/sass/now-ui-dashboard.scss', 'public/css/');
-
-// @COREUI - DASHBOARD
-// copy from modules
-
-// mix.copyDirectory(
-//    "node_modules/@coreui/coreui/js/src",
-//    "resources/js/coreui"
-// ).copyDirectory("node_modules/@coreui/coreui/scss", "resources/sass/coreui");
-
 mix.js("resources/js/back.js", "public/js/")
    .js("resources/js/front.js", "public/js/")
    .extract([
@@ -42,7 +21,6 @@ mix.js("resources/js/back.js", "public/js/")
       // "resources/js/coreui/index.js",
       "axios",
       "vue"
-      //     "vue-router",
    ])
    .sass("resources/sass/back/back.scss", "public/css/back.css")
    .sass("resources/sass/front/style.scss", "public/css/front.css");

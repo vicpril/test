@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Models\Article;
-use Illuminate\Http\Request;
-use App\Http\Requests\ArticleRequest;
-use App\Repositories\ArticlesRepository;
 use App\Http\Controllers\Back\AdminController;
+use App\Http\Requests\ArticleRequest;
+use App\Models\Article;
+use App\Repositories\ArticlesRepository;
+use Illuminate\Http\Request;
 
 class ArticlesController extends AdminController
 {
@@ -66,7 +66,6 @@ class ArticlesController extends AdminController
             return back()->with($result);
         }
 
-        // return redirect(route('articles.index'))->with(['message' => $result]);
         return redirect(route('issues.edit', $result["issueId"]))->with(['message' => $result]);
 
     }
@@ -101,7 +100,6 @@ class ArticlesController extends AdminController
             return back()->with($result);
         }
 
-        // return redirect(route('articles.index'))->with(['message' => $result]);
         return redirect(route('issues.edit', $article->issue->id))->with(['message' => $result]);
 
     }
@@ -130,7 +128,6 @@ class ArticlesController extends AdminController
                 return back()->with($result);
             }
 
-            // return redirect(route('articles.index'))->with(['message' => $result]);
             return redirect(route('issues.edit', $article->issue->id))->with(['message' => $result]);
 
         }

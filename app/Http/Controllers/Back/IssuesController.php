@@ -78,7 +78,6 @@ class IssuesController extends AdminController
      * Update the specified resource in storage.
      *
      *          By API
-     *
      */
 
     /**

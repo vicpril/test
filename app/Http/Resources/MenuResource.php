@@ -18,7 +18,7 @@ class MenuResource extends JsonResource
 
         $menus['links'] = $menus['meta'];
         unset($menus['meta']);
-      
+
         return $menus;
     }
 }

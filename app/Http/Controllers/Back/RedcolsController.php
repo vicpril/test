@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Models\Redcol;
-use Illuminate\Http\Request;
-
 class RedcolsController extends AdminController
 {
     public function __construct()
     {
         parent::__construct();
     }
-
 
     /**
      * Display a listing of the resource.
@@ -26,5 +22,5 @@ class RedcolsController extends AdminController
 
         return $this->renderOutput();
     }
-   
+
 }

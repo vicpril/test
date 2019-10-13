@@ -2,8 +2,6 @@
 
 namespace App\Listeners;
 
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
 
 class UploadListener
@@ -26,6 +24,6 @@ class UploadListener
      */
     public function handle(ImageWasUploaded $event)
     {
-        dd($event);
+        // dd($event);
     }
 }

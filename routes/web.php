@@ -13,8 +13,7 @@
 
 /** PAGES THAT SHOULD NOT BE LOCALIZED **/
 
-Auth::routes();
-// Route::get('/home', 'HomeController@index')->name('home');
+// Auth::routes();
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
@@ -23,31 +22,27 @@ Route::match(['get', 'post'], 'logout', 'Auth\LoginController@logout')->name('lo
 Route::prefix('admin')->namespace('Back')->group(function () {
 
     Route::middleware('redac')->group(function () {
+
         Route::name('admin')->get('/', 'AdminController@dashboard');
 
-        Route::resource('jobs', 'JobsController')->except(['create', 'show']);
         Route::resource('users', 'UsersController')->except(['show']);
         Route::resource('articles', 'ArticlesController')->except(['show']);
         Route::resource('issues', 'IssuesController')->except(['show', 'update']);
         Route::resource('categories', 'CategoriesController')->only(['index']);
         Route::resource('tags', 'TagsController')->only(['index']);
         Route::resource('redcols', 'RedcolsController')->only(['index']);
-        
+
         //pages and menus
         Route::resource('pages', 'PagesController')->except(['show']);
         Route::resource('menus', 'MenusController')->only(['index']);
-      
+
         //backup
         Route::get('backup', 'BackupController')->name('backup');
         Route::get('backup/download/{title}', 'BackupController@download')->name('backup_download');
 
-
         // export
         Route::post('export/{action}', 'ExportController@index')->name('export')->where('action', 'article|authors|content|emails|rinc');
 
-        // template's examples
-//         Route::get('icons', function () {return view(env('THEME_BACK') . '.examples.icons')->render();});
-//         Route::get('test', 'AdminController@test')->name('ckeditor-test');
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {
@@ -55,7 +50,6 @@ Route::prefix('admin')->namespace('Back')->group(function () {
 
     });
 });
-
 
 /** PAGES THAT SHOULD BE LOCALIZED **/
 
@@ -68,13 +62,13 @@ Route::group(
     function () {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
         Route::name('home')->get('/', 'IndexController@index');
-        
+
         Route::name('articles')->get('articles', 'ArticlesController@index');
         Route::name('article')->get('articles/{articleAlias}', 'ArticlesController@show');
         Route::name('archive')->get('/archive', 'ArticlesController@archive');
-      
+
         Route::name('search')->get('/search', 'ArticlesController@search');
-        
+
         Route::resource('categories', 'CategoriesController')->only(['show'])->parameters(['categories' => 'categoryAlias']);
         Route::resource('tags', 'TagsController')->only(['show'])->parameters(['tags' => 'tagAlias']);
 
@@ -87,14 +81,11 @@ Route::group(
         Route::name('contacts')->get('/contacts', 'ContactsController@index');
         Route::name('contacts.send')->post('/contacts', 'ContactsController@sendEmail');
 
-        // Route::name('authors')->get('/authors', function() { return 'authors' ;});
-
         Route::name('club')->get('/diskussionnye-cluby', 'ArticlesController@club');
 
-        Route::name('corsel')->get('spa', 'SpaController@index');
+        //route for importing DB from Wordpress
+        // Route::name('corsel')->get('spa', 'SpaController@index');
 
         Route::name('page')->get('{pageAlias}', 'PagesController@index');
-
-
 
     });

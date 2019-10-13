@@ -24,7 +24,7 @@ class ExportRequest extends FormRequest
     public function rules()
     {
         return [
-            'articles'  =>  'required|array',
+            'articles' => 'required|array',
         ];
     }
 }

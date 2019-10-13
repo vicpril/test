@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Back;
 
+use App\Http\Controllers\Back\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\Back\AdminController;
 
 class BackupController extends AdminController
 {
-  
+
     public function __construct()
     {
         parent::__construct();
@@ -28,9 +28,9 @@ class BackupController extends AdminController
 
         return $this->renderOutput();
     }
-  
+
     public function download($title)
     {
-      return Storage::disk('backup')->download($title);
+        return Storage::disk('backup')->download($title);
     }
 }

@@ -41,7 +41,6 @@ class ArticlesController extends SiteController
 
         $this->prepareStolMenu();
 
-//         $issue = $this->getIssue($request, $this->onlyPublished);
         $issue = $this->getIssue($request, $this->status);
         if (!$issue) {return $this->redirectOnLastIssue();}
 
@@ -139,7 +138,6 @@ class ArticlesController extends SiteController
 
         $this->title = __('Архив');
 
-        //   $issues = ($this->status) ? $this->i_rep->allByStatus($this->status) : $this->i_rep->all();
         $issues = $this->i_rep->allByStatus($this->status);
         $years = $issues
             ->mapToGroups(function ($issue) {
@@ -148,7 +146,6 @@ class ArticlesController extends SiteController
             ->mapToGroups(function ($full_no) {
                 return [$full_no[0]->year => $full_no];
             })
-            // ->sort()
         ;
 
         $this->vars = array_add($this->vars, 'years', $years);
@@ -175,7 +172,6 @@ class ArticlesController extends SiteController
         $request->request->add([
             'paginate' => '10',
             'status' => $this->status,
-//           'where' => ['stol', true],
             'relation' => ['stol' => true], // for searching only with articles.stol = true
             'sortBy' => 'issue',
             'orderBy' => 'desc',

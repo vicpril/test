@@ -15,11 +15,17 @@ if (!function_exists('currentRouteBootstrap')) {
 }
 
 if (!function_exists('arraysStrickEquil')) {
-    function arraysStrickEquil(Array $a, Array $b)
+    function arraysStrickEquil(array $a, array $b)
     {
-        if (count($a) != count($b)) return false;
+        if (count($a) != count($b)) {
+            return false;
+        }
+
         foreach ($a as $i => $value) {
-          if($b[$i] != $value) return false;
+            if ($b[$i] != $value) {
+                return false;
+            }
+
         }
         return true;
     }

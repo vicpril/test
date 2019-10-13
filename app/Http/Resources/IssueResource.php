@@ -41,10 +41,6 @@ class IssueResource extends JsonResource
                     "tags" => $article->tags->map(function ($tag) {
                         return $tag->title_ru;
                     }),
-                    // "categories" => [
-                    //     "id" => $article->categories[0]->id,
-                    //     "title_ru" => $article->categories[0]->title_ru,
-                    // ],
                     'categories' => $article->categories->map(function ($cat) {
                         return [
                             "id" => $cat->id,

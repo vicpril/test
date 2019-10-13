@@ -9,38 +9,29 @@ class Article extends Model
 
     protected $table = 'articles';
 
-    // protected $appends = ['article_id', 'lang', 'title', 'text', 'annotation', 'keywords'];
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-      'alias',
-      'udk',
-      'doi',
-      'status_id',
-      'issue_id',
-      'date_arrival',
-      'date_review',
-      'applications',
-      'finance',
-      'file_audio',
-      'stol'
+        'alias',
+        'udk',
+        'doi',
+        'status_id',
+        'issue_id',
+        'date_arrival',
+        'date_review',
+        'applications',
+        'finance',
+        'file_audio',
+        'stol',
     ];
 
     protected $dates = [
         'date_arrival',
         'date_review',
     ];
-
-    // protected $relations = [
-    //                             'status',
-    //                             'users',
-    //                             'tags',
-    //                             'categories',
-    //                             ];
 
     public function status()
     {
@@ -72,10 +63,11 @@ class Article extends Model
         return $this->hasMany('App\Models\MetaArticle');
     }
 
-    public function users_id() {
-      return $this->users->map(function($user){
-        return $user->id;
-      })->toArray();
+    public function users_id()
+    {
+        return $this->users->map(function ($user) {
+            return $user->id;
+        })->toArray();
     }
 
     /*
@@ -96,20 +88,21 @@ class Article extends Model
     {
         return $this->meta->where('lang', 'en')->first();
     }
-  
+
     public function getCategoryAttribute()
     {
         return $this->categories()->first();
     }
-  
+
     /*
-    *   Scopes
-    */
-    
-    public function scopeByTag($query, $alias) {
+     *   Scopes
+     */
+
+    public function scopeByTag($query, $alias)
+    {
         return self::tags()->where('alias', $alias);
     }
-  
+
     /*
      *   Get links
      */
@@ -130,18 +123,20 @@ class Article extends Model
     {
         $doi_str = explode('/', $this->doi);
         $doi_str[1] = (isset($doi_str[1])) ? explode('-', $doi_str[1]) : '';
-        
+
         $result['first'] = $doi_str[1][4] ?? ''; // первая страница первой статьи
-        $result['last'] = $doi_str[1][5] ?? '';  // последняя страница последней статьи
-        
+        $result['last'] = $doi_str[1][5] ?? ''; // последняя страница последней статьи
+
         return ($result) ?: '';
     }
 
-    public function getDoiFirstPageAttribute() {
+    public function getDoiFirstPageAttribute()
+    {
         return $this->doiPages['first'];
     }
 
-    public function getDoiLastPageAttribute() {
+    public function getDoiLastPageAttribute()
+    {
         return $this->doiPages['last'];
     }
 

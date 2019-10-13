@@ -2,11 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
-use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -20,11 +17,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'alias', 'role', 'password', 'orcid', 'avatar'
+        'email', 'alias', 'role', 'password', 'orcid', 'avatar',
     ];
-  
+
     protected $relation = ['meta', 'articles'];
-  
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -33,66 +30,74 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-  
 
-    public function articles() {
+    public function articles()
+    {
         return $this->belongsToMany('App\Models\Article', 'article_user');
     }
 
-    public function jobs() {
+    public function jobs()
+    {
         return $this->belongsToMany('App\Models\Job', 'user_job');
     }
 
-    public function meta()  {
+    public function meta()
+    {
         return $this->hasMany('App\Models\MetaUser', 'user_id');
     }
-  
-    public function redcol()  {
+
+    public function redcol()
+    {
         return $this->hasMany('App\Models\Redcol');
     }
 
     /*
-    *   Locale getters
-    */
-  
-    public function getLocAttribute(){
+     *   Locale getters
+     */
+
+    public function getLocAttribute()
+    {
         return $this->meta->where('lang', app()->getLocale())->first();
     }
 
-    public function getRuAttribute(){
+    public function getRuAttribute()
+    {
         return $this->meta->where('lang', 'ru')->first();
     }
 
-    public function getEnAttribute(){
+    public function getEnAttribute()
+    {
         return $this->meta->where('lang', 'en')->first();
     }
 
-    public function getEditLinkAttribute(){
+    public function getEditLinkAttribute()
+    {
         return route('users.edit', $this->id);
     }
-  
-    public function getEmailHostAttribute(){
+
+    public function getEmailHostAttribute()
+    {
         return explode('@', $this->email)[1];
     }
 
-
     /*
-    *   Filters
-    */
-    public function filterArticlesByStatus($status) {
-		$this->loadMissing(['articles', 'articles.status']);
+     *   Filters
+     */
+    public function filterArticlesByStatus($status)
+    {
+        $this->loadMissing(['articles', 'articles.status']);
         $this->articles = $this->articles->filter(function ($article) use ($status) {
             return $article->status->title_en == $status;
         })->values();
         return $this;
     }
 
-    public function published ()
+    public function published()
     {
         return $this->filterArticlesByStatus('public');
     }
 
-    public function unpublished ()
+    public function unpublished()
     {
         return $this->filterArticlesByStatus('private');
     }

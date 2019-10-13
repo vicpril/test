@@ -15,29 +15,29 @@ class MetaArticle extends Model
      * @var array
      */
     protected $fillable = [
-            'lang',
-            'title',
-            'text',
-            'annotation',
-            'keywords',
-            'file',
-            'bibliography',
+        'lang',
+        'title',
+        'text',
+        'annotation',
+        'keywords',
+        'file',
+        'bibliography',
     ];
-
 
     public $timestamps = false;
 
-
-
-    public function article() {
-    	return $this->belongsTo('App\Models\Article');
-    }
-  
-    public function file() {
-      return $this->belongsTo('App\Models\File');
+    public function article()
+    {
+        return $this->belongsTo('App\Models\Article');
     }
 
-    public function getFileTitleAttribute() {
+    public function file()
+    {
+        return $this->belongsTo('App\Models\File');
+    }
+
+    public function getFileTitleAttribute()
+    {
         return view("front.components.file_title_$this->lang")->with('article', $this->article)->render();
     }
 

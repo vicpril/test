@@ -14,7 +14,7 @@ class JobRequest extends FormRequest
     public function authorize()
     {
         $role = \Auth::user()->role;
-        return $role === 'admin' ;
+        return $role === 'admin';
     }
 
     /**
@@ -32,7 +32,7 @@ class JobRequest extends FormRequest
             'address_ru' => 'max:250',
             'title_en' => 'max:100',
             'city_en' => 'max:20',
-            'address_en' => 'max:250'
+            'address_en' => 'max:250',
         ];
     }
 
@@ -42,6 +42,6 @@ class JobRequest extends FormRequest
 
         $input = filter_var_array($input, FILTER_SANITIZE_STRING);
 
-        $this->replace($input);     
+        $this->replace($input);
     }
 }

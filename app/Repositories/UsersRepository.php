@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use Transliterate;
 use DB;
+use Transliterate;
 
 class UsersRepository extends Repository
 {
@@ -117,8 +117,6 @@ class UsersRepository extends Repository
             default:
                 $users_id = DB::table('users')
                     ->leftjoin('meta_users', 'users.id', '=', 'meta_users.user_id')
-                // ->leftjoin('article_user as a', 'users.id', '=', 'article_user.user_id')
-                //->selectRaw('users.*, count(a.user_id) as a_count' )
                     ->where('users.role', $role)
                     ->where(function ($query) use ($search) {
                         $query->where('email', 'like', "%" . $search . "%")
@@ -161,7 +159,6 @@ class UsersRepository extends Repository
      */
     public function create($data)
     {
-        // dump($data);
         $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
         $alias = $this->getUnique($alias, 'users', 'alias');
         $user = $this->model->make([
@@ -218,7 +215,6 @@ class UsersRepository extends Repository
      */
     public function update(User $user, $data)
     {
-        // dd($data);
 //         $alias = $data['alias'] ?: Transliterate::make($data['full_name'], ['type' => 'url', 'lowercase' => true]);
         $user->update([
 //             'alias' => $alias,
@@ -227,12 +223,6 @@ class UsersRepository extends Repository
             'orcid' => (isset($data['orcid'])) ? $data['orcid'] : null,
             'avatar' => (isset($data['avatar'])) ? $data['avatar'] : null,
         ]);
-
-        // if ($data['avatar'] > 0) {
-        //     $user->avatar()->associate($data['avatar']);
-        // } else {
-        //     $user->avatar()->dissociate();
-        // }
 
         $user->ru->update([
             'lang' => 'ru',
@@ -279,7 +269,6 @@ class UsersRepository extends Repository
     {
 
         $user->articles()->detach();
-        //   $user->avatar()->dissociate();
 
         if ($user->delete()) {
             return ['status' => 'success',
@@ -298,11 +287,6 @@ class UsersRepository extends Repository
 
     public function getAuthors()
     {
-        // $users = DB::table('users')
-        //     ->leftjoin('meta_users as mu', 'users.id', '=', 'mu.user_id')
-        //     ->where('users.role', '=', 'author')
-        //     ->orderBy('mu.short_name', 'asc')
-        //     ->select('id');
 
         $users = $this->model->join('meta_users', 'users.id', '=', 'meta_users.user_id')
             ->where('users.role', 'author')
@@ -311,8 +295,6 @@ class UsersRepository extends Repository
             ->select('users.*')
             ->get();
         $users->loadMissing(['meta']);
-        // dd($users);
-        //       $users = $users->sortBy
         return $users;
     }
 

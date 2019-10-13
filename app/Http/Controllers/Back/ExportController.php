@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Back;
 
-use File;
-use Route;
-use Illuminate\Http\Request;
-use App\Http\Requests\ExportRequest;
 use App\Http\Controllers\Controller;
-// use App\Repositories\ExportRepository;
+use App\Http\Requests\ExportRequest;
 use App\Repositories\Export\ExportRepositoryInterface;
+use Route;
 
 class ExportController extends Controller
 {
@@ -22,14 +19,12 @@ class ExportController extends Controller
     public function index(ExportRequest $request)
     {
         $this->repository->initiate(
-                                    Route::current()->parameter('action'), 
-                                    $request->except('_token')
-                                   )
-                         ->contentPrepare()
-                         ->createFile()
-                         ->downloadFile();
+            Route::current()->parameter('action'),
+            $request->except('_token')
+        )
+            ->contentPrepare()
+            ->createFile()
+            ->downloadFile();
     }
-
-    
 
 }

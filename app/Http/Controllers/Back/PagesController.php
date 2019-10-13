@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Models\Page;
-use Illuminate\Http\Request;
 use App\Http\Requests\PageRequest;
+use App\Models\Page;
 use App\Repositories\PagesRepository;
+use Illuminate\Http\Request;
 
 class PagesController extends AdminController
 {

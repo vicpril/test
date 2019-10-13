@@ -28,12 +28,10 @@ class Page extends Model
         "show_review_menu" => "boolean",
     ];
 
-  
     public function status()
     {
         return $this->belongsTo('App\Models\Status');
     }
-
 
     public function meta()
     {

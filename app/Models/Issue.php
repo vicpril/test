@@ -35,27 +35,20 @@ class Issue extends Model
         return route('issues.edit', $this->id);
     }
 
-    public function getLocTitleAttribute() {
+    public function getLocTitleAttribute()
+    {
         switch (app()->getLocale()) {
-            case 'ru': return $this->file_title_ru; break;
-            case 'en': return $this->file_title_en; break;
+            case 'ru':return $this->file_title_ru;
+                break;
+            case 'en':return $this->file_title_en;
+                break;
         }
     }
-  
+
     /*
-    *   Scopes
-    */
-    // public function scopePublished ($query)
-    // {
-    //     return $this->withStatus('public');
-    // }
-  
-    // public function scopeUnpublished ($query)
-    // {
-    //     return $this->withStatus('private');
-    // }
-  
-    public function scopeWithStatus ($query, $status)
+     *   Scopes
+     */
+    public function scopeWithStatus($query, $status)
     {
         $query->whereHas('articles', function ($query) use ($status) {
             $query->whereHas('status', function ($query) use ($status) {
@@ -65,9 +58,10 @@ class Issue extends Model
     }
 
     /*
-    *   Filters
-    */
-    public function filterArticlesByStatus($status) {
+     *   Filters
+     */
+    public function filterArticlesByStatus($status)
+    {
         $this->loadMissing(['articles', 'articles.status']);
         $this->articles = $this->articles->filter(function ($article) use ($status) {
             return $article->status->title_en == $status;
@@ -75,18 +69,14 @@ class Issue extends Model
         return $this;
     }
 
-    public function published ()
+    public function published()
     {
         return $this->filterArticlesByStatus('public');
     }
 
-    public function unpublished ()
+    public function unpublished()
     {
         return $this->filterArticlesByStatus('private');
     }
-
-
-
-  
 
 }

@@ -27,18 +27,18 @@ class PageRequest extends FormRequest
             'title_ru' => 'required|max:250|unique:meta_pages,title',
             'title_en' => 'max:250',
             'template' => 'required',
-          ];
-  
-          switch ($this->getMethod()) {
-              case 'POST':
-                  return $rules;
-              case 'PUT':
-                  return [
-                      'title_ru' => 'required|max:250|unique:meta_pages,title,' . $this->page->ru->id,
-                  ] + $rules;
-              default:
-                  return $rules;
-          }
+        ];
+
+        switch ($this->getMethod()) {
+            case 'POST':
+                return $rules;
+            case 'PUT':
+                return [
+                    'title_ru' => 'required|max:250|unique:meta_pages,title,' . $this->page->ru->id,
+                ] + $rules;
+            default:
+                return $rules;
+        }
     }
 
     public function withValidator($validator)

@@ -18,11 +18,11 @@ class Redac
         $user = $request->user();
 
         if ($user && ($user->role === 'admin' || $user->role === 'redac')) {
-             return $next($request);
+            return $next($request);
         }
 
 //         return redirect()->route('login');
-        return response('Unauthorized. <a href="'.route('login').'">login</a>' , 401);
-       
+        return response('Unauthorized. <a href="' . route('login') . '">login</a>', 401);
+
     }
 }

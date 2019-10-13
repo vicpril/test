@@ -3,50 +3,48 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Tag;
-use App\Models\Article;
-use Illuminate\Http\Request;
-use App\Repositories\TagsRepository;
 use App\Repositories\ArticlesRepository;
+use App\Repositories\TagsRepository;
+use Illuminate\Http\Request;
 
 class TagsController extends SiteController
 {
-    //
-	public function __construct(ArticlesRepository $a_rep) 
-	{
-		parent::__construct(
+    public function __construct(ArticlesRepository $a_rep)
+    {
+        parent::__construct(
             new \App\Repositories\MenusRepository(new \App\Models\Menu),
             new \App\Repositories\TagsRepository(new \App\Models\Tag)
         );
-			
-		$this->a_rep = $a_rep;
-		
-		$this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
 
-	}
+        $this->a_rep = $a_rep;
 
-	public function show (Tag $tag, Request $request) 
-	{
-		
-			$this->setStatus();
-		
-			$this->prepareStolMenu();
-		
-			$this->template = 'front.tags';
-		
-			$this->title = __('Тема: :tag', ['tag' => $tag->loc]);
-		
-			$request->request->add([
-				'paginate' => '10',
-				'status' => $this->status,
-				'relation' => ['tags.alias' => $tag->alias],
-				'sortBy' => 'issue',
-				'orderBy' => 'desc'
-			]);
-			$articles = $this->a_rep->getArticlesList($request);
-			
-			$this->vars = array_add($this->vars, 'articles', $articles);
+        $this->show_stol_menu = (config('app.locale') == 'ru') ? true : false;
 
-			return $this->renderOutput();
-	}
+    }
+
+    public function show(Tag $tag, Request $request)
+    {
+
+        $this->setStatus();
+
+        $this->prepareStolMenu();
+
+        $this->template = 'front.tags';
+
+        $this->title = __('Тема: :tag', ['tag' => $tag->loc]);
+
+        $request->request->add([
+            'paginate' => '10',
+            'status' => $this->status,
+            'relation' => ['tags.alias' => $tag->alias],
+            'sortBy' => 'issue',
+            'orderBy' => 'desc',
+        ]);
+        $articles = $this->a_rep->getArticlesList($request);
+
+        $this->vars = array_add($this->vars, 'articles', $articles);
+
+        return $this->renderOutput();
+    }
 
 }

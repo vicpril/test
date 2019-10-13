@@ -15,10 +15,10 @@ class MetaPage extends Model
      * @var array
      */
     protected $fillable = [
-            'lang',
-            'on',
-            'title',
-            'content',
+        'lang',
+        'on',
+        'title',
+        'content',
     ];
 
     /**
@@ -32,8 +32,9 @@ class MetaPage extends Model
 
     public $timestamps = false;
 
-    public function page() {
-    	return $this->belongsTo('App\Models\Page');
+    public function page()
+    {
+        return $this->belongsTo('App\Models\Page');
     }
-  
+
 }

@@ -25,34 +25,34 @@ class TagRequest extends FormRequest
     public function rules()
     {
         $this->sanitize();
-      
+
         $rules = [
             'title_ru' => 'required|max:250|unique:tags,title_ru',
             'title_en' => 'max:250',
         ];
-        
-        switch($this->getMethod()) {
-          case 'POST':
-            return $rules;
-          case 'PUT':
-            return [
-              'title_ru' => 'required|max:250|unique:tags,title_ru,'.$this->tag->id,
-            ] + $rules;
-          default:
-            return $rules;
+
+        switch ($this->getMethod()) {
+            case 'POST':
+                return $rules;
+            case 'PUT':
+                return [
+                    'title_ru' => 'required|max:250|unique:tags,title_ru,' . $this->tag->id,
+                ] + $rules;
+            default:
+                return $rules;
         }
-          
+
     }
-  
+
     public function sanitize()
     {
         $input = $this->all();
 
         $input = filter_var_array($input, FILTER_SANITIZE_STRING);
 
-        $this->replace($input);     
+        $this->replace($input);
     }
-  
+
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {

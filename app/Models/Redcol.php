@@ -18,28 +18,24 @@ class Redcol extends Model
         'user_id',
         'post_ru',
         'post_en',
-        'position'
+        'position',
     ];
-  
+
     public $timestamps = false;
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('App\Models\User');
     }
 
-  
-    public function getPostLocAttribute() {
-				switch (app()->getLocale()) {
-          case 'ru': return ($this->post_ru) ?: ''; break;
-          case 'en': return ($this->post_en) ?: ''; break;
-				}
+    public function getPostLocAttribute()
+    {
+        switch (app()->getLocale()) {
+            case 'ru':return ($this->post_ru) ?: '';
+                break;
+            case 'en':return ($this->post_en) ?: '';
+                break;
+        }
     }
 
-//     public function getPostRuAttribute() {
-//         return ($this->post_ru) ?: '';
-//     }
-
-//     public function getPostEnAttribute() {
-//         return ($this->post_en) ?: '';
-//     }
 }

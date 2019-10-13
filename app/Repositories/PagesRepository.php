@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Models\Page;
 use DB;
 use Transliterate;
-use App\Models\Page;
 
 class PagesRepository extends Repository
 {
@@ -14,38 +14,6 @@ class PagesRepository extends Repository
         $this->model = $page;
 
     }
-
-//     public function one($alias, $lang = 'ru')
-//     {
-
-//         $result = parent::one($alias);
-
-//         if ($result) {
-//             $result->load(['status',
-//                 'users' => function ($query) {$query->with('meta');},
-//                 'categories',
-//                 'tags',
-//                 'issue',
-//                 'meta']);
-//             $prop = $result->meta->where('lang', $lang)->first()->getAttributes();
-//             $result->setRawAttributes(array_merge($result->getAttributes(), $prop));
-//         }
-
-//         return $result;
-//     }
-
-//     public function getAll($nbrPages, $parameters)
-//     {
-//         return $this->model
-//             ->with(['status',
-//                 'users' => function ($query) {$query->with('meta');},
-//                 'categories',
-//                 'tags',
-//                 'issue',
-//                 'meta'])
-//             ->orderBy($parameters['order'], $parameters['direction'])
-//             ->paginate($nbrPages);
-//     }
 
     /*
      *
@@ -78,7 +46,6 @@ class PagesRepository extends Repository
         } else {
             return $pages->get();
         }
-        
 
     }
 
@@ -194,7 +161,6 @@ class PagesRepository extends Repository
         }
         $page->save();
 
-
         $page->touch();
 
         return [
@@ -205,7 +171,7 @@ class PagesRepository extends Repository
 
     /*
      *
-     *   Delete the page & meta from database 
+     *   Delete the page & meta from database
      *
      */
 

@@ -22,7 +22,7 @@ class Admin
         }
 
 //         return redirect()->route('login');
-      return response('Unauthorized.', 401);
-        
+        return response('Unauthorized.', 401);
+
     }
 }

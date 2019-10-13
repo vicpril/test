@@ -30,17 +30,6 @@ class MenusController extends Controller
     }
   
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    // public function store(MenuRequest $request) {
-    //     $result = $this->repository->create($request->except('_token', '_method'));
-    //     return response()->json($result);
-    // }
-  
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -52,18 +41,4 @@ class MenusController extends Controller
         return response()->json($result);
     }
   
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy(Menu $cat) {
-    //     $this->middleware('auth:api');
-    //     $result = $this->repository->deleteMenu($cat);
-
-    //     if (is_array($result)) {
-    //         return response()->json($result);
-    //     }
-    // }
 }

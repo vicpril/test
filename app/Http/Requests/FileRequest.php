@@ -13,7 +13,7 @@ class FileRequest extends FormRequest
      */
     public function authorize()
     {
-      return auth()->user()->role === 'admin';
+        return auth()->user()->role === 'admin';
     }
 
     /**
@@ -24,20 +24,19 @@ class FileRequest extends FormRequest
     public function rules()
     {
         $this->sanitize();
-      
+
         return [
             'file' => 'file|max:2048',
-//             'type' => 'required',
         ];
     }
-  
+
     public function sanitize()
     {
         $input = $this->all();
 
         $input = filter_var_array($input, FILTER_SANITIZE_STRING);
 
-        $this->replace($input);     
+        $this->replace($input);
     }
-  
+
 }

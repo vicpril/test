@@ -25,12 +25,12 @@ class MenuRequest extends FormRequest
     {
 
         $rules = [
-          'title' => 'required|max:250|unique:menus,title',
+            'title' => 'required|max:250|unique:menus,title',
         ];
 
         switch ($this->getMethod()) {
             // case 'POST':
-                // return $rules;
+            // return $rules;
             case 'PUT':
                 return [
                     'title' => 'required|max:250|unique:menus,title,' . $this->menu->id,
@@ -39,18 +39,6 @@ class MenuRequest extends FormRequest
                 return $rules;
         }
     }
-
-//     public function sanitize()
-    //     {
-    //         $input = $this->all();
-    //
-    //         $input = filter_var_array($input, FILTER_SANITIZE_STRING);
-    //         $input = array_map(function($value){
-    //             return Purifier::clean($value);
-    //         }, $input);
-    //
-    //         $this->replace($input);
-    //     }
 
     public function withValidator($validator)
     {

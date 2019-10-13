@@ -25,7 +25,7 @@ class MetaUser extends Model
         'degree',
         'post',
         'jobs',
-        'description'
+        'description',
     ];
 
     public $timestamps = false;

@@ -7,18 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     protected $fillable = [
-    	'position', 'lang', 'title'
+        'position', 'lang', 'title',
     ];
-  
+
     public $timestamps = false;
 
-    public function meta() {
+    public function meta()
+    {
         return $this->hasMany('App\Models\MetaMenu', 'menu_id');
     }
 
-    public function links() {
+    public function links()
+    {
         return $this->hasMany('App\Models\MetaMenu', 'menu_id');
     }
 
-   
 }

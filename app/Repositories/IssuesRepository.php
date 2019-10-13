@@ -24,29 +24,23 @@ class IssuesRepository extends Repository
         $result = $result->orderBy('year', 'desc');
         $result = $result->orderBy('no', 'desc');
         $result = $result->orderBy('part', 'asc');
-      
-//       dd($result);
 
         return $result->first();
     }
-  
-      /*
+
+    /*
      *  Get ALL Issue with current status
      *   without relations
      */
     public function allByStatus($status = false)
     {
-//         $result
-      
         $result = ($status) ? $this->model->withStatus($status) : $this->model;
         $result = $result->orderBy('year', 'desc');
         $result = $result->orderBy('no', 'desc');
         $result = $result->orderBy('part', 'asc');
-        // dd($result->get());
-        
+
         return $result->get();
     }
-
 
     /*
      *  Get last Issue with current status
@@ -73,9 +67,9 @@ class IssuesRepository extends Repository
                 break;
             case 'status':
                 $result = $result->with([
-                        'articles',
-                        'articles.status'
-                    ]);
+                    'articles',
+                    'articles.status',
+                ]);
                 break;
             default:
                 $result = $result->with([
@@ -88,7 +82,7 @@ class IssuesRepository extends Repository
                     'articles.users.meta']);
                 break;
         }
-        
+
         return $result->first();
     }
 
@@ -126,41 +120,6 @@ class IssuesRepository extends Repository
         return $result->first();
     }
 
-//     public function getIssuesByArticleStatus($status = false, $issues = false, $orderBy = array('year', 'no', 'part'))
-//     {
-
-//         if (!$issues) {
-//             $issues = $this->getIssues($orderBy);
-//         }
-
-//         if ($status && $status !== '*') {
-//             if (is_a($issues, '\Illuminate\Database\Eloquent\Model')) {
-//                 $issues->articles = $issues->articles->filter(function ($article) use ($status) {
-//                     if ($article->status->type == $status) {
-//                         return $article;
-//                     }
-//                 });
-
-//             } else {
-//                 $issues->each(function ($issue) use ($status) {
-//                     $issue->articles = $issue->articles->filter(function ($article) use ($status) {
-//                         if ($article->status->type == $status) {
-//                             return $article;
-//                         }
-//                     });
-
-//                 });
-
-//                 $issues = $issues->reject(function ($issue) {
-//                     return $issue->articles->count() < 1;
-//                 });
-//             }
-
-//         };
-
-//         return $issues;
-//     }
-
     public function getIssues($articles = false, $orderBy = array('year', 'no', 'part'))
     {
         $result = $this->model;
@@ -181,42 +140,14 @@ class IssuesRepository extends Repository
         return $result;
     }
 
-    /*
-     *    Сгруппировать статьи по рубрикам, не меняя порядка
-     *
-     *    $issue = [
-     *                ['category1'=>'....', 'articles'=>collection(...)],
-     *                ['category2'=>'....', 'articles'=>collection(...)],
-     *                ['category3'=>'....', 'articles'=>collection(...)],
-     *            ]
-     *
-     */
-//     public function prepareIssue($issue = false)
-//     {
-//         if ($issue) {
-          
-//             $keyed = $issue->articles->mapToGroups(function ($article, $articleCat) {
-//                 $categoriesSorted = collect($article->categories->sortBy('name')->values()->all());
-//                 $atricleCat = view('front.components.categories_link')->with('categories', $categoriesSorted)->render();
-//                 return [$atricleCat => $article];
-//             });
-
-//             $keyed->all();
-
-//             $issue->mapedArticles = $keyed;
-
-//             return $issue;
-//         }
-//     }
-
     public function getNextIssue($issue, $status = false)
     {
         if ($issue) {
             $nextIssue = $this->one(['full_no' => $issue->full_no + 1, 'part' => 1], 'ru', 'status');
-            
+
             if (($nextIssue && $status)) {
                 $nextIssue->filterArticlesByStatus($status);
-                if  (count($nextIssue->articles) == 0) {
+                if (count($nextIssue->articles) == 0) {
                     return $this->getNextIssue($nextIssue, $status);
                 }
             }
@@ -229,10 +160,10 @@ class IssuesRepository extends Repository
     {
         if ($issue) {
             $prevIssue = $this->one(['full_no' => $issue->full_no - 1, 'part' => 1], 'ru', 'status');
-            
+
             if (($prevIssue && $status)) {
                 $prevIssue->filterArticlesByStatus($status);
-                if  (count($prevIssue->articles) == 0) {
+                if (count($prevIssue->articles) == 0) {
                     return $this->getNextIssue($prevIssue, $status);
                 }
             }
